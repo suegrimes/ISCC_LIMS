@@ -1,0 +1,459 @@
+  [4;36;1mSQL (41.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (48.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing WelcomeController#index (for 127.0.0.1 at 2011-02-14 17:08:18) [GET]
+
+NoMethodError (undefined method `logged_in?' for #<WelcomeController:0x57f1ec0>):
+  app/controllers/welcome_controller.rb:5:in `index'
+  -e:2:in `load'
+  -e:2
+
+Rendered rescues/_trace (34.0ms)
+Rendered rescues/_request_and_response (1.0ms)
+Rendering rescues/layout (internal_server_error)
+  [4;36;1mSQL (98.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (37.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing WelcomeController#index (for 127.0.0.1 at 2011-02-14 17:12:58) [GET]
+
+NoMethodError (undefined method `logged_in?' for #<WelcomeController:0x55780c8>):
+  app/controllers/welcome_controller.rb:5:in `index'
+  -e:2:in `load'
+  -e:2
+
+Rendered rescues/_trace (59.0ms)
+Rendered rescues/_request_and_response (0.0ms)
+Rendering rescues/layout (internal_server_error)
+  [4;36;1mSQL (57.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (39.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing WelcomeController#index (for 127.0.0.1 at 2011-02-14 17:13:21) [GET]
+
+NoMethodError (undefined method `logged_in?' for #<WelcomeController:0x578cf88>):
+  app/controllers/welcome_controller.rb:5:in `index'
+  -e:2:in `load'
+  -e:2
+
+Rendered rescues/_trace (30.0ms)
+Rendered rescues/_request_and_response (2.0ms)
+Rendering rescues/layout (internal_server_error)
+  [4;36;1mSQL (40.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (38.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing WelcomeController#index (for 127.0.0.1 at 2011-02-14 17:16:39) [GET]
+
+NoMethodError (undefined method `logged_in?' for #<WelcomeController:0x4bb9370>):
+  app/controllers/welcome_controller.rb:5:in `index'
+  -e:2:in `load'
+  -e:2
+
+Rendered rescues/_trace (60.0ms)
+Rendered rescues/_request_and_response (0.0ms)
+Rendering rescues/layout (internal_server_error)
+  [4;36;1mSQL (40.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (42.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing WelcomeController#index (for 127.0.0.1 at 2011-02-14 17:38:24) [GET]
+
+NoMethodError (undefined method `logged_in?' for #<WelcomeController:0x5769e70>):
+  app/controllers/welcome_controller.rb:5:in `index'
+  -e:2:in `load'
+  -e:2
+
+Rendered rescues/_trace (31.0ms)
+Rendered rescues/_request_and_response (2.0ms)
+Rendering rescues/layout (internal_server_error)
+  [4;36;1mSQL (38.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (63.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing WelcomeController#index (for 127.0.0.1 at 2011-02-14 17:38:32) [GET]
+
+NoMethodError (undefined method `logged_in?' for #<WelcomeController:0x468cd20>):
+  app/controllers/welcome_controller.rb:5:in `index'
+  -e:2:in `load'
+  -e:2
+
+Rendered rescues/_trace (61.0ms)
+Rendered rescues/_request_and_response (0.0ms)
+Rendering rescues/layout (internal_server_error)
+  [4;36;1mSQL (37.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (39.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing WelcomeController#index (for 127.0.0.1 at 2011-02-14 21:19:49) [GET]
+Rendering template within layouts/application
+Rendering welcome/login
+
+ActionView::TemplateError (uninitialized constant ActionView::Base::CompiledTemplates::APP_VERSION) on line #18 of app/views/layouts/application.rhtml:
+15: <div id="header">
+16:     <img class="logo" src="/images/sutech_reflect_DB.gif" alt="Stanford Genome Technology" width="99" height="80" title="SGTC Sequencing Database" />	
+17: 	<div class="sitename">SGTC LIMS <% if RAILS_ENV != 'production'%> - (<%= RAILS_ENV%>)<%end%></div>	
+18: 	<div class="version"><% if APP_VERSION %>Version: <%= APP_VERSION %><% end %></div>
+19:     <% if logged_in? %>
+20: 	    <div class="logout-link"><%= link_to 'Logout', logout_url %></div>
+21: 	<% end %>
+
+    app/views/layouts/application.rhtml:18:in `_run_rhtml_app47views47layouts47application46rhtml'
+    app/controllers/welcome_controller.rb:8:in `index'
+    -e:2:in `load'
+    -e:2
+
+Rendered rescues/_trace (69.0ms)
+Rendered rescues/_request_and_response (1.0ms)
+Rendering rescues/layout (internal_server_error)
+  [4;36;1mSQL (37.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (37.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing WelcomeController#index (for 127.0.0.1 at 2011-02-14 22:09:19) [GET]
+Rendering template within layouts/application
+Rendering welcome/login
+Completed in 14ms (View: 12, DB: 74) | 200 OK [http://127.0.0.1/]
+  [4;36;1mSQL (47.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (45.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2011-02-14 22:09:19) [GET]
+
+ActionController::RoutingError (No route matches "/stylesheets/lims_std.css" with {:method=>:get}):
+  -e:2:in `load'
+  -e:2
+
+Rendering rescues/layout (not_found)
+  [4;36;1mSQL (38.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (37.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing WelcomeController#index (for 127.0.0.1 at 2011-02-14 22:10:44) [GET]
+Rendering template within layouts/application
+Rendering welcome/login
+Completed in 11ms (View: 9, DB: 75) | 200 OK [http://127.0.0.1/]
+  [4;36;1mSQL (38.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (37.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing WelcomeController#signup (for 127.0.0.1 at 2011-02-14 22:10:54) [POST]
+  Parameters: {"authenticity_token"=>"FJc2m/jEQi2wOjuGZS2AGXymhjISyvUszkXGdvJsToI="}
+  [4;36;1mUser Columns (43.0ms)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+Rendering template within layouts/application
+Rendering welcome/signup
+Completed in 121ms (View: 26, DB: 118) | 200 OK [http://127.0.0.1/welcome/signup]
+  [4;35;1mSQL (36.0ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (38.0ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing WelcomeController#signup (for 127.0.0.1 at 2011-02-14 22:19:23) [POST]
+  Parameters: {"action"=>"signup", "authenticity_token"=>"FJc2m/jEQi2wOjuGZS2AGXymhjISyvUszkXGdvJsToI=", "controller"=>"welcome"}
+  [4;35;1mUser Columns (45.0ms)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mUser Load (40.0ms)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` IS NULL) LIMIT 1[0m
+
+ActionController::UnknownAction (No action responded to signup. Actions: index):
+  -e:2:in `load'
+  -e:2
+
+Rendering rescues/layout (not_found)
+  [4;35;1mSQL (42.0ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (38.0ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing WelcomeController#index (for 127.0.0.1 at 2011-02-14 22:19:31) [GET]
+  Parameters: {"action"=>"index", "controller"=>"welcome"}
+  [4;35;1mUser Columns (48.0ms)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mUser Load (41.0ms)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` IS NULL) LIMIT 1[0m
+Redirected to http://127.0.0.1:3004/login
+Completed in 112ms (DB: 169) | 302 Found [http://127.0.0.1/]
+  [4;35;1mSQL (37.0ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (37.0ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing SessionsController#new (for 127.0.0.1 at 2011-02-14 22:19:31) [GET]
+  Parameters: {"action"=>"new", "controller"=>"sessions"}
+  [4;35;1mUser Columns (44.0ms)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mUser Load (40.0ms)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` IS NULL) LIMIT 1[0m
+  [4;35;1mSQL (40.0ms)[0m   [0mSHOW TABLES[0m
+
+NoMethodError (undefined method `current_user' for #<Class:0xb4b54b8>):
+  app/controllers/application_controller.rb:31:in `log_user_action'
+  -e:2:in `load'
+  -e:2
+
+Rendered rescues/_trace (51.0ms)
+Rendered rescues/_request_and_response (1.0ms)
+Rendering rescues/layout (internal_server_error)
+  [4;36;1mSQL (38.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (38.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing SessionsController#new (for 127.0.0.1 at 2011-02-14 22:20:30) [GET]
+  Parameters: {"action"=>"new", "controller"=>"sessions"}
+Rendering template within layouts/application
+Rendering sessions/new
+
+ActionView::TemplateError (undefined local variable or method `session_path' for #<ActionView::Base:0xb3a2418>) on line #3 of app/views/sessions/new.html.erb:
+1: <h1>Log In</h1>
+2: 
+3: <% form_tag session_path do -%>
+4: <p><%= label_tag 'login' %><br />
+5: <%= text_field_tag 'login', @login %></p>
+6: 
+
+    app/views/sessions/new.html.erb:3
+    -e:2:in `load'
+    -e:2
+
+Rendered rescues/_trace (35.0ms)
+Rendered rescues/_request_and_response (1.0ms)
+Rendering rescues/layout (internal_server_error)
+  [4;36;1mSQL (37.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (37.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing SessionsController#new (for 127.0.0.1 at 2011-02-14 22:23:52) [GET]
+  Parameters: {"action"=>"new", "controller"=>"sessions"}
+Rendering template within layouts/application
+Rendering sessions/new
+Completed in 12ms (View: 11, DB: 74) | 200 OK [http://127.0.0.1/login]
+  [4;36;1mSQL (38.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (38.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing UsersController#new (for 127.0.0.1 at 2011-02-14 22:24:57) [GET]
+  Parameters: {"action"=>"new", "controller"=>"users"}
+  [4;36;1mUser Columns (42.0ms)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+Rendering template within layouts/application
+Rendering users/new
+Completed in 93ms (View: 17, DB: 118) | 200 OK [http://127.0.0.1/signup]
+  [4;35;1mSQL (38.0ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (38.0ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing UsersController#create (for 127.0.0.1 at 2011-02-14 22:25:16) [POST]
+  Parameters: {"commit"=>"Sign up", "action"=>"create", "authenticity_token"=>"FJc2m/jEQi2wOjuGZS2AGXymhjISyvUszkXGdvJsToI=", "controller"=>"users", "user"=>{"password_confirmation"=>"[FILTERED]", "password"=>"[FILTERED]", "login"=>"sgrimes", "email"=>"sgrimes@stanford.edu"}}
+  [4;35;1mUser Columns (42.0ms)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mSQL (38.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mUser Load (41.0ms)[0m   [0mSELECT `users`.id FROM `users` WHERE (`users`.`login` = BINARY 'sgrimes') LIMIT 1[0m
+  [4;36;1mSQL (38.0ms)[0m   [0;1mROLLBACK[0m
+
+NoMethodError (undefined method `name' for #<User:0xb6a40e0>):
+  app/controllers/users_controller.rb:10:in `create'
+  -e:2:in `load'
+  -e:2
+
+Rendered rescues/_trace (52.0ms)
+Rendered rescues/_request_and_response (0.0ms)
+Rendering rescues/layout (internal_server_error)
+  [4;36;1mSQL (37.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (43.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSQL (51.0ms)[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mRole Columns (47.0ms)[0m   [0mSHOW FIELDS FROM `roles`[0m
+  [4;36;1mUser Columns (48.0ms)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+  [4;35;1mSQL (42.0ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (42.0ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing UsersController#create (for 127.0.0.1 at 2011-02-14 22:30:35) [POST]
+  Parameters: {"commit"=>"Sign up", "action"=>"create", "authenticity_token"=>"FJc2m/jEQi2wOjuGZS2AGXymhjISyvUszkXGdvJsToI=", "controller"=>"users", "user"=>{"password_confirmation"=>"[FILTERED]", "password"=>"[FILTERED]", "login"=>"sgrimes", "email"=>"sgrimes@stanford.edu"}}
+  [4;35;1mUser Columns (46.0ms)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mSQL (44.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mUser Load (43.0ms)[0m   [0mSELECT `users`.id FROM `users` WHERE (`users`.`login` = BINARY 'sgrimes') LIMIT 1[0m
+  [4;36;1mUser Load (43.0ms)[0m   [0;1mSELECT `users`.id FROM `users` WHERE (`users`.`email` = BINARY 'sgrimes@stanford.edu') LIMIT 1[0m
+  [4;35;1mSQL (43.0ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (42.0ms)[0m   [0;1mSHOW TABLES[0m
+
+NoMethodError (undefined method `current_user' for #<Class:0xb4e49d8>):
+  app/controllers/users_controller.rb:10:in `create'
+  -e:2:in `load'
+  -e:2
+
+Rendered rescues/_trace (46.0ms)
+Rendered rescues/_request_and_response (0.0ms)
+Rendering rescues/layout (internal_server_error)
+  [4;35;1mSQL (39.0ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (39.0ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing UsersController#new (for 127.0.0.1 at 2011-02-14 22:31:33) [GET]
+  Parameters: {"action"=>"new", "controller"=>"users"}
+  [4;35;1mUser Columns (42.0ms)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mUser Load (39.0ms)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` IS NULL) LIMIT 1[0m
+Rendering template within layouts/application
+Rendering users/new
+Completed in 175ms (View: 69, DB: 159) | 200 OK [http://127.0.0.1/signup]
+  [4;35;1mSQL (40.0ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (37.0ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing UsersController#create (for 127.0.0.1 at 2011-02-14 22:31:50) [POST]
+  Parameters: {"commit"=>"Sign up", "action"=>"create", "authenticity_token"=>"FJc2m/jEQi2wOjuGZS2AGXymhjISyvUszkXGdvJsToI=", "controller"=>"users", "user"=>{"password_confirmation"=>"[FILTERED]", "password"=>"[FILTERED]", "login"=>"sgrimes", "email"=>"sgrimes@stanford.edu"}}
+  [4;35;1mUser Columns (41.0ms)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mUser Load (42.0ms)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` IS NULL) LIMIT 1[0m
+  [4;35;1mSQL (39.0ms)[0m   [0mBEGIN[0m
+  [4;36;1mUser Load (41.0ms)[0m   [0;1mSELECT `users`.id FROM `users` WHERE (`users`.`login` = BINARY 'sgrimes') LIMIT 1[0m
+  [4;35;1mUser Load (41.0ms)[0m   [0mSELECT `users`.id FROM `users` WHERE (`users`.`email` = BINARY 'sgrimes@stanford.edu') LIMIT 1[0m
+  [4;36;1mSQL (37.0ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (42.0ms)[0m   [0mSHOW TABLES[0m
+
+NoMethodError (undefined method `current_user' for #<Class:0xb5e6600>):
+  app/controllers/users_controller.rb:10:in `create'
+  -e:2:in `load'
+  -e:2
+
+Rendered rescues/_trace (49.0ms)
+Rendered rescues/_request_and_response (1.0ms)
+Rendering rescues/layout (internal_server_error)
+  [4;36;1mSQL (38.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (39.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing UsersController#new (for 127.0.0.1 at 2011-02-14 22:35:42) [GET]
+  Parameters: {"action"=>"new", "controller"=>"users"}
+  [4;36;1mUser Columns (43.0ms)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+  [4;35;1mUser Load (42.0ms)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` IS NULL) LIMIT 1[0m
+Rendering template within layouts/application
+Rendering users/new
+Completed in 129ms (View: 21, DB: 162) | 200 OK [http://127.0.0.1/signup]
+  [4;36;1mSQL (39.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (37.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing UsersController#create (for 127.0.0.1 at 2011-02-14 22:35:58) [POST]
+  Parameters: {"commit"=>"Sign up", "action"=>"create", "authenticity_token"=>"FJc2m/jEQi2wOjuGZS2AGXymhjISyvUszkXGdvJsToI=", "controller"=>"users", "user"=>{"password_confirmation"=>"[FILTERED]", "password"=>"[FILTERED]", "login"=>"sgrimes", "email"=>"sgrimes@stanford.edu"}}
+  [4;36;1mUser Columns (41.0ms)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+  [4;35;1mUser Load (40.0ms)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` IS NULL) LIMIT 1[0m
+  [4;36;1mSQL (41.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mUser Load (42.0ms)[0m   [0mSELECT `users`.id FROM `users` WHERE (`users`.`login` = BINARY 'sgrimes') LIMIT 1[0m
+  [4;36;1mUser Load (39.0ms)[0m   [0;1mSELECT `users`.id FROM `users` WHERE (`users`.`email` = BINARY 'sgrimes@stanford.edu') LIMIT 1[0m
+  [4;35;1mSQL (40.0ms)[0m   [0mROLLBACK[0m
+
+NoMethodError (undefined method `activation_code=' for #<User:0xb3d72f0>):
+  app/models/user.rb:92:in `make_activation_code'
+  app/controllers/users_controller.rb:10:in `create'
+  -e:2:in `load'
+  -e:2
+
+Rendered rescues/_trace (100.0ms)
+Rendered rescues/_request_and_response (1.0ms)
+Rendering rescues/layout (internal_server_error)
+  [4;36;1mSQL (38.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (40.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing UsersController#create (for 127.0.0.1 at 2011-02-14 22:38:10) [POST]
+  Parameters: {"commit"=>"Sign up", "action"=>"create", "authenticity_token"=>"FJc2m/jEQi2wOjuGZS2AGXymhjISyvUszkXGdvJsToI=", "controller"=>"users", "user"=>{"password_confirmation"=>"[FILTERED]", "password"=>"[FILTERED]", "login"=>"sgrimes", "email"=>"sgrimes@stanford.edu"}}
+  [4;36;1mUser Columns (41.0ms)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+  [4;35;1mUser Load (41.0ms)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` IS NULL) LIMIT 1[0m
+  [4;36;1mSQL (38.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mUser Load (41.0ms)[0m   [0mSELECT `users`.id FROM `users` WHERE (`users`.`login` = BINARY 'sgrimes') LIMIT 1[0m
+  [4;36;1mUser Load (41.0ms)[0m   [0;1mSELECT `users`.id FROM `users` WHERE (`users`.`email` = BINARY 'sgrimes@stanford.edu') LIMIT 1[0m
+  [4;35;1mUser Create (47.0ms)[0m   [0mINSERT INTO `users` (`salt`, `created_at`, `crypted_password`, `remember_token_expires_at`, `updated_at`, `activation_code`, `remember_token`, `login`, `reset_code`, `email`) VALUES('8529f18a2ff8668500e6b707ed71605a8627fd2a', '2011-02-14 22:38:10', 'cbfcf080b4db45a1ddf1de0cced2b7595e42e944', NULL, '2011-02-14 22:38:10', '8550eea21ffc860b1590c4ed2922316a6d9b8261', NULL, 'sgrimes', NULL, 'sgrimes@stanford.edu')[0m
+  [4;36;1mSQL (43.0ms)[0m   [0;1mCOMMIT[0m
+Redirected to http://127.0.0.1:3004/
+Completed in 328ms (DB: 370) | 302 Found [http://127.0.0.1/users]
+  [4;35;1mSQL (37.0ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (37.0ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing WelcomeController#index (for 127.0.0.1 at 2011-02-14 22:38:10) [GET]
+  Parameters: {"action"=>"index", "controller"=>"welcome"}
+  [4;35;1mUser Columns (41.0ms)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mUser Load (41.0ms)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` IS NULL) LIMIT 1[0m
+Redirected to http://127.0.0.1:3004/login
+Completed in 108ms (DB: 156) | 302 Found [http://127.0.0.1/]
+  [4;35;1mSQL (38.0ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (38.0ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing SessionsController#new (for 127.0.0.1 at 2011-02-14 22:38:11) [GET]
+  Parameters: {"action"=>"new", "controller"=>"sessions"}
+  [4;35;1mUser Columns (42.0ms)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mUser Load (42.0ms)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` IS NULL) LIMIT 1[0m
+Rendering template within layouts/application
+Rendering sessions/new
+Completed in 121ms (View: 13, DB: 160) | 200 OK [http://127.0.0.1/login]
+  [4;35;1mSQL (40.0ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (38.0ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing UsersController#activate (for 127.0.0.1 at 2011-02-14 22:55:02) [GET]
+  Parameters: {"action"=>"activate", "activation_code"=>"8550eea21ffc860b1590c4ed2922316a6d9b8261", "controller"=>"users"}
+  [4;35;1mUser Columns (44.0ms)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mUser Load (42.0ms)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` IS NULL) LIMIT 1[0m
+  [4;35;1mUser Load (44.0ms)[0m   [0mSELECT * FROM `users` WHERE (`users`.`activation_code` = '8550eea21ffc860b1590c4ed2922316a6d9b8261') LIMIT 1[0m
+
+NoMethodError (undefined method `activated_at=' for #<User:0xb38aa48>):
+  app/models/user.rb:51:in `activate!'
+  app/controllers/users_controller.rb:25:in `activate'
+  -e:2:in `load'
+  -e:2
+
+Rendered rescues/_trace (68.0ms)
+Rendered rescues/_request_and_response (1.0ms)
+Rendering rescues/layout (internal_server_error)
+  [4;36;1mSQL (38.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (39.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing UsersController#activate (for 127.0.0.1 at 2011-02-14 22:56:47) [GET]
+  Parameters: {"action"=>"activate", "activation_code"=>"8550eea21ffc860b1590c4ed2922316a6d9b8261", "controller"=>"users"}
+  [4;36;1mUser Columns (41.0ms)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+  [4;35;1mUser Load (42.0ms)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` IS NULL) LIMIT 1[0m
+  [4;36;1mUser Load (43.0ms)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`activation_code` = '8550eea21ffc860b1590c4ed2922316a6d9b8261') LIMIT 1[0m
+  [4;35;1mSQL (37.0ms)[0m   [0mBEGIN[0m
+  [4;36;1mUser Update (42.0ms)[0m   [0;1mUPDATE `users` SET `updated_at` = '2011-02-14 22:56:48', `activated_at` = '2011-02-15 06:56:47', `activation_code` = NULL WHERE `id` = 1[0m
+  [4;35;1mSQL (85.0ms)[0m   [0mCOMMIT[0m
+Redirected to http://127.0.0.1:3004/login
+Completed in 327ms (DB: 367) | 302 Found [http://127.0.0.1/activate/8550eea21ffc860b1590c4ed2922316a6d9b8261]
+  [4;36;1mSQL (38.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (38.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing SessionsController#new (for 127.0.0.1 at 2011-02-14 22:56:48) [GET]
+  Parameters: {"action"=>"new", "controller"=>"sessions"}
+  [4;36;1mUser Columns (42.0ms)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+  [4;35;1mUser Load (42.0ms)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` IS NULL) LIMIT 1[0m
+Rendering template within layouts/application
+Rendering sessions/new
+Completed in 121ms (View: 13, DB: 160) | 200 OK [http://127.0.0.1/login]
+  [4;36;1mSQL (38.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (37.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing SessionsController#create (for 127.0.0.1 at 2011-02-14 22:56:59) [POST]
+  Parameters: {"commit"=>"Log in", "action"=>"create", "authenticity_token"=>"FJc2m/jEQi2wOjuGZS2AGXymhjISyvUszkXGdvJsToI=", "controller"=>"sessions", "login"=>"sgrimes", "password"=>"[FILTERED]"}
+  [4;36;1mUser Columns (42.0ms)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+  [4;35;1mUser Load (41.0ms)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` IS NULL) LIMIT 1[0m
+  [4;36;1mUser Load (44.0ms)[0m   [0;1mSELECT * FROM `users` WHERE (login = 'sgrimes' and activated_at IS NOT NULL) LIMIT 1[0m
+  [4;35;1mSQL (40.0ms)[0m   [0mBEGIN[0m
+  [4;36;1mSQL (37.0ms)[0m   [0;1mCOMMIT[0m
+Redirected to http://127.0.0.1:3004/
+Completed in 235ms (DB: 279) | 302 Found [http://127.0.0.1/sessions/create]
+  [4;35;1mSQL (38.0ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (38.0ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing WelcomeController#index (for 127.0.0.1 at 2011-02-14 22:56:59) [GET]
+  Parameters: {"action"=>"index", "controller"=>"welcome"}
+  [4;35;1mUser Columns (42.0ms)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mUser Load (44.0ms)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` IS NULL) LIMIT 1[0m
+  [4;35;1mUser Load (45.0ms)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 1) LIMIT 1[0m
+Rendering template within layouts/application
+Rendering welcome/index
+Completed in 179ms (View: 23, DB: 207) | 200 OK [http://127.0.0.1/]
+  [4;36;1mSQL (38.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (38.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing WelcomeController#index (for 127.0.0.1 at 2011-02-14 22:59:20) [GET]
+  Parameters: {"action"=>"index", "controller"=>"welcome"}
+  [4;36;1mUser Columns (43.0ms)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+  [4;35;1mUser Load (41.0ms)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` IS NULL) LIMIT 1[0m
+  [4;36;1mUser Load (42.0ms)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 1) LIMIT 1[0m
+Rendering template within layouts/application
+Rendering welcome/index
+Completed in 175ms (View: 21, DB: 202) | 200 OK [http://127.0.0.1/]

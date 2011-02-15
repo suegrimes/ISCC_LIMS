@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+        <title>ISCC LIMS<%= controller.action_name %></title>
+        <%= stylesheet_link_tag 'lims_std' %>
+        <%= javascript_include_tag :all, :cache => true %>
+		<%= calendar_date_select_includes %>
+    </head>
+
+<body id='body'>
+	
+<div id="container" style="width: 98%;">
+	
+<div id="header">
+    <img class="logo" src="/images/sutech_reflect_DB.gif" alt="Stanford Genome Technology" width="99" height="80" title="SGTC Sequencing Database" />	
+	<div class="sitename">ISCC LIMS <% if RAILS_ENV != 'production'%> - (<%= RAILS_ENV%>)<%end%></div>	
+	<div class="version">Version: 0</div>
+    <% if logged_in? %>	
+	    <div class="logout-link"><%= link_to 'Logout', logout_url %></div>
+	<% end %>
+	<div style="clear:both;"></div>
+
+	<div id="nav-box">
+	    
+    <% if !logged_in? %>
+
+		<!-- show just link labels if not logged in -->
+        <ul id="nav" style="display: none;">
+          <li><a href="http://med.stanford.edu/sgtc/">Stanford Genome Tech Center</a></li>
+          <li><a href="#">Data Entry</a></li>
+          <li><a href="#">Query</a></li>
+          <li><a href="#">Administrators</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+	
+	<% elsif logged_in? %>
+	       
+        <ul id="nav" style="display: none;">
+
+          <li><a href="http://med.stanford.edu/sgtc/">Stanford Genome Tech Center</a></li>
+
+          <li><a href="#">Data Entry</a>
+            <ul>                            
+              <li>New Sample</li>
+		    </ul>
+		  </li> <!-- /Data Entry -->
+ 
+          <li><a href="#">Query</a>
+            <ul>
+		      <li>Sample Query</li>
+	        </ul>
+		  </li> <!-- /Query -->
+		  		  
+          <li><a href="#">Administrators</a>
+		    <ul>
+			  <li><a href="#" class="hasChildren">System Tables</a>	  
+      	        <ul>
+      	          <li>User Info</li>
+		          <li>Protocols</li>
+		          <li>Drop-Down Lists</li>
+		        </ul>
+			  </li>			    
+		    </ul>
+		  </li> <!-- /Administrators -->
+
+          <li><a href="mailto:insert_contact_name@stanford.edu">Contact</a></li>
+
+        </ul> <!--/nav-->
+	
+	<% end %><!-- /end if logged in -->	
+    
+    </div><!-- /nav-box -->
+    	    
+</div><!-- /header -->
+
+<div id="main">
+    <% if logged_in? %>	
+    <div id="leftsidebar">
+        <div class="user_info">
+	   <i> Logged in as: <%= current_user.login %> </i>
+        </div>
+	<ul class="opened">
+	
+	<li>New Sample</li>	
+	<li>Sample Query</li>
+	<li> <%= link_to_function "System Tables", toggle_div(:systables_menu)%> </li>
+	  <div id="systables_menu", style="display:none;">
+      	 <ul>
+      	 <li>User Info</li>
+		 <li>Protocols</li>
+		 <li>Drop-Down Lists</li>
+		 </ul>
+      </div>	
+			
+	</ul>
+	
+	</div> <!-- /leftsidebar -->
+    <% end %>
+    
+	<div id="maincontent">
+	<div style='color:red'> <%= flash[:error]%></div>
+    <div style='color:green'> <%= flash[:notice]%></div>
+	<%= yield %>
+	</div><!-- /maincontent -->	
+</div><!-- /main -->
+
+<div id="footer">
+	<div class="lft">
+		<a href="http://med.stanford.edu/sgtc/">Stanford Genome Tech Center</a>&nbsp;|
+		<a href="mailto:insert_contact_name@stanford.edu">Contact</a>
+	</div>
+</div>
+
+</div><!-- /container -->
+
+</body>
+</html>

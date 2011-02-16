@@ -3,12 +3,14 @@
 # Table name: users
 #
 #  id                        :integer(4)      not null, primary key
-#  login                     :string(25)
+#  login                     :string(25)      default(""), not null
+#  lab_id                    :integer(4)      not null
 #  email                     :string(255)
 #  crypted_password          :string(40)
 #  salt                      :string(40)
+#  activation_code           :string(50)
+#  activated_at              :datetime
 #  reset_code                :string(50)
-#  created_at                :datetime
 #  updated_at                :datetime
 #  remember_token            :string(255)
 #  remember_token_expires_at :datetime
@@ -20,6 +22,8 @@ class User < ActiveRecord::Base
   include Authentication
   include Authentication::ByPassword
   include Authentication::ByCookieToken
+  
+  validates_presence_of     :lab_id
 
   validates_presence_of     :login
   validates_length_of       :login,    :within => 3..40
@@ -42,7 +46,7 @@ class User < ActiveRecord::Base
   # HACK HACK HACK -- how to do attr_accessible from here?
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.
-  attr_accessible :login, :email, :password, :password_confirmation
+  attr_accessible :lab_id, :login, :email, :password, :password_confirmation
 
 
   # Activates the user in the database.
@@ -73,9 +77,9 @@ class User < ActiveRecord::Base
   # We really need a Dispatch Chain here or something.
   # This will also let us return a human error message.
   #
-  def self.authenticate(login, password)
+  def self.authenticate(lab_id, login, password)
     return nil if login.blank? || password.blank?
-    u = find :first, :conditions => ['login = ? and activated_at IS NOT NULL', login] # need to get the salt
+    u = find :first, :conditions => ['login = ? AND lab_id = ? AND activated_at IS NOT NULL', login, lab_id] # need to get the salt
     u && u.authenticated?(password) ? u : nil
   end
 

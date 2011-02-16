@@ -106,7 +106,7 @@ hr {clear:both; border:0; height:1px; background-color:#888;}
 #header .logout-link {
    float: right; 
    position: relative; 
-   right: -70px; top: 70px;	
+   right: -58px; top: 70px;	
 }
 
 #header .logout-link a {
@@ -357,24 +357,27 @@ td {
 	font-size: .9em;
 }
 
-.form {
+.form, .form01 {
 	background-color: #f1f2e3;
 }
 
 .form th {
 	font-size: .9em;
 	background-color: #f1f2e3;
-	border-bottom: 1px solid #999;
+	border-bottom: none;
 	text-align: right;
 }
 
-.form th.top-heading-row {	
+.form01 th {
+	font-size: .9em;
+	background-color: #f1f2e3;
+	border-bottom: none;
 	text-align: left;
 }
 
-.form td {
+.form, .form01 td {
 	font-size: .9em;
-	border-bottom: 1px solid #B0AA91;
+	border-bottom: none;
 }
 
 .linkbutton td {

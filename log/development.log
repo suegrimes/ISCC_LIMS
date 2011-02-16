@@ -457,3 +457,1013 @@ Processing WelcomeController#index (for 127.0.0.1 at 2011-02-14 22:59:20) [GET]
 Rendering template within layouts/application
 Rendering welcome/index
 Completed in 175ms (View: 21, DB: 202) | 200 OK [http://127.0.0.1/]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (1.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing WelcomeController#index (for 127.0.0.1 at 2011-02-15 09:27:09) [GET]
+  Parameters: {"action"=>"index", "controller"=>"welcome"}
+  [4;36;1mUser Columns (2.0ms)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+  [4;35;1mUser Load (1.0ms)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` IS NULL) LIMIT 1[0m
+Redirected to http://localhost:3005/login
+Completed in 2972ms (DB: 4) | 302 Found [http://localhost/]
+  [4;36;1mSQL (1.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing SessionsController#new (for 127.0.0.1 at 2011-02-15 09:27:13) [GET]
+  Parameters: {"action"=>"new", "controller"=>"sessions"}
+  [4;36;1mUser Columns (2.0ms)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+  [4;35;1mUser Load (0.0ms)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` IS NULL) LIMIT 1[0m
+Rendering template within layouts/application
+Rendering sessions/new
+Completed in 64ms (View: 30, DB: 3) | 200 OK [http://localhost/login]
+  [4;36;1mSQL (1.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing SessionsController#create (for 127.0.0.1 at 2011-02-15 09:27:33) [POST]
+  Parameters: {"commit"=>"Log in", "action"=>"create", "authenticity_token"=>"TeF5zCP/qXQ6tiZg3ZwoyV0Ynp9Kgr8t4uKKdrUsfpE=", "controller"=>"sessions", "login"=>"sgrimes", "password"=>"[FILTERED]"}
+  [4;36;1mUser Columns (1.0ms)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+  [4;35;1mUser Load (1.0ms)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` IS NULL) LIMIT 1[0m
+  [4;36;1mUser Load (1.0ms)[0m   [0;1mSELECT * FROM `users` WHERE (login = 'sgrimes' and activated_at IS NOT NULL) LIMIT 1[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mBEGIN[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mCOMMIT[0m
+Redirected to http://localhost:3005/
+Completed in 43ms (DB: 4) | 302 Found [http://localhost/sessions/create]
+  [4;35;1mSQL (0.0ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (1.0ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing WelcomeController#index (for 127.0.0.1 at 2011-02-15 09:27:34) [GET]
+  Parameters: {"action"=>"index", "controller"=>"welcome"}
+  [4;35;1mUser Columns (2.0ms)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mUser Load (0.0ms)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` IS NULL) LIMIT 1[0m
+  [4;35;1mUser Load (1.0ms)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 1) LIMIT 1[0m
+Rendering template within layouts/application
+Rendering welcome/index
+Completed in 106ms (View: 18, DB: 4) | 200 OK [http://localhost/]
+  [4;36;1mSQL (1.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (1.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing WelcomeController#index (for 127.0.0.1 at 2011-02-15 09:34:25) [GET]
+  Parameters: {"action"=>"index", "controller"=>"welcome"}
+  [4;36;1mUser Columns (2.0ms)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+  [4;35;1mUser Load (0.0ms)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` IS NULL) LIMIT 1[0m
+  [4;36;1mUser Load (1.0ms)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 1) LIMIT 1[0m
+Rendering template within layouts/application
+Rendering welcome/index
+Completed in 112ms (View: 74, DB: 5) | 200 OK [http://localhost/]
+  [4;35;1mSQL (0.0ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (1.0ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing SessionsController#destroy (for 127.0.0.1 at 2011-02-15 09:34:54) [GET]
+  Parameters: {"action"=>"destroy", "controller"=>"sessions"}
+  [4;35;1mUser Columns (2.0ms)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mUser Load (0.0ms)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` IS NULL) LIMIT 1[0m
+Redirected to http://localhost:3005/
+Completed in 36ms (DB: 3) | 302 Found [http://localhost/logout]
+  [4;35;1mSQL (0.0ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (1.0ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing WelcomeController#index (for 127.0.0.1 at 2011-02-15 09:34:55) [GET]
+  Parameters: {"action"=>"index", "controller"=>"welcome"}
+  [4;35;1mUser Columns (1.0ms)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mUser Load (1.0ms)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` IS NULL) LIMIT 1[0m
+Redirected to http://localhost:3005/login
+Completed in 35ms (DB: 3) | 302 Found [http://localhost/]
+  [4;35;1mSQL (1.0ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing SessionsController#new (for 127.0.0.1 at 2011-02-15 09:34:56) [GET]
+  Parameters: {"action"=>"new", "controller"=>"sessions"}
+  [4;35;1mUser Columns (1.0ms)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mUser Load (1.0ms)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` IS NULL) LIMIT 1[0m
+Rendering template within layouts/application
+Rendering sessions/new
+Completed in 45ms (View: 10, DB: 3) | 200 OK [http://localhost/login]
+  [4;35;1mSQL (0.0ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (1.0ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing SessionsController#create (for 127.0.0.1 at 2011-02-15 09:36:33) [POST]
+  Parameters: {"commit"=>"Log in", "action"=>"create", "authenticity_token"=>"42v8UE/m39DQGFxNBvcGKke8XFmoPs8gFWhHRfQTZW4=", "controller"=>"sessions", "login"=>"sue", "password"=>"[FILTERED]"}
+  [4;35;1mUser Columns (2.0ms)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mUser Load (1.0ms)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` IS NULL) LIMIT 1[0m
+Failed login for 'sue' from 127.0.0.1 at Tue Feb 15 17:36:33 UTC 2011
+Rendering template within layouts/application
+Rendering sessions/new
+Completed in 46ms (View: 10, DB: 4) | 200 OK [http://localhost/sessions/create]
+  [4;35;1mSQL (1.0ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (1.0ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing SessionsController#create (for 127.0.0.1 at 2011-02-15 09:37:00) [POST]
+  Parameters: {"commit"=>"Log in", "action"=>"create", "authenticity_token"=>"42v8UE/m39DQGFxNBvcGKke8XFmoPs8gFWhHRfQTZW4=", "controller"=>"sessions", "login"=>"sue", "password"=>"[FILTERED]"}
+  [4;35;1mUser Columns (1.0ms)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mUser Load (1.0ms)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` IS NULL) LIMIT 1[0m
+  [4;35;1mUser Load (1.0ms)[0m   [0mSELECT * FROM `users` WHERE (login = 'sue' and activated_at IS NOT NULL) LIMIT 1[0m
+Failed login for 'sue' from 127.0.0.1 at Tue Feb 15 17:37:00 UTC 2011
+Rendering template within layouts/application
+Rendering sessions/new
+Completed in 48ms (View: 10, DB: 5) | 200 OK [http://localhost/sessions/create]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing UsersController#new (for 127.0.0.1 at 2011-02-15 09:37:10) [GET]
+  Parameters: {"action"=>"new", "controller"=>"users"}
+  [4;36;1mUser Columns (2.0ms)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+  [4;35;1mUser Load (0.0ms)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` IS NULL) LIMIT 1[0m
+Rendering template within layouts/application
+Rendering users/new
+Completed in 65ms (View: 29, DB: 2) | 200 OK [http://localhost/signup]
+  [4;36;1mSQL (1.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing UsersController#create (for 127.0.0.1 at 2011-02-15 09:37:26) [POST]
+  Parameters: {"commit"=>"Sign up", "action"=>"create", "authenticity_token"=>"42v8UE/m39DQGFxNBvcGKke8XFmoPs8gFWhHRfQTZW4=", "controller"=>"users", "user"=>{"password_confirmation"=>"[FILTERED]", "password"=>"[FILTERED]", "login"=>"sue", "email"=>"sgrimes1431"}}
+  [4;36;1mUser Columns (2.0ms)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+  [4;35;1mUser Load (1.0ms)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` IS NULL) LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mUser Load (1.0ms)[0m   [0mSELECT `users`.id FROM `users` WHERE (`users`.`login` = BINARY 'sue') LIMIT 1[0m
+  [4;36;1mUser Load (0.0ms)[0m   [0;1mSELECT `users`.id FROM `users` WHERE (`users`.`email` = BINARY 'sgrimes1431') LIMIT 1[0m
+  [4;35;1mSQL (1.0ms)[0m   [0mROLLBACK[0m
+Rendering template within layouts/application
+Rendering users/new
+Completed in 78ms (View: 32, DB: 6) | 200 OK [http://localhost/users]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing UsersController#new (for 127.0.0.1 at 2011-02-15 09:44:58) [GET]
+  Parameters: {"action"=>"new", "controller"=>"users"}
+  [4;36;1mUser Columns (1.0ms)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+  [4;35;1mUser Load (1.0ms)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` IS NULL) LIMIT 1[0m
+
+NameError (uninitialized constant UsersController::Lab):
+  app/controllers/users_controller.rb:5:in `new'
+  -e:2:in `load'
+  -e:2
+
+Rendered rescues/_trace (38.0ms)
+Rendered rescues/_request_and_response (2.0ms)
+Rendering rescues/layout (internal_server_error)
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing UsersController#new (for 127.0.0.1 at 2011-02-15 09:46:45) [GET]
+  Parameters: {"action"=>"new", "controller"=>"users"}
+  [4;36;1mUser Columns (2.0ms)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+  [4;35;1mUser Load (0.0ms)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` IS NULL) LIMIT 1[0m
+  [4;36;1mLab Load (1.0ms)[0m   [0;1mSELECT * FROM `labs` ORDER BY lab_name[0m
+Rendering template within layouts/application
+Rendering users/new
+  [4;35;1mLab Columns (1.0ms)[0m   [0mSHOW FIELDS FROM `labs`[0m
+Completed in 143ms (View: 29, DB: 4) | 200 OK [http://localhost/signup]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing UsersController#create (for 127.0.0.1 at 2011-02-15 09:48:04) [POST]
+  Parameters: {"commit"=>"Sign up", "action"=>"create", "authenticity_token"=>"42v8UE/m39DQGFxNBvcGKke8XFmoPs8gFWhHRfQTZW4=", "controller"=>"users", "user"=>{"lab_id"=>"", "password_confirmation"=>"[FILTERED]", "password"=>"[FILTERED]", "login"=>"sue", "email"=>"sgrimes1431@gmail.com"}}
+  [4;36;1mUser Columns (2.0ms)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+  [4;35;1mUser Load (0.0ms)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` IS NULL) LIMIT 1[0m
+WARNING: Can't mass-assign these protected attributes: lab_id
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mUser Load (0.0ms)[0m   [0mSELECT `users`.id FROM `users` WHERE (`users`.`login` = BINARY 'sue') LIMIT 1[0m
+  [4;36;1mUser Load (0.0ms)[0m   [0;1mSELECT `users`.id FROM `users` WHERE (`users`.`email` = BINARY 'sgrimes1431@gmail.com') LIMIT 1[0m
+  [4;35;1mSQL (1.0ms)[0m   [0mROLLBACK[0m
+Rendering template within layouts/application
+Rendering users/new
+
+ActionView::TemplateError (You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.map) on line #7 of app/views/users/new.html.erb:
+4: <%= error_messages_for :user %>
+5: <% form_for :user, :url => users_path do |f| -%>
+6: <p><%= f.label :lab %><br/>
+7: <%= f.collection_select(:lab_id, @labs, :id, :lab_name, {:include_blank => 'Select Lab'}) %></p>
+8: 
+9: 
+10: <p><%= f.label :login %><br/>
+
+    app/views/users/new.html.erb:7
+    app/views/users/new.html.erb:5
+    app/controllers/users_controller.rb:17:in `create'
+    -e:2:in `load'
+    -e:2
+
+Rendered rescues/_trace (50.0ms)
+Rendered rescues/_request_and_response (0.0ms)
+Rendering rescues/layout (internal_server_error)
+  [4;36;1mSQL (1.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (1.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing UsersController#create (for 127.0.0.1 at 2011-02-15 09:49:19) [POST]
+  Parameters: {"commit"=>"Sign up", "action"=>"create", "authenticity_token"=>"42v8UE/m39DQGFxNBvcGKke8XFmoPs8gFWhHRfQTZW4=", "controller"=>"users", "user"=>{"lab_id"=>"", "password_confirmation"=>"[FILTERED]", "password"=>"[FILTERED]", "login"=>"sue", "email"=>"sgrimes1431@gmail.com"}}
+  [4;36;1mUser Columns (2.0ms)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+  [4;35;1mUser Load (1.0ms)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` IS NULL) LIMIT 1[0m
+WARNING: Can't mass-assign these protected attributes: lab_id
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mUser Load (1.0ms)[0m   [0mSELECT `users`.id FROM `users` WHERE (`users`.`login` = BINARY 'sue') LIMIT 1[0m
+  [4;36;1mUser Load (0.0ms)[0m   [0;1mSELECT `users`.id FROM `users` WHERE (`users`.`email` = BINARY 'sgrimes1431@gmail.com') LIMIT 1[0m
+  [4;35;1mSQL (1.0ms)[0m   [0mROLLBACK[0m
+  [4;36;1mLab Load (1.0ms)[0m   [0;1mSELECT * FROM `labs` ORDER BY lab_name[0m
+Rendering template within layouts/application
+Rendering users/new
+  [4;35;1mLab Columns (1.0ms)[0m   [0mSHOW FIELDS FROM `labs`[0m
+Completed in 156ms (View: 97, DB: 9) | 200 OK [http://localhost/users]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing UsersController#create (for 127.0.0.1 at 2011-02-15 09:50:14) [POST]
+  Parameters: {"commit"=>"Sign up", "action"=>"create", "authenticity_token"=>"42v8UE/m39DQGFxNBvcGKke8XFmoPs8gFWhHRfQTZW4=", "controller"=>"users", "user"=>{"lab_id"=>"", "password_confirmation"=>"[FILTERED]", "password"=>"[FILTERED]", "login"=>"sue", "email"=>"sgrimes1431@gmail.com"}}
+  [4;36;1mUser Columns (2.0ms)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+  [4;35;1mUser Load (0.0ms)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` IS NULL) LIMIT 1[0m
+WARNING: Can't mass-assign these protected attributes: lab_id
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mUser Load (1.0ms)[0m   [0mSELECT `users`.id FROM `users` WHERE (`users`.`login` = BINARY 'sue') LIMIT 1[0m
+  [4;36;1mUser Load (1.0ms)[0m   [0;1mSELECT `users`.id FROM `users` WHERE (`users`.`email` = BINARY 'sgrimes1431@gmail.com') LIMIT 1[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mROLLBACK[0m
+  [4;36;1mLab Load (0.0ms)[0m   [0;1mSELECT * FROM `labs` ORDER BY lab_name[0m
+Rendering template within layouts/application
+Rendering users/new
+  [4;35;1mLab Columns (2.0ms)[0m   [0mSHOW FIELDS FROM `labs`[0m
+Completed in 86ms (View: 27, DB: 6) | 200 OK [http://localhost/users]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing UsersController#create (for 127.0.0.1 at 2011-02-15 09:51:09) [POST]
+  Parameters: {"commit"=>"Sign up", "action"=>"create", "authenticity_token"=>"42v8UE/m39DQGFxNBvcGKke8XFmoPs8gFWhHRfQTZW4=", "controller"=>"users", "user"=>{"lab_id"=>"7", "password_confirmation"=>"[FILTERED]", "password"=>"[FILTERED]", "login"=>"sue", "email"=>"sgrimes1431@gmail.com"}}
+  [4;36;1mUser Columns (1.0ms)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+  [4;35;1mUser Load (1.0ms)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` IS NULL) LIMIT 1[0m
+WARNING: Can't mass-assign these protected attributes: lab_id
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mUser Load (0.0ms)[0m   [0mSELECT `users`.id FROM `users` WHERE (`users`.`login` = BINARY 'sue') LIMIT 1[0m
+  [4;36;1mUser Load (1.0ms)[0m   [0;1mSELECT `users`.id FROM `users` WHERE (`users`.`email` = BINARY 'sgrimes1431@gmail.com') LIMIT 1[0m
+  [4;35;1mSQL (1.0ms)[0m   [0mROLLBACK[0m
+  [4;36;1mLab Load (1.0ms)[0m   [0;1mSELECT * FROM `labs` ORDER BY lab_name[0m
+Rendering template within layouts/application
+Rendering users/new
+  [4;35;1mLab Columns (1.0ms)[0m   [0mSHOW FIELDS FROM `labs`[0m
+Completed in 81ms (View: 24, DB: 6) | 200 OK [http://localhost/users]
+  [4;36;1mSQL (1.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing UsersController#create (for 127.0.0.1 at 2011-02-15 09:51:25) [POST]
+  Parameters: {"commit"=>"Sign up", "action"=>"create", "authenticity_token"=>"42v8UE/m39DQGFxNBvcGKke8XFmoPs8gFWhHRfQTZW4=", "controller"=>"users", "user"=>{"lab_id"=>"7", "password_confirmation"=>"[FILTERED]", "password"=>"[FILTERED]", "login"=>"sue", "email"=>"sgrimes1431@gmail.com"}}
+  [4;36;1mUser Columns (2.0ms)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+  [4;35;1mUser Load (0.0ms)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` IS NULL) LIMIT 1[0m
+WARNING: Can't mass-assign these protected attributes: lab_id
+  [4;36;1mSQL (1.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mUser Load (0.0ms)[0m   [0mSELECT `users`.id FROM `users` WHERE (`users`.`login` = BINARY 'sue') LIMIT 1[0m
+  [4;36;1mUser Load (1.0ms)[0m   [0;1mSELECT `users`.id FROM `users` WHERE (`users`.`email` = BINARY 'sgrimes1431@gmail.com') LIMIT 1[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mROLLBACK[0m
+  [4;36;1mLab Load (0.0ms)[0m   [0;1mSELECT * FROM `labs` ORDER BY lab_name[0m
+Rendering template within layouts/application
+Rendering users/new
+  [4;35;1mLab Columns (1.0ms)[0m   [0mSHOW FIELDS FROM `labs`[0m
+Completed in 82ms (View: 24, DB: 6) | 200 OK [http://localhost/users]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing UsersController#create (for 127.0.0.1 at 2011-02-15 09:53:14) [POST]
+  Parameters: {"commit"=>"Sign up", "action"=>"create", "authenticity_token"=>"42v8UE/m39DQGFxNBvcGKke8XFmoPs8gFWhHRfQTZW4=", "controller"=>"users", "user"=>{"lab_id"=>"7", "password_confirmation"=>"[FILTERED]", "password"=>"[FILTERED]", "login"=>"sue", "email"=>"sgrimes1431@gmail.com"}}
+  [4;36;1mUser Columns (2.0ms)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+  [4;35;1mUser Load (1.0ms)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` IS NULL) LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mUser Load (1.0ms)[0m   [0mSELECT `users`.id FROM `users` WHERE (`users`.`login` = BINARY 'sue') LIMIT 1[0m
+  [4;36;1mUser Load (1.0ms)[0m   [0;1mSELECT `users`.id FROM `users` WHERE (`users`.`email` = BINARY 'sgrimes1431@gmail.com') LIMIT 1[0m
+  [4;35;1mUser Create (1.0ms)[0m   [0mINSERT INTO `users` (`salt`, `activated_at`, `lab_id`, `crypted_password`, `remember_token_expires_at`, `updated_at`, `activation_code`, `remember_token`, `login`, `reset_code`, `email`) VALUES('da5906e4202ceccbbb2ad264579131f5f8365db6', NULL, 7, '36b553cb44047b2313948c7668391f9d879508ce', NULL, '2011-02-15 09:53:14', '943670add4bab27a46565ba8024b2f6931482036', NULL, 'sue', NULL, 'sgrimes1431@gmail.com')[0m
+  [4;36;1mSQL (12.0ms)[0m   [0;1mCOMMIT[0m
+Redirected to http://localhost:3005/
+Completed in 60ms (DB: 18) | 302 Found [http://localhost/users]
+  [4;35;1mSQL (1.0ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (1.0ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing WelcomeController#index (for 127.0.0.1 at 2011-02-15 09:53:15) [GET]
+  Parameters: {"action"=>"index", "controller"=>"welcome"}
+  [4;35;1mUser Columns (1.0ms)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mUser Load (1.0ms)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` IS NULL) LIMIT 1[0m
+Redirected to http://localhost:3005/login
+Completed in 35ms (DB: 4) | 302 Found [http://localhost/]
+  [4;35;1mSQL (1.0ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (1.0ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing SessionsController#new (for 127.0.0.1 at 2011-02-15 09:53:16) [GET]
+  Parameters: {"action"=>"new", "controller"=>"sessions"}
+  [4;35;1mUser Columns (2.0ms)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mUser Load (0.0ms)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` IS NULL) LIMIT 1[0m
+Rendering template within layouts/application
+Rendering sessions/new
+Completed in 46ms (View: 11, DB: 4) | 200 OK [http://localhost/login]
+  [4;35;1mSQL (0.0ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing SessionsController#new (for 127.0.0.1 at 2011-02-15 10:02:04) [GET]
+  Parameters: {"action"=>"new", "controller"=>"sessions"}
+  [4;35;1mUser Columns (2.0ms)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mUser Load (0.0ms)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` IS NULL) LIMIT 1[0m
+Rendering template within layouts/application
+Rendering sessions/new
+
+ActionView::TemplateError (undefined local variable or method `f' for #<ActionView::Base:0x770a810>) on line #6 of app/views/sessions/new.html.erb:
+3: <% form_tag :action => :create do -%>
+4: 
+5: <p><%= label_tag 'lab' %><br />
+6: <%= f.collection_select(:lab_id, @labs, :id, :lab_name, {:include_blank => 'Select Lab'}) %></p>
+7: 
+8: <p><%= label_tag 'login' %><br />
+9: <%= text_field_tag 'login', @login %></p>
+
+    app/views/sessions/new.html.erb:6
+    app/views/sessions/new.html.erb:3
+    -e:2:in `load'
+    -e:2
+
+Rendered rescues/_trace (116.0ms)
+Rendered rescues/_request_and_response (1.0ms)
+Rendering rescues/layout (internal_server_error)
+  [4;35;1mSQL (1.0ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (1.0ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing SessionsController#new (for 127.0.0.1 at 2011-02-15 10:08:36) [GET]
+  Parameters: {"action"=>"new", "controller"=>"sessions"}
+  [4;35;1mUser Columns (2.0ms)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mUser Load (1.0ms)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` IS NULL) LIMIT 1[0m
+Rendering template within layouts/application
+Rendering sessions/new
+
+ActionView::TemplateError (undefined method `map' for :id:Symbol) on line #6 of app/views/sessions/new.html.erb:
+3: <% form_tag :action => :create do -%>
+4: 
+5: <p><%= label_tag 'lab' %><br />
+6: <%= collection_select(:lab_id, @labs, :id, :lab_name, {:include_blank => 'Select Lab'}) %></p>
+7: 
+8: <p><%= label_tag 'login' %><br />
+9: <%= text_field_tag 'login', @login %></p>
+
+    app/views/sessions/new.html.erb:6
+    app/views/sessions/new.html.erb:3
+    -e:2:in `load'
+    -e:2
+
+Rendered rescues/_trace (51.0ms)
+Rendered rescues/_request_and_response (0.0ms)
+Rendering rescues/layout (internal_server_error)
+  [4;35;1mSQL (1.0ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (1.0ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing SessionsController#new (for 127.0.0.1 at 2011-02-15 10:20:07) [GET]
+  Parameters: {"action"=>"new", "controller"=>"sessions"}
+  [4;35;1mUser Columns (1.0ms)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mUser Load (0.0ms)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` IS NULL) LIMIT 1[0m
+Rendering template within layouts/application
+Rendering sessions/new
+
+ActionView::TemplateError (You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.map) on line #6 of app/views/sessions/new.html.erb:
+3: <% form_tag :action => :create do -%>
+4: 
+5: <p><%= label_tag 'lab' %><br />
+6: <%= collection_select(:lab, :lab_id, @labs, :id, :lab_name, {:include_blank => 'Select Lab'}) %></p>
+7: 
+8: <p><%= label_tag 'login' %><br />
+9: <%= text_field_tag 'login', @login %></p>
+
+    app/views/sessions/new.html.erb:6
+    app/views/sessions/new.html.erb:3
+    -e:2:in `load'
+    -e:2
+
+Rendered rescues/_trace (122.0ms)
+Rendered rescues/_request_and_response (1.0ms)
+Rendering rescues/layout (internal_server_error)
+  [4;35;1mSQL (0.0ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing SessionsController#new (for 127.0.0.1 at 2011-02-15 10:20:39) [GET]
+  Parameters: {"action"=>"new", "controller"=>"sessions"}
+  [4;35;1mUser Columns (2.0ms)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mUser Load (0.0ms)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` IS NULL) LIMIT 1[0m
+  [4;35;1mLab Load (0.0ms)[0m   [0mSELECT * FROM `labs` ORDER BY lab_name[0m
+Rendering template within layouts/application
+Rendering sessions/new
+  [4;36;1mLab Columns (1.0ms)[0m   [0;1mSHOW FIELDS FROM `labs`[0m
+Completed in 61ms (View: 14, DB: 3) | 200 OK [http://localhost/login]
+  [4;35;1mSQL (1.0ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing SessionsController#create (for 127.0.0.1 at 2011-02-15 10:20:59) [POST]
+  Parameters: {"commit"=>"Log in", "lab"=>{"lab_id"=>"7"}, "action"=>"create", "authenticity_token"=>"42v8UE/m39DQGFxNBvcGKke8XFmoPs8gFWhHRfQTZW4=", "controller"=>"sessions", "login"=>"sgrimes", "password"=>"[FILTERED]"}
+  [4;35;1mUser Columns (2.0ms)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mUser Load (0.0ms)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` IS NULL) LIMIT 1[0m
+  [4;35;1mUser Load (1.0ms)[0m   [0mSELECT * FROM `users` WHERE (login = 'sgrimes' AND lab_id = '7' AND activated_at IS NOT NULL) LIMIT 1[0m
+Failed login for 'sgrimes' from 127.0.0.1 at Tue Feb 15 18:20:59 UTC 2011
+Rendering template within layouts/application
+Rendering sessions/new
+
+ActionView::TemplateError (You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.map) on line #6 of app/views/sessions/new.html.erb:
+3: <% form_tag :action => :create do -%>
+4: 
+5: <p><%= label_tag 'lab' %><br />
+6: <%= collection_select(:lab, :lab_id, @labs, :id, :lab_name, {:include_blank => 'Select Lab'}) %></p>
+7: 
+8: <p><%= label_tag 'login' %><br />
+9: <%= text_field_tag 'login', @login %></p>
+
+    app/views/sessions/new.html.erb:6
+    app/views/sessions/new.html.erb:3
+    app/controllers/sessions_controller.rb:28:in `create'
+    -e:2:in `load'
+    -e:2
+
+Rendered rescues/_trace (121.0ms)
+Rendered rescues/_request_and_response (1.0ms)
+Rendering rescues/layout (internal_server_error)
+  [4;36;1mSQL (1.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing SessionsController#new (for 127.0.0.1 at 2011-02-15 10:22:44) [GET]
+  Parameters: {"action"=>"new", "controller"=>"sessions"}
+  [4;36;1mUser Columns (2.0ms)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+  [4;35;1mUser Load (1.0ms)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` IS NULL) LIMIT 1[0m
+  [4;36;1mLab Load (1.0ms)[0m   [0;1mSELECT * FROM `labs` ORDER BY lab_name[0m
+Rendering template within layouts/application
+Rendering sessions/new
+  [4;35;1mLab Columns (1.0ms)[0m   [0mSHOW FIELDS FROM `labs`[0m
+Completed in 61ms (View: 13, DB: 6) | 200 OK [http://localhost/login]
+  [4;36;1mSQL (1.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (1.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing SessionsController#create (for 127.0.0.1 at 2011-02-15 10:22:54) [POST]
+  Parameters: {"commit"=>"Log in", "lab"=>{"lab_id"=>"7"}, "action"=>"create", "authenticity_token"=>"42v8UE/m39DQGFxNBvcGKke8XFmoPs8gFWhHRfQTZW4=", "controller"=>"sessions", "login"=>"sgrimes", "password"=>"[FILTERED]"}
+  [4;36;1mUser Columns (2.0ms)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+  [4;35;1mUser Load (1.0ms)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` IS NULL) LIMIT 1[0m
+  [4;36;1mUser Load (1.0ms)[0m   [0;1mSELECT * FROM `users` WHERE (login = 'sgrimes' AND lab_id = '7' AND activated_at IS NOT NULL) LIMIT 1[0m
+Failed login for 'sgrimes' from 127.0.0.1 at Tue Feb 15 18:22:54 UTC 2011
+  [4;35;1mLab Columns (2.0ms)[0m   [0mSHOW FIELDS FROM `labs`[0m
+  [4;36;1mLab Load (0.0ms)[0m   [0;1mSELECT * FROM `labs` WHERE (`labs`.`id` = 7) [0m
+  [4;35;1mLab Load (1.0ms)[0m   [0mSELECT * FROM `labs` ORDER BY lab_name[0m
+Rendering template within layouts/application
+Rendering sessions/new
+
+ActionView::TemplateError (undefined method `lab_id' for #<Lab id: 7, lab_name: "Stanford University", created_at: nil>) on line #6 of app/views/sessions/new.html.erb:
+3: <% form_tag :action => :create do -%>
+4: 
+5: <p><%= label_tag 'lab' %><br />
+6: <%= collection_select(:lab, :lab_id, @labs, :id, :lab_name, {:include_blank => 'Select Lab'}) %></p>
+7: 
+8: <p><%= label_tag 'login' %><br />
+9: <%= text_field_tag 'login', @login %></p>
+
+    app/views/sessions/new.html.erb:6
+    app/views/sessions/new.html.erb:3
+    app/controllers/sessions_controller.rb:30:in `create'
+    -e:2:in `load'
+    -e:2
+
+Rendered rescues/_trace (55.0ms)
+Rendered rescues/_request_and_response (1.0ms)
+Rendering rescues/layout (internal_server_error)
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing SessionsController#create (for 127.0.0.1 at 2011-02-15 10:23:35) [POST]
+  Parameters: {"commit"=>"Log in", "lab"=>{"lab_id"=>"7"}, "action"=>"create", "authenticity_token"=>"42v8UE/m39DQGFxNBvcGKke8XFmoPs8gFWhHRfQTZW4=", "controller"=>"sessions", "login"=>"sgrimes", "password"=>"[FILTERED]"}
+  [4;36;1mUser Columns (2.0ms)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+  [4;35;1mUser Load (1.0ms)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` IS NULL) LIMIT 1[0m
+  [4;36;1mUser Load (1.0ms)[0m   [0;1mSELECT * FROM `users` WHERE (login = 'sgrimes' AND lab_id = NULL AND activated_at IS NOT NULL) LIMIT 1[0m
+Failed login for 'sgrimes' from 127.0.0.1 at Tue Feb 15 18:23:35 UTC 2011
+
+ActiveRecord::RecordNotFound (Couldn't find Lab without an ID):
+  app/controllers/sessions_controller.rb:26:in `create'
+  -e:2:in `load'
+  -e:2
+
+Rendered rescues/_trace (38.0ms)
+Rendered rescues/_request_and_response (1.0ms)
+Rendering rescues/layout (not_found)
+  [4;35;1mSQL (1.0ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (1.0ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing SessionsController#create (for 127.0.0.1 at 2011-02-15 10:25:27) [POST]
+  Parameters: {"commit"=>"Log in", "lab"=>{"lab_id"=>"7"}, "action"=>"create", "authenticity_token"=>"42v8UE/m39DQGFxNBvcGKke8XFmoPs8gFWhHRfQTZW4=", "controller"=>"sessions", "login"=>"sgrimes", "password"=>"[FILTERED]"}
+  [4;35;1mUser Columns (1.0ms)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mUser Load (1.0ms)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` IS NULL) LIMIT 1[0m
+  [4;35;1mUser Load (1.0ms)[0m   [0mSELECT * FROM `users` WHERE (login = 'sgrimes' AND lab_id = NULL AND activated_at IS NOT NULL) LIMIT 1[0m
+Failed login for 'sgrimes' from 127.0.0.1 at Tue Feb 15 18:25:27 UTC 2011
+
+ActiveRecord::RecordNotFound (Couldn't find Lab without an ID):
+  app/controllers/sessions_controller.rb:26:in `create'
+  -e:2:in `load'
+  -e:2
+
+Rendered rescues/_trace (39.0ms)
+Rendered rescues/_request_and_response (1.0ms)
+Rendering rescues/layout (not_found)
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (1.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing SessionsController#create (for 127.0.0.1 at 2011-02-15 10:26:50) [POST]
+  Parameters: {"commit"=>"Log in", "lab"=>{"lab_id"=>"7"}, "action"=>"create", "authenticity_token"=>"42v8UE/m39DQGFxNBvcGKke8XFmoPs8gFWhHRfQTZW4=", "controller"=>"sessions", "login"=>"sgrimes", "password"=>"[FILTERED]"}
+  [4;36;1mUser Columns (1.0ms)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+  [4;35;1mUser Load (1.0ms)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` IS NULL) LIMIT 1[0m
+  [4;36;1mUser Load (1.0ms)[0m   [0;1mSELECT * FROM `users` WHERE (login = 'sgrimes' AND lab_id = NULL AND activated_at IS NOT NULL) LIMIT 1[0m
+Failed login for 'sgrimes' from 127.0.0.1 at Tue Feb 15 18:26:50 UTC 2011
+  [4;35;1mLab Load (1.0ms)[0m   [0mSELECT * FROM `labs` ORDER BY lab_name[0m
+Rendering template within layouts/application
+Rendering sessions/new
+  [4;36;1mLab Columns (1.0ms)[0m   [0;1mSHOW FIELDS FROM `labs`[0m
+Completed in 68ms (View: 19, DB: 6) | 200 OK [http://localhost/sessions/create]
+  [4;35;1mSQL (1.0ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing SessionsController#create (for 127.0.0.1 at 2011-02-15 10:27:03) [POST]
+  Parameters: {"commit"=>"Log in", "lab"=>{"id"=>"7"}, "action"=>"create", "authenticity_token"=>"42v8UE/m39DQGFxNBvcGKke8XFmoPs8gFWhHRfQTZW4=", "controller"=>"sessions", "login"=>"sgrimes", "password"=>"[FILTERED]"}
+  [4;35;1mUser Columns (2.0ms)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mUser Load (1.0ms)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` IS NULL) LIMIT 1[0m
+  [4;35;1mUser Load (1.0ms)[0m   [0mSELECT * FROM `users` WHERE (login = 'sgrimes' AND lab_id = '7' AND activated_at IS NOT NULL) LIMIT 1[0m
+  [4;36;1mSQL (1.0ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (1.0ms)[0m   [0mCOMMIT[0m
+Redirected to http://localhost:3005/
+Completed in 113ms (DB: 7) | 302 Found [http://localhost/sessions/create]
+  [4;36;1mSQL (1.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (1.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing WelcomeController#index (for 127.0.0.1 at 2011-02-15 10:27:04) [GET]
+  Parameters: {"action"=>"index", "controller"=>"welcome"}
+  [4;36;1mUser Columns (1.0ms)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+  [4;35;1mUser Load (1.0ms)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` IS NULL) LIMIT 1[0m
+  [4;36;1mUser Load (1.0ms)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 1) LIMIT 1[0m
+Rendering template within layouts/application
+Rendering welcome/index
+Completed in 49ms (View: 12, DB: 5) | 200 OK [http://localhost/]
+  [4;35;1mSQL (1.0ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing SessionsController#create (for 127.0.0.1 at 2011-02-15 10:27:22) [POST]
+  Parameters: {"commit"=>"Log in", "lab"=>{"id"=>"7"}, "action"=>"create", "authenticity_token"=>"42v8UE/m39DQGFxNBvcGKke8XFmoPs8gFWhHRfQTZW4=", "controller"=>"sessions", "login"=>"sgrimes", "password"=>"[FILTERED]"}
+  [4;35;1mUser Columns (1.0ms)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mUser Load (1.0ms)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` IS NULL) LIMIT 1[0m
+  [4;35;1mUser Load (1.0ms)[0m   [0mSELECT * FROM `users` WHERE (login = 'sgrimes' AND lab_id = '7' AND activated_at IS NOT NULL) LIMIT 1[0m
+Failed login for 'sgrimes' from 127.0.0.1 at Tue Feb 15 18:27:22 UTC 2011
+  [4;36;1mLab Load (1.0ms)[0m   [0;1mSELECT * FROM `labs` ORDER BY lab_name[0m
+Rendering template within layouts/application
+Rendering sessions/new
+  [4;35;1mLab Columns (1.0ms)[0m   [0mSHOW FIELDS FROM `labs`[0m
+Completed in 66ms (View: 13, DB: 6) | 200 OK [http://localhost/sessions/create]
+  [4;36;1mSQL (1.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing SessionsController#create (for 127.0.0.1 at 2011-02-15 10:27:42) [POST]
+  Parameters: {"commit"=>"Log in", "lab"=>{"id"=>""}, "action"=>"create", "authenticity_token"=>"42v8UE/m39DQGFxNBvcGKke8XFmoPs8gFWhHRfQTZW4=", "controller"=>"sessions", "login"=>"sgrimes", "password"=>"[FILTERED]"}
+  [4;36;1mUser Columns (2.0ms)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+  [4;35;1mUser Load (0.0ms)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` IS NULL) LIMIT 1[0m
+  [4;36;1mUser Load (0.0ms)[0m   [0;1mSELECT * FROM `users` WHERE (login = 'sgrimes' AND lab_id = '' AND activated_at IS NOT NULL) LIMIT 1[0m
+Failed login for 'sgrimes' from 127.0.0.1 at Tue Feb 15 18:27:42 UTC 2011
+  [4;35;1mLab Load (0.0ms)[0m   [0mSELECT * FROM `labs` ORDER BY lab_name[0m
+Rendering template within layouts/application
+Rendering sessions/new
+  [4;36;1mLab Columns (1.0ms)[0m   [0;1mSHOW FIELDS FROM `labs`[0m
+Completed in 62ms (View: 12, DB: 4) | 200 OK [http://localhost/sessions/create]
+  [4;35;1mSQL (1.0ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing SessionsController#create (for 127.0.0.1 at 2011-02-15 10:28:29) [POST]
+  Parameters: {"commit"=>"Log in", "lab"=>{"id"=>"7"}, "action"=>"create", "authenticity_token"=>"42v8UE/m39DQGFxNBvcGKke8XFmoPs8gFWhHRfQTZW4=", "controller"=>"sessions", "login"=>"sgrimes", "password"=>"[FILTERED]"}
+  [4;35;1mUser Columns (2.0ms)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mUser Load (0.0ms)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` IS NULL) LIMIT 1[0m
+  [4;35;1mUser Load (1.0ms)[0m   [0mSELECT * FROM `users` WHERE (login = 'sgrimes' AND lab_id = '7' AND activated_at IS NOT NULL) LIMIT 1[0m
+Failed login for 'sgrimes' from 127.0.0.1 at Tue Feb 15 18:28:29 UTC 2011
+  [4;36;1mLab Columns (1.0ms)[0m   [0;1mSHOW FIELDS FROM `labs`[0m
+  [4;35;1mLab Load (0.0ms)[0m   [0mSELECT * FROM `labs` WHERE (`labs`.`id` = 7) [0m
+  [4;36;1mLab Load (1.0ms)[0m   [0;1mSELECT * FROM `labs` ORDER BY lab_name[0m
+Rendering template within layouts/application
+Rendering sessions/new
+Completed in 68ms (View: 12, DB: 6) | 200 OK [http://localhost/sessions/create]
+  [4;35;1mSQL (0.0ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing SessionsController#create (for 127.0.0.1 at 2011-02-15 10:31:15) [POST]
+  Parameters: {"commit"=>"Log in", "lab"=>{"id"=>""}, "action"=>"create", "authenticity_token"=>"42v8UE/m39DQGFxNBvcGKke8XFmoPs8gFWhHRfQTZW4=", "controller"=>"sessions", "login"=>"sgrimes", "password"=>"[FILTERED]"}
+  [4;35;1mUser Columns (2.0ms)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mUser Load (1.0ms)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` IS NULL) LIMIT 1[0m
+  [4;35;1mUser Load (1.0ms)[0m   [0mSELECT * FROM `users` WHERE (login = 'sgrimes' AND lab_id = '' AND activated_at IS NOT NULL) LIMIT 1[0m
+Failed login for 'sgrimes' from 127.0.0.1 at Tue Feb 15 18:31:15 UTC 2011
+  [4;36;1mLab Columns (2.0ms)[0m   [0;1mSHOW FIELDS FROM `labs`[0m
+  [4;35;1mLab Load (0.0ms)[0m   [0mSELECT * FROM `labs` WHERE (`labs`.`id` = 0) [0m
+
+ActiveRecord::RecordNotFound (Couldn't find Lab with ID=):
+  app/controllers/sessions_controller.rb:26:in `create'
+  -e:2:in `load'
+  -e:2
+
+Rendered rescues/_trace (38.0ms)
+Rendered rescues/_request_and_response (1.0ms)
+Rendering rescues/layout (not_found)
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing SessionsController#create (for 127.0.0.1 at 2011-02-15 10:33:11) [POST]
+  Parameters: {"commit"=>"Log in", "lab"=>{"id"=>""}, "action"=>"create", "authenticity_token"=>"42v8UE/m39DQGFxNBvcGKke8XFmoPs8gFWhHRfQTZW4=", "controller"=>"sessions", "login"=>"sgrimes", "password"=>"[FILTERED]"}
+  [4;36;1mUser Columns (2.0ms)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+  [4;35;1mUser Load (0.0ms)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` IS NULL) LIMIT 1[0m
+  [4;36;1mUser Load (0.0ms)[0m   [0;1mSELECT * FROM `users` WHERE (login = 'sgrimes' AND lab_id = '' AND activated_at IS NOT NULL) LIMIT 1[0m
+Failed login for 'sgrimes' from 127.0.0.1 at Tue Feb 15 18:33:11 UTC 2011
+  [4;35;1mLab Load (1.0ms)[0m   [0mSELECT * FROM `labs` ORDER BY lab_name[0m
+Rendering template within layouts/application
+Rendering sessions/new
+  [4;36;1mLab Columns (0.0ms)[0m   [0;1mSHOW FIELDS FROM `labs`[0m
+Completed in 64ms (View: 14, DB: 3) | 200 OK [http://localhost/sessions/create]
+  [4;35;1mSQL (0.0ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (1.0ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing SessionsController#create (for 127.0.0.1 at 2011-02-15 10:33:30) [POST]
+  Parameters: {"commit"=>"Log in", "lab"=>{"id"=>""}, "action"=>"create", "authenticity_token"=>"42v8UE/m39DQGFxNBvcGKke8XFmoPs8gFWhHRfQTZW4=", "controller"=>"sessions", "login"=>"sgrimes", "password"=>"[FILTERED]"}
+  [4;35;1mUser Columns (2.0ms)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mUser Load (1.0ms)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` IS NULL) LIMIT 1[0m
+  [4;35;1mUser Load (1.0ms)[0m   [0mSELECT * FROM `users` WHERE (login = 'sgrimes' AND lab_id = '' AND activated_at IS NOT NULL) LIMIT 1[0m
+Failed login for 'sgrimes' from 127.0.0.1 at Tue Feb 15 18:33:30 UTC 2011
+  [4;36;1mLab Load (1.0ms)[0m   [0;1mSELECT * FROM `labs` ORDER BY lab_name[0m
+Rendering template within layouts/application
+Rendering sessions/new
+  [4;35;1mLab Columns (1.0ms)[0m   [0mSHOW FIELDS FROM `labs`[0m
+Completed in 63ms (View: 13, DB: 7) | 200 OK [http://localhost/sessions/create]
+  [4;36;1mSQL (1.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing SessionsController#create (for 127.0.0.1 at 2011-02-15 10:33:48) [POST]
+  Parameters: {"commit"=>"Log in", "lab"=>{"id"=>"7"}, "action"=>"create", "authenticity_token"=>"42v8UE/m39DQGFxNBvcGKke8XFmoPs8gFWhHRfQTZW4=", "controller"=>"sessions", "login"=>"sgrimes", "password"=>"[FILTERED]"}
+  [4;36;1mUser Columns (2.0ms)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+  [4;35;1mUser Load (1.0ms)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` IS NULL) LIMIT 1[0m
+  [4;36;1mUser Load (1.0ms)[0m   [0;1mSELECT * FROM `users` WHERE (login = 'sgrimes' AND lab_id = '7' AND activated_at IS NOT NULL) LIMIT 1[0m
+  [4;35;1mSQL (1.0ms)[0m   [0mBEGIN[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mCOMMIT[0m
+Redirected to http://localhost:3005/
+Completed in 109ms (DB: 6) | 302 Found [http://localhost/sessions/create]
+  [4;35;1mSQL (0.0ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (1.0ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing WelcomeController#index (for 127.0.0.1 at 2011-02-15 10:33:49) [GET]
+  Parameters: {"action"=>"index", "controller"=>"welcome"}
+  [4;35;1mUser Columns (2.0ms)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mUser Load (1.0ms)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` IS NULL) LIMIT 1[0m
+  [4;35;1mUser Load (1.0ms)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 1) LIMIT 1[0m
+Rendering template within layouts/application
+Rendering welcome/index
+Completed in 51ms (View: 12, DB: 5) | 200 OK [http://localhost/]
+  [4;36;1mSQL (1.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing SessionsController#destroy (for 127.0.0.1 at 2011-02-15 10:39:24) [GET]
+  Parameters: {"action"=>"destroy", "controller"=>"sessions"}
+  [4;36;1mUser Columns (1.0ms)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+  [4;35;1mUser Load (1.0ms)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` IS NULL) LIMIT 1[0m
+Redirected to http://localhost:3005/
+Completed in 35ms (DB: 3) | 302 Found [http://localhost/logout]
+  [4;36;1mSQL (1.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (1.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing WelcomeController#index (for 127.0.0.1 at 2011-02-15 10:39:25) [GET]
+  Parameters: {"action"=>"index", "controller"=>"welcome"}
+  [4;36;1mUser Columns (2.0ms)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+  [4;35;1mUser Load (1.0ms)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` IS NULL) LIMIT 1[0m
+Redirected to http://localhost:3005/login
+Completed in 36ms (DB: 5) | 302 Found [http://localhost/]
+  [4;36;1mSQL (1.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (1.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing SessionsController#new (for 127.0.0.1 at 2011-02-15 10:39:26) [GET]
+  Parameters: {"action"=>"new", "controller"=>"sessions"}
+  [4;36;1mUser Columns (2.0ms)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+  [4;35;1mUser Load (1.0ms)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` IS NULL) LIMIT 1[0m
+  [4;36;1mLab Load (1.0ms)[0m   [0;1mSELECT * FROM `labs` ORDER BY lab_name[0m
+Rendering template within layouts/application
+Rendering sessions/new
+  [4;35;1mLab Columns (1.0ms)[0m   [0mSHOW FIELDS FROM `labs`[0m
+Completed in 62ms (View: 13, DB: 7) | 200 OK [http://localhost/login]
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing SessionsController#create (for 127.0.0.1 at 2011-02-15 10:41:41) [POST]
+  Parameters: {"commit"=>"Log in", "lab"=>{"id"=>""}, "action"=>"create", "authenticity_token"=>"MNYAQtSh8PCM8OkbdwXaltOMzA/xAu53usjbYn/QiQA=", "controller"=>"sessions", "login"=>"sue", "password"=>"[FILTERED]"}
+  [4;36;1mUser Columns (2.0ms)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+  [4;35;1mUser Load (1.0ms)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` IS NULL) LIMIT 1[0m
+  [4;36;1mLab Load (1.0ms)[0m   [0;1mSELECT * FROM `labs` ORDER BY lab_name[0m
+Rendering template within layouts/application
+Rendering sessions/new
+  [4;35;1mLab Columns (1.0ms)[0m   [0mSHOW FIELDS FROM `labs`[0m
+Completed in 61ms (View: 12, DB: 5) | 200 OK [http://localhost/sessions/create]
+  [4;36;1mSQL (1.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mLab Columns (1.0ms)[0m   [0mSHOW FIELDS FROM `labs`[0m
+  [4;36;1mRole Columns (1.0ms)[0m   [0;1mSHOW FIELDS FROM `roles`[0m
+  [4;35;1mSample Columns (1.0ms)[0m   [0mSHOW FIELDS FROM `samples`[0m
+  [4;36;1mUser Columns (2.0ms)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+  [4;36;1mSQL (1.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mLab Columns (1.0ms)[0m   [0mSHOW FIELDS FROM `labs`[0m
+  [4;36;1mRole Columns (2.0ms)[0m   [0;1mSHOW FIELDS FROM `roles`[0m
+  [4;35;1mSample Columns (2.0ms)[0m   [0mSHOW FIELDS FROM `samples`[0m
+  [4;36;1mShipment Columns (1.0ms)[0m   [0;1mSHOW FIELDS FROM `shipments`[0m
+  [4;35;1mUser Columns (1.0ms)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mSQL (1.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (1.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing SessionsController#create (for 127.0.0.1 at 2011-02-15 14:05:44) [POST]
+  Parameters: {"commit"=>"Log in", "lab"=>{"id"=>"7"}, "action"=>"create", "authenticity_token"=>"MNYAQtSh8PCM8OkbdwXaltOMzA/xAu53usjbYn/QiQA=", "controller"=>"sessions", "login"=>"sgrimes", "password"=>"[FILTERED]"}
+  [4;36;1mUser Columns (3.0ms)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+  [4;35;1mUser Load (1.0ms)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` IS NULL) LIMIT 1[0m
+  [4;36;1mUser Load (2.0ms)[0m   [0;1mSELECT * FROM `users` WHERE (login = 'sgrimes' AND lab_id = '7' AND activated_at IS NOT NULL) LIMIT 1[0m
+  [4;35;1mSQL (1.0ms)[0m   [0mBEGIN[0m
+  [4;36;1mSQL (1.0ms)[0m   [0;1mCOMMIT[0m
+Redirected to http://localhost:3005/
+Completed in 69ms (DB: 10) | 302 Found [http://localhost/sessions/create]
+  [4;35;1mSQL (1.0ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (1.0ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing WelcomeController#index (for 127.0.0.1 at 2011-02-15 14:05:45) [GET]
+  Parameters: {"action"=>"index", "controller"=>"welcome"}
+  [4;35;1mUser Columns (3.0ms)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mUser Load (1.0ms)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` IS NULL) LIMIT 1[0m
+  [4;35;1mUser Load (1.0ms)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 1) LIMIT 1[0m
+Rendering template within layouts/application
+Rendering welcome/index
+Completed in 51ms (View: 12, DB: 7) | 200 OK [http://localhost/]
+  [4;36;1mSQL (1.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (1.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing WelcomeController#index (for 127.0.0.1 at 2011-02-15 14:48:08) [GET]
+  Parameters: {"action"=>"index", "controller"=>"welcome"}
+  [4;36;1mUser Columns (2.0ms)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+  [4;35;1mUser Load (1.0ms)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` IS NULL) LIMIT 1[0m
+  [4;36;1mUser Load (1.0ms)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 1) LIMIT 1[0m
+Rendering template within layouts/application
+Rendering welcome/index
+Completed in 59ms (View: 20, DB: 6) | 200 OK [http://localhost/]
+  [4;35;1mSQL (1.0ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (2.0ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing SamplesController#new (for 127.0.0.1 at 2011-02-15 14:48:13) [GET]
+  Parameters: {"action"=>"new", "controller"=>"samples"}
+  [4;35;1mUser Columns (3.0ms)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mUser Load (1.0ms)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` IS NULL) LIMIT 1[0m
+  [4;35;1mSample Columns (3.0ms)[0m   [0mSHOW FIELDS FROM `samples`[0m
+Rendering template within layouts/application
+Rendering samples/new
+
+ActionView::TemplateError (undefined method `date_field' for #<ActionView::Helpers::FormBuilder:0x788d180>) on line #9 of app/views/samples/_sample_form.html.erb:
+6: 	  <th><%=f.label :sample_name %></th>
+7: 	  <td><%=f.text_field(:sample_name) %></td>
+8: 	  <th><%=f.label :sample_date %></th>
+9: 	  <td><%=f.date_field(:sample_date) %></td>
+10: 	</tr>
+11: 
+12:     <tr>
+
+    app/views/samples/_sample_form.html.erb:9
+    app/views/samples/new.html.erb:6
+    app/views/samples/new.html.erb:3
+    app/controllers/samples_controller.rb:29:in `new'
+    -e:2:in `load'
+    -e:2
+
+Rendered rescues/_trace (62.0ms)
+Rendered rescues/_request_and_response (0.0ms)
+Rendering rescues/layout (internal_server_error)
+  [4;36;1mSQL (1.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (2.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing SamplesController#new (for 127.0.0.1 at 2011-02-15 14:50:34) [GET]
+  Parameters: {"action"=>"new", "controller"=>"samples"}
+  [4;36;1mUser Columns (3.0ms)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+  [4;35;1mUser Load (1.0ms)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` IS NULL) LIMIT 1[0m
+  [4;36;1mSample Columns (3.0ms)[0m   [0;1mSHOW FIELDS FROM `samples`[0m
+Rendering template within layouts/application
+Rendering samples/new
+Rendered samples/_sample_form (22.0ms)
+  [4;35;1mUser Load (1.0ms)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 1) LIMIT 1[0m
+Completed in 110ms (View: 57, DB: 11) | 200 OK [http://localhost/samples/new]
+  [4;36;1mSQL (1.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (2.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing SamplesController#new (for 127.0.0.1 at 2011-02-15 14:59:12) [GET]
+  Parameters: {"action"=>"new", "controller"=>"samples"}
+  [4;36;1mUser Columns (2.0ms)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+  [4;35;1mUser Load (1.0ms)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` IS NULL) LIMIT 1[0m
+  [4;36;1mSample Columns (3.0ms)[0m   [0;1mSHOW FIELDS FROM `samples`[0m
+Rendering template within layouts/application
+Rendering samples/new
+Rendered samples/_sample_form (21.0ms)
+  [4;35;1mUser Load (2.0ms)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 1) LIMIT 1[0m
+Completed in 107ms (View: 55, DB: 11) | 200 OK [http://localhost/samples/new]
+  [4;36;1mSQL (1.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (1.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing SamplesController#new (for 127.0.0.1 at 2011-02-15 15:01:34) [GET]
+  Parameters: {"action"=>"new", "controller"=>"samples"}
+  [4;36;1mUser Columns (2.0ms)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+  [4;35;1mUser Load (1.0ms)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` IS NULL) LIMIT 1[0m
+  [4;36;1mSample Columns (3.0ms)[0m   [0;1mSHOW FIELDS FROM `samples`[0m
+Rendering template within layouts/application
+Rendering samples/new
+Rendered samples/_sample_form (21.0ms)
+  [4;35;1mUser Load (1.0ms)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 1) LIMIT 1[0m
+Completed in 106ms (View: 55, DB: 9) | 200 OK [http://localhost/samples/new]
+  [4;36;1mSQL (1.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (2.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing SamplesController#new (for 127.0.0.1 at 2011-02-15 15:04:01) [GET]
+  Parameters: {"action"=>"new", "controller"=>"samples"}
+  [4;36;1mUser Columns (3.0ms)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+  [4;35;1mUser Load (1.0ms)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` IS NULL) LIMIT 1[0m
+  [4;36;1mSample Columns (3.0ms)[0m   [0;1mSHOW FIELDS FROM `samples`[0m
+Rendering template within layouts/application
+Rendering samples/new
+Rendered samples/_sample_form (86.0ms)
+  [4;35;1mUser Load (1.0ms)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 1) LIMIT 1[0m
+Completed in 174ms (View: 122, DB: 11) | 200 OK [http://localhost/samples/new]
+  [4;36;1mSQL (1.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (2.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing SamplesController#new (for 127.0.0.1 at 2011-02-15 15:06:50) [GET]
+  Parameters: {"action"=>"new", "controller"=>"samples"}
+  [4;36;1mUser Columns (3.0ms)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+  [4;35;1mUser Load (2.0ms)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` IS NULL) LIMIT 1[0m
+  [4;36;1mSample Columns (3.0ms)[0m   [0;1mSHOW FIELDS FROM `samples`[0m
+
+NoMethodError (undefined method `build' for nil:NilClass):
+  app/controllers/samples_controller.rb:28:in `new'
+  -e:2:in `load'
+  -e:2
+
+Rendered rescues/_trace (37.0ms)
+Rendered rescues/_request_and_response (1.0ms)
+Rendering rescues/layout (internal_server_error)
+  [4;35;1mSQL (1.0ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (2.0ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing SamplesController#new (for 127.0.0.1 at 2011-02-15 15:08:26) [GET]
+  Parameters: {"action"=>"new", "controller"=>"samples"}
+  [4;35;1mUser Columns (3.0ms)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mUser Load (1.0ms)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` IS NULL) LIMIT 1[0m
+  [4;35;1mSample Columns (3.0ms)[0m   [0mSHOW FIELDS FROM `samples`[0m
+
+NoMethodError (undefined method `build_shipments' for #<Sample:0x76140d8>):
+  app/controllers/samples_controller.rb:28:in `new'
+  -e:2:in `load'
+  -e:2
+
+Rendered rescues/_trace (37.0ms)
+Rendered rescues/_request_and_response (0.0ms)
+Rendering rescues/layout (internal_server_error)
+  [4;36;1mSQL (1.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (2.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing SamplesController#new (for 127.0.0.1 at 2011-02-15 15:09:17) [GET]
+  Parameters: {"action"=>"new", "controller"=>"samples"}
+  [4;36;1mUser Columns (3.0ms)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+  [4;35;1mUser Load (1.0ms)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` IS NULL) LIMIT 1[0m
+  [4;36;1mSample Columns (2.0ms)[0m   [0;1mSHOW FIELDS FROM `samples`[0m
+  [4;35;1mShipment Columns (2.0ms)[0m   [0mSHOW FIELDS FROM `shipments`[0m
+Rendering template within layouts/application
+Rendering samples/new
+Rendered samples/_sample_form (18.0ms)
+Rendered samples/_shipment_form (6.0ms)
+  [4;36;1mUser Load (2.0ms)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 1) LIMIT 1[0m
+Completed in 115ms (View: 51, DB: 13) | 200 OK [http://localhost/samples/new]
+  [4;35;1mSQL (1.0ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (1.0ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing SamplesController#new (for 127.0.0.1 at 2011-02-15 15:14:56) [GET]
+  Parameters: {"action"=>"new", "controller"=>"samples"}
+  [4;35;1mUser Columns (2.0ms)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mUser Load (1.0ms)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` IS NULL) LIMIT 1[0m
+  [4;35;1mSample Columns (3.0ms)[0m   [0mSHOW FIELDS FROM `samples`[0m
+  [4;36;1mShipment Columns (2.0ms)[0m   [0;1mSHOW FIELDS FROM `shipments`[0m
+Rendering template within layouts/application
+Rendering samples/new
+Rendered samples/_sample_form (22.0ms)
+Rendered samples/_shipment_form (5.0ms)
+  [4;35;1mUser Load (1.0ms)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 1) LIMIT 1[0m
+Completed in 118ms (View: 54, DB: 11) | 200 OK [http://localhost/samples/new]
+  [4;36;1mSQL (1.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (2.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing SamplesController#new (for 127.0.0.1 at 2011-02-15 15:35:09) [GET]
+  Parameters: {"action"=>"new", "controller"=>"samples"}
+  [4;36;1mUser Columns (3.0ms)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+  [4;35;1mUser Load (1.0ms)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` IS NULL) LIMIT 1[0m
+  [4;36;1mSample Columns (2.0ms)[0m   [0;1mSHOW FIELDS FROM `samples`[0m
+  [4;35;1mShipment Columns (2.0ms)[0m   [0mSHOW FIELDS FROM `shipments`[0m
+Rendering template within layouts/application
+Rendering samples/new
+Rendered samples/_sample_form (21.0ms)
+Rendered samples/_shipment_form (5.0ms)
+  [4;36;1mUser Load (2.0ms)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 1) LIMIT 1[0m
+Completed in 182ms (View: 117, DB: 13) | 200 OK [http://localhost/samples/new]
+  [4;35;1mSQL (1.0ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (1.0ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing SamplesController#new (for 127.0.0.1 at 2011-02-15 15:39:06) [GET]
+  Parameters: {"action"=>"new", "controller"=>"samples"}
+  [4;35;1mUser Columns (3.0ms)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mUser Load (1.0ms)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` IS NULL) LIMIT 1[0m
+  [4;35;1mSample Columns (3.0ms)[0m   [0mSHOW FIELDS FROM `samples`[0m
+  [4;36;1mShipment Columns (2.0ms)[0m   [0;1mSHOW FIELDS FROM `shipments`[0m
+Rendering template within layouts/application
+Rendering samples/new
+Rendered samples/_sample_form (20.0ms)
+Rendered samples/_shipment_form (4.0ms)
+  [4;35;1mUser Load (2.0ms)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 1) LIMIT 1[0m
+Completed in 118ms (View: 53, DB: 13) | 200 OK [http://localhost/samples/new]
+  [4;36;1mSQL (1.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (2.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing SamplesController#new (for 127.0.0.1 at 2011-02-15 16:01:13) [GET]
+  Parameters: {"action"=>"new", "controller"=>"samples"}
+  [4;36;1mUser Columns (2.0ms)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+  [4;35;1mUser Load (1.0ms)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` IS NULL) LIMIT 1[0m
+  [4;36;1mSample Columns (3.0ms)[0m   [0;1mSHOW FIELDS FROM `samples`[0m
+  [4;35;1mShipment Columns (2.0ms)[0m   [0mSHOW FIELDS FROM `shipments`[0m
+Rendering template within layouts/application
+Rendering samples/new
+Rendered samples/_sample_form (22.0ms)
+Rendered samples/_shipment_form (5.0ms)
+  [4;36;1mUser Load (2.0ms)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 1) LIMIT 1[0m
+Completed in 142ms (View: 54, DB: 13) | 200 OK [http://localhost/samples/new]
+  [4;35;1mSQL (1.0ms)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (1.0ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing SamplesController#new (for 127.0.0.1 at 2011-02-15 16:16:17) [GET]
+  Parameters: {"action"=>"new", "controller"=>"samples"}
+  [4;35;1mUser Columns (3.0ms)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mUser Load (2.0ms)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` IS NULL) LIMIT 1[0m
+  [4;35;1mSample Columns (2.0ms)[0m   [0mSHOW FIELDS FROM `samples`[0m
+  [4;36;1mShipment Columns (2.0ms)[0m   [0;1mSHOW FIELDS FROM `shipments`[0m
+Rendering template within layouts/application
+Rendering samples/new
+Rendered samples/_sample_form (21.0ms)
+Rendered samples/_shipment_form (5.0ms)
+  [4;35;1mUser Load (1.0ms)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 1) LIMIT 1[0m
+Completed in 121ms (View: 54, DB: 12) | 200 OK [http://localhost/samples/new]

@@ -1,7 +1,8 @@
-class UsersController < ApplicationController
+class UsersController < ApplicationController  
   # render new.rhtml
   def new
     @user = User.new
+    @labs = Lab.find(:all, :order => :lab_name)
   end
  
   def create
@@ -13,6 +14,7 @@ class UsersController < ApplicationController
       flash[:notice] = "Thanks for signing up!  We're sending you an email with your activation code."
     else
       flash[:error]  = "We couldn't set up that account, sorry.  Please try again, or contact an admin (link is above)."
+      @labs = Lab.find(:all, :order => :lab_name)
       render :action => 'new'
     end
   end

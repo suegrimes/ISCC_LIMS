@@ -1,5 +1,5 @@
 # Settings specified here will take precedence over those in config/environment.rb
-SITE_URL = "localhost:3004"
+SITE_URL = "localhost:3005"
 
 # In the development environment your application's code is reloaded on
 # every request.  This slows down response time but is perfect for development
@@ -14,5 +14,8 @@ config.action_controller.consider_all_requests_local = true
 config.action_view.debug_rjs                         = true
 config.action_controller.perform_caching             = false
              
-# Don't care if the mailer can't send
+# Enable mail delivery error messages
 config.action_mailer.raise_delivery_errors = true
+
+# Disable delivery errors, bad email addresses will be ignored
+# config.action_mailer.raise_delivery_errors = false

@@ -1,0 +1,16 @@
+<h1>New sample</h1>
+
+<% form_for @sample, :url => {:action => 'create'} do |f| %>
+  <%= f.error_messages %>
+  
+  <%= render :partial => 'sample_form', :locals => {:f => f, :sample => @sample} %>
+  
+    <% f.fields_for :shipment do |s| %>
+	  <%= s.error_messages %>
+	  
+      <%= render :partial => 'shipment_form',   :locals => {:f => s} %>
+  
+	<% end %>
+  
+  <p><%= f.submit "Save" %></p>
+  <% end %>

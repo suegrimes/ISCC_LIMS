@@ -1,6 +1,10 @@
 <h1>Log In</h1>
 
 <% form_tag :action => :create do -%>
+
+<p><%= label_tag 'lab' %><br />
+<%= collection_select(:lab, :id, @labs, :id, :lab_name, {:include_blank => 'Select Lab'}) %></p>
+
 <p><%= label_tag 'login' %><br />
 <%= text_field_tag 'login', @login %></p>
 
@@ -10,7 +14,7 @@
 <p><%= label_tag 'remember_me', 'Remember me' %>
 <%= check_box_tag 'remember_me', '1', @remember_me %></p>
 
-<p><%= submit_tag 'Log in' %>
-   <%=link_to 'Sign Up', signup_path %>
+<p><%= submit_tag 'Log in' %>&nbsp;&nbsp;
+   <%=link_to 'Sign Up', signup_path %>&nbsp;&nbsp;
    <%=link_to 'Forgot Password?', forgot_path %></p>
 <% end -%>

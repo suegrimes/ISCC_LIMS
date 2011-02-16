@@ -315,7 +315,7 @@ td {
 	font-variant: small-caps;
 }
 
-.list, .form {
+.list, .form, .info {
 	border: 1px solid #b0aa91;
 	border-collapse: collapse;
 }

@@ -1,26 +1,26 @@
 <span class="form_title">Sample Details:</span>
 <table class="form01">
     <tr>
-      <th><%=f.label :barcode %></th>
+      <th><%=f.label :barcode_key, 'Barcode' %></th>
 	  <th><%=f.label :sample_name %></th>
       <th><%=f.label :sample_date %></th>	
 	</tr>
 	<tr>
-	  <td><%=f.text_field(:barcode_key) %></td>
-	  <td><%=f.text_field(:sample_name) %></td>
-	  <td><%=f.calendar_date_select(:sample_date, :valid_date_check => "date <= (new Date()).stripTime()") %></td>
+	  <td><%=f.text_field(:barcode_key, :size => 12) %></td>
+	  <td><%=f.text_field(:sample_name, :size => 25) %></td>
+	  <td><%=f.calendar_date_select(:sample_date, :size => 10, :valid_date_check => "date <= (new Date()).stripTime()") %></td>
 	</tr>
 
     <tr>
       <th><%=f.label :organism %></th>    
       <th><%=f.label :strain %></th> 
 	  <th><%=f.label :sex %></th>
-	  <th><%=f.label :age_in_weeks %></th> 
+	  <th><%=f.label :age_in_weeks, 'Age (in weeks)' %></th> 
 	<tr>
-	  <td><%=f.text_field(:organism) %></td>
-	  <td><%=f.text_field(:strain) %></td>
-	  <td><%=f.text_field(:sex) %></td>
-	  <td><%=f.text_field(:age_in_weeks) %></td>
+	  <td><%=f.text_field(:organism, :size => 25) %></td>
+	  <td><%=f.text_field(:strain, :size => 10) %></td>
+	  <td><%=f.select(:sex, Sample::SEX) %></td>
+	  <td><%=f.text_field(:age_in_weeks, :size => 4) %></td>
     </tr>
 	</tr>
 	
@@ -30,20 +30,20 @@
 	  <th><%=f.label :intestinal_sc_marker %></th> 
 	</tr>
 	<tr>
-	  <td><%=f.text_field(:intestinal_region) %></td>
-	  <td><%=f.text_field(:intestinal_region_definition) %></td>
-	  <td><%=f.text_field(:intestinal_sc_marker) %></td>
+	  <td><%=f.text_field(:intestinal_region, :size => 15) %></td>
+	  <td><%=f.text_field(:intestinal_region_definition, :size => 15) %></td>
+	  <td><%=f.select(:intestinal_sc_marker, Sample::SC_MARKERS, {:include_blank => 'Select'}) %></td>
 	</tr>
 	
 	<tr>
-      <th><%=f.label :isolation_protocol %></th> 
+      <th><%=f.label :isolation_protocol_id, 'Isolation Protocol' %></th> 
       <th><%=f.label :facs_protocol %></th>
 	  <th><%=f.label :sc_marker_validation_method %></th>
     </tr>
 	<tr>
 	  <td><%=f.text_field(:isolation_protocol_id) %></td>
 	  <td><%=f.text_field(:facs_protocol_id) %></td>
-	  <td><%=f.text_field(:sc_marker_validation_method) %></td>
+	  <td><%=f.select(:sc_marker_validation_method, Sample::MARKER_VALIDATION, {:include_blank => 'Select'}) %></td>
 	</tr>
 	
     <tr>

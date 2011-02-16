@@ -1,4 +1,4 @@
-<h1>New sample</h1>
+<h3>New sample</h3>
 
 <% form_for @sample, :url => {:action => 'create'} do |f| %>
   <%= f.error_messages %>
@@ -9,7 +9,7 @@
 	  <%= s.error_messages %>
 	  
       <%= render :partial => 'shipment_form',   :locals => {:f => s} %>
-  
+      <%= render :partial => 'shipment_instructions' %>
 	<% end %>
   
   <p><%= f.submit "Save" %></p>

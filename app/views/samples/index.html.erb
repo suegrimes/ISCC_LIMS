@@ -1,14 +1,21 @@
-<h1>Listing samples</h1>
+<h3>Listing samples</h3>
 
-<table>
+<table class="list">
   <tr>
+  	<th>Barcode</th>
+	<th>Sample Name</th>
+	<th>Sample Date</th>
+	<th colspan=3></th>
   </tr>
 
 <% @samples.each do |sample| %>
   <tr>
+  	<td><%=h sample.barcode_key %></td>
+	<td><%=h sample.sample_name %></td>
+	<td><%=h sample.sample_date %></td>
     <td><%= link_to 'Show', sample %></td>
     <td><%= link_to 'Edit', edit_sample_path(sample) %></td>
-    <td><%= link_to 'Destroy', sample, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to 'Delete', sample, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>

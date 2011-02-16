@@ -16,6 +16,8 @@ class Shipment < ActiveRecord::Base
 
   belongs_to :sample
   
-  validates_presence_of :sample_id, :date_shipped, :fedex_tracking_nr
+  validates_presence_of :date_shipped, :fedex_tracking_nr
+  
+  SHIPMENT_DEFAULT = {:date_shipped => Date.today}
 
 end

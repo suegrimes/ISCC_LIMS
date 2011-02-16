@@ -2,7 +2,7 @@ class SamplesController < ApplicationController
   # GET /samples
   # GET /samples.xml
   def index
-    @samples = Sample.all
+    @samples = Sample.all(:include => :shipment)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -24,8 +24,8 @@ class SamplesController < ApplicationController
   # GET /samples/new
   # GET /samples/new.xml
   def new
-    @sample = Sample.new
-    @sample.build_shipment
+    @sample = Sample.new(Sample::SAMPLE_DEFAULT)
+    @sample.build_shipment(Shipment::SHIPMENT_DEFAULT)
 
     respond_to do |format|
       format.html # new.html.erb
@@ -35,13 +35,13 @@ class SamplesController < ApplicationController
 
   # GET /samples/1/edit
   def edit
-    @sample = Sample.find(params[:id])
+    @sample = Sample.find(params[:id], :include => :shipment)
   end
 
   # POST /samples
   # POST /samples.xml
   def create
-    @sample = Sample.new(params[:sample])
+    @sample = Sample.new(params[:sample].merge!(:lab_id => current_user.lab_id))
 
     respond_to do |format|
       if @sample.save

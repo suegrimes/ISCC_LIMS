@@ -27,12 +27,22 @@
 class Sample < ActiveRecord::Base
   
   STRAINS    = ['C57BI/6J']
+  SEX = ['Male', 'Female']
   SC_MARKERS = ['Lgr5 hi', 'Lgr5 lo', 'Bmi1', 'SP hi', 'SP lo', 'label-retaining', 'CD166',
                 'CD24', 'p-beta-catS552', 'Mus-1', 'DCAMKL']
   MARKER_VALIDATION = ['none', 'qPCR', 'clonogenic culture', '2nd FACS sort'] 
   
+  SAMPLE_DEFAULT = {:sample_date => Date.today,
+                    :organism => 'Mus Musculus',
+                    :strain => STRAINS[0],
+                    :sex => 'Male',
+                    :age_in_weeks => 6}
+  
+  validates_presence_of :barcode_key, :sample_name, :sample_date, :organism, :strain, :age_in_weeks,
+                        :intestinal_region
+  
   validates_numericality_of :age_in_weeks, :only_integer => true, :message => "must be an integer"
-  validates_inclusion_of :age_in_weeks, :in => 6..10, :message => "must be between 6 and 10"
+  #validates_inclusion_of :age_in_weeks, :in => 6..10, :message => "must be between 6 and 10"
   
   has_one :shipment
   accepts_nested_attributes_for :shipment, :allow_destroy => true

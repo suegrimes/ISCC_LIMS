@@ -3,8 +3,8 @@
     <tr>
       <th><%=f.label :date_shipped %></th>
 	  <td><%=f.calendar_date_select(:date_shipped, :valid_date_check => "date <= (new Date()).stripTime()") %></td>
-	  <th><%=f.label :fedex_tracking_number %></th>
-	  <td><%=f.text_field(:fedex_tracking_nr) %></td>
+	  <th><%=f.label :fedex_tracking_nr, 'FedX tracking number' %></th>
+	  <td><%=f.text_field(:fedex_tracking_nr, :size => 25) %></td>
 	</tr>
 
     <tr>

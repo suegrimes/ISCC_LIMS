@@ -83,7 +83,7 @@
 	<ul class="opened">
 	
 	<li><%=link_to 'New Sample', new_sample_path %></li>	
-	<li>Sample Query</li>
+	<li><%=link_to 'List Samples', samples_path %></li>
 	<li> <%= link_to_function "System Tables", toggle_div(:systables_menu)%> </li>
 	  <div id="systables_menu", style="display:none;">
       	 <ul>

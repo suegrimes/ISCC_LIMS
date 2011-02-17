@@ -1,12 +1,18 @@
-<h1>Editing sample</h1>
+<h3>Editing sample</h3>
 
 <% form_for(@sample) do |f| %>
   <%= f.error_messages %>
-
+  
+  <%= render :partial => 'sample_form', :locals => {:f => f, :sample => @sample} %>
+  
+    <% f.fields_for :shipment do |s| %>
+	  <%= s.error_messages %>
+	  
+      <%= render :partial => 'shipment_form',   :locals => {:f => s} %>
+  
+	<% end %> 
+  
   <p>
     <%= f.submit 'Update' %>
   </p>
 <% end %>
-
-<%= link_to 'Show', @sample %> |
-<%= link_to 'Back', samples_path %>

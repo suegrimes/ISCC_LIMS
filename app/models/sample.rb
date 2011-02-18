@@ -19,6 +19,7 @@
 #  secondary_validation_results :string(255)     default("0.000")
 #  molecule_type                :string(6)
 #  comments                     :string(255)
+#  lab_id                       :integer(4)
 #  updated_by                   :string(50)
 #  created_at                   :datetime
 #  updated_at                   :timestamp       not null
@@ -33,7 +34,7 @@ class Sample < ActiveRecord::Base
   MARKER_VALIDATION = ['none', 'qPCR', 'clonogenic culture', '2nd FACS sort'] 
   
   SAMPLE_DEFAULT = {:sample_date => Date.today,
-                    :organism => 'Mus Musculus',
+                    :organism => 'Mus musculus',
                     :strain => STRAINS[0],
                     :sex => 'Male',
                     :age_in_weeks => 6}

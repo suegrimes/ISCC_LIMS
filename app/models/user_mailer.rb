@@ -11,11 +11,17 @@ class UserMailer < ActionMailer::Base
     @body[:url]  = "http://#{SITE_URL}/"
   end
   
+  def reset_notification(user)
+    setup_email(user)
+    @subject    += 'Link to reset your password'
+    @body[:url]  = "http://#{SITE_URL}/reset/#{user.reset_code}"
+  end
+  
   protected
     def setup_email(user)
       @recipients  = "#{user.email}"
-      @from        = "ADMINEMAIL"
-      @subject     = "[#{SITE_URL}] "
+      @from        = "sgtc_lims@stanford.edu"
+      @subject     = "ISCC_LIMS: "
       @sent_on     = Time.now
       @body[:user] = user
     end

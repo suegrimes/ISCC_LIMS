@@ -1,5 +1,6 @@
 class WelcomeController < ApplicationController
-  skip_before_filter :log_user_action
+  skip_before_filter :login_required
+  #skip_before_filter :log_user_action
   
   def index
     if logged_in?

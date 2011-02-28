@@ -13,7 +13,7 @@
 <div id="container" style="width: 98%;">
 	
 <div id="header">
-    <img class="logo" src="/images/sutech_reflect_DB.gif" alt="Stanford Genome Technology" width="99" height="80" title="SGTC Sequencing Database" />	
+	<div class="logo"><%= image_tag("sutech_reflect_DB.gif", :size => "99x80", :alt => "Stanford Genome Tech") %></div>
 	<div class="sitename">ISCC LIMS <% if RAILS_ENV != 'production'%> - (<%= RAILS_ENV%>)<%end%></div>	
 	<div class="version">Version: 0</div>
     <% if logged_in? %>	

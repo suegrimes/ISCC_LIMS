@@ -7,11 +7,9 @@ class ApplicationController < ActionController::Base
   require 'fastercsv'
   require 'calendar_date_select'
 
-  # 
-  #Make current_user accessible from model (via User.current_user)
-  before_filter :set_current_user
+  before_filter :login_required    #Require login to access any controller methods  
+  before_filter :set_current_user  #Make current_user accessible from model (via User.current_user)
   #before_filter :log_user_action
-  #
   
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details

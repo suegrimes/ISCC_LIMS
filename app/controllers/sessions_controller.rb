@@ -1,7 +1,6 @@
 # This controller handles the login/logout function of the site.  
 class SessionsController < ApplicationController
-  # Be sure to include AuthenticationSystem in Application Controller instead
-  include AuthenticatedSystem
+  skip_before_filter :login_required, :only => [:new, :create]
 
   # render new.erb.html
   def new
@@ -20,8 +19,8 @@ class SessionsController < ApplicationController
         self.current_user = user
         new_cookie_flag = (params[:remember_me] == "1")
         handle_remember_cookie! new_cookie_flag
-        redirect_back_or_default('/')
         flash[:notice] = "Logged in successfully"
+        redirect_to :controller => :welcome, :action => :index
       else
         note_failed_signin
         @lab         = Lab.find(params[:lab][:id]) if !params[:lab][:id].blank?
@@ -42,7 +41,7 @@ class SessionsController < ApplicationController
   def destroy
     logout_killing_session!
     flash[:notice] = "You have been logged out."
-    redirect_back_or_default('/')
+    redirect_to :action => :new
   end
 
 protected

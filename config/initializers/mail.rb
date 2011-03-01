@@ -6,7 +6,8 @@ ActionMailer::Base.smtp_settings = {
              :address => 'smtp.stanford.edu',
              :port    => 25,
              :domain  => 'stanford.edu',
-             :tls     => true}
+             :tls     => true,
 #             :authentication => :login,
 #             :user_name => 'sgrimes',
 #             :password  => '[mypswd]'
+              }

@@ -56,7 +56,7 @@ class User < ActiveRecord::Base
     self.activation_code = nil
     save(false)
   end
-
+  
   # Returns true if the user has just been activated.
   def recently_activated?
     @activated
@@ -67,8 +67,19 @@ class User < ActiveRecord::Base
     activation_code.nil?
   end
   
-  def recently_activated?
-    @activated
+  def reset!
+    @reset = true
+    create_reset_code
+  end  
+  
+  # Returns true if the user has just requested a password reset
+  def recently_reset?
+    @reset
+  end
+  
+  def delete_reset_code
+    self.reset_code = nil
+    save(false)
   end
 
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
@@ -97,17 +108,7 @@ protected
   end
   
   def create_reset_code
-    @reset = true
-    self.attributes = {:reset_code => Digest::SHA1.hexdigest(Time.now.to_s.split(//).sort_by {rand}.join)}
-    save(false)
-  end
-  
-  def recently_reset?
-    @reset
-  end
-  
-  def delete_reset_code
-    self.attributes = {:reset_code => nil}
+    self.reset_code = self.class.make_token
     save(false)
   end
 end

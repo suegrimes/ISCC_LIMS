@@ -47,5 +47,7 @@ class Sample < ActiveRecord::Base
   
   has_one :shipment
   accepts_nested_attributes_for :shipment, :allow_destroy => true
+  
+  named_scope :userlab, lambda{|user| {:conditions => (user.admin_access? ? nil : ["samples.lab_id = ?", user.lab_id])}}
 
 end

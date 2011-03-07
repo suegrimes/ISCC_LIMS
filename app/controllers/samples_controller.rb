@@ -1,8 +1,10 @@
 class SamplesController < ApplicationController
+  load_and_authorize_resource
+  
   # GET /samples
   # GET /samples.xml
   def index
-    @samples = Sample.all(:include => :shipment)
+    @samples = Sample.userlab(current_user).find(:all, :include => :shipment)
 
     respond_to do |format|
       format.html # index.html.erb

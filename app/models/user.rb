@@ -23,6 +23,8 @@ class User < ActiveRecord::Base
   include Authentication::ByPassword
   include Authentication::ByCookieToken
   
+  belongs_to :lab
+  
   validates_presence_of     :lab_id
 
   validates_presence_of     :login
@@ -47,6 +49,10 @@ class User < ActiveRecord::Base
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.
   attr_accessible :lab_id, :login, :email, :password, :password_confirmation
+  
+  def admin_access?
+    (login == 'admin' && lab_id == Lab::STANFORD_LAB_ID)
+  end
 
 
   # Activates the user in the database.

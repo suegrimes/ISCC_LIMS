@@ -11,5 +11,7 @@ class Lab < ActiveRecord::Base
 
   validates_presence_of     :lab_name
   validates_uniqueness_of   :lab_name
+  
+  STANFORD_LAB_ID = 7
 
 end

@@ -4,6 +4,12 @@
 class ApplicationController < ActionController::Base
   include AuthenticatedSystem
   
+  rescue_from CanCan::AccessDenied do |exception|
+    user_login = (current_user.nil? ? nil : current_user.login)
+    flash[:error] = "Sorry #{user_login} - requested page is invalid, or you are not authorized to access"
+    redirect_to ''
+  end
+  
   require 'fastercsv'
   require 'calendar_date_select'
 

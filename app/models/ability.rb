@@ -25,15 +25,15 @@ class Ability
     end
     
     # Everyone can manage samples for their own lab only
-    can [:new, :create, :show, :edit, :update], Sample do |sample|
+    can [:new, :create, :index], Sample
+    can [:show, :edit, :update], Sample do |sample|
       sample.lab_id == user.lab_id
     end
-    can :index, Sample
     
-    can [:new, :create, :show, :edit, :update], Shipment do |shipment|
+    can [:new, :create, :index], Shipment
+    can [:show, :edit, :update], Shipment do |shipment|
       shipment.sample.lab_id == user.lab_id
     end
-    can :index, Shipment
     
     return nil if user == :false
 

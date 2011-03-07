@@ -1,5 +1,6 @@
 <%= error_messages_for :user %>
 <% form_for(@user) do |f| -%>
+<p>Lab: <%=h @user.lab.lab_name %></p>
 <p><%= f.label :login %>
    <%= f.text_field :login %></p>
 

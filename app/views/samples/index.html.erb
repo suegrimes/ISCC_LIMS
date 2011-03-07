@@ -5,15 +5,19 @@
   	<th>Barcode</th>
 	<th>Sample Name</th>
 	<th>Sample Date</th>
+	<th>Strain</th>
+	<th>Sex</th>
 	<th colspan=3></th>
   </tr>
 
 <% @samples.each do |sample| %>
   <tr>
-  	<td><%=h sample.barcode_key %></td>
+  	<td><%=link_to sample.barcode_key, sample %></td>
 	<td><%=h sample.sample_name %></td>
 	<td><%=h sample.sample_date %></td>
-    <td><%= link_to 'Show', sample %></td>
+	<td><%=h sample.strain %></td>
+	<td><%=h sample.sex %></td>
+    <td class="ltgrey">Results</td>
     <td><%= link_to 'Edit', edit_sample_path(sample) %></td>
     <td><%= link_to 'Delete', sample, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>

@@ -15,12 +15,7 @@ class SamplesController < ApplicationController
   # GET /samples/1
   # GET /samples/1.xml
   def show
-    begin
-      @sample = Sample.lab(current_user).find(params[:id])
-    rescue 
-      flash[:error] = "ERROR: Sample not found, id=#{params[:id]}"
-      redirect_to samples_path
-    end    
+    @sample = Sample.find(params[:id])
   end
 
   # GET /samples/new
@@ -37,12 +32,7 @@ class SamplesController < ApplicationController
 
   # GET /samples/1/edit
   def edit
-    begin
-      @sample = Sample.lab(current_user).find(params[:id]) 
-    rescue 
-      flash[:error] = "ERROR: Sample not found, id=#{params[:id]}"
-      redirect_to samples_path
-    end 
+    @sample = Sample.find(params[:id])
   end
 
   # POST /samples

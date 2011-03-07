@@ -1,7 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
+  
   # Login/logout, and signup
   map.connect '',     :controller => 'welcome', :action => 'index' 
-  map.connect 'home', :controller => 'welcome', :action => 'index'
   map.signup  '/signup', :controller => 'users',   :action => 'new' 
   map.login  '/login',  :controller => 'sessions', :action => 'new'
   map.logout '/logout', :controller => 'sessions', :action => 'destroy'
@@ -9,7 +9,7 @@ ActionController::Routing::Routes.draw do |map|
   # User tables, and other administrative tables
   map.resources :sessions
   map.resources :users
-  map.forgot    '/forgot',                    :controller => 'users',     :action => 'forgot'
+  map.forgot    'forgot',                     :controller => 'users',     :action => 'forgot'
   map.activate  'activate/:activation_code',  :controller => 'users',     :action => 'activate'
   map.reset     'reset/:reset_code',          :controller => 'users',     :action => 'reset'
   

@@ -26,6 +26,16 @@
 #
 
 class Sample < ActiveRecord::Base
+  has_one :shipment
+  accepts_nested_attributes_for :shipment, :allow_destroy => true
+  
+  validates_presence_of :barcode_key, :sample_name, :sample_date, :organism, :strain, :age_in_weeks,
+                        :intestinal_region
+  
+  validates_numericality_of :age_in_weeks, :only_integer => true, :message => "must be an integer"
+  #validates_inclusion_of :age_in_weeks, :in => 6..10, :message => "must be between 6 and 10"
+  
+  named_scope :userlab, lambda{|user| {:conditions => (user.admin_access? ? nil : ["samples.lab_id = ?", user.lab_id])}}
   
   STRAINS    = ['C57BI/6J']
   SEX = ['Male', 'Female']
@@ -38,16 +48,5 @@ class Sample < ActiveRecord::Base
                     :strain => STRAINS[0],
                     :sex => 'Male',
                     :age_in_weeks => 6}
-  
-  validates_presence_of :barcode_key, :sample_name, :sample_date, :organism, :strain, :age_in_weeks,
-                        :intestinal_region
-  
-  validates_numericality_of :age_in_weeks, :only_integer => true, :message => "must be an integer"
-  #validates_inclusion_of :age_in_weeks, :in => 6..10, :message => "must be between 6 and 10"
-  
-  has_one :shipment
-  accepts_nested_attributes_for :shipment, :allow_destroy => true
-  
-  named_scope :userlab, lambda{|user| {:conditions => (user.admin_access? ? nil : ["samples.lab_id = ?", user.lab_id])}}
 
 end

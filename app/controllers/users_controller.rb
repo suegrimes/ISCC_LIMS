@@ -20,6 +20,29 @@ class UsersController < ApplicationController
       render :action => 'new'
     end
   end
+  
+  # render edit.html
+  def edit 
+    @user = User.find(params[:id])
+  end
+  
+  def update
+    @user = User.find(params[:id])
+          
+    if @user.authenticated?(params[:curr_user][:current_password])
+      if @user.update_attributes(params[:user])
+        flash[:notice] = "User has been updated"
+        redirect_to users_url
+      else
+        flash.now[:error] = "Error updating user"
+        render :action => 'edit'
+      end
+      
+    else
+      flash.now[:error] = "Incorrect current password entered - please try again"
+      render :action => 'edit'
+    end
+  end
 
   def activate
     logout_keeping_session!

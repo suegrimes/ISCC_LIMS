@@ -19,7 +19,6 @@ class ApplicationController < ActionController::Base
   #Make current_user accessible from model (via User.current_user)
   before_filter :set_current_user
   #before_filter :log_user_action
-  #
   
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details

@@ -14,7 +14,7 @@
 <div id="container" style="width: 98%;">
 	
 <div id="header">
-	<div class="logo"><%= image_tag("stanford_logo.png", :size => "110x100", :alt => "Stanford Logo") %></div>
+	<div class="logo"><%= image_tag("SU_Seal_Card_pos_small.gif", :size => "100x100", :alt => "Stanford Logo") %></div>
 	<div class="sitename">ISCC LIMS <% if RAILS_ENV != 'production'%> - (<%= RAILS_ENV%>)<%end%>
 	  	<% if logged_in? %>	
 		<div class="affiliation"><%= current_user.lab.lab_name %></div>

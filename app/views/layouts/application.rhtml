@@ -15,9 +15,9 @@
 	
 <div id="header">
 	<div class="logo"><%= image_tag("stanford_logo.png", :size => "110x100", :alt => "Stanford Logo") %></div>
-	<div class="sitename">ISCC LIMS <% if RAILS_ENV != 'production'%> - (<%= RAILS_ENV%>)<%end%></div>	
+	<div class="sitename">ISCC LIMS <% if RAILS_ENV != 'production'%> - (<%= RAILS_ENV%>)<%end%></div>
+	
 	<div class="version">Version: 0</div>
-	<div class="affiliation">Stanford University</div>
     <% if logged_in? %>	
 	    <div class="logout-link"><%= link_to 'User Profile', edit_user_path(current_user) %>&nbsp;&nbsp;&nbsp;&nbsp;<%= link_to 'Logout', logout_url %></div>
 	<% end %>

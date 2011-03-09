@@ -15,12 +15,16 @@
 	
 <div id="header">
 	<div class="logo"><%= image_tag("stanford_logo.png", :size => "110x100", :alt => "Stanford Logo") %></div>
-	<div class="sitename">ISCC LIMS <% if RAILS_ENV != 'production'%> - (<%= RAILS_ENV%>)<%end%></div>
-	
+	<div class="sitename">ISCC LIMS <% if RAILS_ENV != 'production'%> - (<%= RAILS_ENV%>)<%end%>
+	  	<% if logged_in? %>	
+		<div class="affiliation"><%= current_user.lab.lab_name %></div>
+		<% end %>
+	</div>
 	<div class="version">Version: 0</div>
     <% if logged_in? %>	
-	    <div class="logout-link"><%= link_to 'User Profile', edit_user_path(current_user) %>&nbsp;&nbsp;&nbsp;&nbsp;<%= link_to 'Logout', logout_url %></div>
+	<div class="logout-link"><%= link_to 'User Profile', edit_user_path(current_user) %>&nbsp;&nbsp;&nbsp;&nbsp;<%= link_to 'Logout', logout_url %></div>
 	<% end %>
+
 </div><!-- /header -->
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-bottom:0;">
@@ -54,14 +58,14 @@
     <i> Logged in as: <%= current_user.login %> </i>
   </div>
   <ul class="opened">	
-    <li><%=link_to 'New Sample', new_sample_path %></li>	
-	<li><%=link_to 'List Samples', samples_path %></li>
-	<li><a href="#">System Tables</a>
-      <ul>
-	    <li><%= link_to 'Protocols', '' %></li>
-		<li><%= link_to 'Drop-Down Lists', '' %></li>
+	<li><a href="#">Resources</a>
+      <!--
+	  <ul>
+	    <li><a href="#">Resource 1</a></li>
+		<li><a href="#">Link 2</a></li>
        </ul>	
-	 </li>	
+	 </li>
+	 -->	
   </ul>
 </div> <!-- /leftsidebar -->
 <% end %>

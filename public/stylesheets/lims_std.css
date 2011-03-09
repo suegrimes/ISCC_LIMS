@@ -63,7 +63,7 @@ hr {clear:both; border:0; height:1px; background-color:#888;}
 */
 
 #header {   
-    height: 90px;
+    height: 109px;
     overflow: hidden;
     background: #fff;
     white-space: nowrap;
@@ -79,9 +79,15 @@ hr {clear:both; border:0; height:1px; background-color:#888;}
 }
     
 #header .sitename, .sitename.prod, .sitename.test {
-    font: bold small-caps 2em/1.5em tahoma,serif;
+    font: bold small-caps 2em/1.2em tahoma,serif;
     padding: 20px 10px 0 60px;
     float: left;
+}
+
+#header .affiliation {
+	font-size: 0.9em;
+	font-style: italic;
+	color: #888;	
 }
 
 /*
@@ -104,7 +110,7 @@ hr {clear:both; border:0; height:1px; background-color:#888;}
 #header .logout-link {
    float: right; 
    position: relative; 
-   right: -54px; top: 70px; 
+   right: -54px; top: 90px; 
 }
 
 #header .logout-link a {
@@ -281,7 +287,30 @@ hr {clear:both; border:0; height:1px; background-color:#888;}
  color: #990000;
  font-size:inherit;
  }
+ 
+#maincontent .big-login-buttons {
+    width:180px;
+    height: auto;
+    text-align: center;
+    padding: 1.3em 0;
+    margin:10px;
+    background: beige;    
+    border: 4px solid #C1C1C1;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;	
+}
 
+#maincontent .big-login-buttons a {
+    color: #990000;
+	text-decoration: none;
+}
+
+#maincontent .big-login-buttons a:hover {
+    color: #333;
+	text-decoration: none;
+}
+	
 /* styles for tables */
 
 table {

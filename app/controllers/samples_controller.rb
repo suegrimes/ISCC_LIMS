@@ -78,4 +78,17 @@ class SamplesController < ApplicationController
       format.xml  { head :ok }
     end
   end
+  
+  def auto_complete_for_intestinal_sc_marker
+    @samples = Sample.find(:all, :select => "distinct intestinal_sc_marker",
+                           :conditions => ["intestinal_sc_marker LIKE ?", params[:search] + '%'])
+    render :inline => "<%= auto_complete_result(@samples, 'intestinal_sc_marker') %>"
+  end
+  
+  def auto_complete_for_sc_marker_validation_method
+    @samples = Sample.find(:all, :select => "distinct sc_marker_validation_method",
+                           :conditions => ["sc_marker_validation_method LIKE ?", params[:search] + '%'])
+    render :inline => "<%= auto_complete_result(@samples, 'sc_marker_validation_method') %>"
+  end
+  
 end

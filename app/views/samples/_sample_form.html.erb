@@ -32,7 +32,9 @@
 	<tr>
 	  <td><%=f.text_field(:intestinal_region, :size => 15) %></td>
 	  <td><%=f.text_field(:intestinal_region_definition, :size => 15) %></td>
-	  <td><%=f.select(:intestinal_sc_marker, Sample::SC_MARKERS, {:include_blank => 'Select'}) %></td>
+	  <td><%=f.text_field_with_auto_complete(:intestinal_sc_marker, {},
+             {:url => {:controller => :samples, :action => :auto_complete_for_intestinal_sc_marker},
+              :param_name => :search, :min_chars => 2, :method => :get})%></td>
 	</tr>
 	
 	<tr>
@@ -43,7 +45,9 @@
 	<tr>
 	  <td><%=f.text_field(:isolation_protocol_id) %></td>
 	  <td><%=f.text_field(:facs_protocol_id) %></td>
-	  <td><%=f.select(:sc_marker_validation_method, Sample::MARKER_VALIDATION, {:include_blank => 'Select'}) %></td>
+	  <td><%=f.text_field_with_auto_complete(:sc_marker_validation_method, {},
+             {:url => {:controller => :samples, :action => :auto_complete_for_sc_marker_validation_method},
+              :param_name => :search, :min_chars => 2, :method => :get})%></td>
 	</tr>
 	
     <tr>

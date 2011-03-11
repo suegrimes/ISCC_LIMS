@@ -26,7 +26,9 @@
 #
 
 class Sample < ActiveRecord::Base
+  belongs_to :lab
   has_one :shipment
+  
   accepts_nested_attributes_for :shipment, :allow_destroy => true
   
   validates_presence_of :barcode_key, :sample_name, :sample_date, :organism, :strain, :age_in_weeks,
@@ -35,7 +37,7 @@ class Sample < ActiveRecord::Base
   validates_numericality_of :age_in_weeks, :only_integer => true, :message => "must be an integer"
   #validates_inclusion_of :age_in_weeks, :in => 6..10, :message => "must be between 6 and 10"
   
-  named_scope :userlab, lambda{|user| {:conditions => (user.admin_access? ? nil : ["samples.lab_id = ?", user.lab_id])}}
+  named_scope :userlab, lambda{|user| {:conditions => (user.has_admin_access? ? nil : ["samples.lab_id = ?", user.lab_id])}}
   
   STRAINS    = ['C57BI/6J']
   SEX = ['Male', 'Female']

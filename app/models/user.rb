@@ -50,7 +50,7 @@ class User < ActiveRecord::Base
   # anything else you want your user to change should be added here.
   attr_accessible :lab_id, :login, :email, :password, :password_confirmation
   
-  def admin_access?
+  def has_admin_access?
     (login == 'admin' && lab_id == Lab::STANFORD_LAB_ID)
   end
 

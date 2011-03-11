@@ -27,7 +27,7 @@
 	<tr>
 	  <th><%=f.label :intestinal_region %></th>
       <th><%=f.label :intestinal_region_definition %></th>
-	  <th><%=f.label :intestinal_sc_marker %></th> 
+	  <th><%=f.label :intestinal_sc_marker, 'Intestinal SC marker' %></th> 
 	</tr>
 	<tr>
 	  <td><%=f.text_field(:intestinal_region, :size => 15) %></td>
@@ -38,16 +38,16 @@
 	</tr>
 	
 	<tr>
-      <th><%=f.label :isolation_protocol_id, 'Isolation Protocol' %></th> 
-      <th><%=f.label :facs_protocol %></th>
-	  <th><%=f.label :sc_marker_validation_method %></th>
+      <th><%=f.label :facs_protocol, 'FACS protocol' %></th>
+	  <th><%=f.label :sc_marker_validation_method, 'SC marker validation method' %></th>
+	  <th><%=f.label :secondary_validation_results %></th>
     </tr>
 	<tr>
-	  <td><%=f.text_field(:isolation_protocol_id) %></td>
 	  <td><%=f.text_field(:facs_protocol_id) %></td>
 	  <td><%=f.text_field_with_auto_complete(:sc_marker_validation_method, {},
              {:url => {:controller => :samples, :action => :auto_complete_for_sc_marker_validation_method},
               :param_name => :search, :min_chars => 2, :method => :get})%></td>
+	  <td><%=f.text_field(:secondary_validation_results) %></td>
 	</tr>
 	
     <tr>

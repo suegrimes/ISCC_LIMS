@@ -20,4 +20,7 @@ class Shipment < ActiveRecord::Base
   
   SHIPMENT_DEFAULT = {:date_shipped => Date.today}
 
+  def date_received_or_na
+    (date_received.nil? ? 'N/A' : date_received)
+  end
 end

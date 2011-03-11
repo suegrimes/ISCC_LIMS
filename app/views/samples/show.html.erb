@@ -1,5 +1,6 @@
 <h3> Show Sample </h3>
 
+<span class="table_title">Sample Details:</span>
 <table class="info">
     <tr>
       <th>Barcode</th><td><%=h @sample.barcode_key %></td>
@@ -21,9 +22,9 @@
 	</tr>
 	
 	<tr>
-      <th>Isolation protocol</th><td><%=h @sample.isolation_protocol_id %></td>
       <th>FACS protocol</th><td><%=h @sample.facs_protocol_id %></td>
 	  <th>SC marker validation method </th><td><%=h @sample.sc_marker_validation_method %></td>
+	  <th>SC validation results</th><td><%=h @sample.secondary_validation_results %></td>
     </tr>
 
     <tr>
@@ -31,5 +32,20 @@
     </tr>
 </table>
 
-<%= link_to 'Edit', edit_sample_path(@sample) %> |
+<% if @sample.shipment %>
+<span class="table_title">Shipment Details:</span>
+<table class="info">
+  <tr>
+    <th>Date Shipped</th><td><%=h @sample.shipment.date_shipped %></td>
+    <th>Date Received</th>
+	<td><%=h @sample.shipment.date_received_or_na %></td>
+	<th>FedEx Tracking#</th><td><%=h @sample.shipment.fedex_tracking_nr %></td>
+  </tr>	
+  <tr>
+    <th>Comments</th><td><%=h @sample.shipment.comments %></td>
+  </tr>
+</table>
+<% end %>
+
+<% if can? :edit, @sample %><%= link_to 'Edit', edit_sample_path(@sample) %> | <% end %>
 <%= link_to 'List All', samples_path %>

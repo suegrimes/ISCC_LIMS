@@ -6,4 +6,13 @@ module ApplicationHelper
       page[div1].toggle if div1
     end
   end
+  
+  def show_attribute(obj, attribute_name)
+    if current_user.has_admin_access?
+      return obj.send(attribute_name)
+    else
+      return "hidden"
+    end
+  end
+
 end

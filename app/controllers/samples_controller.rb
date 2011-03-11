@@ -5,17 +5,17 @@ class SamplesController < ApplicationController
   # GET /samples.xml
   def index
     @samples = Sample.userlab(current_user).find(:all, :include => :shipment)
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @samples }
-    end
+  end
+  
+  def list_intransit
+    @samples = Sample.userlab(current_user).find(:all, :include => :shipment,
+                                                       :conditions => "shipments.date_received IS NULL")
   end
 
   # GET /samples/1
   # GET /samples/1.xml
   def show
-    @sample = Sample.find(params[:id])
+    @sample = Sample.find(params[:id], :include => :shipment)
   end
 
   # GET /samples/new
@@ -23,11 +23,6 @@ class SamplesController < ApplicationController
   def new
     @sample = Sample.new(Sample::SAMPLE_DEFAULT)
     @sample.build_shipment(Shipment::SHIPMENT_DEFAULT)
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @sample }
-    end
   end
 
   # GET /samples/1/edit

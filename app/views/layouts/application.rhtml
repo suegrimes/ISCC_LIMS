@@ -14,18 +14,25 @@
 <div id="container" style="width: 98%;">
 	
 <div id="header">
-	<div class="logo"><%= image_tag("sutech_reflect_DB.gif", :size => "99x80", :alt => "Stanford Genome Tech") %></div>
-	<div class="sitename">ISCC LIMS <% if RAILS_ENV != 'production'%> - (<%= RAILS_ENV%>)<%end%></div>	
+	<div class="logo"><%= image_tag("SU_Seal_Card_pos_small.gif", :size => "100x100", :alt => "Stanford Logo") %></div>
+	<div class="sitename">ISCC LIMS <% if RAILS_ENV != 'production'%> - (<%= RAILS_ENV%>)<%end%>
+	  	<% if logged_in? %>	
+		<div class="affiliation"><%= current_user.lab.lab_name %></div>
+		<% end %>
+	</div>
 	<div class="version">Version: 0</div>
     <% if logged_in? %>	
-	    <div class="logout-link"><%= link_to 'User Profile', edit_user_path(current_user) %>&nbsp;&nbsp;&nbsp;&nbsp;<%= link_to 'Logout', logout_url %></div>
+	<div class="logout-link"><%= link_to 'User Profile', edit_user_path(current_user) %>&nbsp;&nbsp;&nbsp;&nbsp;<%= link_to 'Logout', logout_url %></div>
 	<% end %>
+
 </div><!-- /header -->
+
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-bottom:0;">
   <tr><td style="background-color: #990000; padding: 0;">
-  <!-- 
-  <ul id="MenuBar1" class="MenuBarHorizontal">	
+  <!-- change width of menu bar in MenuBarHorizontal here: ul.MenuBarHorizontal -->
+  <!--
+  <ul id="MenuBar1" class="MenuBarHorizontal">
     <li><a class="MenuBarItemSubmenu" href="#">Topic with Submenu</a>
       <ul>
         <li><a class="MenuBarItemSubmenu" href="#">Subtopic with Submenu</a>
@@ -38,9 +45,11 @@
 		<li class="last-item"><a href="#">Subtopic with no Submenu</a></li>
       </ul>
     </li>
-  </ul> --> <!-- /ul nav bar -->
-  <!-- currently not using top nav bar, so this will fill in the space. Comment or take out if the dropdown nav is used -->
-  <div>&nbsp;</div>
+	<li><a class="nosubmenu" href="#">Topic - No Submenu</a></li>
+  </ul> 
+  --><!-- /ul nav bar -->
+  <!-- currently not using top nav bar, so this will fill in the space. If the dropdown nav is used, comment or take out  -->
+  <div style="background:#E0E0E0; border-top:1px solid #990000; border-bottom:1px solid #990000;">&nbsp;</div>
   </td></tr>
 </table>
 
@@ -53,9 +62,14 @@
     <i> Logged in as: <%= current_user.login %> </i>
   </div>
   <ul class="opened">	
-    <li><%=link_to 'New Sample', new_sample_path %></li>	
-	<li><%=link_to 'List Samples', samples_path %></li>
-	<li><a href="#">SOP: Prep &amp; Shipment</a></li>
+	<li><a href="#">Resources</a>
+      <!--
+	  <ul>
+	    <li><a href="#">Resource 1</a></li>
+		<li><a href="#">Link 2</a></li>
+       </ul>	
+	 </li>
+	 -->	
   </ul>
 </div> <!-- /leftsidebar -->
 <% end %>

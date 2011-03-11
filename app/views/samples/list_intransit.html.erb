@@ -1,0 +1,31 @@
+<h3>Samples in transit</h3>
+
+<table class="list">
+  <tr>
+  	<th>Recvd?</th>
+	<th>Date Received</th>
+  	<th>Lab Name</th>
+  	<th>Barcode</th>
+	<th>Sample Name</th>
+	<th>Sample Date</th>
+    <th>Date Shipped</th>
+	<th>FedEx Tracking#</th>
+	<th>Shipping Comments</th>
+  </tr>
+
+<% @samples.each do |sample| %>
+  <% if sample.shipment %>
+  <tr>
+  	<td></td>
+	<td><%=h sample.shipment.date_received %></td>
+  	<td><%=h sample.lab.lab_name %></td>
+  	<td><%=link_to sample.barcode_key, sample %></td>
+	<td><%=h sample.sample_name %></td>
+	<td><%=h sample.sample_date %></td>
+	<td><%=h sample.shipment.date_shipped %></td>
+	<td><%=h sample.shipment.fedex_tracking_nr %></td>
+	<td><%=h sample.shipment.comments %></td>
+  </tr>
+  <% end %>
+<% end %>
+</table>

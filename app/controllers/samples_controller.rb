@@ -75,15 +75,21 @@ class SamplesController < ApplicationController
   end
   
   def auto_complete_for_intestinal_sc_marker
-    @samples = Sample.find(:all, :select => "distinct intestinal_sc_marker",
+    @svalues = Sample.find(:all, :select => "distinct intestinal_sc_marker",
                            :conditions => ["intestinal_sc_marker LIKE ?", params[:search] + '%'])
-    render :inline => "<%= auto_complete_result(@samples, 'intestinal_sc_marker') %>"
+    Sample::SC_MARKERS.each do |marker|
+      @svalues.push(Sample.new(:intestinal_sc_marker => marker)) if marker[0..(params[:search].length-1)] == params[:search]
+    end
+    render :inline => "<%= auto_complete_result(@svalues, 'intestinal_sc_marker') %>"
   end
   
   def auto_complete_for_sc_marker_validation_method
-    @samples = Sample.find(:all, :select => "distinct sc_marker_validation_method",
+    @svalues = Sample.find(:all, :select => "distinct sc_marker_validation_method",
                            :conditions => ["sc_marker_validation_method LIKE ?", params[:search] + '%'])
-    render :inline => "<%= auto_complete_result(@samples, 'sc_marker_validation_method') %>"
+    Sample::MARKER_VALIDATION.each do |validation|
+      @svalues.push(Sample.new(:sc_marker_validation_method => validation)) if validation[0..(params[:search].length-1)] == params[:search]
+    end
+    render :inline => "<%= auto_complete_result(@svalues, 'sc_marker_validation_method') %>"
   end
   
 end

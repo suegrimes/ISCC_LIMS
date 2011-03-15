@@ -50,5 +50,7 @@ class Sample < ActiveRecord::Base
                     :strain => STRAINS[0],
                     :sex => 'Male',
                     :age_in_weeks => 6}
+                    
+  SAMPLE_SOP_PATH = File.join(RAILS_ROOT, 'public', 'files', 'Sample_Shipping_SOP.doc')
 
 end

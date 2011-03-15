@@ -17,6 +17,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :samples, :collection => {:auto_complete_for_intestinal_sc_marker => :get,
                                           :auto_complete_for_sc_marker_validation_method => :get}
   map.recv_samples 'list_intransit', :controller => :samples, :action => :list_intransit
+  map.show_sop     'show_sop',       :controller => :samples, :action => :show_sop
 
   # Install the default routes as the lowest priority.
   # Note: These default routes make all actions in every controller accessible via GET requests. You should

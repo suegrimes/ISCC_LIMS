@@ -15,6 +15,11 @@ class SamplesController < ApplicationController
   def show
     @sample = Sample.find(params[:id], :include => :shipment)
   end
+  
+  def show_sop
+    headers["Content-Type"] = "application/msword"
+    send_file("#{Sample::SAMPLE_SOP_PATH}") 
+  end
 
   # GET /samples/new
   def new

@@ -19,12 +19,11 @@
   <% fields_for "sample[" + sample.id.to_s + "]", sample, :url => {:action => :update}  do |f| %>
   <% check_box_id   = "recvd_" + sample.id.to_s %>
   <tr>
-  	<td><%= check_box_tag(check_box_id) %></td> 
+  	<td><%= check_box_tag(check_box_id) %></td>
        <%= observe_field(check_box_id,
 		                 :frequency => 0.2,
 		                 :url => {:action => :upd_date_recvd, :id => sample.id},
-                         :with => "'checked_value=' + escape(value)") %>
-    </td>
+                         :with => "'checked_value=' + escape(value)") %>  
 
 	<% f.fields_for :shipment do |s| %>
 	<td><%=s.calendar_date_select(:date_received, :valid_date_check => "date <= (new Date()).stripTime()",
@@ -44,5 +43,6 @@
 </table>
 <p><%= submit_tag 'Update'%></p>
 <% end %>
+<%= link_to 'List All', samples_path %>
 
 

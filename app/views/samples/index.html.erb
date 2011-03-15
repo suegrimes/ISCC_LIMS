@@ -1,5 +1,3 @@
-<%= debug(@svalues) %>
-
 <h3>Listing samples</h3>
 
 <table class="list">
@@ -7,12 +5,12 @@
   	<th>Barcode</th>
 	<th>Sample Name</th>
 	<th>Sample Date</th>
+	<th>Received Date</th>
 	<th>Strain</th>
 	<th>Sex</th>
 	<th>Age(wks)</th>
 	<th>Region</th>
 	<th>SC Marker</th>
-	<th>Isolation</th>
 	<th>FACS Protocol</th>
 	<th>SC Marker Validation</th>
 	<th>Validation Results</th>
@@ -24,12 +22,12 @@
   	<td><%=link_to sample.barcode_key, sample %></td>
 	<td><%=h sample.sample_name %></td>
 	<td><%=h sample.sample_date %></td>
+	<td><% if sample.shipment %><%=h sample.shipment.date_received %><% end %></td>
 	<td><%=h sample.strain %></td>
 	<td><%=h sample.sex %></td>
 	<td><%=h sample.age_in_weeks %></td>
 	<td><%=h sample.intestinal_region %></td>
 	<td><%=h sample.intestinal_sc_marker %></td>
-	<td><%=h sample.isolation_protocol_id %></td>
 	<td><%=h sample.facs_protocol_id %></td>
 	<td><%=h sample.sc_marker_validation_method %></td>
 	<td><%=h sample.secondary_validation_results %></td>

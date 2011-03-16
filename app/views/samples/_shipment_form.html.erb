@@ -7,7 +7,7 @@
 	  <td><%=f.text_field(:fedex_tracking_nr, :size => 30) %></td>
 	</tr>
 	
-	<% if !f.object.new_record? %>
+	<% if !f.object.new_record? && current_user.has_admin_access? %>
 	<tr>
 	  <th><%=f.label :date_received %></th>
       <td><%=f.calendar_date_select(:date_received, :size => 15, :valid_date_check => "date <= (new Date()).stripTime()") %></td>

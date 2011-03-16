@@ -25,21 +25,24 @@ class Ability
     end
     
     # Everyone can manage samples for their own lab only
-    can [:new, :create, :index], Sample
-    can [:show, :edit, :update], Sample do |sample|
+    can [:new, :create, :index, :show_sop], Sample
+    can [:show, :edit, :update, :delete], Sample do |sample|
       sample.lab_id == user.lab_id
     end
     
     can [:new, :create, :index], Shipment
-    can [:show, :edit, :update], Shipment do |shipment|
+    can [:show, :edit, :update, :delete], Shipment do |shipment|
       shipment.sample.lab_id == user.lab_id
     end
     
     return nil if user == :false
 
-    # Admins have access to all functionality
-    if user.admin_access?
+    # Admins have access to all functionality (except edit/delete of other lab's samples)
+    if user.has_admin_access?
       can :manage, :all
+      cannot [:edit, :update, :delete], Sample do |sample|
+        sample.lab_id != user.lab_id
+      end
     end
   end
   

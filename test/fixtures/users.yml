@@ -5,6 +5,7 @@
 #  id                        :integer(4)      not null, primary key
 #  login                     :string(25)      default(""), not null
 #  lab_id                    :integer(4)      not null
+#  auth_user_id              :integer(4)
 #  email                     :string(255)
 #  crypted_password          :string(40)
 #  salt                      :string(40)

@@ -1,7 +1,8 @@
-<h3> Show Sample </h3>
-
-<span class="table_title">Sample Details:</span>
-<table class="info">
+  <% @sample = @shipment.sample %>
+  <p>New sample from: <%=h @sample.lab.lab_name %> entered by: <%=h @sample.updated_by %> on: <%=h @sample.created_at %></p>
+  
+  <span><b><u>Sample Details:</u></b></span>
+  <table>
     <tr>
       <th>Barcode</th><td><%=h @sample.barcode_key %></td>
       <th>Sample Name</th><td><%=h @sample.sample_name %></td>
@@ -32,21 +33,17 @@
     </tr>
 </table>
 
-<% if @sample.shipment %>
-<span class="table_title">Shipment Details:</span>
-<table class="info">
+<br/>
+
+<span><b><u>Shipment Details:</u></b></span>
+<table>
   <tr>
-    <th>Date Shipped</th><td><%=h @sample.shipment.date_shipped %></td>
+    <th>Date Shipped</th><td><%=h @shipment.date_shipped %></td>
     <th>Date Received</th>
-	<td><%=h @sample.shipment.date_received_or_na %></td>
-	<th>FedEx Tracking#</th><td><%=h @sample.shipment.fedex_tracking_nr %></td>
+	<td><%=h @shipment.date_received_or_na %></td>
+	<th>FedEx Tracking#</th><td><%=h @shipment.fedex_tracking_nr %></td>
   </tr>	
   <tr>
-    <th>Comments</th><td><%=h @sample.shipment.comments %></td>
+    <th>Comments</th><td><%=h @shipment.comments %></td>
   </tr>
 </table>
-<% end %>
-
-<% if can? :new, Sample %><%= link_to 'New sample', new_sample_path %> | <% end %>
-<% if can? :edit, @sample %><%= link_to 'Edit', edit_sample_path(@sample) %> | <% end %>
-<%= link_to 'List All', samples_path %>

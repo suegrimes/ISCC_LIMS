@@ -1,0 +1,27 @@
+<h3>Show Authorized User</h3>
+
+<table class="info">
+  	<tr>
+  	  <th>Lab name:</th>
+	  <td><%=h @auth_user.lab.lab_name %></td>
+	</tr>
+	
+	<tr>
+	  <th>User name:</th>
+      <td><%=h @auth_user.name %></td>
+	</tr>
+    
+	<tr>
+	  <th>Email: </th>
+      <td><%=h @auth_user.email %></td>
+	</tr>
+	
+	<tr>
+	  <th>User login:</th>
+      <td><%=h (@auth_user.user ? @auth_user.user.login : 'N/A') %></td>
+	</tr>
+  </table>
+
+<%= link_to 'New Auth User', edit_auth_user_path(@auth_user) %> |
+<%= link_to 'Edit', edit_auth_user_path(@auth_user) %> |
+<%= link_to 'List All', auth_users_path %>

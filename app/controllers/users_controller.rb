@@ -1,5 +1,10 @@
 class UsersController < ApplicationController  
-  skip_before_filter :login_required
+  skip_before_filter :login_required, :only => [:new, :create, :activate, :forgot, :reset]
+  
+  def index
+    unauthorized! if cannot? :read, User
+    @users = User.find(:all, :include => [:lab, :auth_user], :order => "lab_id, login")
+  end
   
   # render new.rhtml
   def new
@@ -22,13 +27,15 @@ class UsersController < ApplicationController
   end
   
   # render edit.html
-  def edit 
+  def edit
     @user = User.find(params[:id])
+    unauthorized! if cannot? :edit, @user
   end
   
   def update
     @user = User.find(params[:id])
-          
+    unauthorized! if cannot? :update, @user
+         
     if @user.authenticated?(params[:curr_user][:current_password])
       if @user.update_attributes(params[:user])
         flash[:notice] = "User has been updated"
@@ -100,4 +107,11 @@ class UsersController < ApplicationController
     end
   end
   
+  def destroy
+    @user = User.find(params[:id])
+    unauthorized! if cannot? :delete, @user
+    
+    @user.destroy
+    redirect_to users_url
+  end
 end

@@ -3,10 +3,10 @@
 # Table name: samples
 #
 #  id                           :integer(4)      not null, primary key
-#  barcode_key                  :string(20)      default(""), not null
+#  barcode_key                  :string(8)       default(""), not null
 #  sample_name                  :string(25)
 #  sample_date                  :date
-#  organism                     :string(50)
+#  organism                     :string(20)
 #  strain                       :string(15)
 #  sex                          :string(6)
 #  age_in_weeks                 :string(2)
@@ -15,12 +15,12 @@
 #  intestinal_sc_marker         :string(50)
 #  isolation_protocol_id        :integer(4)
 #  facs_protocol_id             :integer(4)
-#  sc_marker_validation_method  :string(50)      default("0.000")
-#  secondary_validation_results :string(255)     default("0.000")
-#  molecule_type                :string(6)
+#  sc_marker_validation_method  :string(50)
+#  secondary_validation_results :string(255)
+#  molecule_type                :string(10)
 #  comments                     :string(255)
-#  lab_id                       :integer(4)
-#  updated_by                   :string(50)
+#  lab_id                       :integer(4)      not null
+#  updated_by                   :integer(4)
 #  created_at                   :datetime
 #  updated_at                   :timestamp       not null
 #

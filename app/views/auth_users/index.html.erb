@@ -1,0 +1,24 @@
+<h3>List Authorized Users</h3>
+
+<table class="list">
+  <tr>
+  	<th>Lab Name</th>
+    <th>User name</th>
+	<th>Email</th>
+	<th>Created on</th>
+    <th colspan="2"></th>
+  </tr>
+
+  <% @auth_users.each do |auth_user| %>
+  <tr>
+  	<td><%=h auth_user.lab.lab_name %></td>
+    <td><%=h auth_user.name %></td>
+	<td><%=h auth_user.email %></td>
+	<td><%=h auth_user.created_at %></td>
+    <td><%= link_to 'Edit', edit_auth_user_path(auth_user) %></td>
+    <td><%= link_to 'Delete', auth_user, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= link_to 'New Auth User', new_auth_user_path %>

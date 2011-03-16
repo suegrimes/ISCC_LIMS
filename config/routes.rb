@@ -8,6 +8,7 @@ ActionController::Routing::Routes.draw do |map|
   
   # User tables, and other administrative tables
   map.resources :sessions
+  map.resources :auth_users
   map.resources :users
   map.forgot    'forgot',                     :controller => 'users',     :action => 'forgot'
   map.activate  'activate/:activation_code',  :controller => 'users',     :action => 'activate'

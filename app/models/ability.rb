@@ -25,7 +25,7 @@ class Ability
     end
     
     # Everyone can manage samples for their own lab only
-    can [:new, :create, :index], Sample
+    can [:new, :create, :index, :show_sop], Sample
     can [:show, :edit, :update, :delete], Sample do |sample|
       sample.lab_id == user.lab_id
     end

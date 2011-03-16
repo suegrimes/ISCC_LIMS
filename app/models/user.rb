@@ -5,6 +5,7 @@
 #  id                        :integer(4)      not null, primary key
 #  login                     :string(25)      default(""), not null
 #  lab_id                    :integer(4)      not null
+#  auth_user_id              :integer(4)
 #  email                     :string(255)
 #  crypted_password          :string(40)
 #  salt                      :string(40)
@@ -24,8 +25,18 @@ class User < ActiveRecord::Base
   include Authentication::ByCookieToken
   
   belongs_to :lab
+  belongs_to :auth_user
+  
+  def before_validation_on_create
+    auth_user = AuthUser.find_by_email(email) if email
+    self.auth_user_id = auth_user.id if auth_user
+  end
   
   validates_presence_of     :lab_id
+  validates_associated      :lab
+  
+  validates_presence_of     :auth_user_id, :message => "email address not authorized - please contact your PI"
+  validates_associated      :auth_user
 
   validates_presence_of     :login
   validates_length_of       :login,    :within => 3..40
@@ -45,15 +56,11 @@ class User < ActiveRecord::Base
   # Class virtual attribute for current_user (set in application controller)
   cattr_accessor :current_user
   
-  # HACK HACK HACK -- how to do attr_accessible from here?
-  # prevents a user from submitting a crafted form that bypasses activation
-  # anything else you want your user to change should be added here.
   attr_accessible :lab_id, :login, :email, :password, :password_confirmation
   
   def has_admin_access?
     (login == 'admin' && lab_id == Lab::STANFORD_LAB_ID)
   end
-
 
   # Activates the user in the database.
   def activate!

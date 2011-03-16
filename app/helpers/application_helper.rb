@@ -14,5 +14,13 @@ module ApplicationHelper
       return "hidden"
     end
   end
+  
+  def format_date(datetime)
+    (datetime.nil? ? '' : datetime.strftime("%Y-%m-%d"))
+  end
+  
+  def format_datetime(datetime)
+    (datetime.nil? ? '' : datetime.strftime("%Y-%m-%d %I:%M%p"))
+  end
 
 end

@@ -1,0 +1,11 @@
+<h3>New Authorized User</h3>
+
+<% form_for(@auth_user) do |f| %>
+  <%= f.error_messages %>
+
+  <%= render :partial => 'auth_user', :locals => {:f => f} %>
+  
+  <%= f.submit "Create" %>
+<% end %>
+
+<%= link_to 'List All', auth_users_path %>

@@ -65,7 +65,7 @@
   <ul class="opened">	
 	<li><a href="#">Resources</a>
 	  <ul>
-	    <li><%= link_to 'Receive Samples', recv_samples_path %></li>
+	    <% if current_user.has_admin_access? %><li><%= link_to 'Receive Samples', recv_samples_path %></li><% end %>
 		<li><%= link_to 'SOP: Prep & Shipment', show_sop_path %></li>
        </ul>	
 	 </li>

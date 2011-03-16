@@ -1,0 +1,24 @@
+<h3>List Users</h3>
+
+<table class="list">
+  <tr>
+  	<th>Lab Name</th>
+    <th>User name</th>
+	<th>Login</th>
+	<th>Email</th>
+	<th>Activated on</th>
+    <th colspan="2"></th>
+  </tr>
+
+  <% @users.each do |user| %>
+  <tr>
+  	<td><%=h (user.lab ? user.lab.lab_name : 'N/A') %></td>
+    <td><%=h (user.auth_user ? user.auth_user.name : 'N/A') %></td>
+	<td><%=h user.login %></td>
+	<td><%=h user.email %></td>
+	<td><%=h format_datetime(user.activated_at) %></td>
+    <td><%= link_to 'Edit', edit_user_path(user) %></td>
+    <td><%= link_to 'Delete', user, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>

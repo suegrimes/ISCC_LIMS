@@ -1,11 +1,10 @@
-class ShipmentMailer < ActionMailer::Base
+class ShipmentMailer < ActionMailer::Base  
   TO_EMAIL_LIST   = (RAILS_ENV == 'production' ? ['wilhelmy@stanford.edu', 'genomics_ji@stanford.edu'] : ['sgrimes@stanford.edu'])
-  FROM_EMAIL      = 'iscc_admin@stanford.edu'
+  FROM_EMAIL      = 'iscc_noreply@stanford.edu'
   
   def shipment_notification(shipment)
     setup_email(shipment)
-    @subject    += 'Please activate your new account'
-    @body[:url]  = "http://#{SITE_URL}/activate/#{user.activation_code}"
+    @subject    += 'Sample shipment notification'
   end
   
   protected

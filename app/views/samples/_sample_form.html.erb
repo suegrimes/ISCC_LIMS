@@ -6,7 +6,7 @@
       <th><%=f.label :sample_date %></th>	
 	</tr>
 	<tr>
-	  <td><%=f.text_field(:barcode_key, :size => 12) %></td>
+	  <td><%=f.object.barcode_key %><%=f.hidden_field(:barcode_key)%></td>
 	  <td><%=f.text_field(:sample_name, :size => 25) %></td>
 	  <td><%=f.calendar_date_select(:sample_date, :size => 10, :valid_date_check => "date <= (new Date()).stripTime()") %></td>
 	</tr>

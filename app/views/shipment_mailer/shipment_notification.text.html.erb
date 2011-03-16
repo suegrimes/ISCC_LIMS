@@ -1,9 +1,8 @@
-  <p>New sample from: <%=h current_user.lab.lab_name %> entered by: <%=h current_user.login %> on: <%=h shipment.created_at %></p>
-  
   <% @sample = @shipment.sample %>
+  <p>New sample from: <%=h @sample.lab.lab_name %> entered by: <%=h @sample.updated_by %> on: <%=h @sample.created_at %></p>
   
-  <span class="table_title">Sample Details:</span>
-  <table class="info">
+  <span><b><u>Sample Details:</u></b></span>
+  <table>
     <tr>
       <th>Barcode</th><td><%=h @sample.barcode_key %></td>
       <th>Sample Name</th><td><%=h @sample.sample_name %></td>
@@ -34,8 +33,10 @@
     </tr>
 </table>
 
-<span class="table_title">Shipment Details:</span>
-<table class="info">
+<br/>
+
+<span><b><u>Shipment Details:</u></b></span>
+<table>
   <tr>
     <th>Date Shipped</th><td><%=h @shipment.date_shipped %></td>
     <th>Date Received</th>

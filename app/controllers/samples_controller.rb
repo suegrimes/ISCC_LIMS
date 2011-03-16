@@ -23,7 +23,7 @@ class SamplesController < ApplicationController
 
   # GET /samples/new
   def new
-    @sample = Sample.new(Sample::SAMPLE_DEFAULT)
+    @sample = Sample.new(Sample::SAMPLE_DEFAULT.merge(:barcode_key => "%03d" % Barcode.next_barcode))
     @sample.build_shipment(Shipment::SHIPMENT_DEFAULT)
   end
 

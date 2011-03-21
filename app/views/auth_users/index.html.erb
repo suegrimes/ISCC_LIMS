@@ -14,7 +14,7 @@
   	<td><%=h auth_user.lab.lab_name %></td>
     <td><%=h auth_user.name %></td>
 	<td><%=h auth_user.email %></td>
-	<td><%=h auth_user.created_at %></td>
+	<td><%=h format_datetime(auth_user.created_at) %></td>
     <td><%= link_to 'Edit', edit_auth_user_path(auth_user) %></td>
     <td><%= link_to 'Delete', auth_user, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>

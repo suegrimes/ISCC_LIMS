@@ -3,6 +3,7 @@
 <% form_for(@sample) do |f| %>
   <%= f.error_messages %>
   
+  <span class="form_title">Sample Details:</span>
   <%= render :partial => 'sample_form', :locals => {:f => f, :sample => @sample} %>
   
     <% f.fields_for :shipment do |s| %>

@@ -1,18 +1,33 @@
-<span class="table_title">Sample &amp; Shipment Confirmation:</span>
+<span class="table_title">Sample &amp; Shipment Confirmation:</span><br/>
+<%= render :partial => 'sample_show', :locals => {:sample => @sample} %>
+<hr>
 
-<p class="dkred">Warning: Number of cells < 3000.  Confirmed with Julie?<br/>
-Warning: Shipment date after Wednesday.  Confirmed with Julie?</p>
+<span style="color:#880000; font-weight:bolder">
+<% if @sample.cells_lt_min %>Warning: Number of cells < <%=h Sample::MIN_CELLS %><br/><% end %>
+<% if @sample.shipment && ship_weekday(@sample.shipment, 'int').to_i > 3 %>Warning: Shipment date after Wednesday<br/><% end %>
+</span><br/>
 
-<p>Please verify the following items:</p>
-<table>
-  <tr><td>Sample labeled with barcode: nnn</td></tr>
+<% form_for(@sample_confirm, :url => {:controller => :samples, :action => :create}) do |f|%>
+<span>Please verify the following items prior to shipping:</span>
+<table class="info">
+  <tr><td><%=f.check_box(:sample_barcode)%>Sample labeled with barcode: <%=h @sample.barcode_key %></td></tr>
+  
+  <% if @sample.cells_lt_min %>
+  <tr><td><%=f.check_box(:number_of_cells)%>Number of cells > <%=h Sample::MIN_CELLS %>, or confirmed ok with Julie</td></tr>
+  <% end %>
+  
+  <% if @sample.shipment && ship_weekday(@sample.shipment, 'int').to_i > 3 %>
+  <tr><td><%=f.check_box(:shipment_day)%>Shipment day (<%=h ship_weekday(@sample.shipment)%>) ok'd with Julie</td></tr>
+  <% end %>
+  
+  <tr><td><%=f.check_box(:dry_ice_75)%>Container 75% full of dry ice</td></tr>
+  
+  <% if @sample.shipment %>
+  <tr><td><%=f.check_box(:fedex_number)%>FedEx number (<%=h @sample.shipment.fedex_tracking_nr %>) is correct</td></tr>
+  <% end %>
+  
+  <tr><td><%=f.check_box(:ship_notification)%>Emailed Julie with shipment details</td></tr>  
 </table>
 
-<p>If shipping the samples at this time:</p>
-<table>
-  <tr><td>Container 75% full of dry ice</td></tr>
-  <tr><td>FedEx number (xxxx) verified</td></tr>
-  <tr><td>Emailed Julie with shipment information</td></tr>
-</table>
-
-<span>Edit</span> | <span>Save &amp; Continue</span>
+<span><%=link_to 'Edit', edit_sample_path(@sample) %></span> | <span><%=f.submit 'Save & Continue', :action => :create %></span>
+<% end %>

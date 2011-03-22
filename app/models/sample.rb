@@ -50,10 +50,15 @@ class Sample < ActiveRecord::Base
                     :organism => 'Mus musculus',
                     :sex => 'Male',
                     :age_in_weeks => 6}
-                    
+  MIN_CELLS = 3000
+  
   SAMPLE_SOP_PATH = File.join(RAILS_ROOT, 'public', 'files', 'Sample_Shipping_SOP.doc')
   
   def set_barcode
     self.barcode_key = "%03d" % Barcode.next_barcode
+  end
+  
+  def cells_lt_min
+    (number_of_cells.nil? ? true : (number_of_cells < MIN_CELLS ? true : false))
   end
 end

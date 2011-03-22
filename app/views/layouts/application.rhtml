@@ -16,7 +16,6 @@
 <div id="header">
 	<div class="logo"><%= image_tag("SU_Seal_Card_pos_small.gif", :size => "100x100", :alt => "Stanford Logo") %></div>
 	<div class="sitename">ISCC RNA-Seq Data Portal<% if RAILS_ENV != 'production'%> - (<%= RAILS_ENV%>)<%end%>
-    <div class="affiliation">Stanford Genome Technology Center</div>
     </div><!-- /sitename -->
 	<div class="version">Version: 0</div>
     <% if logged_in? %>	

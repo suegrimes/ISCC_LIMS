@@ -28,6 +28,9 @@ class SamplesController < ApplicationController
   end
   
   def sample_confirmation
+    #@sample = Sample.new(params[:sample])
+    @sample = Sample.find(params[:id])
+    @sample_confirm = SampleConfirm.new
   end
 
   # GET /samples/1/edit

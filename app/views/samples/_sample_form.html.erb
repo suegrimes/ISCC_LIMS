@@ -1,11 +1,9 @@
 <table class="form01">
     <tr>
-      <th><%=f.label :barcode_key, 'Barcode' %></th>
 	  <th><%=f.label :sample_name %></th>
       <th><%=f.label :sample_date %></th>	
 	</tr>
 	<tr>
-	  <td><%=f.object.barcode_key %><%=f.hidden_field(:barcode_key)%></td>
 	  <td><%=f.text_field(:sample_name, :size => 25) %></td>
 	  <td><%=f.calendar_date_select(:sample_date, :size => 10, :valid_date_check => "date <= (new Date()).stripTime()") %></td>
 	</tr>
@@ -37,12 +35,14 @@
 	</tr>
 	
 	<tr>
+	  <th><%=f.label :number_of_cells, 'No of cells' %></th>
       <th><%=f.label :facs_protocol, 'FACS protocol' %></th>
 	  <th><%=f.label :sc_marker_validation_method, 'SC marker validation method' %></th>
 	  <th><%=f.label :secondary_validation_results %></th>
     </tr>
 	<tr>
-	  <td><%=f.text_field(:facs_protocol_id) %></td>
+	  <td><%=f.text_field(:number_of_cells, :size => 10) %></td>
+	  <td><%=f.text_field(:facs_protocol) %></td>
 	  <td><%=f.text_field_with_auto_complete(:sc_marker_validation_method, {},
              {:url => {:controller => :samples, :action => :auto_complete_for_sc_marker_validation_method},
               :param_name => :search, :min_chars => 2, :method => :get})%></td>

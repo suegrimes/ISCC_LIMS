@@ -16,7 +16,8 @@ ActionController::Routing::Routes.draw do |map|
   
   # Sample tables
   map.resources :samples, :collection => {:auto_complete_for_intestinal_sc_marker => :get,
-                                          :auto_complete_for_sc_marker_validation_method => :get}
+                                          :auto_complete_for_sc_marker_validation_method => :get,
+                                          :sample_confirmation => :get}
   map.recv_samples 'list_intransit', :controller => :samples, :action => :list_intransit
   map.show_sop     'show_sop',       :controller => :samples, :action => :show_sop
 

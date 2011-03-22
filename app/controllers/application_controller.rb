@@ -30,7 +30,7 @@ class ApplicationController < ActionController::Base
   
 protected
   def set_current_user
-    @user = User.find_by_id(session[:user])
+    @user = User.find_by_id(session[:user_id])
     if @user
       User.current_user = @user
     end

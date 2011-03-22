@@ -7,27 +7,50 @@
 <% if @sample.shipment && ship_weekday(@sample.shipment, 'int').to_i > 3 %>Warning: Shipment date after Wednesday<br/><% end %>
 </span><br/>
 
-<% form_for(@sample_confirm, :url => {:controller => :samples, :action => :create}) do |f|%>
-<span>Please verify the following items prior to shipping:</span>
-<table class="info">
-  <tr><td><%=f.check_box(:sample_barcode)%>Sample labeled with barcode: <%=h @sample.barcode_key %></td></tr>
+<% form_for(@sample, :action => :create) do |f| %>
+  <%=f.hidden_field(:sample_name)%>
+  <%=f.hidden_field(:sample_date)%>
+  <%=f.hidden_field(:organism) %>    
+  <%=f.hidden_field(:strain) %> 
+  <%=f.hidden_field(:sex) %>
+  <%=f.hidden_field(:age_in_weeks) %>
+  <%=f.hidden_field :intestinal_region %>
+  <%=f.hidden_field :intestinal_region_definition %>
+  <%=f.hidden_field :intestinal_sc_marker %>
+  <%=f.hidden_field :number_of_cells %>
+  <%=f.hidden_field :facs_protocol %>
+  <%=f.hidden_field :sc_marker_validation_method %>
+  <%=f.hidden_field :secondary_validation_results %>
+  <%=f.hidden_field :comments %>
+
+  <% f.fields_for(@sample.shipment) do |s| %>
+    <%=s.hidden_field :date_shipped %>
+    <%=s.hidden_field :fedex_tracking_nr %>
+    <%=s.hidden_field :comments %>
+  
+  <% fields_for(@sample_confirm) do |c|%>
+  <span>Please verify the following items prior to shipping:</span>
+  <table class="info">
+  <tr><td><%=c.check_box(:sample_barcode)%>Sample labeled with barcode: <%=h @sample.barcode_key %></td></tr>
   
   <% if @sample.cells_lt_min %>
-  <tr><td><%=f.check_box(:number_of_cells)%>Number of cells > <%=h Sample::MIN_CELLS %>, or confirmed ok with Julie</td></tr>
+  <tr><td><%=c.check_box(:number_of_cells)%>Number of cells > <%=h Sample::MIN_CELLS %>, or confirmed ok with Julie</td></tr>
   <% end %>
   
   <% if @sample.shipment && ship_weekday(@sample.shipment, 'int').to_i > 3 %>
-  <tr><td><%=f.check_box(:shipment_day)%>Shipment day (<%=h ship_weekday(@sample.shipment)%>) ok'd with Julie</td></tr>
+  <tr><td><%=c.check_box(:shipment_day)%>Shipment day (<%=h ship_weekday(@sample.shipment)%>) ok'd with Julie</td></tr>
   <% end %>
   
-  <tr><td><%=f.check_box(:dry_ice_75)%>Container 75% full of dry ice</td></tr>
+  <tr><td><%=c.check_box(:dry_ice_75)%>Container 75% full of dry ice</td></tr>
   
   <% if @sample.shipment %>
-  <tr><td><%=f.check_box(:fedex_number)%>FedEx number (<%=h @sample.shipment.fedex_tracking_nr %>) is correct</td></tr>
+  <tr><td><%=c.check_box(:fedex_number)%>FedEx number (<%=h @sample.shipment.fedex_tracking_nr %>) is correct</td></tr>
   <% end %>
   
-  <tr><td><%=f.check_box(:ship_notification)%>Emailed Julie with shipment details</td></tr>  
+  <tr><td><%=c.check_box(:ship_notification)%>Emailed Julie with shipment details</td></tr>  
 </table>
 
 <span><%=link_to 'Edit', edit_sample_path(@sample) %></span> | <span><%=f.submit 'Save & Continue', :action => :create %></span>
+<% end %>
+<% end %>
 <% end %>

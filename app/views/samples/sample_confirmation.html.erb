@@ -7,7 +7,8 @@
 <% if @sample.shipment && ship_weekday(@sample.shipment, 'int').to_i > 3 %>Warning: Shipment date after Wednesday<br/><% end %>
 </span><br/>
 
-<% form_for(@sample, :action => :create) do |f| %>
+<% form_tag :action => :create %>
+  <% fields_for @sample, do |f|%>
   <%=f.hidden_field(:sample_name)%>
   <%=f.hidden_field(:sample_date)%>
   <%=f.hidden_field(:organism) %>    
@@ -27,6 +28,8 @@
     <%=s.hidden_field :date_shipped %>
     <%=s.hidden_field :fedex_tracking_nr %>
     <%=s.hidden_field :comments %>
+  <% end %>
+  <% end %>
   
   <% fields_for(@sample_confirm) do |c|%>
   <span>Please verify the following items prior to shipping:</span>
@@ -48,9 +51,9 @@
   <% end %>
   
   <tr><td><%=c.check_box(:ship_notification)%>Emailed Julie with shipment details</td></tr>  
-</table>
+  </table>
+  <% end %>
 
 <span><%=link_to 'Edit', edit_sample_path(@sample) %></span> | <span><%=f.submit 'Save & Continue', :action => :create %></span>
-<% end %>
 <% end %>
 <% end %>

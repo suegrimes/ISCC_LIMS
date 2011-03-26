@@ -24,32 +24,28 @@ class SamplesController < ApplicationController
   # GET /samples/new
   def new
     @sample = Sample.new(Sample::SAMPLE_DEFAULT)
-    @sample.build_shipment(Shipment::SHIPMENT_DEFAULT)
   end
   
-  def sample_confirmation
-    #@sample = Sample.new(params[:sample])
-    @sample = Sample.find(params[:id])
-    @sample_confirm = SampleConfirm.new
+  def shipment_confirm
+    @sample = Sample.find(params[:id], :include => :shipment)
+    if !@sample.shipment
+      checkbox_flags = {:confirm_nr_cells => (@sample.number_of_cells < 3000? 'N' : 'Y')}
+      @sample.build_shipment(Shipment::SHIPMENT_DEFAULT.merge!checkbox_flags)
+    end
   end
 
   # GET /samples/1/edit
   def edit
-    @sample = Sample.find(params[:id])
+    @sample = Sample.find(params[:id], :include => :shipment)
   end
 
   # POST /samples
   def create
     @sample = Sample.new(params[:sample].merge!(:lab_id => current_user.lab_id))
-
-    respond_to do |format|
-      if @sample.save
-        format.html { redirect_to(@sample, :notice => 'Sample was successfully created.') }
-        format.xml  { render :xml => @sample, :status => :created, :location => @sample }
-      else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @sample.errors, :status => :unprocessable_entity }
-      end
+    if @sample.save
+      redirect_to :action => :shipment_confirm, :id => @sample.id
+    else
+      render :action => "new"
     end
   end
 

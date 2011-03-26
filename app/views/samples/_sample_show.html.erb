@@ -29,18 +29,3 @@
       <th>Comments </th><td colspan=6><%=h sample.comments %></td>
     </tr>
 </table>
-
-<% if sample.shipment %>
-<span class="table_title">Shipment Details:</span>
-<table class="info">
-  <tr>
-    <th>Date Shipped</th><td><%=h sample.shipment.date_shipped %></td>
-    <th>Date Received</th>
-	<td><%=h sample.shipment.date_received_or_na %></td>
-	<th>FedEx Tracking#</th><td><%=h sample.shipment.fedex_tracking_nr %></td>
-  </tr>	
-  <tr>
-    <th>Comments</th><td><%=h sample.shipment.comments %></td>
-  </tr>
-</table>
-<% end %>

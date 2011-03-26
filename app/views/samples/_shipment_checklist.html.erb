@@ -1,0 +1,35 @@
+<span class="table_title">Please verify the following items prior to shipping:</span>
+<table class="info">
+  <tr>
+  	<td><%=f.check_box(:confirm_barcode, {}, 'Y', 'N')%>Sample labeled with barcode: <%=h sample.barcode_key %></td>
+	<td width="25"></td>
+	<td rowspan="4"><u>Ship samples to:</u><br/>
+	Julie Wilhelmy<br/>
+	Stanford Genome Technology Center<br/>
+	855 S.California Ave<br/>
+	Palo Alto, CA 94304<br/>
+	</td>
+  </tr>  
+  <tr>
+  	<td <%='class="dkred"' if sample.cells_lt_min %>><%=f.check_box(:confirm_nr_cells, {}, 'Y', 'N')%>
+      Number of cells > <%=h Sample::MIN_CELLS %>, or confirmed ok with Julie</td>
+	<td></td>
+  </tr> 
+  <tr>
+  	<td><%=f.check_box(:confirm_ship_day, {}, 'Y', 'N')%>Shipment day is before Thursday,
+    or confirmed ok with Julie</td>
+    <td></td>
+  </tr>
+  <tr>
+  	<td><%=f.check_box(:confirm_dry_ice, {}, 'Y', 'N')%>Container 75% full of dry ice</td>
+	<td></td>
+  </tr>
+  <tr>
+  	<td><%=f.check_box(:confirm_fedex_nr, {}, 'Y', 'N')%>FedEx number entered correctly</td>
+	<td></td>
+  </tr>
+  <tr>
+  	<td><%=f.check_box(:confirm_ship_email, {}, 'Y', 'N')%>Emailed Julie with shipment details</td>
+	<td colspan=2></td>
+  </tr>  
+</table>

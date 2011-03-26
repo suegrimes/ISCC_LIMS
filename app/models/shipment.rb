@@ -20,6 +20,14 @@ class Shipment < ActiveRecord::Base
   
   SHIPMENT_DEFAULT = {:date_shipped => Date.today}
 
+  def ship_day(int_or_string='string')
+    if int_or_string == 'int'
+      return (date_shipped.nil? ? -1 : date_shipped.strftime("%w"))
+    else
+      return (date_shipped.nil? ? '' : date_shipped.strftime("%A"))
+    end
+  end
+  
   def date_received_or_na
     (date_received.nil? ? 'N/A' : date_received)
   end

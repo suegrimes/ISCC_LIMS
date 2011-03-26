@@ -6,14 +6,19 @@
   <span class="form_title">Sample Details:</span>
   <%= render :partial => 'sample_form', :locals => {:f => f, :sample => @sample} %>
   
-    <% f.fields_for :shipment do |s| %>
+  <div id="ship_ask">
+  <%= link_to_function 'Edit Shipment Details', toggle_div(:ship_edit, :ship_ask) %> 
+  </div>
+
+  <div id="ship_edit", style="display:none">
+	<% f.fields_for :shipment do |s| %>
 	  <%= s.error_messages %>
 	  
-      <%= render :partial => 'shipment_form',   :locals => {:f => s} %>
+      <%= render :partial => 'shipment_form', :locals => {:f => s} %>
+      <%= render :partial => 'shipment_checklist', :locals => {:f => s, :sample => @sample} %>
+	<% end %>
+  </div>
   
-	<% end %> 
-  
-  <p>
-    <%= f.submit 'Update' %>
-  </p>
+  <p><%= f.submit 'Update' %></p>
 <% end %>
+  

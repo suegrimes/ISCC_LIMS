@@ -1,17 +1,10 @@
 <h3>New sample</h3>
 
-<% form_for @sample, :url => {:action => 'sample_confirmation'} do |f| %>
+<% form_for @sample, :url => {:action => 'create'} do |f| %>
   <%= f.error_messages %> 
  
   <span class="form_title">Sample Details:</span>
   <%= render :partial => 'sample_form', :locals => {:f => f, :sample => @sample} %>
-  
-    <% f.fields_for :shipment do |s| %>
-	  <%= s.error_messages %>
-	  
-      <%= render :partial => 'shipment_form',   :locals => {:f => s} %>
-      <%= render :partial => 'shipment_instructions' %>
-	<% end %>
   
   <p><%= f.submit "Continue" %>&nbsp;&nbsp;&nbsp;<%=link_to 'List All', samples_path %></p>
   <% end %>

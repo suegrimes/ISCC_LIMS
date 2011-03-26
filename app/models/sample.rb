@@ -61,4 +61,5 @@ class Sample < ActiveRecord::Base
   def cells_lt_min
     (number_of_cells.nil? ? true : (number_of_cells < MIN_CELLS ? true : false))
   end
+  
 end

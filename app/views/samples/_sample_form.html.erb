@@ -15,7 +15,9 @@
 	  <th><%=f.label :age_in_weeks, 'Age (in weeks)' %></th> 
 	<tr>
 	  <td><%=f.text_field(:organism, :size => 25) %></td>
-	  <td><%=f.text_field(:strain, :size => 10) %></td>
+	  <td><%=f.text_field_with_auto_complete(:strain, {},
+             {:url => {:controller => :samples, :action => :auto_complete_for_strain},
+              :param_name => :search, :min_chars => 2, :method => :get})%></td>
 	  <td><%=f.select(:sex, Sample::SEX) %></td>
 	  <td><%=f.text_field(:age_in_weeks, :size => 4) %></td>
     </tr>

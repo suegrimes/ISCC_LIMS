@@ -7,11 +7,12 @@
 </div>
 
 <div id="ship_samples", style="display:none">
-<% form_for(@sample, :action => :update) do |f| %>
-<% f.fields_for :shipment do |s| %>
-  <%= render :partial => 'shipment_form', :locals => {:f => s} %>
-  <%= render :partial => 'shipment_checklist', :locals => {:f => s, :sample => @sample} %>
-<%= submit_tag "Submit"%>
-<% end %>
-<% end %>
+  <% form_for(sample, :action => :update) do |f| %>
+  
+  <% f.fields_for :shipment do |s| %>
+    <%= render :partial => 'shipment_form', :locals => {:sample => @sample} %>
+  <% end %>
+  
+  <%= f.submit "Update" %>
+  <% end %>
 </div>

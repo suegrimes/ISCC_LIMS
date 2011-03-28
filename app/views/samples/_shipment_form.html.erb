@@ -1,22 +1,24 @@
 <span class="form_title">Shipment Details:</span>
 <table class="form">	
     <tr>
-      <th><%=f.label :date_shipped, 'Ship Date' %></th>
-	  <td><%=f.calendar_date_select(:date_shipped, :size => 15, :valid_date_check => "date <= (new Date()).stripTime()") %></td>
-	  <th><%=f.label :fedex_tracking_nr, 'FedEx tracking number' %></th>
-	  <td><%=f.text_field(:fedex_tracking_nr, :size => 30) %></td>
+      <th><%=s.label :date_shipped, 'Ship Date' %></th>
+	  <td><%=s.calendar_date_select(:date_shipped, :size => 15, :valid_date_check => "date <= (new Date()).stripTime()") %></td>
+	  <th><%=s.label :fedex_tracking_nr, 'FedEx tracking number' %></th>
+	  <td><%=s.text_field(:fedex_tracking_nr, :size => 30) %></td>
 	</tr>
 	
-	<% if !f.object.new_record? && current_user.has_admin_access? %>
+	<% if !s.object.new_record? && current_user.has_admin_access? %>
 	<tr>
-	  <th><%=f.label :date_received %></th>
-      <td><%=f.calendar_date_select(:date_received, :size => 15, :valid_date_check => "date <= (new Date()).stripTime()") %></td>
+	  <th><%=s.label :date_received %></th>
+      <td><%=s.calendar_date_select(:date_received, :size => 15, :valid_date_check => "date <= (new Date()).stripTime()") %></td>
 	  <td colspan=2></td>
 	</tr>
 	<% end %>
 	
     <tr>
       <th>Comments</th>
-      <td colspan=6><%=f.text_area :comments, :cols => 85, :rows => 2 %></td>
+      <td colspan=6><%=s.text_area :comments, :cols => 85, :rows => 2 %></td>
     </tr>
 </table>
+
+<%= render :partial => 'shipment_checklist', :locals => {:f => s, :sample => sample} %>

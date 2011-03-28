@@ -29,10 +29,17 @@ class SamplesController < ApplicationController
   def shipment_confirm
     @sample = Sample.find(params[:id], :include => :shipment)
     if !@sample.shipment
-      checkbox_flags = {:confirm_nr_cells => (@sample.number_of_cells < 3000? 'N' : 'Y')}
+      checkbox_flags = {:confirm_nr_cells => (@sample.cells_lt_min ? 'N' : 'Y')}
       @sample.build_shipment(Shipment::SHIPMENT_DEFAULT.merge!checkbox_flags)
     end
   end
+  
+#  def ship_dtls
+#    @sample = Sample.find(params[:id])
+#    render :update do |page|
+#      page.replace_html 'shipment', :partial => 'shipment_form', :locals => {:sample => @sample}
+#    end
+#  end
 
   # GET /samples/1/edit
   def edit
@@ -85,6 +92,12 @@ class SamplesController < ApplicationController
     render :update do |page|
       page['sample_' + params[:id] + '_shipment_attributes_date_received'].value = new_date
     end
+  end
+  
+  def auto_complete_for_strain
+    @svalues = Sample.find(:all, :select => "distinct strain",
+                           :conditions => ["strain LIKE ?", params[:search] + '%'])
+    render :inline => "<%= auto_complete_result(@svalues, 'strain') %>"
   end
   
   def auto_complete_for_intestinal_sc_marker

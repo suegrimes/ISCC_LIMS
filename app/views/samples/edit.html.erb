@@ -12,10 +12,8 @@
 
   <div id="ship_edit", style="display:none">
 	<% f.fields_for :shipment do |s| %>
-	  <%= s.error_messages %>
-	  
-      <%= render :partial => 'shipment_form', :locals => {:f => s} %>
-      <%= render :partial => 'shipment_checklist', :locals => {:f => s, :sample => @sample} %>
+	  <%= s.error_messages %>	  
+      <%= render :partial => 'shipment_form', :locals => {:s => s, :sample => @sample} %>
 	<% end %>
   </div>
   

@@ -59,7 +59,8 @@ class User < ActiveRecord::Base
   attr_accessible :lab_id, :login, :email, :password, :password_confirmation
   
   def has_admin_access?
-    (login == 'admin' && lab_id == Lab::STANFORD_LAB_ID)
+    #(login == 'admin' && lab_id == Lab::STANFORD_LAB_ID)
+    lab_id == Lab::STANFORD_LAB_ID
   end
 
   # Activates the user in the database.

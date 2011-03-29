@@ -13,7 +13,7 @@
   <div id="ship_edit", style="display:none">
 	<% f.fields_for :shipment do |s| %>
 	  <%= s.error_messages %>	  
-      <%= render :partial => 'shipment_form', :locals => {:s => s, :sample => @sample} %>
+      <%= render :partial => 'shipment_form', :locals => {:f => s, :sample => @sample} %>
 	<% end %>
   </div>
   

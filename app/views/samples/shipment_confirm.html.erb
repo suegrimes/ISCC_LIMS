@@ -7,7 +7,7 @@
 </div>
 
 <div id="ship_samples", style="display:none">
-  <% form_for(sample, :action => :update) do |f| %>
+  <% form_for(@sample, :action => :update) do |f| %>
   
   <% f.fields_for :shipment do |s| %>
     <%= render :partial => 'shipment_form', :locals => {:sample => @sample} %>

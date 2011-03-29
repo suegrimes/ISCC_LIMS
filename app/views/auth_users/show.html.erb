@@ -17,11 +17,16 @@
 	</tr>
 	
 	<tr>
+	  <th>Notes: </th>
+      <td><%=h @auth_user.notes %></td>
+	</tr>
+	
+	<tr>
 	  <th>User login:</th>
       <td><%=h (@auth_user.user ? @auth_user.user.login : 'N/A') %></td>
 	</tr>
   </table>
 
-<%= link_to 'New Auth User', edit_auth_user_path(@auth_user) %> |
+<%= link_to 'New Auth User', new_auth_user_path %> |
 <%= link_to 'Edit', edit_auth_user_path(@auth_user) %> |
 <%= link_to 'List All', auth_users_path %>

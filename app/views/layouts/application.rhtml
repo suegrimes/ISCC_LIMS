@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
     <head>
         <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-        <title>ISCC - RNA Seq<%= controller.action_name %></title>
+        <title>ISCC RNA-Seq Data Portal<%= controller.action_name %></title>
         <%= stylesheet_link_tag 'lims_std' %>
 		<%= stylesheet_link_tag 'MenuBarHorizontal' %>
         <%= javascript_include_tag :all, :cache => true %>
@@ -15,8 +15,7 @@
 	
 <div id="header">
 	<div class="logo"><%= image_tag("SU_Seal_Card_pos_small.gif", :size => "100x100", :alt => "Stanford Logo") %></div>
-	<div class="sitename">Intestinal Stem Cell Consortium: RNA Seq<% if RAILS_ENV != 'production'%> - (<%= RAILS_ENV%>)<%end%>
-    <div class="affiliation">Stanford Genome Technology Center</div>
+	<div class="sitename">ISCC RNA-Seq Data Portal<% if RAILS_ENV != 'production'%> - (<%= RAILS_ENV%>)<%end%>
     </div><!-- /sitename -->
 	<div class="version">Version: 0</div>
     <% if logged_in? %>	
@@ -62,11 +61,11 @@
   <div class="user_info">
     <i> Logged in as: <%= current_user.login %> </i>
   </div>
-  <ul class="opened">	
+  <ul class="opened">
+  	<li><% if current_user.has_admin_access? %><li><%= link_to 'Receive Samples', recv_samples_path %></li><% end %>
 	<li><a href="#">Resources</a>
-	  <ul>
-	    <% if current_user.has_admin_access? %><li><%= link_to 'Receive Samples', recv_samples_path %></li><% end %>
-		<li><%= link_to 'SOP: Prep & Shipment', show_sop_path %></li>
+	  <ul>    
+		<li><%= link_to 'Shipment Instructions', show_sop_path %></li>
        </ul>	
 	 </li>
   </ul>

@@ -22,5 +22,8 @@ module ApplicationHelper
   def format_datetime(datetime)
     (datetime.nil? ? '' : datetime.strftime("%Y-%m-%d %I:%M%p"))
   end
-
+  
+  def day_of_week(datetime)
+    (datetime.nil? ? '' : datetime.strftime("%A"))
+  end
 end

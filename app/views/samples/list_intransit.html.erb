@@ -16,7 +16,7 @@
 
 <% @samples.each_with_index do |sample, i| %>
   <% if sample.shipment %>
-  <% fields_for "sample[" + sample.id.to_s + "]", sample, :url => {:action => :update}  do |f| %>
+  <% fields_for "sample[" + sample.id.to_s + "]", sample do |f| %>
   <% check_box_id   = "recvd_" + sample.id.to_s %>
   <tr>
   	<td><%= check_box_tag(check_box_id) %></td>

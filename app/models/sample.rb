@@ -37,9 +37,10 @@ class Sample < ActiveRecord::Base
   validates_numericality_of :age_in_weeks, :only_integer => true, :message => "must be an integer"
   #validates_inclusion_of :age_in_weeks, :in => 6..10, :message => "must be between 6 and 10"
   
+  before_validation_on_create :set_barcode
+  
   named_scope :userlab, lambda{|user| {:conditions => (user.has_admin_access? ? nil : ["samples.lab_id = ?", user.lab_id])}}
   
-  STRAINS    = ['C57BI/6J']
   SEX = ['Male', 'Female']
   SC_MARKERS = ['Lgr5 hi', 'Lgr5 lo', 'Bmi1', 'SP hi', 'SP lo', 'label-retaining', 'CD166',
                 'CD24', 'p-beta-catS552', 'Mus-1', 'DCAMKL']
@@ -47,10 +48,18 @@ class Sample < ActiveRecord::Base
   
   SAMPLE_DEFAULT = {:sample_date => Date.today,
                     :organism => 'Mus musculus',
-                    :strain => STRAINS[0],
                     :sex => 'Male',
                     :age_in_weeks => 6}
-                    
+  MIN_CELLS = 3000
+  
   SAMPLE_SOP_PATH = File.join(RAILS_ROOT, 'public', 'files', 'Sample_Shipping_SOP.doc')
-
+  
+  def set_barcode
+    self.barcode_key = "%03d" % Barcode.next_barcode
+  end
+  
+  def cells_lt_min
+    (number_of_cells.nil? ? true : (number_of_cells < MIN_CELLS ? true : false))
+  end
+  
 end

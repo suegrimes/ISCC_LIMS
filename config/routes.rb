@@ -15,8 +15,11 @@ ActionController::Routing::Routes.draw do |map|
   map.reset     'reset/:reset_code',          :controller => 'users',     :action => 'reset'
   
   # Sample tables
-  map.resources :samples, :collection => {:auto_complete_for_intestinal_sc_marker => :get,
-                                          :auto_complete_for_sc_marker_validation_method => :get}
+  map.resources :samples, :collection => {:auto_complete_for_strain => :get,
+                                          :auto_complete_for_intestinal_sc_marker => :get,
+                                          :auto_complete_for_sc_marker_validation_method => :get,
+                                          :shipment_confirm => :get}
+                                          
   map.recv_samples 'list_intransit', :controller => :samples, :action => :list_intransit
   map.show_sop     'show_sop',       :controller => :samples, :action => :show_sop
 

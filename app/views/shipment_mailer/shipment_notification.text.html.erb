@@ -1,5 +1,5 @@
-  <% @sample = @shipment.sample %>
-  <p>New sample from: <%=h @sample.lab.lab_name %> entered by: <%=h @sample.updated_by %> on: <%=h @sample.created_at %></p>
+  <% @hdg_text = (@new_or_upd == 'New' ? 'New sample' : 'Updated shipment') %>
+  <p><%=h @hdg_text %> from: <%=h @sample.lab.lab_name %> entered by: <%=h @user_login %> on: <%=h @sample.created_at %></p>
   
   <span><b><u>Sample Details:</u></b></span>
   <table>

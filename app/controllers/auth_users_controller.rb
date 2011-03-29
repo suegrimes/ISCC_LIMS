@@ -6,7 +6,7 @@ class AuthUsersController < ApplicationController
   # GET /auth_users
   # GET /auth_users.xml
   def index
-    @auth_users = AuthUser.find(:all, :include => :lab)
+    @auth_users = AuthUser.find(:all, :include => :lab, :order => "labs.lab_name, auth_users.name")
 
     respond_to do |format|
       format.html # index.html.erb
@@ -90,6 +90,6 @@ class AuthUsersController < ApplicationController
   
 protected
   def dropdowns
-    @labs = Lab.find(:all)
+    @labs = Lab.find(:all, :order => :lab_name)
   end
 end

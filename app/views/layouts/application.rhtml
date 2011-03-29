@@ -9,16 +9,18 @@
 		<%= stylesheet_link_tag 'superfish' %>
         <%= javascript_include_tag :all, :cache => true %>
 		<%= calendar_date_select_includes %>
-		<script type="text/javascript">
+		<!--script type="text/javascript"-->
+		<!--
         // initialise Superfish 
-        $(document).ready(function() { 
-          $('ul.sf-menu').superfish({ 
-            delay:       1000,                            // one second delay on mouseout 
-            animation:   {opacity:'show',height:'show'},  // fade-in and slide-down animation 
-            speed:       'fast',                          // faster animation speed  
-          }); 
-        }); 		
-		</script>
+        //$(document).ready(function() { 
+        //  $('ul.sf-menu').superfish({ 
+        //    delay:       1000,                            // one second delay on mouseout 
+        //    animation:   {opacity:'show',height:'show'},  // fade-in and slide-down animation 
+        //    speed:       'fast',                          // faster animation speed  
+        //  }); 
+        //});
+		--> 		
+		<!--/script-->
     </head>
 
 <body id='body'>
@@ -48,7 +50,7 @@
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-bottom:0; table-layout:fixed;">
   <tr><td id="topnavbar">
-  <!-- top nav requires dependent files: latest jquery, superfish.js, hoverIntent.js, superfish.css - use version from seqLIMS, arrows-ffffff.png, shadow.png; orig source from http://users.tpg.com.au/j_birch/plugins/superfish/.--> 	
+  <!-- top nav requires dependent initialize code in header to be uncommented, files: latest jquery, superfish.js, hoverIntent.js, superfish.css - use version from seqLIMS, arrows-ffffff.png, shadow.png; orig source from http://users.tpg.com.au/j_birch/plugins/superfish/.--> 	
   <!--
   <ul class="sf-menu">
     <li><a href="#">Top Item 1</a>     

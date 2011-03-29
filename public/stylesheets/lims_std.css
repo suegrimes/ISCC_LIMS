@@ -206,6 +206,16 @@ text-decoration: none;
     text-align: left;
 }
 
+#leftsidebar .sidebar-label {
+    font: italic bold .7em/1.5em Verdana, Arial, Helvetica, sans-serif;
+    color: #990000;
+    border-bottom: 1px solid #b0aa91;
+    border-top: 1px solid #b0aa91;
+    padding:5px 10px;
+    text-align: left;
+    background: #F3F4E6;
+}
+
 #leftsidebar ul.opened {
     display: block;
     padding-top: 10px;

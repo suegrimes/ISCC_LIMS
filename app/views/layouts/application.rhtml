@@ -48,6 +48,8 @@
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-bottom:0; table-layout:fixed;">
   <tr><td id="topnavbar">
+  <!-- top nav requires dependent files: latest jquery, superfish.js, superfish.css - use version from seqLIMS, arrows-ffffff.png, shadow.png; orig source from http://users.tpg.com.au/j_birch/plugins/superfish/.--> 	
+  <!--
   <ul class="sf-menu">
     <li><a href="#">Top Item 1</a>     
       <ul>
@@ -62,8 +64,8 @@
       </ul>
     </li>
 	<li><a class="last-topmenu-item" href="#">Top Item 2</a></li>
-  </ul> <!-- /ul nav bar -->
-  <!--div style="height: 24px;">&nbsp;</div-->
+  </ul> --> <!-- /ul nav bar -->
+  <div style="height: 24px;">&nbsp;</div>
   </td></tr>
 </table>
 
@@ -79,12 +81,19 @@
   </div>
   <ul class="opened">
   	<li><a href="/">Home</a></li>
-  	<li><% if current_user.has_admin_access? %><li><%= link_to 'Receive Samples', recv_samples_path %></li><% end %>
-	<li><a href="#">Resources</a>
+	<div class="sidebar-label">Resources:</div>
 	  <ul>    
 		<li><%= link_to 'Shipment Instructions', show_sop_path %></li>
        </ul>	
-	 </li>
+	 <!--</li>-->
+	 <div class="sidebar-label">Tools:</div>
+	 <% if current_user.has_admin_access? %>
+	 <li><%= link_to 'Receive Samples', recv_samples_path %></li>
+	 <% end %>
+	 <% if can? :new, Sample %>
+	 <li><%= link_to 'New sample', new_sample_path %></li>
+	 <% end %>
+     <li><%= link_to 'List All', samples_path %></li>
   </ul>
 </div> <!-- /leftsidebar -->    
 <% end %>
@@ -103,7 +112,7 @@
     <a href="mailto:sgrimes@stanford.edu">Contact</a>
   </div>
   <div class="rgt site-blurb">Website provided by the Ji Research Group and Genome Technology Center at Stanford University<br />
-    This website and its content &copy; Stanford University, 2011. All rights reserved.
+    This website and its content &copy; Stanford University, <%= Time.now.localtime.strftime("%Y") %>. All rights reserved.
   </div>
 </div>
 

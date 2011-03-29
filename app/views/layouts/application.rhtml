@@ -2,93 +2,131 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
     <head>
         <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-        <title>ISCC RNA-Seq Data Portal<%= controller.action_name %></title>
+        <title>ISCC RNA-Seq Data Portal - <%= controller.action_name %></title>
+		<meta name="description" content="<%= META_TAGS[:description] %>" />
+        <meta name="keywords" content="<%= META_TAGS[:keywords] %>" />
         <%= stylesheet_link_tag 'lims_std' %>
-		<%= stylesheet_link_tag 'MenuBarHorizontal' %>
+		<%= stylesheet_link_tag 'superfish' %>
         <%= javascript_include_tag :all, :cache => true %>
 		<%= calendar_date_select_includes %>
+		<script type="text/javascript">
+        // initialise Superfish 
+        $(document).ready(function() { 
+          $('ul.sf-menu').superfish({ 
+            delay:       1000,                            // one second delay on mouseout 
+            animation:   {opacity:'show',height:'show'},  // fade-in and slide-down animation 
+            speed:       'fast',                          // faster animation speed  
+          }); 
+        }); 		
+		</script>
     </head>
 
 <body id='body'>
-	
+
 <div id="container" style="width: 98%;">
 	
 <div id="header">
-	<div class="logo"><%= image_tag("SU_Seal_Card_pos_small.gif", :size => "100x100", :alt => "Stanford Logo") %></div>
-	<div class="sitename">ISCC RNA-Seq Data Portal<% if RAILS_ENV != 'production'%> - (<%= RAILS_ENV%>)<%end%>
-    </div><!-- /sitename -->
-	<div class="version">Version: 0</div>
-    <% if logged_in? %>	
-	<div class="logout-link">
-		<%=h current_user.lab.lab_name %>&nbsp;&nbsp;&nbsp;&nbsp;
-		<%= link_to 'User Profile', edit_user_path(current_user) %>&nbsp;&nbsp;&nbsp;&nbsp;
-		<%= link_to 'Logout', logout_url %></div>
-	<% end %>
-
+  <table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-bottom: 0;">
+    <tr>
+      <td valign="top" rowspan="2" width="180"><div class="logo"><%= image_tag("SU_Seal_Card_pos_89.gif", :height => "89", :alt => "Stanford Genome Technology") %></div></td>
+      <td valign="top"><div class="sitename-graphic"><%= image_tag("iscc_sitename.gif", :height => "58", :alt => "SGTC Sequencing Database") %></div></td>
+      <td valign="top" width="180"><div class="version">Version: 0<br /><% if RAILS_ENV != 'production'%> <span style="font-size:larger;">(<%= RAILS_ENV%>)</span><%end%></div></td>
+    </tr>
+    <tr>
+      <td><div class="tagline"><!-- header text here --></div></td>      
+      <td valign="bottom">
+      	<% if logged_in? %>
+        <div class="logout-link">
+          <%= link_to 'User Profile', edit_user_path(current_user) %>&nbsp;&nbsp;&nbsp;&nbsp;
+          <%= link_to 'Logout', logout_url %>
+        </div>
+        <% end %>
+      </td>	  
+    </tr>
+  </table>  
 </div><!-- /header -->
 
-
-<table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-bottom:0;">
-  <tr><td style="background-color: #990000; padding: 0;">
-  <!-- change width of menu bar in MenuBarHorizontal here: ul.MenuBarHorizontal -->
+<table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-bottom:0; table-layout:fixed;">
+  <tr><td id="topnavbar">
+  <!-- top nav requires dependent files: latest jquery, superfish.js, hoverIntent.js, superfish.css - use version from seqLIMS, arrows-ffffff.png, shadow.png; orig source from http://users.tpg.com.au/j_birch/plugins/superfish/.--> 	
   <!--
-  <ul id="MenuBar1" class="MenuBarHorizontal">
-    <li><a class="MenuBarItemSubmenu" href="#">Topic with Submenu</a>
+  <ul class="sf-menu">
+    <li><a href="#">Top Item 1</a>     
       <ul>
-        <li><a class="MenuBarItemSubmenu" href="#">Subtopic with Submenu</a>
+        <li><a href="#">Submemu Item 1</a></li>
+		<li><a class="last-submenu-item" href="#">Submenu Item 2</a>
           <ul>
-            <li><a href="#">SubSubtopic Item</a></li>
-            <li class="last-item"><a href="#">Subsubtopic Item</a></li>
+          	<li><a href="#">Subsubmenu Item 1</a></li>
+            <li><a class="last-submenu-item" href="#">Subsubmenu Item 2</a></li>
           </ul>
         </li>
-        <li><a href="#">Subtopic with no Submenu</a></li>
-		<li class="last-item"><a href="#">Subtopic with no Submenu</a></li>
+		<li><a class="last-submenu-item" href="#">Submemu Item 2</a></li>
       </ul>
     </li>
-	<li><a class="nosubmenu" href="#">Topic - No Submenu</a></li>
-  </ul> 
-  --><!-- /ul nav bar -->
-  <!-- currently not using top nav bar, so this will fill in the space. If the dropdown nav is used, comment or take out  -->
-  <div style="background:#E0E0E0; border-top:1px solid #990000; border-bottom:1px solid #990000;">&nbsp;</div>
+	<li><a class="last-topmenu-item" href="#">Top Item 2</a></li>
+  </ul> --> <!-- /ul nav bar -->
+  <div style="height: 24px;">&nbsp;</div>
   </td></tr>
 </table>
 
 <div class="clear"></div>
 
 <div id="main">
+
 <% if logged_in? %>	
- <div id="leftsidebar">
+<div id="leftsidebar">
   <div class="user_info">
-    <i> Logged in as: <%= current_user.login %> </i>
+     <em>Logged in as: <%= current_user.login %><br />
+	 Lab: <%=h current_user.lab.lab_name %></em>
   </div>
   <ul class="opened">
-  	<li><% if current_user.has_admin_access? %><li><%= link_to 'Receive Samples', recv_samples_path %></li><% end %>
-	<li><a href="#">Resources</a>
+  	<li><a href="/">Home</a></li>
+	<div class="sidebar-label">Resources:</div>
 	  <ul>    
 		<li><%= link_to 'Shipment Instructions', show_sop_path %></li>
        </ul>	
-	 </li>
+	 <!--</li>-->
+	 <div class="sidebar-label">Tools:</div>
+	 <% if current_user.has_admin_access? %>
+	 <li><%= link_to 'Receive Samples', recv_samples_path %></li>
+	 <% end %>
+	 <% if can? :new, Sample %>
+	 <li><%= link_to 'New sample', new_sample_path %></li>
+	 <% end %>
+     <li><%= link_to 'List All', samples_path %></li>
   </ul>
-</div> <!-- /leftsidebar -->
+</div> <!-- /leftsidebar -->    
 <% end %>
     
 <div id="maincontent">
-  <div style='color:red'> <%= flash[:error]%></div>
-  <div style='color:green'> <%= flash[:notice]%></div>
-  <%= yield %>
-</div><!-- /maincontent -->	
+	<div style='color:red'> <%= flash[:error]%></div>
+	<div style='color:green'> <%= flash[:notice]%></div>
+	<%= yield %>
+</div><!-- /maincontent -->
+	
 </div><!-- /main -->
 
-<div id="footer">
-  <div class="lft">
-  <a href="http://med.stanford.edu/sgtc/">Stanford Genome Tech Center</a>&nbsp;|
-  <a href="mailto:insert_contact_name@stanford.edu">Contact</a>
-</div>
+<div id="footer" style="height:110px;">
+  <table border="0" align="right" cellpadding="0" cellspacing="0" width="16%">
+    <tr>
+      <td colspan="2" style="color:#990000;">Funding Provided by</td>
+    </tr> 
+	<tr><td colspan="2"></tr>   
+    <tr>
+      <td style="border: 1px solid #999;padding: 4px;"><div class="funding-text"><a href="http://www2.niddk.nih.gov/">NIDDK</a></div></td>
+      <td style="border: 1px solid #999; border-right:none;padding: 4px;"><div class="funding-text"><a href="http://www.nih.gov/">National Instututes of Health</a></div></td>     
+    </tr>
+  </table>
+  <div class="lft" style="width:30%">
+    <a href="http://med.stanford.edu/sgtc/">Stanford Genome Tech Center</a>&nbsp;|
+    <a href="mailto:sgrimes@stanford.edu">Contact</a>
+    <div class="site-blurb">Website provided by the Ji Research Group and<br />
+    Genome Technology Center at Stanford University<br />
+	<br />
+	This website and its content &copy; Stanford University, <%= Time.now.localtime.strftime("%Y") %>.<br />All rights reserved.</div>
+  </div>
 </div>
 
 </div><!-- /container -->
-<script type="text/javascript">
-    var MenuBar1 = new Spry.Widget.MenuBar("MenuBar1", {imgDown:"images/SpryMenuBarDownHover.gif", imgRight:"images/SpryMenuBarRightHover.gif"});
-</script>
 </body>
 </html>

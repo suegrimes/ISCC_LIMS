@@ -34,6 +34,14 @@ class SamplesController < ApplicationController
     end
   end
   
+  def sample_ship
+    @sample = Sample.find(params[:id], :include => :shipment)
+    if !@sample.shipment
+      checkbox_flags = {:confirm_nr_cells => (@sample.cells_lt_min ? 'N' : 'Y')}
+      @sample.build_shipment(Shipment::SHIPMENT_DEFAULT.merge!checkbox_flags)
+    end
+  end
+  
 #  def ship_dtls
 #    @sample = Sample.find(params[:id])
 #    render :update do |page|

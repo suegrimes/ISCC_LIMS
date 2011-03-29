@@ -6,9 +6,11 @@
   <span class="form_title">Sample Details:</span>
   <%= render :partial => 'sample_form', :locals => {:f => f, :sample => @sample} %>
   
+  <% if @sample.shipment %>
   <div id="ship_ask">
   <%= link_to_function 'Edit Shipment Details', toggle_div(:ship_edit, :ship_ask) %> 
   </div>
+  <% end %>
 
   <div id="ship_edit", style="display:none">
 	<% f.fields_for :shipment do |s| %>

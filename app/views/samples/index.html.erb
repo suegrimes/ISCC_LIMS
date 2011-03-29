@@ -38,6 +38,12 @@
 	<% else %>
 	<td class="ltgrey">Edit</td>
 	<% end %>
+	
+	<% if !sample.shipment && (can? :edit, sample) %>
+	<td><%= link_to 'Ship', :action => :sample_ship, :id => sample.id %></td>
+	<% else %>
+	<td class="ltgrey"><%= (sample.shipment ? 'Shipped' : 'Ship') %></td>
+	<% end %>
 
     <% if can? :delete, sample %>
     <td><%= link_to 'Delete', sample, :confirm => 'Are you sure?', :method => :delete %></td>

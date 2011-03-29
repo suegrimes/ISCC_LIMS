@@ -1,0 +1,11 @@
+<span class="table_title">Sample Details:</span>
+<%= render :partial => 'sample_show', :locals => {:sample => @sample} %>
+
+<% form_for(@sample, :action => :update) do |f| %>
+  
+<% f.fields_for :shipment do |s| %>
+  <%= render :partial => 'shipment_form', :locals => {:f => s, :sample => @sample} %>
+<% end %>
+  
+<%= f.submit "Update" %>
+<% end %>

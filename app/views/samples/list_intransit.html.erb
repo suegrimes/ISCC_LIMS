@@ -17,14 +17,17 @@
 <% @samples.each_with_index do |sample, i| %>
   <% if sample.shipment %>
   <% fields_for "sample[" + sample.id.to_s + "]", sample do |f| %>
-  <% check_box_id   = "recvd_" + sample.id.to_s %>
+  <% check_box_id = "recvd_" + sample.id.to_s %>
+  <% date_input_box_name = 'sample[' + sample.id.to_s + '][shipment_attributes][date_received]' %>
+  <script type="text/javascript">
+  	var checkbox_name;
+	var date_input_name;
+	checkbox_name = "<%= check_box_id %>"; 
+    date_input_name = "<%= date_input_box_name %>";
+  </script>
   <tr>
-  	<td><%= check_box_tag(check_box_id) %></td>
-       <%= observe_field(check_box_id,
-		                 :frequency => 0.2,
-		                 :url => {:action => :upd_date_recvd, :id => sample.id},
-                         :with => "'checked_value=' + escape(value)") %>  
-
+  	<td><%= check_box_tag check_box_id, 1, false, :onclick=>"if (this.checked) this.form.date_input_name.value='DEBUG'" %></td>
+<!-- if (this.checked) this.form.date_input_name.focus() -->
 	<% f.fields_for :shipment do |s| %>
 	<td><%=s.calendar_date_select(:date_received, :valid_date_check => "date <= (new Date()).stripTime()",
                                                  :year_range => [1.years.ago, 0.years.ago], :size => 15)%></td>

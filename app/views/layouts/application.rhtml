@@ -9,7 +9,7 @@
 		<%= stylesheet_link_tag 'superfish' %>
         <%= javascript_include_tag :all, :cache => true %>
 		<%= calendar_date_select_includes %>
-		<!--script type="text/javascript"-->
+		<script type="text/javascript">
 		<!--
         // initialise Superfish 
         //$(document).ready(function() { 
@@ -20,7 +20,7 @@
         //  }); 
         //});
 		--> 		
-		<!--/script-->
+		</script>
     </head>
 
 <body id='body'>
@@ -32,7 +32,7 @@
     <tr>
       <td valign="top" rowspan="2" width="180"><div class="logo"><%= image_tag("SU_Seal_Card_pos_89.gif", :height => "89", :alt => "Stanford Genome Technology") %></div></td>
       <td valign="top"><div class="sitename-graphic"><%= image_tag("iscc_sitename.gif", :height => "58", :alt => "SGTC Sequencing Database") %></div></td>
-      <td valign="top" width="180"><div class="version">Version: 0<br /><% if RAILS_ENV != 'production'%> <span style="font-size:larger;">(<%= RAILS_ENV%>)</span><%end%></div></td>
+      <td valign="top" width="180"><div class="version"><% if APP_VERSION %>Version: <%= APP_VERSION %><% end %><br /><% if RAILS_ENV != 'production'%> <span style="font-size:larger;">(<%= RAILS_ENV%>)</span><%end%></div></td>
     </tr>
     <tr>
       <td><div class="tagline"><!-- header text here --></div></td>      
@@ -56,17 +56,29 @@
     <li><a href="#">Top Item 1</a>     
       <ul>
         <li><a href="#">Submemu Item 1</a></li>
-		<li><a class="last-submenu-item" href="#">Submenu Item 2</a>
+		<li><a href="#">Submenu Item 2</a>
           <ul>
           	<li><a href="#">Subsubmenu Item 1</a></li>
             <li><a class="last-submenu-item" href="#">Subsubmenu Item 2</a></li>
           </ul>
         </li>
-		<li><a class="last-submenu-item" href="#">Submemu Item 2</a></li>
+		<li><a class="last-submenu-item" href="#">Submemu Item 3</a>
+		  <ul>
+          	<li><a href="#">Subsubmenu Item 1</a></li>
+            <li><a class="last-submenu-item" href="#">Subsubmenu Item 2</a></li>
+          </ul>
+		</li>
       </ul>
     </li>
-	<li><a class="last-topmenu-item" href="#">Top Item 2</a></li>
-  </ul> --> <!-- /ul nav bar -->
+	<li><a href="#">Top Item 2</a>
+	  <ul>
+	  	<li><a href="#">Submemu Item 1</a</li>
+		<li><a href="#">Submemu Item 2</a</li>
+		<li><a class="last-submenu-item" href="#">Submemu Item 3</a</li>
+	  </ul>
+	</li>
+	<li><a class="last-topmenu-item" href="#">Top Item 3</a>
+  </ul>-->  <!-- /ul nav bar -->
   <!-- comment this out if using top nav --> 
   <div style="height: 24px;">&nbsp;</div>
   </td></tr>
@@ -123,8 +135,8 @@
   <div class="lft" style="width:30%">
     <a href="http://med.stanford.edu/sgtc/">Stanford Genome Tech Center</a>&nbsp;|
     <a href="mailto:sgrimes@stanford.edu">Contact</a>
-    <div class="site-blurb">Website provided by the Ji Research Group and<br />
-    Genome Technology Center at Stanford University<br />
+    <div class="site-blurb">Website provided by the Ji Research Group, Stanford School of Medicine <br />
+    and Stanford Genome Technology Center<br />
 	<br />
 	This website and its content &copy; Stanford University, <%= Time.now.localtime.strftime("%Y") %>.<br />All rights reserved.</div>
   </div>

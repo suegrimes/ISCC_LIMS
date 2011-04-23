@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   skip_before_filter :login_required, :only => [:new, :create, :activate, :forgot, :reset]
   
   def index
-    unauthorized! if cannot? :read, User
+    authorize! :read, User
     @users = User.find(:all, :include => [:lab, :auth_user], :order => "lab_id, login")
   end
   
@@ -29,12 +29,12 @@ class UsersController < ApplicationController
   # render edit.html
   def edit
     @user = User.find(params[:id])
-    unauthorized! if cannot? :edit, @user
+    authorize! :edit, @user
   end
   
   def update
     @user = User.find(params[:id])
-    unauthorized! if cannot? :update, @user
+    authorize! :update, @user
          
     if @user.authenticated?(params[:curr_user][:current_password])
       if @user.update_attributes(params[:user])
@@ -109,7 +109,7 @@ class UsersController < ApplicationController
   
   def destroy
     @user = User.find(params[:id])
-    unauthorized! if cannot? :delete, @user
+    authorize! :destroy, @user
     
     @user.destroy
     redirect_to users_url

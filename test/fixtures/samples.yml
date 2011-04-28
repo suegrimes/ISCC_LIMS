@@ -15,9 +15,11 @@
 #  intestinal_sc_marker         :string(50)
 #  isolation_protocol_id        :integer(4)
 #  facs_protocol_id             :integer(4)
+#  facs_protocol                :string(100)
 #  sc_marker_validation_method  :string(50)
 #  secondary_validation_results :string(255)
 #  molecule_type                :string(10)
+#  number_of_cells              :integer(4)
 #  comments                     :string(255)
 #  lab_id                       :integer(4)      not null
 #  updated_by                   :integer(4)

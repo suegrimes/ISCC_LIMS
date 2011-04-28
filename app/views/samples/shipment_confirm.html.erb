@@ -2,7 +2,7 @@
 <%= render :partial => 'sample_show', :locals => {:sample => @sample} %>
 
 <div id="ship_ask">
-<%= link_to_function 'Ship sample', toggle_div(:ship_samples, :ship_ask) %> | 
+<%= link_to_function 'Ship sample', div_toggle(:ship_samples, :ship_ask) %> | 
 <%= link_to 'Edit sample', edit_sample_path(@sample) %>
 </div>
 

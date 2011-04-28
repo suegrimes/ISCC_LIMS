@@ -1,5 +1,5 @@
 # Settings specified here will take precedence over those in config/environment.rb
-SITE_URL = "sgtc-svr108.stanford.edu/iscc_rnaseq"
+SITE_URL = "stemcellgenome.stanford.edu"
 
 # The production environment is meant for finished, "live" apps.
 # Code is not reloaded between requests

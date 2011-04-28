@@ -6,20 +6,22 @@
 		<meta name="description" content="<%= META_TAGS[:description] %>" />
         <meta name="keywords" content="<%= META_TAGS[:keywords] %>" />
         <%= stylesheet_link_tag 'lims_std' %>
-		<%= stylesheet_link_tag 'superfish' %>
+		<!--%= stylesheet_link_tag 'lims-superfish' %-->
+		<!--[if IE]><%= stylesheet_link_tag 'ie-fixes' %><![endif]-->        
         <%= javascript_include_tag :all, :cache => true %>
 		<%= calendar_date_select_includes %>
+	    <script type="text/javascript">
+	        //jQuery.noConflict();
+        </script>
 		<script type="text/javascript">
-		<!--
         // initialise Superfish 
-        //$(document).ready(function() { 
-        //  $('ul.sf-menu').superfish({ 
-        //    delay:       1000,                            // one second delay on mouseout 
-        //    animation:   {opacity:'show',height:'show'},  // fade-in and slide-down animation 
-        //    speed:       'fast',                          // faster animation speed  
-        //  }); 
-        //});
-		--> 		
+        //jQuery(document).ready(function() { 
+          //jQuery('ul.sf-menu').superfish({ 
+            //delay:       1000,                            // one second delay on mouseout 
+            //animation:   {opacity:'show',height:'show'},  // fade-in and slide-down animation 
+            //speed:       'fast',                          // faster animation speed  
+          //}); 
+        //}); 		
 		</script>
     </head>
 
@@ -47,41 +49,52 @@
     </tr>
   </table>  
 </div><!-- /header -->
-
+<!-- 
+  top nav requires:
+  - uncomment stylesheet link for lims-superfish.css
+  - uncomment jQuery.noConflict
+  - uncomment initialise Superfish
+  - uncomment block of code for <ul class="sf-menu"> below
+  files required - latest jquery, superfish.js, hoverIntent.js, lims-superfish.css
+  images - arrows-ffffff.png, shadow.png
+  source - http://users.tpg.com.au/j_birch/plugins/superfish/
+-->   
 <table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-bottom:0; table-layout:fixed;">
-  <tr><td id="topnavbar">
-  <!-- top nav requires dependent initialize code in header to be uncommented, files: latest jquery, superfish.js, hoverIntent.js, superfish.css - use version from seqLIMS, arrows-ffffff.png, shadow.png; orig source from http://users.tpg.com.au/j_birch/plugins/superfish/.--> 	
-  <!--
-  <ul class="sf-menu">
-    <li><a href="#">Top Item 1</a>     
-      <ul>
-        <li><a href="#">Submemu Item 1</a></li>
-		<li><a href="#">Submenu Item 2</a>
-          <ul>
-          	<li><a href="#">Subsubmenu Item 1</a></li>
-            <li><a class="last-submenu-item" href="#">Subsubmenu Item 2</a></li>
-          </ul>
-        </li>
-		<li><a class="last-submenu-item" href="#">Submemu Item 3</a>
-		  <ul>
-          	<li><a href="#">Subsubmenu Item 1</a></li>
-            <li><a class="last-submenu-item" href="#">Subsubmenu Item 2</a></li>
-          </ul>
-		</li>
-      </ul>
-    </li>
-	<li><a href="#">Top Item 2</a>
-	  <ul>
-	  	<li><a href="#">Submemu Item 1</a</li>
-		<li><a href="#">Submemu Item 2</a</li>
-		<li><a class="last-submenu-item" href="#">Submemu Item 3</a</li>
-	  </ul>
-	</li>
-	<li><a class="last-topmenu-item" href="#">Top Item 3</a>
-  </ul>-->  <!-- /ul nav bar -->
-  <!-- comment this out if using top nav --> 
-  <div style="height: 24px;">&nbsp;</div>
-  </td></tr>
+  <tr>
+    <td id="topnavbar"> 	
+    <!--
+    <ul class="sf-menu">
+      <li><a href="#">Top Item 1</a>     
+        <ul>
+          <li><a href="#">Submemu Item 1</a></li>
+		  <li><a href="#">Submenu Item 2</a>
+            <ul>
+          	  <li><a href="#">Subsubmenu Item 1</a></li>
+              <li><a class="last-submenu-item" href="#">Subsubmenu Item 2</a></li>
+            </ul>
+          </li>
+		  <li><a class="last-submenu-item" href="#">Submemu Item 3</a>
+		    <ul>
+          	  <li><a href="#">Subsubmenu Item 1</a></li>
+              <li><a class="last-submenu-item" href="#">Subsubmenu Item 2</a></li>
+            </ul>
+		  </li>
+        </ul>
+      </li>
+	  <li><a href="#">Top Item 2</a>
+	    <ul>
+	  	  <li><a href="#">Submemu Item 1</a</li>
+		  <li><a href="#">Submemu Item 2</a</li>
+		  <li><a class="last-submenu-item" href="#">Submemu Item 3</a</li>
+	    </ul>
+	  </li>
+	  <li><a class="last-topmenu-item" href="#">Top Item 3</a>
+    </ul>
+    -->  <!-- /ul nav bar -->
+    <!-- comment this out if using top nav --> 
+    <div style="height: 22px;">&nbsp;</div>
+    </td>
+  </tr>
 </table>
 
 <div class="clear"></div>

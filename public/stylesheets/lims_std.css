@@ -20,20 +20,27 @@ body {
 
 /* generic html tag styles */
 
-p,h1,h2,h3,h4,h5,h6 {
+p {
     padding-left: .5em;
-    padding-top: 0.5em;
+    padding-top: .5em;
 }
 
 h1 {
-    font-size:1.5em;
+    font-size: 1.1em;
+    color: #003366;
+    padding-left: 0.2em;
+}
+
+h2 {
+    font-size: 1em;
     margin:0;
     padding:0;
 }
 
 h3 {
-    font-size: 1.05em;
-    color: #003366;
+    font-size: .9em;
+    margin:0;
+    padding:0;
 }
 
 hr {clear:both; border:0; height:1px; background-color:#888;}
@@ -75,7 +82,7 @@ hr {clear:both; border:0; height:1px; background-color:#888;}
 
 #header .logo {
     margin-top: 4px;
-	text-align: center;
+    text-align: center;
 }
     
 #header .sitename, .sitename.prod, .sitename.test {
@@ -86,18 +93,18 @@ hr {clear:both; border:0; height:1px; background-color:#888;}
 
 #header .sitename-graphic {
     margin-top: 3px;
-    text-align: center;	
+    text-align: center; 
 }
 
-#header .version {	
+#header .version {  
     margin-right: 7px;
     font-size: .8em;
     font-weight: bold;
-	text-align: right;
+    text-align: right;
 }
 
 #header .logout-link {
-    margin: 0 8px 0 0;	
+    margin: 0 8px 0 0;  
     text-align: right;
 }
 
@@ -110,21 +117,21 @@ hr {clear:both; border:0; height:1px; background-color:#888;}
 
 #header .tagline { 
     font-size: 0.9em;
-	color: #777;
-	font-style:italic;
-	font-weight:bold;
-	text-align: center;	
+    color: #777;
+    font-style:italic;
+    font-weight:bold;
+    text-align: center; 
 }
 
 #footer {
-    height: 29px;
+    height: auto;
     /* overflow: auto; */
     background: #fff;
     border-top: 1px solid #C1C1C1;
     padding: 10px;
   }
 * html #footer {
-    height: 28px;
+    height: auto;
 }
 #footer p {
     font: bold .8em verdana, sans-serif;
@@ -146,25 +153,22 @@ hr {clear:both; border:0; height:1px; background-color:#888;}
     font-size: .8em;
     line-height:1.3em;
     font-style: italic;
-    /*margin-top: 10px;*/
+    white-space: nowrap;
+	margin-top: 1em;
 }
 
 #footer .site-blurb a {
     font: inherit;
 }
-/*
-#footer .site-blurb a:hover {
-	font: inherit;
-}
-*/
+
 #footer .funding-text a {
-	color: #333;
-	font-size: .8em;
-	line-height: 1.1em;
+    color: #333;
+    font-size: .8em;
+    line-height: 1.1em;
 }
 #footer .funding-text a:hover {
-	color: #990000;
-	text-decoration: none;
+    color: #990000;
+    text-decoration: none;
 }
 
 /* start left navigation styles */
@@ -185,12 +189,6 @@ hr {clear:both; border:0; height:1px; background-color:#888;}
 #leftsidebar a {
     display: block;
 }
-    
-/* .leftnavlist {
-background-color:#FF9966;
-color: #000;
-text-decoration: none;
-} */
 
 #leftsidebar ul {
     margin: 0;
@@ -319,29 +317,6 @@ text-decoration: none;
  color: #990000;
  font-size:inherit;
  }
- 
-#maincontent .big-login-buttons {
-    width:180px;
-    height: auto;
-    text-align: center;
-    padding: 1.3em 0;
-    margin:10px;
-    background: beige;
-    border: 4px solid #C1C1C1;
-    border-radius: 10px;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-}
-
-#maincontent .big-login-buttons a {
-    color: #990000;
-text-decoration: none;
-}
-
-#maincontent .big-login-buttons a:hover {
-    color: #333;
-text-decoration: none;
-}
 
 /* styles for tables */
 
@@ -351,6 +326,10 @@ table {
     table-layout: auto;
     /*float: left;*/
     /*width: 95%;*/
+}
+
+table.break_clear {
+    margin-bottom: 0;    
 }
 
 th {
@@ -363,46 +342,79 @@ td {
     padding: 1px 4px;
 }
 
-.table_title,.form_title {
+.form_title {
     font-size: .9em;
     font-weight: 600;
-    font-variant: small-caps;
+    font-style: italic;
 }
 
-.list, .form {
+.table_title {
+    font-size: .9em;
+    font-weight: bold;
+    font-style: italic;
+}
+
+table.list {
     border: 1px solid #b0aa91;
     border-collapse: collapse;
+    min-width: 25%;
+    max-width: 100%;
 }
 
 .list th {
     font-size: .9em;
-    background-color: #f1f2e3;
-    border-bottom: 1px solid #999;
+    padding: .1em .3em;
+    background-color: #e9e9e9;
+    border-width: 1px;
+    border-style: none dotted solid;
+    border-color: transparent #999 #999;
+    vertical-align: top;
 }
 
 .list td {
     font-size: .9em;
-    border-bottom: 1px solid #B0AA91;
-    /*padding-left: .5em;*/
+    padding: .1em .3em;
+    border-width: 1px;
+    border-style: none dotted solid;
+    border-color: transparent #DEDACB #B0AA91;
+    vertical-align: top;
 }
 
-.list .no_border_bottom {
-    border-bottom: 0 none;
+.list .solid_border_bottom {
+    border-bottom: 1px solid #B0AA91;
+}
+
+.list .dotted_border_bottom {
+    border-bottom: 1px dotted #DEDACB;
+}
+
+.list .border_leftright_only {
+    border-width: 0 1px 0;
+    border-style: none dotted none;
+    border-color: transparent #DEDACB transparent;
+}
+
+.list .cellborder {
+    border: 1px dotted #dedacb; /* #b0aa91; */
+    padding: .1em .3em;
+}
+
+.list .no_cellborder {
+    border: 0 none;
 }
 
 .list a.linkborder {
-    border: 2px solid #c0c0c0;
-    border-radius: 8px;
-    -webkit-border-radius: 8px;
-    -moz-border-radius: 8px;
-    padding: .07em .2em;
+    border: 1px solid #c5c5c5;
+    border-radius: 6px;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    padding: 0 .5em;
 }
 
-/* lists with no underlines */
 .info01 {
     border: 1px solid #b0aa91;
     border-collapse: separate;
-    margin-bottom: 3em;
+    margin-bottom: 1em;
 }
 
 .info01 th {
@@ -418,38 +430,118 @@ td {
     padding: .1em .3em;
 }
 
-.info td.linkborder, .list td.linkborder {
-    border: 2px solid #dedacb;
+table.info {
+    margin-bottom: 0;
 }
 
 .info th {
-    font-size: .8em;
+    font-size: .85em;
     font-weight: bolder;
+    text-align: right;
+    vertical-align:top;
 }
 
 .info td {
-    font-size: .9em;
+    font-size: .85em;
+    vertical-align: top;
+    padding-right: .75em;
 }
 
-.form {
-    background-color: #f1f2e3;
+/* info fieldset styles */
+
+fieldset.info {
+    padding: .5em;
+    margin-bottom: 10px;
+    float:left; 
+    /* clear:right;*/
+    background: #fafafa;
+    border: 1px solid #999;
+    width:50%;
+}
+.info legend {
+    margin-left:1em;
+    font-size: .9em;
+    font-weight: bold;
+    font-style: italic;
+    padding: 0 4px;
+    background: #fff;
+    border: 1px solid #999;
+}
+
+/* end info fieldset styles */
+
+table.form {
+    background-color: #e9e9e9;
+    border-collapse: collapse;
+}
+
+table.border {
+    border: 1px solid #999;
 }
 
 .form th {
-    font-size: .9em;
-    background-color: #f1f2e3;
-    border-bottom: none;
+    font-size: .85em;
+    font-weight: bolder;
     text-align: right;
+    vertical-align:top;
 }
 
 .form th.top-heading-row {
     text-align: left;
+    vertical-align:middle;
 }
 
-
 .form td {
-    font-size: .9em;
-    border-bottom: none;
+    font-size: .85em;
+    vertical-align: top;
+    padding-right: .75em;
+    white-space:nowrap;
+}
+
+table.form-with-columns {
+    background-color: #e9e9e9;
+    border-collapse: collapse;
+}
+
+.form-with-columns th {
+    font-size: .85em;
+    font-weight: bolder;
+    text-align: left;
+    vertical-align:top;
+    text-decoration: underline;
+    padding-bottom: .3em;
+}
+
+table.form-with-columns-no-th-underline {
+    background-color: #fefefe;
+    border-collapse: collapse;
+    margin: 0 .2em .8em .2em;
+    width: 99%;
+}
+
+.form-with-columns-no-th-underline th {
+    font-size: .85em;
+    font-weight: bolder;
+    text-align: left;
+    vertical-align:top;
+    padding-top: .3em;
+    padding-left: 2px;
+}
+
+.form-with-columns-no-th-underline th.right {    
+    text-align: right;
+}
+
+.form-with-columns td {
+    font-size: .85em;
+    vertical-align: top;
+    padding-right: .75em;
+}
+
+.form-with-columns-no-th-underline td {
+    font-size: .85em;
+    vertical-align: top;
+    padding: .25em .5em .25em 0;
 }
 
 .form01 {
@@ -468,11 +560,7 @@ td {
     border-bottom: none;
 }
 
-.linkbutton td {
-    border: 1px solid #dedacb;
-    color: 0000FF;
-}
-
+/*
 .form ul {
     margin: 0;
     padding: 0;
@@ -483,6 +571,30 @@ td {
 .form li {
     float: left;
 }
+*/
+
+/* form fieldset styles */
+
+fieldset.form {
+    padding: .5em .5em 0 .5em;
+    margin-bottom: 10px;
+    float:left; 
+    background: #e9e9e9;
+    border: 1px solid #999;
+    min-width: 25%;
+    max-width: 125%;
+}
+.form legend {
+    margin-left:1em;
+    font-size: .9em;
+    font-weight: bold;
+    font-style: italic;
+    padding: 0 4px;
+    background: #fff;
+    border: 1px solid #999;
+}
+
+/* end form fieldset styles */
 
 /* end styles for tables */
 
@@ -519,6 +631,21 @@ td {
 
 .clear {
     clear: both;
+}
+
+.linkborder {
+    border: 2px solid #dedacb;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    text-align: center;
+    padding: 0 4px;
+    line-height: 1.3em;
+    width: 3em;
+}
+
+.wrap-line {
+    white-space:pre-line;
 }
 
 /* styles for Rails error messages */

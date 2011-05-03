@@ -6,6 +6,7 @@
 		<meta name="description" content="<%= META_TAGS[:description] %>" />
         <meta name="keywords" content="<%= META_TAGS[:keywords] %>" />
         <%= stylesheet_link_tag 'lims_std' %>
+		<%= stylesheet_link_tag 'iscc_styles' %>
 		<!--%= stylesheet_link_tag 'lims-superfish' %-->
 		<!--[if IE]><%= stylesheet_link_tag 'ie-fixes' %><![endif]-->        
         <%= javascript_include_tag :all, :cache => true %>
@@ -134,25 +135,30 @@
 	
 </div><!-- /main -->
 
-<div id="footer" style="height:110px;">
-  <table border="0" align="right" cellpadding="0" cellspacing="0" width="16%">
-    <tr>
-      <td colspan="2" style="color:#990000;">Funding Provided by</td>
-    </tr> 
-	<tr><td colspan="2"></tr>   
-    <tr>
-      <td style="border: 1px solid #999;padding: 4px;border-right:none;"><div class="funding-text"><a href="http://www2.niddk.nih.gov/">NIDDK</a></div></td>
-      <td style="border: 1px solid #999;padding: 4px;"><div class="funding-text"><a href="http://www.nih.gov/">National Instututes of Health</a></div></td>     
-    </tr>
-  </table>
-  <div class="lft" style="width:30%">
-    <a href="http://med.stanford.edu/sgtc/">Stanford Genome Tech Center</a>&nbsp;|
-    <a href="mailto:sgrimes@stanford.edu">Contact</a>
-    <div class="site-blurb">Website provided by the Ji Research Group, Stanford School of Medicine <br />
-    and Stanford Genome Technology Center<br />
-	<br />
-	This website and its content &copy; Stanford University, <%= Time.now.localtime.strftime("%Y") %>.<br />All rights reserved.</div>
-  </div>
+<div id="footer">
+<table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-bottom: 0;">
+  <tr>
+    <td>
+      <a href="http://med.stanford.edu/sgtc/">Stanford Genome Tech Center</a>&nbsp;|
+      <a href="mailto:sgrimes@stanford.edu">Contact</a>
+      <div class="site-blurb">Website provided by the Ji Research Group<br />School of Medicine and Genome Technology Center at Stanford University<br />
+      This website and its content &copy; Stanford University, <%= Time.now.localtime.strftime("%Y") %>. All rights reserved.
+      </div>
+    </td>
+	<td>
+      <table border="0" cellpadding="0" cellspacing="0" align="right">
+        <tr>
+          <td colspan="2" style="color:#990000;">Funding Provided by</td>
+        </tr> 
+        <tr><td colspan="2"></tr>   
+        <tr>
+          <td style="border: 1px solid #999;padding: 4px;border-right:none;"><div class="funding-text"><a href="http://www2.niddk.nih.gov/">NIDDK</a></div></td>
+          <td style="border: 1px solid #999;padding: 4px;"><div class="funding-text"><a href="http://www.nih.gov/">National Instututes of Health</a></div></td>     
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
 </div>
 
 </div><!-- /container -->

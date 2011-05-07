@@ -26,4 +26,12 @@ module ApplicationHelper
   def day_of_week(datetime)
     (datetime.nil? ? '' : datetime.strftime("%A"))
   end
+  
+  def break_clear(content=nil)
+    out = '<br />'
+    out << '<table class="break_clear" width="100%"><tr><td>'
+    out << content if !content.nil?
+    out << '</td></tr></table>'
+    out
+  end
 end

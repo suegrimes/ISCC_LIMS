@@ -1,5 +1,6 @@
-<span class="table_title">Please verify the following items prior to shipping:</span>
-<table class="info">
+<fieldset class="form">
+<legend>Please verify the following items prior to shipping</legend>
+<table class="form">
   <tr>
   	<td><%=f.check_box(:confirm_barcode, {}, 'Y', 'N')%>Sample labeled with barcode: <%=h sample.barcode_key %></td>
 	<td width="25"></td>
@@ -33,3 +34,4 @@
 	<td colspan=2></td>
   </tr>  
 </table>
+</fieldset>

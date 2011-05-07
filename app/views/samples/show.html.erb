@@ -1,10 +1,10 @@
-<h1> Show Sample </h1>
-<span class="table_title">Sample Details:</span>
+<h1>Show Samples</h1>
+
 <%= render :partial => 'sample_show', :locals => {:sample => @sample} %>
 <% if @sample.shipment %>
 <%= render :partial => 'shipment_show', :locals => {:shipment => @sample.shipment} %>
 <% end %>
-
+<%= break_clear %>
 <% if can? :new, Sample %><%= link_to 'New sample', new_sample_path %> | <% end %>
 <% if can? :edit, @sample %>
 <%= link_to 'Edit', edit_sample_path(@sample) %> | 

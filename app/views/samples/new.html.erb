@@ -3,9 +3,11 @@
 <% form_for @sample, :url => {:action => 'create'} do |f| %>
   <%= f.error_messages %> 
  
-  <span class="form_title">Sample Details:</span>
   <%= render :partial => 'sample_form', :locals => {:f => f, :sample => @sample} %>
   
-  <p><%= f.submit "Save" %>&nbsp;&nbsp;&nbsp;<%=link_to 'List All', samples_path %></p>
-  <% end %>
+  <%= break_clear(f.submit "Save") %>
+  
+  <%= link_to 'List All', samples_path %>
+  
+<% end %>
   

@@ -3,48 +3,45 @@
 <% form_tag :action => :update_multi do %>
 <table class="list">
   <tr>
-  	<th>Recvd?</th>
-	<th>Date Received</th>
-  	<th>Lab Name</th>
-  	<th>Barcode</th>
-	<th>Sample Name</th>
-	<th>Sample Date</th>
+    <th>Recvd?</th>
+    <th>Date Received</th>
+    <th>Lab Name</th>
+    <th>Barcode</th>
+    <th>Sample Name</th>
+    <th>Sample Date</th>
     <th>Date Shipped</th>
-	<th>FedEx Tracking#</th>
-	<th>Shipping Comments</th>
+    <th>FedEx Tracking#</th>
+    <th>Shipping Comments</th>
   </tr>
 
 <% @samples.each_with_index do |sample, i| %>
   <% if sample.shipment %>
   <% fields_for "sample[" + sample.id.to_s + "]", sample do |f| %>
-  <% check_box_id = "recvd_" + sample.id.to_s %>
-  <% date_input_box_name = 'sample[' + sample.id.to_s + '][shipment_attributes][date_received]' %>
-  <script type="text/javascript">
-  	var checkbox_name;
-	var date_input_name;
-	checkbox_name = "<%= check_box_id %>"; 
-    date_input_name = "<%= date_input_box_name %>";
-  </script>
+  <% check_box_id   = "recvd_" + sample.id.to_s %>
   <tr>
-  	<td><%= check_box_tag check_box_id, 1, false, :onclick=>"if (this.checked) this.form.date_input_name.value='DEBUG'" %></td>
-<!-- if (this.checked) this.form.date_input_name.focus() -->
-	<% f.fields_for :shipment do |s| %>
-	<td><%=s.calendar_date_select(:date_received, :valid_date_check => "date <= (new Date()).stripTime()",
+    <td><%= check_box_tag(check_box_id) %></td>
+       <%= observe_field(check_box_id,
+                         :frequency => 0.2,
+                         :url => {:action => :upd_date_recvd, :id => sample.id},
+                         :with => "'checked_value=' + escape(value)") %>  
+
+    <% f.fields_for :shipment do |s| %>
+    <td><%=s.calendar_date_select(:date_received, :valid_date_check => "date <= (new Date()).stripTime()",
                                                  :year_range => [1.years.ago, 0.years.ago], :size => 15)%></td>
-  	<td><%=h sample.lab.lab_name %></td>
-  	<td><%=link_to sample.barcode_key, sample %></td>
-	<td><%=h sample.sample_name %></td>
-	<td><%=h sample.sample_date %></td>
-	<td><%=h sample.shipment.date_shipped %></td>
-	<td><%=h sample.shipment.fedex_tracking_nr %></td>
-	<td><%=h sample.shipment.comments %></td>
+    <td><%=h sample.lab.lab_name %></td>
+    <td><%=link_to sample.barcode_key, sample %></td>
+    <td><%=h sample.sample_name %></td>
+    <td><%=h sample.sample_date %></td>
+    <td><%=h sample.shipment.date_shipped %></td>
+    <td><%=h sample.shipment.fedex_tracking_nr %></td>
+    <td><%=h sample.shipment.comments %></td>
   </tr>
   <% end %>
   <% end %>
 <% end %>
 <% end %>
 </table>
-<p><%= submit_tag 'Update'%></p>
+<%= submit_tag 'Update'%>
 <% end %>
 <%= link_to 'List All', samples_path %>
 

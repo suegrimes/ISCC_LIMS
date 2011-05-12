@@ -10,10 +10,9 @@
 		<!--%= stylesheet_link_tag 'lims-superfish' %-->
 		<!--[if IE]><%= stylesheet_link_tag 'ie-fixes' %><![endif]-->        
         <%= javascript_include_tag :all, :cache => true %>
-        <%= javascript_include_tag "jquery-1.5.1.min" %>
 		<%= calendar_date_select_includes %>
 	    <script type="text/javascript">
-	        jQuery.noConflict();
+	        var $j = jQuery.noConflict();
         </script>
 		<script type="text/javascript">
         // initialise Superfish 
@@ -57,7 +56,7 @@
   - uncomment jQuery.noConflict
   - uncomment initialise Superfish
   - uncomment block of code for <ul class="sf-menu"> below
-  files required - latest jquery, superfish.js, hoverIntent.js, lims-superfish.css
+  files required - latest jquery, superfish.js, lims-superfish.css
   images - arrows-ffffff.png, shadow.png
   source - http://users.tpg.com.au/j_birch/plugins/superfish/
 -->   

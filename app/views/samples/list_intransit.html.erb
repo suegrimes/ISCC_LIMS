@@ -23,11 +23,7 @@
     <td><%= check_box_tag(check_box_id) %></td>
 						 
     <script type="text/javascript">
-        $j(function(){
-            $j('#<%= check_box_id %>').click(function() {
-                $j('#<%= check_box_id %>' + '_shipment_attributes_date_received').val(num_date());
-            });
-	    });             
+    	load_date('<%= check_box_id %>');         
     </script>						  
 
     <% f.fields_for :shipment do |s| %>

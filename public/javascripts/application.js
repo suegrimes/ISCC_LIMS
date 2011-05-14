@@ -11,3 +11,13 @@ function num_date() {
     return num_date;
 }
 
+var $j = jQuery.noConflict();
+
+var load_date = function(chk_bx_id) {
+    $j('#' + chk_bx_id).click(function() {
+        $j('#' + chk_bx_id + '_shipment_attributes_date_received').val(num_date());
+    });	
+};
+
+
+

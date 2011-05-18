@@ -11,12 +11,16 @@ function num_date() {
     return num_date;
 }
 
-var $j = jQuery.noConflict();
+var $j = jQuery.noConflict(); //use jQuery object with $j and won't conflict with other libraries
 
 var load_date = function(chk_bx_id) {
-    $j('#' + chk_bx_id).click(function() {
-        $j('#' + chk_bx_id + '_shipment_attributes_date_received').val(num_date());
-    });	
+	$j('#' + chk_bx_id).click(function() {
+	    if ( $j('#' + chk_bx_id).is(':checked') ) { 
+	        $j('#' + chk_bx_id + '_shipment_attributes_date_received').val(num_date());
+        } else { 
+	        $j('#' + chk_bx_id + '_shipment_attributes_date_received').val(''); 
+        }
+	});
 };
 
 

@@ -1,4 +1,4 @@
-<span class="table_title">Sample Details:</span>
+<h1>Sample Shipment</h1>
 <%= render :partial => 'sample_show', :locals => {:sample => @sample} %>
 
 <% form_for(@sample, :action => :update) do |f| %>
@@ -7,5 +7,5 @@
   <%= render :partial => 'shipment_form', :locals => {:f => s, :sample => @sample} %>
 <% end %>
   
-<%= f.submit "Update" %>
+<%= break_clear(f.submit "Update") %>
 <% end %>

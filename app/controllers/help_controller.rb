@@ -1,6 +1,7 @@
 class HelpController < ApplicationController
   #skip_before_filter :login_required
-  FILE_PATH = File.join(RAILS_ROOT, "iscc_rnaseq/dataDownloads")
+  FILE_PATH = File.join(RAILS_ROOT, "public/files/result_files")
+  #FILE_PATH = File.join(RAILS_ROOT, "../dataDownloads")
   
   def figure_1 
    #file_path = File.join(RAILS_ROOT, "public/images", "")

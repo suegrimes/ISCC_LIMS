@@ -24,6 +24,7 @@
           //}); 
         //}); 		
 		</script>
+		<!--% user_roles = (logged_in? ? current_user.roles.collect(&:name) : nil) %-->
     </head>
 
 <body id='body'>
@@ -42,6 +43,11 @@
       <td valign="bottom">
       	<% if logged_in? %>
         <div class="logout-link">
+        <% if logged_in? %>
+		  <!--% if user_has_access?(user_roles, ["admin"]) %--> 
+          <!--%= link_to 'Admin', upd_result_files_samples_path(current_user) %--><!--&nbsp;&nbsp;&nbsp;&nbsp;-->
+		  <!--% end %-->
+		<% end %>
           <%= link_to 'User Profile', edit_user_path(current_user) %>&nbsp;&nbsp;&nbsp;&nbsp;
           <%= link_to 'Logout', logout_url %>
         </div>

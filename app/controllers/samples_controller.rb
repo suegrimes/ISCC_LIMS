@@ -126,4 +126,9 @@ class SamplesController < ApplicationController
     render :inline => "<%= auto_complete_result(@svalues, 'sc_marker_validation_method') %>"
   end
   
+  # GET /samples for admin to associate with results files
+  def list_samples
+    @samples = Sample.userlab(current_user).find(:all, :include => :shipment)
+  end
+  
 end

@@ -23,12 +23,13 @@ ActionController::Routing::Routes.draw do |map|
                                           
   map.recv_samples 'list_intransit', :controller => :samples, :action => :list_intransit
   map.show_sop     'show_sop',       :controller => :samples, :action => :show_sop
-  
+  map.list_samples '/list_samples',  :controller => :samples, :action => :list_samples
+ 
   # Sample Sequence output tables and figures
-  map.figure_1       '/figure_1',  :controller => 'help', :action => 'figure_1'
-  map.table_1        '/table_1',  :controller => 'help', :action => 'table_1'
-  map.table_2        '/table_2',  :controller => 'help', :action => 'table_2'
-  map.sample_results '/sample_results',  :controller => 'result_files'
+  map.figure_1       '/figure_1',       :controller => 'help', :action => 'figure_1'
+  map.table_1        '/table_1',        :controller => 'help', :action => 'table_1'
+  map.table_2        '/table_2',        :controller => 'help', :action => 'table_2'
+  map.sample_results '/sample_results', :controller => 'result_files'
 
   # Install the default routes as the lowest priority.
   # Note: These default routes make all actions in every controller accessible via GET requests. You should

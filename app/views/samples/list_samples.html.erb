@@ -1,0 +1,23 @@
+<h1>Listing samples</h1>
+
+<table class="list">
+  <tr>
+    <th>Barcode</th>
+    <th>Sample Name</th>
+    <th>Sample Date</th>
+    <th>Received Date</th>
+	<th>Lab ID</th>
+  </tr>
+
+<% @samples.each do |sample| %>
+  <tr>
+  	<!-- pass the sample id -->
+    <td><%=link_to sample.barcode_key, sample_results_path %></td>
+    <td><%=h sample.sample_name %></td>
+    <td><%=h sample.sample_date %></td>
+    <td><% if sample.shipment %><%=h sample.shipment.date_received %><% end %></td>
+	<td><%=h sample.lab_id %></td>
+  </tr>
+<% end %>
+</table>
+<%= link_to 'New sample', new_sample_path %>

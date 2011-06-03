@@ -137,7 +137,7 @@ class SamplesController < ApplicationController
     #@list_files = Dir.glob("public/files/result_files/*")
     @list_files = Dir.glob("*")
     Dir.chdir(RAILS_ROOT)    
-    @sampleID = Sample.find(params[:id])
+    @sample = Sample.find(params[:id])
   end
   
 end

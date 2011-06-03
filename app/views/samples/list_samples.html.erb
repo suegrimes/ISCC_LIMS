@@ -12,7 +12,7 @@
 <% @samples.each do |sample| %>
   <tr>
   	<!-- pass the sample id -->
-    <td><%=link_to sample.barcode_key, sample_results_path %></td>
+    <td><%=link_to sample.barcode_key, :action => :list_sample_results, :id => sample.id %></td>
     <td><%=h sample.sample_name %></td>
     <td><%=h sample.sample_date %></td>
     <td><% if sample.shipment %><%=h sample.shipment.date_received %><% end %></td>

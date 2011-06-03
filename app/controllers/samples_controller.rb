@@ -128,7 +128,16 @@ class SamplesController < ApplicationController
   
   # GET /samples for admin to associate with results files
   def list_samples
-    @samples = Sample.userlab(current_user).find(:all, :include => :shipment)
+
+  end
+  
+  def list_sample_results
+    @results = ResultFile.find(:all) 
+    Dir.chdir("public/files/result_files/")
+    #@list_files = Dir.glob("public/files/result_files/*")
+    @list_files = Dir.glob("*")
+    Dir.chdir(RAILS_ROOT)    
+    @sampleID = Sample.find(params[:id])
   end
   
 end

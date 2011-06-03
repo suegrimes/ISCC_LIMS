@@ -1,5 +1,5 @@
 class ResultFile < ActiveRecord::Base
 
-    belongs_to :sample
+    has_and_belongs_to_many :sample
 
 end

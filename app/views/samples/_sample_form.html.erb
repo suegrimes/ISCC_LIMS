@@ -1,58 +1,43 @@
-<table class="form01">
-    <tr>
-	  <th><%=f.label :sample_name %></th>
-      <th><%=f.label :sample_date %></th>	
+<fieldset class="form">
+<legend>Sample Details</legend>
+<table class="form">
+	<tr>
+	  <th><%=f.label :sample_name %>:</th><td><%=f.text_field(:sample_name, :size => 25) %></td>
+	  <th><%=f.label :sample_date %>:</th><td><%=f.calendar_date_select(:sample_date, :size => 10, :valid_date_check => "date <= (new Date()).stripTime()") %></td>
 	</tr>
 	<tr>
-	  <td><%=f.text_field(:sample_name, :size => 25) %></td>
-	  <td><%=f.calendar_date_select(:sample_date, :size => 10, :valid_date_check => "date <= (new Date()).stripTime()") %></td>
-	</tr>
-
-    <tr>
-      <th><%=f.label :organism %></th>    
-      <th><%=f.label :strain %></th> 
-	  <th><%=f.label :sex %></th>
-	  <th><%=f.label :age_in_weeks, 'Age (in weeks)' %></th> 
-	<tr>
-	  <td><%=f.text_field(:organism, :size => 25) %></td>
-	  <td><%=f.text_field_with_auto_complete(:strain, {},
+	  <th><%=f.label :organism %>:</th><td><%=f.text_field(:organism, :size => 25) %></td>
+	  <th><%=f.label :strain %>:</th> <td><%=f.text_field_with_auto_complete(:strain, {},
              {:url => {:controller => :samples, :action => :auto_complete_for_strain},
               :param_name => :search, :min_chars => 2, :method => :get})%></td>
-	  <td><%=f.select(:sex, Sample::SEX) %></td>
-	  <td><%=f.text_field(:age_in_weeks, :size => 4) %></td>
     </tr>
-	</tr>
-	
+    <tr>
+	  <th><%=f.label :sex %>:</th><td><%=f.select(:sex, Sample::SEX) %></td>
+	  <th><%=f.label :age_in_weeks, 'Age (in weeks)' %>:</th><td><%=f.text_field(:age_in_weeks, :size => 4) %></td>
+    </tr>
 	<tr>
-	  <th><%=f.label :intestinal_region %></th>
-      <th><%=f.label :intestinal_region_definition %></th>
-	  <th><%=f.label :intestinal_sc_marker, 'Intestinal SC marker' %></th> 
-	</tr>
+	  <th><%=f.label :intestinal_region %>:</th><td><%=f.text_field(:intestinal_region, :size => 15) %></td>
+	  <th><%=f.label :intestinal_region_definition %>:</th><td><%=f.text_field(:intestinal_region_definition, :size => 15) %></td>
+    </tr>
 	<tr>
-	  <td><%=f.text_field(:intestinal_region, :size => 15) %></td>
-	  <td><%=f.text_field(:intestinal_region_definition, :size => 15) %></td>
-	  <td><%=f.text_field_with_auto_complete(:intestinal_sc_marker, {},
+	  <th><%=f.label :intestinal_sc_marker, 'Intestinal SC marker' %>:</th> <td><%=f.text_field_with_auto_complete(:intestinal_sc_marker, {},
              {:url => {:controller => :samples, :action => :auto_complete_for_intestinal_sc_marker},
               :param_name => :search, :min_chars => 2, :method => :get})%></td>
-	</tr>
-	
+	</tr>	
 	<tr>
-	  <th><%=f.label :number_of_cells, 'No of cells' %></th>
-      <th><%=f.label :facs_protocol, 'FACS protocol' %></th>
-	  <th><%=f.label :sc_marker_validation_method, 'SC marker validation method' %></th>
-	  <th><%=f.label :secondary_validation_results %></th>
+	  <th><%=f.label :number_of_cells, 'No of cells' %>:</th><td><%=f.text_field(:number_of_cells, :size => 10) %></td>
+	  <th><%=f.label :facs_protocol, 'FACS protocol' %>:</th><td><%=f.text_field(:facs_protocol) %></td>
     </tr>
 	<tr>
-	  <td><%=f.text_field(:number_of_cells, :size => 10) %></td>
-	  <td><%=f.text_field(:facs_protocol) %></td>
-	  <td><%=f.text_field_with_auto_complete(:sc_marker_validation_method, {},
+	  <th><%=f.label :sc_marker_validation_method, 'SC marker validation method' %>:</th><td><%=f.text_field_with_auto_complete(:sc_marker_validation_method, {},
              {:url => {:controller => :samples, :action => :auto_complete_for_sc_marker_validation_method},
               :param_name => :search, :min_chars => 2, :method => :get})%></td>
-	  <td><%=f.text_field(:secondary_validation_results) %></td>
-	</tr>
-	
+	  <th><%=f.label :secondary_validation_results %>:</th><td><%=f.text_field(:secondary_validation_results) %></td>
+	</tr>	
     <tr>
-      <th align="right">Comments</th>
-      <td colspan=6><%=f.text_area :comments, :cols => 85, :rows => 2 %></td>
+      <th>Comments:</th>
+      <td colspan=3><%=f.text_area :comments, :cols => 55, :rows => 2 %></td>
     </tr>
 </table>
+</fieldset>
+

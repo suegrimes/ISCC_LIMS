@@ -1,12 +1,15 @@
-<span class="table_title">Shipment Details:</span>
+<fieldset class="info">
+<legend>Shipment Details</legend>
 <table class="info">
   <tr>
-    <th>Date Shipped</th><td><%=h shipment.date_shipped %></td>
-    <th>Date Received</th>
-	<td><%=h shipment.date_received_or_na %></td>
-	<th>FedEx Tracking#</th><td><%=h shipment.fedex_tracking_nr %></td>
+    <th>Date Shipped:</th><td><%=h shipment.date_shipped %></td>
+    <th>Date Received:</th><td><%=h shipment.date_received_or_na %></td>
+  </tr> 
+  <tr>
+	<th>FedEx Tracking#:</th><td colspan="3"><%=h shipment.fedex_tracking_nr %></td>
   </tr>	
   <tr>
-    <th>Comments</th><td><%=h shipment.comments %></td>
+    <th>Comments</th><td colspan="3"><%=h shipment.comments %></td>
   </tr>
 </table>
+</fieldset>

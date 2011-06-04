@@ -132,12 +132,16 @@ class SamplesController < ApplicationController
   end
   
   def list_sample_results
+
+    # TODO: 
+    # only get files with the sampleid and logged in University    
     @results = ResultFile.find(:all) 
+    
     Dir.chdir("public/files/result_files/")
     #@list_files = Dir.glob("public/files/result_files/*")
     @list_files = Dir.glob("*")
     Dir.chdir(RAILS_ROOT)    
-    @sampleID = Sample.find(params[:id])
+    @sample = Sample.find(params[:id])
   end
   
 end

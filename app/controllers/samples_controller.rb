@@ -137,16 +137,6 @@ class SamplesController < ApplicationController
  
     @user_lab_folder = current_user.lab.lab_name.downcase    
     @user_lab_folder = @user_lab_folder.gsub!(/ /, '_') if @user_lab_folder.match(/\s/)
-
-    @labs = Lab.find(:all, :order => :lab_name)
-    @lab_names = []
-    @labs.each do |lab|
-       if (lab.lab_name.tr!(' ', '_')) 
-         @lab_names.push(lab.lab_name.downcase)
-       else 
-         @lab_names.push(lab.lab_name.downcase)
-       end
-    end
     
     @results = ResultFile.find(:all)
     

@@ -134,7 +134,8 @@ class SamplesController < ApplicationController
   def list_sample_results
     
     @sample = Sample.find(params[:id])
- 
+    
+    # this for researchers, to narrow down which files to get; only look in dir for their lab
     @user_lab_folder = current_user.lab.lab_name.downcase    
     @user_lab_folder = @user_lab_folder.gsub!(/ /, '_') if @user_lab_folder.match(/\s/)
     

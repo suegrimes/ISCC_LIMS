@@ -132,16 +132,30 @@ class SamplesController < ApplicationController
   end
   
   def list_sample_results
-
-    # TODO: 
-    # only get files with the sampleid and logged in University    
-    @results = ResultFile.find(:all) 
     
-    Dir.chdir("public/files/result_files/")
-    #@list_files = Dir.glob("public/files/result_files/*")
-    @list_files = Dir.glob("*")
-    Dir.chdir(RAILS_ROOT)    
     @sample = Sample.find(params[:id])
+ 
+    @user_lab_folder = current_user.lab.lab_name.downcase    
+    @user_lab_folder = @user_lab_folder.gsub!(/ /, '_') if @user_lab_folder.match(/\s/)
+
+    @labs = Lab.find(:all, :order => :lab_name)
+    @lab_names = []
+    @labs.each do |lab|
+       if (lab.lab_name.tr!(' ', '_')) 
+         @lab_names.push(lab.lab_name.downcase)
+       else 
+         @lab_names.push(lab.lab_name.downcase)
+       end
+    end
+    
+    @results = ResultFile.find(:all)
+    
+    #@datafile_path = ../iscc_rnaseq/dataDownloads
+    @datafile_path = 'public/files/dataDownloads/' + @user_lab_folder + '/'
+    Dir.chdir(@datafile_path)
+    @list_files = Dir.glob("*")
+    Dir.chdir(RAILS_ROOT)
+    
   end
   
 end

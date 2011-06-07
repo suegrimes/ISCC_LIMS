@@ -141,6 +141,9 @@ class SamplesController < ApplicationController
     
     @results = ResultFile.find(:all)
     
+    # TODO: instead of this, loop through each file and also gather it's size, mimetype and other stuff
+    # push in to array of arrays or hash
+    
     #@datafile_path = ../iscc_rnaseq/dataDownloads
     @datafile_path = 'public/files/dataDownloads/' + @user_lab_folder + '/'
     Dir.chdir(@datafile_path)

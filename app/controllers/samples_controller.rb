@@ -132,12 +132,20 @@ class SamplesController < ApplicationController
   end
   
   def list_sample_results
-    @results = ResultFile.find(:all) 
-    Dir.chdir("public/files/result_files/")
-    #@list_files = Dir.glob("public/files/result_files/*")
-    @list_files = Dir.glob("*")
-    Dir.chdir(RAILS_ROOT)    
+    
     @sample = Sample.find(params[:id])
+    
+    # this for researchers and admins, to narrow down which files to get; only look in dir for the chosen lab 
+    @user_lab_folder = current_user.lab.lab_name.downcase    
+    @user_lab_folder = @user_lab_folder.gsub!(/ /, '_') if @user_lab_folder.match(/\s/)
+    
+    @results = ResultFile.find(:all)
+    
+    #@datafile_path = ../iscc_rnaseq/dataDownloads
+    @datafile_path = 'public/files/dataDownloads/' + @user_lab_folder + '/'
+    Dir.chdir(@datafile_path)
+    @list_files = Dir.glob("*")
+    Dir.chdir(RAILS_ROOT)
   end
   
 end

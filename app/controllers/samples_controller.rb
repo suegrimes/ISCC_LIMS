@@ -144,12 +144,21 @@ class SamplesController < ApplicationController
     # TODO: instead of this, loop through each file and also gather it's size, mimetype and other stuff
     # push in to array of arrays or hash
     
-    #@datafile_path = ../iscc_rnaseq/dataDownloads
-    @datafile_path = 'public/files/dataDownloads/' + @user_lab_folder + '/'
+    #@datafile_path = '../iscc_rnaseq/dataDownloads/'
+    #@datafile_path = 'public/files/dataDownloads/' + @user_lab_folder + '/'
+    @datafile_path = RAILS_ROOT + '/public/files/dataDownloads/' + @user_lab_folder + '/'    
     Dir.chdir(@datafile_path)
-    @list_files = Dir.glob("*")
-    Dir.chdir(RAILS_ROOT)
     
+    @file_list = [];
+    Dir.foreach('.') {
+        |fn|
+        @file_list.push([fn, File.size(fn)]) if (fn[0].chr != '.')
+    }
+    
+    #@list_files = Dir.glob("*")
+    
+    Dir.chdir(RAILS_ROOT)
+       
   end
   
 end

@@ -15,6 +15,12 @@
 
 <%= break_clear %>
 
+<h3>debug: files from <%= @datafile_path %> using loop</h3>
+<% @file_list.each do |file, size| %>
+    file name: <%=h file %>, file size: <%=h size %><br />
+<% end %>
+
+<%= break_clear %>
 <!-- 
 TODO: submit to the result_files table, 
 create input fields to be proper name/values
@@ -30,12 +36,12 @@ create input fields to be proper name/values
       <th>Updated By</th>
       <th>Notes</th>
     </tr>
-	<% @list_files.each do |file| %>
+	<% @file_list.each do |file, size| %>
 	<tr>
       <td><%= check_box_tag(@sample.id) %></td>
       <td><%=h file %></td>
       <td></td>
-      <td></td>
+      <td><%=h size %></td>
       <td></td>
       <td><%=f.text_area :notes, :cols => 15, :rows => 2 %></td>
     </tr>   

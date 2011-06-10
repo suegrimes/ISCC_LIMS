@@ -10,37 +10,28 @@
 
 <%= break_clear %>
 
-<!--lab.lab_name.downcase.tr!(' ', '_')-->
 <h3>debug: current user lab foldername: <%=h @user_lab_folder %></h3>
 
 <%= break_clear %>
 
-<h3>debug: files from <%= @datafile_path %> using loop</h3>
-<% @file_list.each do |file, size| %>
-    file name: <%=h file %>, file size: <%=h size %><br />
-<% end %>
-
-<%= break_clear %>
-<!-- 
-TODO: submit to the result_files table, 
-create input fields to be proper name/values
--->
-<h3>debug: files from <%= @datafile_path %></h3>
 <% form_for('') do |f| %>
 <table class="form-with-columns" border="0">
     <tr>
       <th>Link to Sample</th>
+	  <th>Samples</th>
       <th>Filename</th>
       <th>Content Type</th>
       <th>File Size</th>
       <th>Updated By</th>
       <th>Notes</th>
     </tr>
-	<% @file_list.each do |file, size| %>
+	<% @file_list.each do |file, size, type| %>
 	<tr>
       <td><%= check_box_tag(@sample.id) %></td>
+	  <td><%=f.collection_select(:sample_id, @samples, :id, :sample_name, 
+                                {:include_blank => 'Select Sample'})%></td>								
       <td><%=h file %></td>
-      <td></td>
+      <td><%=h type %></td>
       <td><%=h size %></td>
       <td></td>
       <td><%=f.text_area :notes, :cols => 15, :rows => 2 %></td>

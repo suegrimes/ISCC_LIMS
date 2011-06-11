@@ -27,12 +27,15 @@
     </tr>
     <% @file_list.each do |file, size, type| %>
     <tr>
-      <td><%= f.check_box('fillmein') %></td>
+      <td><%= f.check_box('link_status') %></td>
       <td><%= f.collection_select("sample_id[]", @samples, :id, :sample_name,
                       {}, {:size => 3, :multiple => :multiple})%></td>                        
       <td><%= h file %></td>
+	  <%= hidden_field_tag(:document, file) %>
       <td><%= h type %></td>
+	  <%= hidden_field_tag(:document_content_type, type) %>
       <td><%= h size %></td>
+	  <%= hidden_field_tag(:document_file_size, size) %>
       <td></td>
       <td><%= f.text_area :notes, :cols => 15, :rows => 2 %></td>
     </tr>   
@@ -40,4 +43,4 @@
 </table>
 <%= break_clear(f.submit "Save") %>
 <% end %>
-<%= link_to 'Samples List', list_samples_path %>
+<%= link_to 'Samples List', samples_path %>

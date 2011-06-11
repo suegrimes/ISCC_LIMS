@@ -23,9 +23,7 @@ ActionController::Routing::Routes.draw do |map|
                                           
   map.recv_samples 'list_intransit',             :controller => :samples, :action => :list_intransit
   map.show_sop     'show_sop',                   :controller => :samples, :action => :show_sop
-  map.list_samples 'list_samples',               :controller => :samples, :action => :list_samples
-  map.list_sample_results 'list_sample_results', :controller => :samples, :action => :list_sample_results
-
+  
   # Install the default routes as the lowest priority.
   # Note: These default routes make all actions in every controller accessible via GET requests. You should
   # consider removing or commenting them out if you're using named routes and resources.

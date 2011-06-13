@@ -35,7 +35,8 @@ class Ability
       shipment.sample.lab_id == user.lab_id
     end
     
-    can [:index], ResultFile
+    # Everyone can view Results files pages
+    can [:index, :edit_multi], ResultFile
     
     return nil if user == :false
 

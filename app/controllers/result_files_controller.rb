@@ -2,7 +2,10 @@ class ResultFilesController < ApplicationController
   load_and_authorize_resource
 
   def index
-    
+    @results = ResultFile.find(:all)           
+  end
+  
+  def edit_multi
     # TODO
     # concatate Sample name with Barcode
     # write to sample_results
@@ -39,7 +42,10 @@ class ResultFilesController < ApplicationController
     #@list_files = Dir.glob("*")
     
     Dir.chdir(RAILS_ROOT)
-       
+  end
+  
+  def debug
+    
   end
 
 end

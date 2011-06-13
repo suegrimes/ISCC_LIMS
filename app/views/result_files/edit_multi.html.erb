@@ -1,0 +1,46 @@
+<h1>Link Sample Sequence Results</h1>
+
+<h3>debug: List from result_files table</h3>
+<% @results.each do |result| %>
+
+       <%=h result.document %><br />
+   
+<% end %>
+<br />
+
+<%= break_clear %>
+
+<h3>debug: current user lab foldername: <%=h @user_lab_folder %></h3>
+
+<%= break_clear %>
+
+<% form_tag(:action => :debug) do  %>
+<table class="form-with-columns" border="0">
+    <tr>
+      <th>Link to Sample</th>
+      <th>Select Sample(s)</th>
+      <th>Filename</th>
+      <th>Content Type</th>
+      <th>File Size</th>
+      <th>Updated By</th>
+      <th>Notes</th>
+    </tr>
+    <% @file_list.each do |file, size, type| %>
+    <tr>
+      <td><%= check_box('temp', 'link_status[]') %></td>
+      <td><%= collection_select(:result_files, :id, @samples, :id, :barcode_and_name,
+                      {}, {:size => 3, :multiple => :multiple})%></td>                        
+      <td><%= h file %></td>
+	  <%= hidden_field(:result_files, :document, :value => file) %>
+      <td><%= h type %></td>
+	  <%= hidden_field(:result_files, :document_content_type, :value => type) %>
+      <td><%= h size %></td>
+	  <%= hidden_field(:result_files, :document_file_size, :value => size) %>
+      <td></td>
+      <td><%= text_area_tag(:notes) %></td>
+    </tr>   
+    <% end %>   
+</table>
+<%= break_clear(submit_tag "Save") %>
+<% end %>
+<%= link_to 'Samples List', samples_path %>

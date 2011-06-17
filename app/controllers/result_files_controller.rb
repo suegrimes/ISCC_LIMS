@@ -10,8 +10,7 @@ class ResultFilesController < ApplicationController
        
     # get the list of linked samples from results_files - where logged in's lab
     # compare list from file sys from logged in's lab to this list. 
-    # If result file is in the db, add the id (for checked status) and updated_by name
-    # write submit to sample_results and linked file
+    # If result file is in the db, add the id (for checked status) and updated_by name to final list 
         
     @samples = Sample.find(:all) 
     #@sample = Sample.find(params[:id])
@@ -43,6 +42,11 @@ class ResultFilesController < ApplicationController
   end
   
   def update_multi
+    
+    # TODO
+    # write each file to sample_results AND sampleIDs associated with this file and the fileID, in a save loop
+    # rename this function to create_multi?
+    
     render :action => :debug
     
     #@result_files = ResultFile.find(params[:id])

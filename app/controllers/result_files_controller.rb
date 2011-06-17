@@ -41,24 +41,30 @@ class ResultFilesController < ApplicationController
     Dir.chdir(RAILS_ROOT)
   end
   
-  def update_multi
-    
-    # TODO
-    # write each file to sample_results AND sampleIDs associated with this file and the fileID, in a save loop
-    # rename this function to create_multi?
-    
-    render :action => :debug
-    
-    #@result_files = ResultFile.find(params[:id])
-    
-    #if @result_files.update_attributes(params[:result_files])
-    #  flash[:notice] = 'Result Files were successfully linked to Samples'
-    #  redirect_to(@result_files)
-    #else
-    #  flash[:error] = 'Error linking Files to Samples'
-    #  dropdowns
-    #  render :action => 'edit'
-    #end
+  def create_multi
+      render :action => :debug 
+      
+      # get the checked result_files and loop
+        # @result_files = ResultFile.new(params[:result_files]) ???
+      # (sample_id's will be an array,  :sample_id or :sample_ids)
+        #result_file = ResultFile.new(params[:result_file])
+      # check first to see if the file is already in the table
+        #check_result_file(result_file???)
+      # if it is already in the table, do an update
+        #result_file = ResultFile.find(params[:result_file][:id])
+        #result_file.update_attributes(params[:result_file])
+      # else do the save
+        # might need this 
+        #result_file.samples = Sample.find(params[:result_file][:sample_ids])
+        #result_file.save
+     
+    #def check_result_file(result_file_param)
+      # check if file is already in the result_files table
+      #if result_file_param[:id].blank?
+        #return true
+      #else
+        #return nil
+    #end   
   end
-
+  
 end

@@ -36,7 +36,7 @@ class Ability
     end
     
     # Everyone can view Results files pages
-    can [:index, :link_multi, :update_multi], ResultFile
+    can [:index, :link_multi, :create_multi], ResultFile
     
     return nil if user == :false
 

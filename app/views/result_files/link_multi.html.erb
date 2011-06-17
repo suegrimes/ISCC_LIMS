@@ -14,7 +14,7 @@
 
 <%= break_clear %>
 
-<% form_tag(:action => :debug) do  %>
+<% form_tag(:action => :update_multi) do  %>
 <table class="form-with-columns" border="0">
     <tr>
       <th>Link to Sample</th>
@@ -27,17 +27,17 @@
     </tr>
     <% @file_list.each do |file, size, type| %>
     <tr>
-      <td><%= check_box('temp', 'link_status[]') %></td>
+      <td><%= check_box_tag("temp[link_status][]", "result_fileIDhere") %></td>
       <td><%= collection_select(:result_files, :id, @samples, :id, :barcode_and_name,
-                      {}, {:size => 3, :multiple => :multiple})%></td>                        
+                      {}, {:size => 4, :multiple => :multiple})%></td>                        
       <td><%= h file %></td>
-	  <%= hidden_field(:result_files, :document, :value => file) %>
+	  <%= hidden_field_tag("result_files[document][]", file) %>
       <td><%= h type %></td>
-	  <%= hidden_field(:result_files, :document_content_type, :value => type) %>
+	  <%= hidden_field_tag("result_files[document_content_type][]", type) %>
       <td><%= h size %></td>
-	  <%= hidden_field(:result_files, :document_file_size, :value => size) %>
+	  <%= hidden_field_tag("result_files[document_file_size][]", size) %>
       <td></td>
-      <td><%= text_area_tag(:notes) %></td>
+      <td><%= text_area_tag("result_files[notes][]", nil, :rows => 3, :cols => 15) %></td>
     </tr>   
     <% end %>   
 </table>

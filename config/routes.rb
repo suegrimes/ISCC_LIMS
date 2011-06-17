@@ -26,7 +26,7 @@ ActionController::Routing::Routes.draw do |map|
   
   # Result Files
   map.result_files      'result_files',      :controller => 'result_files', :action => 'index'
-  map.edit_result_files 'edit_result_files', :controller => 'result_files', :action => 'edit_multi'
+  map.link_result_files 'link_result_files', :controller => 'result_files', :action => 'link_multi'
   
   # Install the default routes as the lowest priority.
   # Note: These default routes make all actions in every controller accessible via GET requests. You should

@@ -5,14 +5,13 @@ class ResultFilesController < ApplicationController
     @results = ResultFile.find(:all)           
   end
   
-  def edit_multi
+  def link_multi
     # TODO
-    # concatate Sample name with Barcode
-    # write to sample_results
-    # get the list of linked samples from results_files from logged in's lab
-    # compare lists from file sys to this list. 
-    # Pass Union of lists to file list and Intersection determines already linked status (greyed or whatnot)
-    # figure out with Sue what angle to offer admins: link file to samples or link sample to files
+       
+    # get the list of linked samples from results_files - where logged in's lab
+    # compare list from file sys from logged in's lab to this list. 
+    # If result file is in the db, add the id (for checked status) and updated_by name
+    # write submit to sample_results and linked file
         
     @samples = Sample.find(:all) 
     #@sample = Sample.find(params[:id])
@@ -22,8 +21,7 @@ class ResultFilesController < ApplicationController
     @user_lab_folder = @user_lab_folder.gsub!(/ /, '_') if @user_lab_folder.match(/\s/)
     
     @results = ResultFile.find(:all)
-            
-    #@datafile_path = RAILS_ROOT + 'public/files/dataDownloads/' + @user_lab_folder + '/'
+ 
     @datafile_path = RAILS_ROOT + '/public/files/dataDownloads/' + @user_lab_folder + '/'    
     Dir.chdir(@datafile_path)
     
@@ -44,8 +42,19 @@ class ResultFilesController < ApplicationController
     Dir.chdir(RAILS_ROOT)
   end
   
-  def debug
+  def update_multi
+    render :action => :debug
     
+    #@result_files = ResultFile.find(params[:id])
+    
+    #if @result_files.update_attributes(params[:result_files])
+    #  flash[:notice] = 'Result Files were successfully linked to Samples'
+    #  redirect_to(@result_files)
+    #else
+    #  flash[:error] = 'Error linking Files to Samples'
+    #  dropdowns
+    #  render :action => 'edit'
+    #end
   end
 
 end

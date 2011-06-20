@@ -25,9 +25,10 @@
       <th>Updated By</th>
       <th>Notes</th>
     </tr>
+    <% @i=0 %>
     <% @file_list.each do |file, size, type| %>
     <tr>
-      <td><%= check_box_tag("temp[link_status][]", "result_fileIDhere") %></td>
+      <td><%= check_box_tag("result_files[checked_file][]", @i+=1) %></td>
       <td><%= collection_select(:result_files, :id, @samples, :id, :barcode_and_name,
                       {}, {:size => 4, :multiple => :multiple})%></td>                        
       <td><%= h file %></td>

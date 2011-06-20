@@ -42,6 +42,33 @@ class ResultFilesController < ApplicationController
   end
   
   def create_multi
+      #authorize! :create, ResultFile
+      
+      # test code
+      # maybe us this to check for
+      #@result_files, files_linked = build_linked_files(params[:result_file])
+
+      # TODO need to only include records that are checked
+      # something like this while looping through the params
+      #@result_files = {}
+      #params[:result_files].each do |attr, val|
+      #   if (attr eq 'link_status')
+      #    val.each do |x|
+      #         next if x.blank?
+      #     end
+      #     @result_files_checked[attr.to_sym] = val
+      #   end
+      #  @result_files_checked[attr.to_sym] = val if !val.blank?
+      #end
+      # or, loop through the @result_files_checked while looping through @result_files. If checked value, add to the hash. This write to the db. 
+      @result_files = params[:result_files]
+      @result_files_checked = @result_files.find(params[:link_status])
+
+      #if @result_files_checked.size == 0
+      #  flash.now[:error] = 'No result file records created - please check one or more files linked to one or more samples'
+        #reload_results_defaults(params[:result_file])
+      #  render :action => 'link_multi'
+      #end      
       render :action => :debug 
       
       # get the checked result_files and loop
@@ -65,6 +92,11 @@ class ResultFilesController < ApplicationController
       #else
         #return nil
     #end   
+  end
+  
+  def build_linked_files(file_params)
+     results_list = ResultFile.new(file_params)
+     return results_list
   end
   
 end

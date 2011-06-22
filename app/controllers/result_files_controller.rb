@@ -44,46 +44,25 @@ class ResultFilesController < ApplicationController
   def create_multi
       #authorize! :create, ResultFile
       
-      # test code
-      # maybe us this to check for
-      #@result_files, files_linked = build_linked_files(params[:result_file])
+      # TODO 
+      # loop through params and build suitable data structure to feed row by row to the table
+      # params[:nn_result_files].each do |result_file|
+        # next if checked_file is blank!!!
+        # something gets something (array item or hash key/value?)
+        # (sample_id's will be an array,  :sample_id or :sample_ids)
 
-      # TODO need to only include records that are checked
-      # something like this while looping through the params
-      #@result_files = {}
-      #params[:result_files].each do |attr, val|
-      #   if (attr eq 'link_status')
-      #    val.each do |x|
-      #         next if x.blank?
-      #     end
-      #     @result_files_checked[attr.to_sym] = val
-      #   end
-      #  @result_files_checked[attr.to_sym] = val if !val.blank?
-      #end
-      # or, loop through the @result_files_checked while looping through @result_files. If checked value, add to the hash. This write to the db. 
-      @result_files = params[:result_files]
-      @result_files_checked = @result_files.find(params[:link_status])
-
-      #if @result_files_checked.size == 0
-      #  flash.now[:error] = 'No result file records created - please check one or more files linked to one or more samples'
-        #reload_results_defaults(params[:result_file])
-      #  render :action => 'link_multi'
-      #end      
-      render :action => :debug 
-      
-      # get the checked result_files and loop
-        # @result_files = ResultFile.new(params[:result_files]) ???
-      # (sample_id's will be an array,  :sample_id or :sample_ids)
-        #result_file = ResultFile.new(params[:result_file])
+      #loop again through the new above thing
       # check first to see if the file is already in the table
-        #check_result_file(result_file???)
+      # check_result_file(result_file)
       # if it is already in the table, do an update
-        #result_file = ResultFile.find(params[:result_file][:id])
-        #result_file.update_attributes(params[:result_file])
+      # result_file = ResultFile.find(params[:result_file][:id])
+      # result_file.update_attributes(params[:result_file])
       # else do the save
-        # might need this 
-        #result_file.samples = Sample.find(params[:result_file][:sample_ids])
-        #result_file.save
+      # might need this 
+      # result_file.samples = Sample.find(params[:result_file][:sample_ids])
+      # result_file.save      
+      
+      render :action => :debug 
      
     #def check_result_file(result_file_param)
       # check if file is already in the result_files table

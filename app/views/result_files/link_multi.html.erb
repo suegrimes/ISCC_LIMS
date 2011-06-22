@@ -25,21 +25,21 @@
       <th>Updated By</th>
       <th>Notes</th>
     </tr>
-    <% @i=0 %>
+    <% @i=1 %>
     <% @file_list.each do |file, size, type| %>
     <tr>
-      <td><%= check_box_tag("result_files[checked_file][]", @i+=1) %></td>
-      <td><%= collection_select(:result_files, :id, @samples, :id, :barcode_and_name,
-                      {}, {:size => 4, :multiple => :multiple})%></td>                        
+      <td><%= check_box_tag(@i.to_s + "_result_files[checked_file][]", @i) %></td>
+      <td><%= select_tag(@i.to_s + "_result_files[sample_id]", options_from_collection_for_select(@samples, :id, :barcode_and_name), {:multiple => true, :size=> 4}) %></td>                      
       <td><%= h file %></td>
-	  <%= hidden_field_tag("result_files[document][]", file) %>
+	  <%= hidden_field_tag(@i.to_s + "_result_files[document][]", file) %>
       <td><%= h type %></td>
-	  <%= hidden_field_tag("result_files[document_content_type][]", type) %>
+	  <%= hidden_field_tag(@i.to_s + "_result_files[document_content_type][]", type) %>
       <td><%= h size %></td>
-	  <%= hidden_field_tag("result_files[document_file_size][]", size) %>
+	  <%= hidden_field_tag(@i.to_s + "_result_files[document_file_size][]", size) %>
       <td></td>
-      <td><%= text_area_tag("result_files[notes][]", nil, :rows => 3, :cols => 15) %></td>
-    </tr>   
+      <td><%= text_area_tag(@i.to_s + "_result_files[notes][]", nil, :rows => 3, :cols => 15) %></td>
+    </tr> 
+    <% @i+=1 %>
     <% end %>   
 </table>
 <%= break_clear(submit_tag "Save") %>

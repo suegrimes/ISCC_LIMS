@@ -1,21 +1,14 @@
 <h1>Link Sample Sequence Results</h1>
 
-<h3>View Files on filesystem for <%=h @user_lab_folder %></h3>
+<h3>View Files on filesystem for <%=h current_user.lab.lab_name %></h3>
 
-<table class="form-with-columns" border="0">
-    <tr>
-      <th>Filename</th>
-      <th>Content Type</th>
-      <th>File Size</th>
-    </tr>
-    <% @file_list.each do |file, size, type| %>
-    <tr>
-      <td><%= h file %></td>
-      <td><%= h type %></td>
-      <td><%= h size %></td>
-    </tr> 
-    <% end %>   
-</table>
+<% form_tag do  %>
+<div id='view_files'>
+    <%= submit_to_remote 'ResultFile', 'Get New Files',
+      :url => {:action => 'read_create_files'},
+      :update => 'view_files' %>
+</div>
+<% end %>
 
 <h3>Debug: List of files from table will go here</h3>
 <% @results.each do |result| %>
@@ -23,8 +16,9 @@
        <%=h result.document %><br />
    
 <% end %>
-
+<br />
 <!-- temporarily files are from files on filesystem -->
+<!--
 <% form_tag(:action => :debug) do  %>
 <table class="form-with-columns" border="0">
     <tr>
@@ -37,16 +31,16 @@
       <th>Notes</th>
     </tr>
     <% @i=1 %>
-    <% @file_list.each do |file, size, type| %>
+    <% @file_system_list.each do |file| %>
     <tr>
       <td><%= check_box_tag(@i.to_s + "_result_files[checked_file][]", @i) %></td>
       <td><%= select_tag(@i.to_s + "_result_files[sample_id]", options_from_collection_for_select(@samples, :id, :barcode_and_name), {:multiple => true, :size=> 4}) %></td>                      
-      <td><%= h file %></td>
-      <%= hidden_field_tag(@i.to_s + "_result_files[document][]", file) %>
-      <td><%= h type %></td>
-      <%= hidden_field_tag(@i.to_s + "_result_files[document_content_type][]", type) %>
-      <td><%= h size %></td>
-      <%= hidden_field_tag(@i.to_s + "_result_files[document_file_size][]", size) %>
+      <td><%= h file[0] %></td>
+      <%= hidden_field_tag(@i.to_s + "_result_files[document][]", file[0]) %>
+      <td><%= h file[1] %></td>
+      <%= hidden_field_tag(@i.to_s + "_result_files[document_content_type][]", file[1]) %>
+      <td><%= h file[2] %></td>
+      <%= hidden_field_tag(@i.to_s + "_result_files[document_file_size][]", file[2]) %>
       <td></td>
       <td><%= text_area_tag(@i.to_s + "_result_files[notes][]", nil, :rows => 3, :cols => 15) %></td>
     </tr> 
@@ -55,6 +49,7 @@
 </table>
 <%= break_clear(submit_tag "Save") %>
 <% end %>
+-->
 <br />
 
 <%= break_clear %>

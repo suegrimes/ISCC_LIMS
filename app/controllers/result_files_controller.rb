@@ -6,12 +6,34 @@ class ResultFilesController < ApplicationController
   end
   
   def read_create_files
-    # TODO
-    # get this to control the partial, _list_result_files for debugging
-    # show files from system at top of page after clicking button (get new files)
-    # for debug, show the files
-    # create data structure for writing to results_files table
-    # save to table     
+
+    @user_lab_folder = current_user.lab.lab_name.downcase    
+    @user_lab_folder = @user_lab_folder.gsub!(/ /, '_') if @user_lab_folder.match(/\s/)
+     
+    @datafile_path = RAILS_ROOT + '/public/files/dataDownloads/' + @user_lab_folder + '/'    
+    Dir.chdir(@datafile_path)
+    
+    @file_system_list = [];
+    Dir.foreach('.') {
+        |fn|
+        extname = File.extname(fn)[1..-1]
+        mime_type = Mime::Type.lookup_by_extension(extname)
+        content_type = mime_type.to_s unless mime_type.nil?
+        @file_system_list.push([fn, File.size(fn), content_type, current_user.lab.id, current_user.auth_user.name]) if (fn[0].chr != '.')
+    }
+    
+    Dir.chdir(RAILS_ROOT)
+    
+    #TODO
+    # build array of hashes
+    #@results_files = []
+    # loop through list
+    #@results_files.push(
+    #  {:document => '', ...}  
+    #)
+    # save to results_files table
+    
+    render :partial => 'list_result_files', :locals => { :file_list => @file_system_list }
     
   end
   
@@ -59,11 +81,8 @@ class ResultFilesController < ApplicationController
         extname = File.extname(fn)[1..-1]
         mime_type = Mime::Type.lookup_by_extension(extname)
         content_type = mime_type.to_s unless mime_type.nil?
-        @file_system_list.push([fn, File.size(fn), content_type]) if (fn[0].chr != '.')
+        @file_system_list.push([fn, File.size(fn), content_type, current_user.lab.id, current_user.auth_user.name]) if (fn[0].chr != '.')
     }
-    
-    # for now until list created after checking both db and filesys
-    @file_list = @file_system_list; 
     
     #@list_files = Dir.glob("*")
     

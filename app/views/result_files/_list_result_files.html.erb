@@ -1,30 +1,3 @@
-<h1>Link Sample Sequence Results</h1>
-
-<h3>View Files on filesystem for <%=h @user_lab_folder %></h3>
-
-<table class="form-with-columns" border="0">
-    <tr>
-      <th>Filename</th>
-      <th>Content Type</th>
-      <th>File Size</th>
-    </tr>
-    <% @file_list.each do |file, size, type| %>
-    <tr>
-      <td><%= h file %></td>
-      <td><%= h type %></td>
-      <td><%= h size %></td>
-    </tr> 
-    <% end %>   
-</table>
-
-<h3>Debug: List of files from table will go here</h3>
-<% @results.each do |result| %>
-
-       <%=h result.document %><br />
-   
-<% end %>
-
-<!-- temporarily files are from files on filesystem -->
 <% form_tag(:action => :debug) do  %>
 <table class="form-with-columns" border="0">
     <tr>
@@ -55,8 +28,3 @@
 </table>
 <%= break_clear(submit_tag "Save") %>
 <% end %>
-<br />
-
-<%= break_clear %>
-
-<%= link_to 'Samples List', samples_path %>

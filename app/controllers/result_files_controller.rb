@@ -5,13 +5,42 @@ class ResultFilesController < ApplicationController
     @results = ResultFile.find(:all)           
   end
   
-  def link_multi
+  def read_create_files
     # TODO
-       
-    # get the list of linked samples from results_files - where logged in's lab
-    # compare list from file sys from logged in's lab to this list. 
-    # If result file is in the db, add the id (for checked status) and updated_by name to final list 
-        
+    # get this to control the partial, _list_result_files for debugging
+    # show files from system at top of page after clicking button (get new files)
+    # for debug, show the files
+    # create data structure for writing to results_files table
+    # save to table     
+    
+  end
+  
+  def link_multi
+    #authorize! :create, ResultFile
+
+    # TODO
+    # display all files with the lab.id in form
+    # checked or not depending on if already linked
+    # user can: link samples, update, delete(?)
+    # some handy code examples from Sue:
+      # result_file = ResultFile.find(params[:result_file][:id])
+      # result_file.update_attributes(params[:result_file])
+      # result_file.samples = Sample.find(params[:result_file][:sample_ids])
+      # result_file.save      
+    # also see her mail of 6/22
+    # !!! Ask Sue how to get a partial to show up and get it to use a function in the controller other than this one!!!
+
+    # function to check if the file is in table
+    #def check_result_file(result_file_param)
+      # check if file is already in the result_files table
+      #if result_file_param[:id].blank?
+        #return true
+      #else
+        #return nil
+    #end 
+    
+    # the following code is temporary 
+
     @samples = Sample.find(:all) 
     #@sample = Sample.find(params[:id])
     
@@ -41,41 +70,8 @@ class ResultFilesController < ApplicationController
     Dir.chdir(RAILS_ROOT)
   end
   
-  def create_multi
-      #authorize! :create, ResultFile
-      
-      # TODO 
-      # loop through params and build suitable data structure to feed row by row to the table
-      # params[:nn_result_files].each do |result_file|
-        # next if checked_file is blank!!!
-        # something gets something (array item or hash key/value?)
-        # (sample_id's will be an array,  :sample_id or :sample_ids)
-
-      #loop again through the new above thing
-      # check first to see if the file is already in the table
-      # check_result_file(result_file)
-      # if it is already in the table, do an update
-      # result_file = ResultFile.find(params[:result_file][:id])
-      # result_file.update_attributes(params[:result_file])
-      # else do the save
-      # might need this 
-      # result_file.samples = Sample.find(params[:result_file][:sample_ids])
-      # result_file.save      
-      
-      render :action => :debug 
-     
-    #def check_result_file(result_file_param)
-      # check if file is already in the result_files table
-      #if result_file_param[:id].blank?
-        #return true
-      #else
-        #return nil
-    #end   
-  end
-  
-  def build_linked_files(file_params)
-     results_list = ResultFile.new(file_params)
-     return results_list
+  def debug
+    render :action => :debug  
   end
   
 end

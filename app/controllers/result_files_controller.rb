@@ -14,14 +14,26 @@ class ResultFilesController < ApplicationController
     Dir.chdir(@datafile_path)
     
     @file_system_list = [];
+    @result_files_list = [];
+    file_info = {};
     Dir.foreach('.') {
         |fn|
         extname = File.extname(fn)[1..-1]
         mime_type = Mime::Type.lookup_by_extension(extname)
         content_type = mime_type.to_s unless mime_type.nil?
-        @file_system_list.push([fn, File.size(fn), content_type, current_user.lab.id, current_user.auth_user.name]) if (fn[0].chr != '.')
+         
+          file_info = {
+            :lab_id => current_user.lab.id,
+            :document => fn,
+            :document_content_type => content_type,
+            :document_file_size => File.size(fn),
+            :updated_by => current_user.auth_user.name
+          }
+
+        @result_files_list.push(file_info) if (fn[0].chr != '.') 
+        @file_system_list.push([fn, File.size(fn), content_type, current_user.lab.id, current_user.auth_user.name]) if (fn[0].chr != '.')   
     }
-    
+        
     Dir.chdir(RAILS_ROOT)
     
     #TODO
@@ -33,7 +45,7 @@ class ResultFilesController < ApplicationController
     #)
     # save to results_files table
     
-    render :partial => 'list_result_files', :locals => { :file_list => @file_system_list }
+    render :partial => 'list_result_files', :locals => { :file_list => @file_system_list, :file_hash_list => @result_files_list }
     
   end
   

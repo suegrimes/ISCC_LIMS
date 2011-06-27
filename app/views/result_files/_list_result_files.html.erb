@@ -1,3 +1,11 @@
+<h3>debug: list of hashes - each one is a file</h3>
+<% file_hash_list.each do |file| %>
+  <h3>New Record:</h3>
+  <% file.each_pair do |key, value| %>
+    <%= key %> => <%= value %>, 
+  <% end %>
+<% end %>
+
 <table class="form-with-columns" border="0">
     <tr>
       <th>Filename</th>

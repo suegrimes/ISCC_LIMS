@@ -37,15 +37,15 @@ class ResultFilesController < ApplicationController
     Dir.chdir(RAILS_ROOT)
     
     #TODO
-    # build array of hashes
-    #@results_files = []
-    # loop through list
-    #@results_files.push(
-    #  {:document => '', ...}  
-    #)
     # save to results_files table
+    # get contents of result_files table
+    # check file is already in table
+    # if so, add to a debug list. display in view
+    # if not, add to the @result_files_list, 
+    # add to an added list, display in view
+    # display contents of results_files in view
     
-    render :partial => 'list_result_files', :locals => { :file_list => @file_system_list, :file_hash_list => @result_files_list }
+    render :partial => 'list_result_files', :locals => { :file_list => @result_files_list }
     
   end
   

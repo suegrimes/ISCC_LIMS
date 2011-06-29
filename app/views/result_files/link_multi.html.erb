@@ -1,56 +1,25 @@
 <h1>Link Sample Sequence Results</h1>
 
-<h3>View Files on filesystem for <%=h current_user.lab.lab_name %></h3>
+<h3>View <em>All</em> Results Files on filesystem for <%=h current_user.lab.lab_name %></h3>
+
+<%= render :partial => 'list_result_files', :locals => {:files_hash_list => @files_from_filesystem} %>
 
 <% form_tag do  %>
 <div id='view_files'>
-    <%= submit_to_remote 'ResultFile', 'Get New Files',
+    <%= submit_to_remote 'ResultFile', 'Add New Files to Database',
       :url => {:action => 'read_create_files'},
       :update => 'view_files' %>
 </div>
 <% end %>
 
-<h3>Debug: List of files from table will go here</h3>
+<h3>Debug: List of files from result_files table:</h3>
 <% @results.each do |result| %>
 
-       <%=h result.document %><br />
+       <%=h result.inspect %><br />
    
 <% end %>
-<br />
-<!-- temporarily files are from files on filesystem -->
-<!--
-<% form_tag(:action => :debug) do  %>
-<table class="form-with-columns" border="0">
-    <tr>
-      <th>Link to Sample</th>
-      <th>Select Sample(s)</th>
-      <th>Filename</th>
-      <th>Content Type</th>
-      <th>File Size</th>
-      <th>Updated By</th>
-      <th>Notes</th>
-    </tr>
-    <% @i=1 %>
-    <% @file_system_list.each do |file| %>
-    <tr>
-      <td><%= check_box_tag(@i.to_s + "_result_files[checked_file][]", @i) %></td>
-      <td><%= select_tag(@i.to_s + "_result_files[sample_id]", options_from_collection_for_select(@samples, :id, :barcode_and_name), {:multiple => true, :size=> 4}) %></td>                      
-      <td><%= h file[0] %></td>
-      <%= hidden_field_tag(@i.to_s + "_result_files[document][]", file[0]) %>
-      <td><%= h file[1] %></td>
-      <%= hidden_field_tag(@i.to_s + "_result_files[document_content_type][]", file[1]) %>
-      <td><%= h file[2] %></td>
-      <%= hidden_field_tag(@i.to_s + "_result_files[document_file_size][]", file[2]) %>
-      <td></td>
-      <td><%= text_area_tag(@i.to_s + "_result_files[notes][]", nil, :rows => 3, :cols => 15) %></td>
-    </tr> 
-    <% @i+=1 %>
-    <% end %>   
-</table>
-<%= break_clear(submit_tag "Save") %>
-<% end %>
--->
-<br />
+
+<!--%= #render :partial => 'link_files_to_samples_form', :locals => {:results => @results} %-->
 
 <%= break_clear %>
 

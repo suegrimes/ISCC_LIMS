@@ -7,12 +7,18 @@ class ResultFilesController < ApplicationController
   
   def read_create_files
     
+    #ResultFile.connection.execute("TRUNCATE TABLE result_files")
+    
     #TODO
-    # get contents of result_files table
-    # check file is already in table - check_result_file(result_file)
-    # if so, add to a debug list. display in view
-    # if not, add to the @result_files_list, 
+    # get contents of result_files table 
+    # before save, check if file is already in table - check_result_file(result_file)
+    # if so, add to a debug list for display in view
+    # if not, .save
     # add to an "added" list, display in view
+    # straighten out the link_files_to_samples_form
+    
+    # temporary until user edit features are in place
+    ResultFile.connection.execute("TRUNCATE TABLE result_files")
 
     @result_files_list = get_files_from_filesystem
     
@@ -31,6 +37,8 @@ class ResultFilesController < ApplicationController
     end
         
     Dir.chdir(RAILS_ROOT)
+    
+    render :partial => 'link_files_to_samples_form'
     
   end
    

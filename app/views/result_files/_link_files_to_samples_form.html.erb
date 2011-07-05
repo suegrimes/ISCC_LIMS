@@ -12,7 +12,8 @@
       <th>Notes</th>
     </tr>
     <% file_info.each do |file| %>
-    <!-- check file against linked file list to determine checked status -->
+    <!-- TODO: check file against linked file list to determine checked status -->
+    <!-- prepare input fields to write to both results_files for updates, and to linked table -->
     <tr>
       <td><%= check_box_tag("_result_files[checked_file][]") %></td>
       <td><%= select_tag("_result_files[sample_id]", options_from_collection_for_select(@samples, :id, :barcode_and_name), {:multiple => true, :size=> 4}) %></td>                      

@@ -1,30 +1,28 @@
-<!-- REDO this for correct attribute/values from table -->
+<h3><%= heading %></h3>
 <% form_tag(:action => :debug) do  %>
 <table class="form-with-columns" border="0">
     <tr>
-      <th>Link to Sample</th>
+      <th>Link to Sample(s)</th>
       <th>Select Sample(s)</th>
       <th>Filename</th>
       <th>Content Type</th>
       <th>File Size</th>
       <th>Updated By</th>
+      <th>Lab</th>
       <th>Notes</th>
     </tr>
-    <% @i=1 %>
-    <% @file_system_list.each do |file| %>
+    <% file_info.each do |file| %>
+    <!-- check file against linked file list to determine checked status -->
     <tr>
-      <td><%= check_box_tag(@i.to_s + "_result_files[checked_file][]", @i) %></td>
-      <td><%= select_tag(@i.to_s + "_result_files[sample_id]", options_from_collection_for_select(@samples, :id, :barcode_and_name), {:multiple => true, :size=> 4}) %></td>                      
-      <td><%= h file[0] %></td>
-      <%= hidden_field_tag(@i.to_s + "_result_files[document][]", file[0]) %>
-      <td><%= h file[1] %></td>
-      <%= hidden_field_tag(@i.to_s + "_result_files[document_content_type][]", file[1]) %>
-      <td><%= h file[2] %></td>
-      <%= hidden_field_tag(@i.to_s + "_result_files[document_file_size][]", file[2]) %>
-      <td></td>
-      <td><%= text_area_tag(@i.to_s + "_result_files[notes][]", nil, :rows => 3, :cols => 15) %></td>
-    </tr> 
-    <% @i+=1 %>
+      <td><%= check_box_tag("_result_files[checked_file][]") %></td>
+      <td><%= select_tag("_result_files[sample_id]", options_from_collection_for_select(@samples, :id, :barcode_and_name), {:multiple => true, :size=> 4}) %></td>                      
+      <td><%= h file.document %></td>
+      <td><%= h file.document_content_type %></td>
+      <td><%= h file.document_file_size %></td>
+      <td><%= h file.updated_by %></td>
+      <td><%= h file.lab_id %></td>
+      <td><%= text_area_tag("_result_files[notes][]", nil, :rows => 3, :cols => 15) %></td>
+    </tr>    
     <% end %>   
 </table>
 <%= break_clear(submit_tag "Save") %>

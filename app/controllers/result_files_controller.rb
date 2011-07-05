@@ -5,17 +5,22 @@ class ResultFilesController < ApplicationController
     @results = ResultFile.find(:all)           
   end
   
-  def read_create_files
+  def read_files_create
     
     #ResultFile.connection.execute("TRUNCATE TABLE result_files")
     
-    #TODO
-    # get contents of result_files table 
-    # before save, check if file is already in table - check_result_file(result_file)
-    # if so, add to a debug list for display in view
-    # if not, .save
-    # add to an "added" list, display in view
-    # straighten out the link_files_to_samples_form
+  # TODO
+  # query result_files table
+  # check if file is already in result_files table
+  ## if not in results_files table, make list and display in list_result_files as recent files added
+  ## .save
+ 
+  # query linked table
+  # query results_files and if file is in linked table
+  ## make list to pass to the form for checked status
+  ## check if file is in the linked list
+  ## if not display as unchecked
+  ## else display as checked 
     
     # temporary until user edit features are in place
     ResultFile.connection.execute("TRUNCATE TABLE result_files")
@@ -38,7 +43,9 @@ class ResultFilesController < ApplicationController
         
     Dir.chdir(RAILS_ROOT)
     
-    render :partial => 'link_files_to_samples_form'
+    @samples = Sample.find(:all) 
+    @results = ResultFile.find(:all)
+    render :partial => 'link_files_to_samples_form', :locals => {:file_info => @results, :heading => "Result Files After Adding New"}
     
   end
    
@@ -59,13 +66,12 @@ class ResultFilesController < ApplicationController
     @files_from_filesystem = get_files_from_filesystem
 
     @samples = Sample.find(:all) 
-    #@sample = Sample.find(params[:id])
+    @results = ResultFile.find(:all)
     
     # this for researchers and admins, to narrow down which files to get; only look in dir for the chosen lab 
     @user_lab_folder = current_user.lab.lab_name.downcase    
     @user_lab_folder = @user_lab_folder.gsub!(/ /, '_') if @user_lab_folder.match(/\s/)
     
-    @results = ResultFile.find(:all) 
   end
 
   def get_files_from_filesystem

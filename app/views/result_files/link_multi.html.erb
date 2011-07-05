@@ -1,25 +1,18 @@
 <h1>Link Sample Sequence Results</h1>
 
-<h3>View <em>All</em> Results Files on filesystem for <%=h current_user.lab.lab_name %></h3>
+<h3><em>All</em> Result Files on Filesystem for <%=h current_user.lab.lab_name %></h3>
 
 <%= render :partial => 'list_result_files', :locals => {:files_hash_list => @files_from_filesystem} %>
 
-<% form_tag do  %>
 <div id='view_files'>
+  <% form_tag do  %>
     <%= submit_to_remote 'ResultFile', 'Add New Files to Database',
-      :url => {:action => 'read_create_files'},
+      :url => {:action => 'read_files_create'},
       :update => 'view_files' %>
+  <% end %>
+    <%= break_clear %>    
+    <%= render :partial => 'link_files_to_samples_form', :locals => {:file_info => @results, :heading => 'Result Files Before Adding New'} %>
 </div>
-<% end %>
-
-<h3>Debug: List of files from result_files table:</h3>
-<% @results.each do |result| %>
-
-       <%=h result.inspect %><br />
-   
-<% end %>
-
-<!--%= #render :partial => 'link_files_to_samples_form', :locals => {:results => @results} %-->
 
 <%= break_clear %>
 

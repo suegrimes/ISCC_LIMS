@@ -12,7 +12,7 @@ class ResultFilesController < ApplicationController
   # TODO
   # query result_files table
   # check if file is already in result_files table
-  ## if not in results_files table, make list and display in list_result_files as recent files added
+  ## if not in results_files table, make list and display as recent files added
   ## .save
  
   # query linked table
@@ -21,11 +21,17 @@ class ResultFilesController < ApplicationController
   ## check if file is in the linked list
   ## if not display as unchecked
   ## else display as checked 
+  
+  ## validation for No Lab Selected
     
     # temporary until user edit features are in place
     ResultFile.connection.execute("TRUNCATE TABLE result_files")
 
-    @result_files_list = get_files_from_filesystem
+    @lab = Lab.find(params[:lab][:id])    
+    lab_dir_name = @lab.lab_name.downcase
+    lab_dir_name = lab_dir_name.gsub!(/ /, '_') if lab_dir_name.match(/\s/) 
+       
+    @result_files_list = get_files_from_filesystem(lab_dir_name)
     
     files_saved = 0
     @result_files_list.each do |file_info|
@@ -43,9 +49,11 @@ class ResultFilesController < ApplicationController
         
     Dir.chdir(RAILS_ROOT)
     
-    @samples = Sample.find(:all) 
-    @results = ResultFile.find(:all)
-    render :partial => 'link_files_to_samples_form', :locals => {:file_info => @results, :heading => "Result Files After Adding New"}
+    @labs = Lab.find(:all, :order => :lab_name)
+    @result_files = ResultFile.find(:all)
+    @samples = Sample.find(:all)     
+    
+    render :action => 'link_multi'
     
   end
    
@@ -62,23 +70,18 @@ class ResultFilesController < ApplicationController
       # result_file.samples = Sample.find(params[:result_file][:sample_ids])
       # result_file.save      
     # also see her mail of 6/22
-    
-    @files_from_filesystem = get_files_from_filesystem
-
-    @samples = Sample.find(:all) 
-    @results = ResultFile.find(:all)
-    
-    # this for researchers and admins, to narrow down which files to get; only look in dir for the chosen lab 
-    @user_lab_folder = current_user.lab.lab_name.downcase    
-    @user_lab_folder = @user_lab_folder.gsub!(/ /, '_') if @user_lab_folder.match(/\s/)
-    
+ 
+    @labs = Lab.find(:all, :order => :lab_name)
+    @result_files = ResultFile.find(:all)
+    @samples = Sample.find(:all)     
+       
   end
 
-  def get_files_from_filesystem
-    @user_lab_folder = current_user.lab.lab_name.downcase    
-    @user_lab_folder = @user_lab_folder.gsub!(/ /, '_') if @user_lab_folder.match(/\s/)
+  def get_files_from_filesystem(dir_name)
+    
+    # TODO - change current user lab to chosen lab
      
-    @datafile_path = RAILS_ROOT + '/public/files/dataDownloads/' + @user_lab_folder + '/'    
+    @datafile_path = RAILS_ROOT + '/public/files/dataDownloads/' + dir_name + '/'    
     Dir.chdir(@datafile_path)
     
     @files_list = [];
@@ -109,7 +112,7 @@ class ResultFilesController < ApplicationController
         #return true
       #else
         #return nil
-    #end 
+    #end
   
   def debug
     render :action => :debug  

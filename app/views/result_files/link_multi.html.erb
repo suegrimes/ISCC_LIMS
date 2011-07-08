@@ -1,4 +1,12 @@
-<h1>Sample Sequence Results</h1>
+<h1>Link Sequence Result Files to Samples</h1>
+
+<h3>debug:</h3>
+lab: <%= @chosen_lab_id %><br />
+files before save:<br /> 
+<% @result_files_before_save.each do |x| %>
+from <%= x.lab_id %>, the file: <%= x.document %><br />
+<% end %>                 
+new files:<%= @new_files.inspect %>
 
 <% form_tag(:action => :read_files_create) do %>
   <%= collection_select(:lab, :id, @labs, :id, :lab_name, {:include_blank => 'Select Lab'}) %>

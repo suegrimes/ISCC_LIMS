@@ -24,6 +24,8 @@ class ResultFilesController < ApplicationController
   # add debug for new files
   # in the save loop, put condition for if no files in documents variable?
  
+  # SAVE TO LINKED TABLE
+
   # query linked table
   # query results_files
   # if result_file already in linked table:

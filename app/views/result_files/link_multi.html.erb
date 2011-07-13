@@ -1,22 +1,14 @@
 <h1>Link Sequence Result Files to Samples</h1>
 
-<h3>debug:</h3>
-lab: <%= @chosen_lab_id %><br />
-files before save:<br /> 
-<% @result_files_before_save.each do |x| %>
-from <%= x.lab_id %>, the file: <%= x.document %><br />
-<% end %>                 
-new files:<%= @new_files.inspect %>
+<h3>Debug:</h3>
+<h4>from lab table: id=<%= @lab.id %>, name=<%= @lab.lab_name %></h4>
 
-<% form_tag(:action => :read_files_create) do %>
-  <%= collection_select(:lab, :id, @labs, :id, :lab_name, {:include_blank => 'Select Lab'}) %>
-  <%= submit_tag "Go" %>
+<h3>Debug: Results on Filesystsem</h3>
+<% @results_on_filesystem.each do |file|%>
+  <%= file[:document] %><br />
 <% end %>
-
-<%= break_clear %>
-
-<!-- this part displays after read_files_create has run -->
-<% if !@lab.blank? %>
-<%= render :partial => 'link_files_to_samples_form', :locals => {:heading => "Result Files for " + @lab.lab_name + " After Adding New"} %>
+<br />
+<h3>Debug: Results in Database</h3>
+<% @result_files_before_save.each do |document|%>
+  <%= document %><br />
 <% end %>
-

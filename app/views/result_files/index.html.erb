@@ -1,12 +1,7 @@
-<h1>Sample Sequence Results</h1>
+<h1>Link Sequence Result Files to Samples</h1>
 
-<h3>debug: List from result_files table</h3>
-<% @results.each do |result| %>
-
-       <%=h result.document %><br />
-   
+<% form_tag(:action => :check_chosen_lab) do %>
+  <%= collection_select(:lab, :id, @labs, :id, :lab_name, {:include_blank => 'Select Lab'}) %>
+  <%= submit_tag "Go" %>
 <% end %>
 
-<%= break_clear %>
-
-<%= link_to 'Samples List', samples_path %>

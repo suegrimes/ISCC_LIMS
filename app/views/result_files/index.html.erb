@@ -1,7 +1,4 @@
 <h1>Link Sequence Result Files to Samples</h1>
 
-<% form_tag(:action => :check_chosen_lab) do %>
-  <%= collection_select(:lab, :id, @labs, :id, :lab_name, {:include_blank => 'Select Lab'}) %>
-  <%= submit_tag "Go" %>
-<% end %>
+<%= render :partial => 'lab_form', :locals => {:lab_list => @labs} %>
 

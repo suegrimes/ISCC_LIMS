@@ -9,7 +9,7 @@ class ResultFilesController < ApplicationController
     @labs = Lab.find(:all, :order => :lab_name)
     @chosen_lab_id = params[:lab][:id] if (!params[:lab][:id].blank?) 
     if (params[:lab][:id].blank?)
-       flash[:error] = 'Choose Lab with Result Files'
+       flash.now[:error] = 'Choose Lab with Result Files'
        render :action => 'index'
     else
       redirect_to :action => 'link_multi', :lab_id => @chosen_lab_id
@@ -17,12 +17,12 @@ class ResultFilesController < ApplicationController
   end
   
   def link_multi
-
-    #ResultFile.connection.execute("TRUNCATE TABLE result_files")
+  
+  # clear db
+  #ResultFile.connection.execute("TRUNCATE TABLE result_files")
     
   # TODO
   # make flash message disappear from subsequent pages
-  # dump table and see what happens
 
   # SAVE TO LINKED TABLE
   # query linked table
@@ -45,9 +45,6 @@ class ResultFilesController < ApplicationController
   # also see her mail of 6/22
  
   # add update, edit 
-    
-    # temporary until user edit features are in place
-    #ResultFile.connection.execute("TRUNCATE TABLE result_files")
 
     @labs = Lab.find(:all, :order => :lab_name) 
     @lab = Lab.find_by_id(params[:lab_id])
@@ -84,7 +81,19 @@ class ResultFilesController < ApplicationController
     @samples = Sample.find(:all)   
    
   end
+  
+  def link_files_to_samples
     
+    @debug_list = []
+    params[:result_files].each do |rfile|
+      @debug_list.push(rfile)
+      #result_file = ResultFile.find(rfile[:id])
+      #result_file.samples = Sample.find(:all, rfile[:sample_id])
+      #result_file.update_attributes(params[:rfile])
+    end
+    
+  end
+  
   def debug
     render :action => :debug  
   end

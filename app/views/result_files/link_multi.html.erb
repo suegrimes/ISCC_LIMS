@@ -1,8 +1,8 @@
 <h1>Link Sequence Result Files to Samples</h1>
+<h2>Source Lab: <%= @lab.lab_name %></h2>
 
-<h3>Debug:</h3>
-<h4>Hello <%= current_user.auth_user.name %>, you want files from lab: id=<%= @lab.id %>, name=<%= @lab.lab_name %></h4>
-
+<%
+=begin %>
 <h3>Debug: Results on Filesystsem</h3>
 <% @results_on_filesystem.each do |file|%>
   <%= file[:document] %><br />
@@ -13,6 +13,13 @@
   <%= file[:document] %><br />
 <% end %>
 <br />
+<h3>Debug: Files that already exist in DB</h3>
+<% @exist_in_db.each do |document|%>
+  <%= document %><br />
+<% end %>
+<br />
+<%
+=end %>
 <% if (@files_saved != 0) %>
 <fieldset class="info">
 <label>New Files</label>
@@ -26,11 +33,6 @@
 <h3>No new files</h3>
 <% end %>
 <%= break_clear %>
-<h3>Debug: Files that already exist in DB</h3>
-<% @exist_in_db.each do |document|%>
-  <%= document %><br />
-<% end %>
-<br />
 <h3>Choose Another Lab</h3>
 <%= render :partial => 'lab_form', :locals => {:lab_list => @labs} %>
 <br />
@@ -52,6 +54,7 @@
     <tr>
       <!--td><%= check_box_tag("_result_files[checked_file][]") %></td-->
       <%= hidden_field_tag("result_files[][id]", file.id) %>
+      <%= hidden_field_tag("temp[user_lab_id]", params[:lab_id]) %>
       <td><%= h file.document %></td>
       <td><%= select_tag("result_files[][sample_id]", options_from_collection_for_select(@samples, :id, :barcode_and_name), {:multiple => true, :size=> 4}) %></td>                      
       <td><%= h file.document_content_type %></td>

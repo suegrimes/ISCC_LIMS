@@ -62,7 +62,7 @@ class ResultFilesController < ApplicationController
     documents_in_db = @result_files_before_save.collect(&:document) if (!@result_files_before_save.blank?)
 
     @exist_in_db = []; @new_files = [];
-    @files_saved = 0
+    @files_saved = 0 # for debug
     @results_on_filesystem.each do |file_on_system_info|   
       # check if file is already in the table
       if (documents_in_db.blank?) || (!documents_in_db.include?(file_on_system_info[:document]))
@@ -82,15 +82,26 @@ class ResultFilesController < ApplicationController
    
   end
   
-  def link_files_to_samples
+  def link_files_to_samples    
     
     @debug_list = []
+    @files_updated = 0 # for debug
     params[:result_files].each do |rfile|
       @debug_list.push(rfile)
-      #result_file = ResultFile.find(rfile[:id])
-      #result_file.samples = Sample.find(:all, rfile[:sample_id])
-      #result_file.update_attributes(params[:rfile])
+      result_file = ResultFile.find(rfile[:id])
+      result_file.samples = Sample.find(rfile[:sample_id]) #associating result file with list of samples based on id
+      if (result_file.update_attributes(:notes => rfile[:notes]))
+        @files_updated += 1              
+      end
     end
+    
+    if (@files_updated != 0)
+      flash.now[:notice] = @files_updated.to_s + " updates were made to Result Files table"
+    end
+    
+    #@results_updated = ResultFile.find(:all, :conditions => {:lab_id => params[:temp][:user_lab_id]})
+    #@samples = Sample.find(:all, :include => :result_files, :conditions => {:id => [1,18,39]})
+    @samples = Sample.find(:all, :include => :result_files) #get samples with associated result files
     
   end
   

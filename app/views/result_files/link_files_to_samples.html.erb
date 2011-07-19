@@ -1,6 +1,18 @@
-<h3>Debug: Linked Files to Samples</h3>
-
+<h3>Debug: Params</h3>
 <% @debug_list.each do |f| %>
   <%= f.inspect %><br />
+<% end %>
+
+<br />
+<h3>Debug: Results Mapped to Samples</h3>
+<% @samples.each do |sample| %>
+  <% unless (sample.result_files.blank?) %>
+  Sample ID/Name: <%= sample.id %>/<%= sample.sample_name %>
+  <ol>
+    <% sample.result_files.each do |rfile| %>
+    <li><%= rfile[:document] %></li>
+    <% end %>
+  </ol>
+  <% end %>
 <% end %>
 

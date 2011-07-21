@@ -1,0 +1,20 @@
+
+<table class="list" border="0">
+  <tr>
+    <th>Filename</th>
+    <th>File Size</th>
+    <th>Content Type</th>
+    <th>Lab ID</th>
+  </tr>
+  <% files_hash_list.each do |file_hash| %>
+  <tr>
+    <td><%= file_hash[:document] %></td>
+    <td><%= file_hash[:document_file_size] %></td>
+    <td><%= file_hash[:document_content_type] %></td>
+    <td><%= file_hash[:lab_id] %></td>    
+ </tr>
+ <% end %>
+</table>
+
+
+

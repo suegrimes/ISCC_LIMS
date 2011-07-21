@@ -30,7 +30,7 @@
 class Sample < ActiveRecord::Base
   belongs_to :lab
   has_one :shipment
-  has_and_belongs_to_many :result_file
+  has_and_belongs_to_many :result_files
   
   accepts_nested_attributes_for :shipment, :allow_destroy => true
   
@@ -56,6 +56,10 @@ class Sample < ActiveRecord::Base
   MIN_CELLS = 3000
   
   SAMPLE_SOP_PATH = File.join(RAILS_ROOT, 'public', 'files', 'Sample_Shipping_SOP.doc')
+  
+  def barcode_and_name
+    [lab_id,barcode_key,sample_name].join('/')
+  end
   
   def set_barcode
     self.barcode_key = "%03d" % Barcode.next_barcode

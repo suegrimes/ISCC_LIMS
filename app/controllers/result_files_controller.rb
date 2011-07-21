@@ -22,43 +22,31 @@ class ResultFilesController < ApplicationController
   #ResultFile.connection.execute("TRUNCATE TABLE result_files")
     
   # TODO
-  # make flash message disappear from subsequent pages
 
-  # SAVE TO LINKED TABLE
-  # query linked table
-  # query results_files
-  # if result_file already in linked table:
-  ## display as checked 
-  ## else display as unchecked
-
-  # query result_files for updated_by (an id#), then query auth_user table by id# to get list of names
-  # make a hash or ? to connect the file with this name rather than their id# for display in the link form
+  # on view, all lab and user id's converted to name
+  ## query result_files for updated_by (an id#), then query auth_user table by id# to get list of names
+  ## make a hash or ? to connect the file with this name rather than their id# for display in the link form
+  # Not holding linked samples - need to fix this!!!
 
   # localize variables
   # take out unneeded variables
-
-  # some handy code examples from Sue:
-      # result_file = ResultFile.find(params[:result_file][:id])
-      # result_file.update_attributes(params[:result_file])
-      # result_file.samples = Sample.find(params[:result_file][:sample_ids])
-      # result_file.save      
-  # also see her mail of 6/22
  
   # add update, edit 
 
     @labs = Lab.find(:all, :order => :lab_name) 
-    @lab = Lab.find_by_id(params[:lab_id])
-    lab_dir_name = @lab.lab_name.downcase
-    lab_dir_name = lab_dir_name.gsub!(/ /, '_') if lab_dir_name.match(/\s/) 
+    @chosen_lab  = Lab.find_by_id(params[:lab_id])
+    chosen_lab_dir_name = @chosen_lab.lab_name.downcase
+    chosen_lab_dir_name = chosen_lab_dir_name.gsub!(/ /, '_') if chosen_lab_dir_name.match(/\s/)
+    chosen_lab_dir_id   = @chosen_lab.id
        
-    @results_on_filesystem = get_files_from_filesystem(lab_dir_name, @lab.id)
+    @results_on_filesystem = get_files_from_filesystem(chosen_lab_dir_name, chosen_lab_dir_id)
     if (@results_on_filesystem.blank?) #directory does not exist or is empty
-      flash[:error] = "Sorry, no result files available for #{@lab.lab_name}"
+      flash[:error] = "Sorry, no result files available for #{@chosen_lab.lab_name}"
       render :action => 'index', :locals => {:lab_list => @labs}
       return
     end
     
-    @result_files_before_save = ResultFile.find(:all, :conditions => {:lab_id => @lab.id})
+    @result_files_before_save = ResultFile.find(:all, :conditions => {:lab_id => @chosen_lab.id})
     documents_in_db = @result_files_before_save.collect(&:document) if (!@result_files_before_save.blank?)
 
     @exist_in_db = []; @new_files = [];
@@ -77,19 +65,24 @@ class ResultFilesController < ApplicationController
     end # each
             
     # get data for link form        
-    @result_files = ResultFile.find(:all, :conditions => {:lab_id => @lab.id})
-    @samples = Sample.find(:all)   
+    @result_files = ResultFile.find(:all, :conditions => {:lab_id => @chosen_lab.id})
+    @samples = Sample.find(:all, :conditions => {:lab_id => @chosen_lab.id}) 
    
   end
   
-  def link_files_to_samples    
+  def link_files_to_samples 
+    
+  # on View Samples page, little sample form to render back to this page with the Samples and their results
+  # need a local variable for lab id
+  # on view, all lab id's to name
     
     @debug_list = []
     @files_updated = 0 # for debug
     params[:result_files].each do |rfile|
       @debug_list.push(rfile)
       result_file = ResultFile.find(rfile[:id])
-      result_file.samples = Sample.find(rfile[:sample_id]) #associating result file with list of samples based on id
+      #associating result file with list of samples based on id(s) from form
+      result_file.samples = Sample.find(rfile[:sample_id]) if (rfile[:sample_id]) 
       if (result_file.update_attributes(:notes => rfile[:notes]))
         @files_updated += 1              
       end
@@ -99,9 +92,10 @@ class ResultFilesController < ApplicationController
       flash.now[:notice] = @files_updated.to_s + " updates were made to Result Files table"
     end
     
-    #@results_updated = ResultFile.find(:all, :conditions => {:lab_id => params[:temp][:user_lab_id]})
-    #@samples = Sample.find(:all, :include => :result_files, :conditions => {:id => [1,18,39]})
-    @samples = Sample.find(:all, :include => :result_files) #get samples with associated result files
+    #get samples with associated result files per lab chosen by admin
+    @samples = Sample.find(:all, :include => :result_files, :conditions => {:lab_id => params[:chosen_lab][:chosen_lab_id]})
+    
+    render :action => 'view_sample_results'
     
   end
   

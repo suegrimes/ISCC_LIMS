@@ -58,7 +58,7 @@ class Sample < ActiveRecord::Base
   SAMPLE_SOP_PATH = File.join(RAILS_ROOT, 'public', 'files', 'Sample_Shipping_SOP.doc')
   
   def barcode_and_name
-    [barcode_key,sample_name].join('/')
+    [lab_id,barcode_key,sample_name].join('/')
   end
   
   def set_barcode

@@ -1,5 +1,5 @@
 <h1>Link Sequence Result Files to Samples</h1>
-<h2>Source Lab: <%= @lab.lab_name %></h2>
+<h2>Source Lab: <%= @chosen_lab.lab_name %></h2>
 
 <%
 =begin %>
@@ -54,7 +54,7 @@
     <tr>
       <!--td><%= check_box_tag("_result_files[checked_file][]") %></td-->
       <%= hidden_field_tag("result_files[][id]", file.id) %>
-      <%= hidden_field_tag("temp[user_lab_id]", params[:lab_id]) %>
+      <%= hidden_field_tag("chosen_lab[chosen_lab_id]", params[:lab_id]) %>
       <td><%= h file.document %></td>
       <td><%= select_tag("result_files[][sample_id]", options_from_collection_for_select(@samples, :id, :barcode_and_name), {:multiple => true, :size=> 4}) %></td>                      
       <td><%= h file.document_content_type %></td>

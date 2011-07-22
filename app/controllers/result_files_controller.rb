@@ -65,7 +65,7 @@ class ResultFilesController < ApplicationController
     end # each
             
     # get data for link form        
-    @result_files = ResultFile.find(:all, :conditions => {:lab_id => @chosen_lab.id})
+    @result_files = ResultFile.find(:all, :include => :samples, :conditions => {:lab_id => @chosen_lab.id})
     @samples = Sample.find(:all, :conditions => {:lab_id => @chosen_lab.id}) 
    
   end
@@ -93,7 +93,7 @@ class ResultFilesController < ApplicationController
     end
     
     #get samples with associated result files per lab chosen by admin
-    @samples = Sample.find(:all, :include => :result_files, :conditions => {:lab_id => params[:chosen_lab][:chosen_lab_id]})
+    @samples = Sample.find(:all, :include => :result_files, :conditions => {:lab_id => params[:chosen_lab][:id]})
     
     render :action => 'view_sample_results'
     

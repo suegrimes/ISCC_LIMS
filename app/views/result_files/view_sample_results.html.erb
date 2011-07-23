@@ -7,25 +7,21 @@
 <%= break_clear() %>
 
 <!-- this will need to get either the chosen lab or the logged in lab -->
-<%
-=begin %>
-<h3>Choose Sample(s) from Lab: <%= params[:chosen_lab][:chosen_lab_id] %></h3>
-<% form_tag(:action => :debug) do %>
-  <td><%= select_tag("sample_results[][sample_id]", options_from_collection_for_select(@samples, :id, :barcode_and_name), {:multiple => true, :size=> 4}) %>
-  <%= break_clear(submit_tag "View Results") %>
-<% end %>
-<%
-=end %>
 
 <h3>Debug: Results Mapped to Samples</h3>
+
 <% @samples.each do |sample| %>
-  <% unless (sample.result_files.blank?) %>
+  <% if (!sample.result_files.blank?) %>
   Sample ID: <%= sample.id %>, Sample Name: <%= sample.sample_name %>, Lab ID: <%= sample.lab_id %>
   <ol>
     <% sample.result_files.each do |rfile| %>
     <li>filename: <%= rfile[:document] %>, lab id: <%= rfile[:lab_id] %></li>
     <% end %>
   </ol>
+  <% else %>
+  Sample ID: <%= sample.id %>, Sample Name: <%= sample.sample_name %>, Lab ID: <%= sample.lab_id %><br />
+  No Results were Linked<br />
+  <hr />
   <% end %>
 <% end %>
 

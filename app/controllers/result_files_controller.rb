@@ -16,22 +16,19 @@ class ResultFilesController < ApplicationController
     end
   end
   
-  def link_multi
-  
-  # clear db
+  def link_multi 
+  # clear tables
   #ResultFile.connection.execute("TRUNCATE TABLE result_files")
-    
-  # TODO
+  #ResultFile.connection.execute("TRUNCATE TABLE result_files_samples")
 
+  # TODO
   # on view, all lab and user id's converted to name
   ## query result_files for updated_by (an id#), then query auth_user table by id# to get list of names
   ## make a hash or ? to connect the file with this name rather than their id# for display in the link form
-  # Not holding linked samples - need to fix this!!!
-
   # localize variables
-  # take out unneeded variables
- 
-  # add update, edit 
+  # take out unneeded variables 
+  # add update, edit
+  # Admin Auth 
 
     @labs = Lab.find(:all, :order => :lab_name) 
     @chosen_lab  = Lab.find_by_id(params[:lab_id])
@@ -71,18 +68,20 @@ class ResultFilesController < ApplicationController
   end
   
   def link_files_to_samples 
-    
-  # on View Samples page, little sample form to render back to this page with the Samples and their results
-  # need a local variable for lab id
-  # on view, all lab id's to name
+  
+  # TODO
+  # Rig it so you can go to View sample results from Sample Details page
+  # on View Samples page: either sample form to get another sample, 
+  ## or link back to List Samples page. Also need another block for just one sample.
+  # Download files from filesystem
     
     @debug_list = []
     @files_updated = 0 # for debug
-    params[:result_files].each do |rfile|
+    params[:result_files].each do |id, rfile| # id is key, rfile is hash of file attributes from the form
       @debug_list.push(rfile)
-      result_file = ResultFile.find(rfile[:id])
-      #associating result file with list of samples based on id(s) from form
-      result_file.samples = Sample.find(rfile[:sample_id]) if (rfile[:sample_id]) 
+      result_file = ResultFile.find(id)
+      #associating result file with list of samples based on sample id(s) from form
+      result_file.samples = Sample.find(rfile[:sample_ids]) if (rfile[:sample_ids]) 
       if (result_file.update_attributes(:notes => rfile[:notes]))
         @files_updated += 1              
       end
@@ -94,7 +93,6 @@ class ResultFilesController < ApplicationController
     
     #get samples with associated result files per lab chosen by admin
     @samples = Sample.find(:all, :include => :result_files, :conditions => {:lab_id => params[:chosen_lab][:id]})
-    
     render :action => 'view_sample_results'
     
   end

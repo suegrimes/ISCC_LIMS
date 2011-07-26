@@ -39,11 +39,7 @@
 	<% end %>
 	
 	<td>
-      <% form_tag(:controller => :result_files, :action => :index) do %>
-      <%= hidden_field_tag(:chosen_sample_id, sample.id) %>
-      <%= hidden_field_tag(:user_lab_id, current_user.lab.id) %>
-      <%= submit_tag "Results" %>
-      <% end %>
+      <%= link_to 'Results', :controller => :result_files, :action => :index, :sample_id => sample.id, :requestor => 'lab' %>
     </td>	
     
 	<% if can? :edit, sample %>

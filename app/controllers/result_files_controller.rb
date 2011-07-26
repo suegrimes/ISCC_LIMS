@@ -3,23 +3,28 @@ class ResultFilesController < ApplicationController
   
   def index
     #TODO: 
-    # this doesn't work from the Samples List Results button
     # get ResultFiles object with Sample included    
-    @which_view = 'DEBUG: default render of index from Samples List Results button' # for debug
-    @samples = Sample.find(:all, :include => :result_files, :conditions => {:id => params[:chosen_sample_id], :lab_id => params[:user_lab_id]})
+    if (params[:requestor] == 'lab')
+      @samples = Sample.find(:all, :include => :result_files, :conditions => {:id => params[:sample_id], :lab_id => current_user.lab.id})
+    else #requestor is admin
+      @samples = Sample.find(:all, :include => :result_files, :conditions => {:id => params[:sample_ids], :lab_id => params[:chosen_lab][:id]})
+    end
   end
     
   def show
     # TODO
-    # get chosen lab name
-    # make condition for if from admin use chosen lab name or
-    # from user use user lab name
-    labname_dir = current_user.lab.lab_name.downcase
-    #labname_dir = 'nih'
-    labname_dir = labname_dir.gsub!(/ /, '_') if labname_dir.match(/\s/)
-    @datafile_path = RAILS_ROOT + '/public/files/dataDownloads/' + labname_dir + '/' 
+    #see seqLIMS attached_files_controller show method
+ 
     rfile = ResultFile.find(params[:id])
-    # TODO: see seqLIMS attached_files_controller show method
+ 
+    if  (params[:requestor] == 'lab')
+      labname_dir = current_user.lab.lab_name.downcase
+    else
+      labname_dir = rfile.lab.lab_name.downcase  
+    end    
+
+    labname_dir = labname_dir.gsub!(/ /, '_') if labname_dir.match(/\s/)        
+    @datafile_path = RAILS_ROOT + '/public/files/dataDownloads/' + labname_dir + '/'
     send_file(File.join(@datafile_path, rfile[:document]), :type => rfile[:document_content_type], :disposition => 'inline')
   end
   
@@ -112,7 +117,6 @@ class ResultFilesController < ApplicationController
     
     #get samples with associated result files per lab chosen by admin
     @samples = Sample.find(:all, :include => :result_files, :conditions => {:lab_id => params[:chosen_lab][:id]})
-    @which_view = 'DEBUG: render from update_multi' # for debug
     render :action => 'index'    
   end  
   

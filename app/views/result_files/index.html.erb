@@ -30,8 +30,7 @@
         <ol>
           <% sample.result_files.each do |rfile| %>
           <li><%= link_to rfile[:document], rfile %>
-             file type: <%= rfile[:document_content_type] %>,lab id: <%= rfile[:lab_id] %>                        
-        
+             &nbsp;(debug:file type: <%= rfile[:document_content_type] %>,lab id: <%= rfile[:lab_id] %>)                                
           </li>
           <% end %>
         </ol>

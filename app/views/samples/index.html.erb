@@ -38,7 +38,13 @@
 	<td class="ltgrey"><%= (sample.shipment ? (sample.shipment.date_received.nil? ? 'Shipped' : 'Received') : 'Ship') %></td>
 	<% end %>
 	
-	<td class="ltgrey">Results</td>	
+	<td>
+      <% form_tag(:controller => :result_files, :action => :index) do %>
+      <%= hidden_field_tag(:chosen_sample_id, sample.id) %>
+      <%= hidden_field_tag(:user_lab_id, current_user.lab.id) %>
+      <%= submit_tag "Results" %>
+      <% end %>
+    </td>	
     
 	<% if can? :edit, sample %>
 	<td><%= link_to 'Edit', edit_sample_path(sample) %></td>

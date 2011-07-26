@@ -34,13 +34,5 @@
     <tr>
       <th>Comments:</th><td colspan=3><%=h sample.comments %></td>
     </tr>
-    <tr>
-      <td colspan="4" align="center">
-      <% form_tag(:action => :debug) do %>
-      <%= hidden_field_tag(:chosen_sample_id, sample.id) %>
-      <%= submit_tag "View Sample Results" %>
-      <% end %>
-      </td>
-    </tr>
 </table>
 </fieldset>

@@ -1,7 +1,29 @@
 class ResultFilesController < ApplicationController
   load_and_authorize_resource
-
+  
   def index
+    #TODO: 
+    # this doesn't work from the Samples List Results button
+    # get ResultFiles object with Sample included    
+    @which_view = 'DEBUG: default render of index from Samples List Results button' # for debug
+    @samples = Sample.find(:all, :include => :result_files, :conditions => {:id => params[:chosen_sample_id], :lab_id => params[:user_lab_id]})
+  end
+    
+  def show
+    # TODO
+    # get chosen lab name
+    # make condition for if from admin use chosen lab name or
+    # from user use user lab name
+    labname_dir = current_user.lab.lab_name.downcase
+    #labname_dir = 'nih'
+    labname_dir = labname_dir.gsub!(/ /, '_') if labname_dir.match(/\s/)
+    @datafile_path = RAILS_ROOT + '/public/files/dataDownloads/' + labname_dir + '/' 
+    rfile = ResultFile.find(params[:id])
+    # TODO: see seqLIMS attached_files_controller show method
+    send_file(File.join(@datafile_path, rfile[:document]), :type => rfile[:document_content_type], :disposition => 'inline')
+  end
+  
+  def choose_lab
     @labs = Lab.find(:all, :order => :lab_name)    
   end
   
@@ -10,13 +32,13 @@ class ResultFilesController < ApplicationController
     @chosen_lab_id = params[:lab][:id] if (!params[:lab][:id].blank?) 
     if (params[:lab][:id].blank?)
        flash.now[:error] = 'Choose Lab with Result Files'
-       render :action => 'index'
+       render :action => 'choose_lab'
     else
-      redirect_to :action => 'link_multi', :lab_id => @chosen_lab_id
+      redirect_to :action => 'edit_multi', :lab_id => @chosen_lab_id
     end
   end
   
-  def link_multi 
+  def edit_multi 
   # clear tables
   #ResultFile.connection.execute("TRUNCATE TABLE result_files")
   #ResultFile.connection.execute("TRUNCATE TABLE result_files_samples")
@@ -27,7 +49,7 @@ class ResultFilesController < ApplicationController
   ## make a hash or ? to connect the file with this name rather than their id# for display in the link form
   # localize variables
   # take out unneeded variables 
-  # add update, edit
+
   # Admin Auth 
 
     @labs = Lab.find(:all, :order => :lab_name) 
@@ -38,8 +60,8 @@ class ResultFilesController < ApplicationController
        
     @results_on_filesystem = get_files_from_filesystem(chosen_lab_dir_name, chosen_lab_dir_id)
     if (@results_on_filesystem.blank?) #directory does not exist or is empty
-      flash[:error] = "Sorry, no result files available for #{@chosen_lab.lab_name}"
-      render :action => 'index', :locals => {:lab_list => @labs}
+      flash.now[:error] = "Sorry, no result files available for #{@chosen_lab.lab_name}"
+      render :action => 'choose_lab', :locals => {:lab_list => @labs}
       return
     end
     
@@ -67,13 +89,10 @@ class ResultFilesController < ApplicationController
    
   end
   
-  def link_files_to_samples 
+  def update_multi
   
   # TODO
-  # Rig it so you can go to View sample results from Sample Details page
-  # on View Samples page: either sample form to get another sample, 
-  ## or link back to List Samples page. Also need another block for just one sample.
-  # Download files from filesystem
+  # get ResultFiles object with Sample included
     
     @debug_list = []
     @files_updated = 0 # for debug
@@ -93,9 +112,9 @@ class ResultFilesController < ApplicationController
     
     #get samples with associated result files per lab chosen by admin
     @samples = Sample.find(:all, :include => :result_files, :conditions => {:lab_id => params[:chosen_lab][:id]})
-    render :action => 'view_sample_results'
-    
-  end
+    @which_view = 'DEBUG: render from update_multi' # for debug
+    render :action => 'index'    
+  end  
   
   def debug
     render :action => :debug  

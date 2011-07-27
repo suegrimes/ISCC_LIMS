@@ -23,7 +23,13 @@ ActionController::Routing::Routes.draw do |map|
                                           
   map.recv_samples 'list_intransit',             :controller => :samples, :action => :list_intransit
   map.show_sop     'show_sop',                   :controller => :samples, :action => :show_sop
+  map.sample_results 'sample_results',           :controller => :samples, :action => :show_results
   
+  # Sequencing Runs/Lanes/QC
+  map.resources :seq_runs
+  map.resources :seq_lanes
+  map.resources :seq_qc
+
   # Result Files
   map.resources :result_files
   map.choose_lab 'choose_lab',     :controller => 'result_files', :action => 'choose_lab'

@@ -1,0 +1,16 @@
+<div class="form-with-columns">
+  <% fields_for "seq_lane[]", seq_lane do |n| %>
+	
+    <td><%= n.text_field(:lane_nr, :size => 4) %></td>
+	
+	<td><%=h sample.lab_id %></td>
+	<td><%=h sample.lab.lab_name %></td>    
+	<td><%=h sample.id %></td>
+	<td><%=h sample.sample_name %></td>
+	<td>
+	  <%= n.hidden_field(:sample_id, :value => sample.id) %>
+	  <%= n.hidden_field(:lab_id,    :value => sample.lab_id) %>
+    </td>
+		
+  <% end %>
+</div>

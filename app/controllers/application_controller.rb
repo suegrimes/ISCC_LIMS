@@ -36,6 +36,10 @@ protected
     end
   end
   
+  def set_lab_conditions(tablenm)
+    (current_user.has_admin_access? ? [] : ["{modelnm}.lab_id = ?", user.lab_id])
+  end
+  
   def log_user_action
     user_login = (User.current_user.nil? ? 'nil' : User.current_user.login)
     logger.info("<**User:  #{user_login} **> Controller/Action: #{self.controller_name}/#{self.action_name}" +

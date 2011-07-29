@@ -1,0 +1,43 @@
+<h1>List Sequencing Runs</h1>
+
+<table class="list">
+  <tr>
+    <th>Sequencing Date</th>
+	<th>Run#</th>
+	<th>Run Name</th>
+    <th colspan="3"></th>
+  </tr>
+
+  <% @seq_runs.each do |seq_run| %>
+  <tr>
+    <td><%=h seq_run.date_sequenced %></td>
+	<td><%=h seq_run.seq_run_nr %></td>
+	<td><%=h seq_run.seq_run_name %></td>
+	
+	<% if can? :show, seq_run %>
+	  <td><%= link_to 'Show', seq_run %></td> 
+	<% else %>
+      <td>&nbsp;</td>
+	<% end %>
+	
+	<% if can? :edit, seq_run %>
+	  <td><%= link_to 'Edit', edit_seq_run_path(seq_run) %></td>
+	<% else %>
+      <td>&nbsp;</td>
+	<% end %>
+	
+	<% if can? :delete, seq_run %>  
+	  <td><%= link_to 'Delete', seq_run, :confirm => 'Are you sure?', :method => :delete %></td>
+	<% else %>
+      <td>&nbsp;</td>
+	<% end %>
+  </tr>
+  
+  <% end %>
+</table>
+
+<%= break_clear() %>
+
+<% form_tag(:action => :new) do %>
+  <%= submit_tag "Add New Sequencing Run" %>
+<% end %>

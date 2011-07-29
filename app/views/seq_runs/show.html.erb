@@ -1,0 +1,45 @@
+<h1>View Sequencing Run</h1>
+
+<fieldset class="info">
+<legend>Sequencing Run Details</legend>
+<table class="info">
+    <tr>
+      <th>Run#:</th><td><%=h @seq_run.seq_run_nr %></td>
+	  <th>Run Name:</th><td><%=h @seq_run.seq_run_name %></td>
+	</tr>
+	<tr>
+      <th>Sequencing Date:</th><td><%=h @seq_run.date_sequenced %></td>
+	</tr>
+	<tr>
+	  <td><div class="linkborder noprint"><%= link_to 'Edit', edit_seq_run_path(@seq_run) %></div></td>
+	</tr>	
+</table>
+</fieldset>
+<%= break_clear() %>
+
+<% form_tag(:controller => 'result_files', :action => 'choose_lab') do %>
+  <%= submit_tag "Link Result files to Lanes" %>
+<% end %>
+
+<br />
+
+<table class="list">
+  <tr>
+  	<th>Lane</th>
+	<!--th>Lab ID</th-->
+  	<th>Lab Name</th>
+	<th>Sample ID</th>
+	<th>Sample Name</th>
+  </tr>
+  <% for seq_lane in @seq_run.seq_lanes %>
+    <tr>
+	  <td><%=h seq_lane.lane_nr %></td>
+	  <!--td><%#=h seq_lane.lab_id %></td-->
+	  <td><%=h seq_lane.lab.lab_name %></td>
+	  <td><%= link_to seq_lane.sample_id, seq_lane.sample %></td>
+      <td><%=h seq_lane.sample.sample_name %></td>
+    </tr>
+  <% end %>
+</table>
+
+

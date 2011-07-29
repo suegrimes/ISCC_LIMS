@@ -1,44 +1,19 @@
-<% if (@debug_list) %>
-<h3>Debug: Params</h3>
-  <% @debug_list.each do |f| %>
-    <%= f.inspect %><br />
-  <% end %>
-<% end %>
-
-<p><%= @which_view %></p>
-
-<%= break_clear() %>
-
-<!-- this will need to get either the chosen lab or the logged in lab -->
-
-<h1>Sample Results</h1>
+<h1>Listing Result Files</h1>
 
 <table class="list">
-<tr>
-    <th>Lab</th>
-    <th>Barcode</th>
-    <th>Sample Name</th>
-    <th>Result Files</th>
-</tr>
-<% @samples.each do |sample| %>
-  <% if (!sample.result_files.blank?) %>
   <tr>
-    <td><%= sample.lab.lab_name %></td>
-    <td><%= sample.barcode_key %> (debug:id:<%= sample.id %>)</td>
-    <td><%= sample.sample_name %></td>
-    <td valign="top">
-        <ol>
-          <% sample.result_files.each do |rfile| %>
-          <li><%= link_to rfile[:document], rfile %>
-             &nbsp;(debug:file type: <%= rfile[:document_content_type] %>,lab id: <%= rfile[:lab_id] %>)                                
-          </li>
-          <% end %>
-        </ol>
-    </td>
+  	<th>Document Name</th>
+    <th>Sample Name</th>
+	<th>Sample Barcode</th>
+    <th>SC Marker Validation</th>
   </tr>
-  <% end %>
+
+<% @result_files.each do |rfile| %>
+  <tr>
+  	<td><%= link_to rfile.document, rfile, :requestor => 'lab' %></td>
+	<td></td>
+	<td></td>
+	<td></td> 
+  </tr>
 <% end %>
 </table>
-
-<%= link_to 'Back to Samples List', samples_path %>
-

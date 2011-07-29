@@ -3,7 +3,7 @@ class SessionsController < ApplicationController
   
   skip_before_filter :login_required, :only => [:new, :create]
 
-  layout 'welcome'
+  #layout 'welcome'
   # render new.erb.html
   def new
     @labs = Lab.find(:all, :order => :lab_name)

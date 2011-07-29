@@ -1,4 +1,4 @@
-<h1>Link Sequence Result Files to Samples</h1>
+<h1>Link Sequence Result Files to Lanes</h1>
 <h2>Source Lab: <%= @chosen_lab.lab_name %></h2>
 
 <%
@@ -20,6 +20,7 @@
 <br />
 <%
 =end %>
+
 <% if (@files_saved != 0) %>
 <fieldset class="info">
 <label>New Files</label>
@@ -32,12 +33,16 @@
 <% else %>
 <h3>No new files</h3>
 <% end %>
+
 <%= break_clear %>
 <h3>Choose Another Lab</h3>
 <%= render :partial => 'lab_form', :locals => {:lab_list => @labs} %>
 <br />
+
+<% 
+=begin %>
 <fieldset class="form">
-<legend>Link Results to Samples</legend>
+<legend>Link Result Files to Lanes</legend>
 <% form_for(@result_files, :url => {:action => :update_multi}) do |result_file| %>
 <table class="form-with-columns" border="0">
     <tr>
@@ -70,5 +75,7 @@
 </fieldset>
 <%= break_clear(submit_tag "Submit") %>
 <% end %>
+<% 
+=end %>
 
 

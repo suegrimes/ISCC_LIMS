@@ -2,16 +2,32 @@ class ResultFilesController < ApplicationController
   load_and_authorize_resource
   
   def index
+    #debug, temp
+    @result_files = ResultFile.find(:all, :conditions => {:lab_id => current_user.lab.id})
+    #@result_files = ResultFile.find(:all, :include => {:seq_lanes => :samples}, :conditions => {:lab_id => current_user.lab.id})
+  end
+
+  # GET /result_files/1
+  def show
     #TODO: 
-    # get ResultFiles object with Sample included    
-    if (params[:requestor] == 'lab')
-      @samples = Sample.find(:all, :include => :result_files, :conditions => {:id => params[:sample_id], :lab_id => current_user.lab.id})
+    # get ResultFiles object with SeqLane and Sample included 
+    # get value of requestor for if condition. Presentation will be for single file if 'lab', and all files if 'admin'
+
+    if (params[:requestor] == lab)
+      @requestor = 'lab'
+      # debug, temp
+      @result_file = ResultFile.find(params[:id]) 
+      #@result_files = ResultFile.find(:all, :include => {:seq_lanes => :samples}, :conditions => {:lab_id => current_user.lab.id})
+    
     else #requestor is admin
-      @samples = Sample.find(:all, :include => :result_files, :conditions => {:id => params[:sample_ids], :lab_id => params[:chosen_lab][:id]})
+      @requestor = 'admin'
+      # debug, temp
+      @result_file = ResultFile.find(params[:id]) 
+      #@result_files = ResultFile.find(:all, :include => {:seq_lanes => :samples}, :conditions => {:lab_id => params[:chosen_lab][:id]})
     end
   end
     
-  def show
+  def download_file
     # TODO
     #see seqLIMS attached_files_controller show method
  
@@ -89,7 +105,7 @@ class ResultFilesController < ApplicationController
     end # each
             
     # get data for link form        
-    @result_files = ResultFile.find(:all, :include => :samples, :conditions => {:lab_id => @chosen_lab.id})
+    @result_files = ResultFile.find(:all, :include => {:seq_lanes => :samples}, :conditions => {:lab_id => @chosen_lab.id})
     @samples = Sample.find(:all, :conditions => {:lab_id => @chosen_lab.id}) 
    
   end
@@ -117,7 +133,7 @@ class ResultFilesController < ApplicationController
     
     #get samples with associated result files per lab chosen by admin
     @samples = Sample.find(:all, :include => :result_files, :conditions => {:lab_id => params[:chosen_lab][:id]})
-    render :action => 'index'    
+    render :action => 'show'    
   end  
   
   def debug

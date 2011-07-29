@@ -14,7 +14,7 @@
 
 class ResultFile < ActiveRecord::Base
 
-    has_and_belongs_to_many :samples
+    has_and_belongs_to_many :seq_lanes
     belongs_to :lab
 
 end

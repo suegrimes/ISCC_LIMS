@@ -17,18 +17,12 @@
 </fieldset>
 <%= break_clear() %>
 
-<% form_tag(:controller => 'result_files', :action => 'choose_lab') do %>
-  <%= submit_tag "Link Result files to Lanes" %>
-<% end %>
-
-<br />
-
 <table class="list">
   <tr>
   	<th>Lane</th>
 	<!--th>Lab ID</th-->
   	<th>Lab Name</th>
-	<th>Sample ID</th>
+	<th>Sample Barcode</th>
 	<th>Sample Name</th>
   </tr>
   <% for seq_lane in @seq_run.seq_lanes %>
@@ -36,10 +30,17 @@
 	  <td><%=h seq_lane.lane_nr %></td>
 	  <!--td><%#=h seq_lane.lab_id %></td-->
 	  <td><%=h seq_lane.lab.lab_name %></td>
-	  <td><%= link_to seq_lane.sample_id, seq_lane.sample %></td>
+	  <td><%= link_to seq_lane.sample.barcode_key, seq_lane.sample %></td>
       <td><%=h seq_lane.sample.sample_name %></td>
     </tr>
   <% end %>
 </table>
+
+<% form_tag(:controller => 'result_files', :action => 'choose_lab') do %>
+  <%= submit_tag "Link Result Files to Flow Cell Lanes" %>
+<% end %>
+
+<p>&nbsp;</p>
+
 
 

@@ -2,6 +2,9 @@ class ResultFilesController < ApplicationController
   load_and_authorize_resource
   
   def index
+    # TODO: 
+    # list by: lab: sample: result files
+
     #debug, temp
     @result_files = ResultFile.find(:all, :conditions => {:lab_id => current_user.lab.id})
     #@result_files = ResultFile.find(:all, :include => {:seq_lanes => :samples}, :conditions => {:lab_id => current_user.lab.id})
@@ -9,22 +12,9 @@ class ResultFilesController < ApplicationController
 
   # GET /result_files/1
   def show
-    #TODO: 
-    # get ResultFiles object with SeqLane and Sample included 
-    # get value of requestor for if condition. Presentation will be for single file if 'lab', and all files if 'admin'
-
-    if (params[:requestor] == lab)
-      @requestor = 'lab'
-      # debug, temp
-      @result_file = ResultFile.find(params[:id]) 
-      #@result_files = ResultFile.find(:all, :include => {:seq_lanes => :samples}, :conditions => {:lab_id => current_user.lab.id})
-    
-    else #requestor is admin
-      @requestor = 'admin'
-      # debug, temp
-      @result_file = ResultFile.find(params[:id]) 
-      #@result_files = ResultFile.find(:all, :include => {:seq_lanes => :samples}, :conditions => {:lab_id => params[:chosen_lab][:id]})
-    end
+    # include seq lane and sample details
+    # use download_file() for links
+    @result_file = ResultFile.find(params[:id]) 
   end
     
   def download_file
@@ -106,7 +96,8 @@ class ResultFilesController < ApplicationController
             
     # get data for link form        
     @result_files = ResultFile.find(:all, :include => {:seq_lanes => :samples}, :conditions => {:lab_id => @chosen_lab.id})
-    @samples = Sample.find(:all, :conditions => {:lab_id => @chosen_lab.id}) 
+    #@samples = Sample.find(:all, :conditions => {:lab_id => @chosen_lab.id}) 
+    @seq_lanes = SeqLane.find(:all, :conditions => {:lab_id => @chosen_lab.id})
    
   end
   

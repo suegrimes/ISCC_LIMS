@@ -21,5 +21,12 @@ class SeqLane < ActiveRecord::Base
   has_and_belongs_to_many :result_files
   
   named_scope :userlab, lambda{|user| {:conditions => (user.has_admin_access? ? nil : ["seq_lanes.lab_id = ?", user.lab_id])}}
+ 
+  def sample_and_lane
+    #['Lane', lane_nr].join(' ')
+    lane = 'Lane ' + lane_nr.to_s
+    sample = 'SampleID ' + sample_id.to_s
+    [sample,lane].join('/')
+  end
   
 end

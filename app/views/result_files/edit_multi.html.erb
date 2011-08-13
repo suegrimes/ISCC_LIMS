@@ -33,9 +33,11 @@
 <% else %>
 <h3>No new files</h3>
 <% end %>
-
 <br />
-
+<% form_tag(:controller => 'result_files', :action => 'choose_lab') do %>
+  <%= submit_tag "Choose Another Lab" %>
+<% end %>
+<br />
 <fieldset class="form">
 <legend>Link Result Files to Lanes</legend>
 <% form_for(@result_files, :url => {:action => :update_multi}) do |result_file| %>
@@ -71,8 +73,5 @@
 <%= break_clear(submit_tag "Submit") %>
 <% end %>
 
-<%= break_clear %>
-<h2>Choose Another Lab</h2><br />
-<%= render :partial => 'lab_form', :locals => {:lab_list => @labs} %>
 
 

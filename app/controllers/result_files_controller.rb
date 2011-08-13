@@ -14,7 +14,8 @@ class ResultFilesController < ApplicationController
   def show
     # include seq lane and sample details
     # use download_file() for links
-    @result_file = ResultFile.find(params[:id]) 
+    #@result_file = ResultFile.find(params[:id])
+    @result_file = ResultFile.find(params[:id], :include => {:seq_lanes => :samples}, :conditions => {:lab_id => current_user.lab.id}) 
   end
     
   def download_file
@@ -112,7 +113,7 @@ class ResultFilesController < ApplicationController
       @debug_list.push(rfile)
       result_file = ResultFile.find(id)
       #associating result file with list of samples based on sample id(s) from form
-      result_file.samples = Sample.find(rfile[:sample_ids]) if (rfile[:sample_ids]) 
+      result_file.seq_lanes = SeqLane.find(rfile[:seq_lanes_ids]) if (rfile[:seq_lanes_ids]) 
       if (result_file.update_attributes(:notes => rfile[:notes]))
         @files_updated += 1              
       end
@@ -123,8 +124,8 @@ class ResultFilesController < ApplicationController
     end
     
     #get samples with associated result files per lab chosen by admin
-    @samples = Sample.find(:all, :include => :result_files, :conditions => {:lab_id => params[:chosen_lab][:id]})
-    render :action => 'show'    
+    @result_files = ResultFile.find(:all, :include => {:seq_lanes => :samples}, :conditions => {:lab_id => params[:chosen_lab][:id]})
+    render :action => 'update_multi_show'    
   end  
   
   def debug

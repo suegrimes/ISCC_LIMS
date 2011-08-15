@@ -15,18 +15,19 @@
 class SeqLane < ActiveRecord::Base
   belongs_to :lab
   belongs_to :seq_run
-  belongs_to :sample
   has_one :seq_qc
+  belongs_to :sample
   
-  has_and_belongs_to_many :result_files
+  has_and_belongs_to_many :result_files 
   
   named_scope :userlab, lambda{|user| {:conditions => (user.has_admin_access? ? nil : ["seq_lanes.lab_id = ?", user.lab_id])}}
  
-  def sample_and_lane
+  def run_lane_sample
     #['Lane', lane_nr].join(' ')
+    seqrun_num = 'Run # ' + seq_run_nr.to_s
     lane = 'Lane ' + lane_nr.to_s
-    sample = 'SampleID ' + sample_id.to_s
-    [sample,lane].join('/')
+    sample = 'Sample ' + self.sample.barcode_key
+    [seqrun_num, lane, sample].join('/')
   end
   
 end

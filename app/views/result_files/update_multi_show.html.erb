@@ -1,10 +1,16 @@
 <h1>Show Result Files Linked to Lanes</h1>
 <h3>Debug</h3>
+<ul>
 <% @result_files.each do |rfile| %>
-  <%= rfile.lab.lab_name%>,<%= rfile.document%>
-  <br />
+  <li>resultfile: lab <%= rfile.lab.lab_name%>|result_file: doc <%= rfile.document%>
+    <ul>
+       <% rfile.seq_lanes.each do |lane| %>
+          <li>lane: lab name <%= lane.lab.lab_name %>|lane: lane # <%= lane.lane_nr %>|lane: sample barcode <%= lane.sample.barcode_key %>|lane: sample name <%= lane.sample.sample_name %></li> 
+       <% end %>
+    </ul>  
+  </li>
 <% end %>
-
+</ul>
 <%
 =begin %>
 <table class="list">

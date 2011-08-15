@@ -30,7 +30,7 @@
 class Sample < ActiveRecord::Base
   belongs_to :lab
   has_one :shipment
-  has_and_belongs_to_many :result_files
+  has_many :seq_lanes
   
   accepts_nested_attributes_for :shipment, :allow_destroy => true
   

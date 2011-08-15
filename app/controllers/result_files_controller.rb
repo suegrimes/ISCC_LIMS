@@ -96,7 +96,7 @@ class ResultFilesController < ApplicationController
     end # each
             
     # get data for link form        
-    @result_files = ResultFile.find(:all, :include => {:seq_lanes => :samples}, :conditions => {:lab_id => @chosen_lab.id})
+    @result_files = ResultFile.find(:all, :include => {:seq_lanes => :sample}, :conditions => {:lab_id => @chosen_lab.id})
     #@samples = Sample.find(:all, :conditions => {:lab_id => @chosen_lab.id}) 
     @seq_lanes = SeqLane.find(:all, :conditions => {:lab_id => @chosen_lab.id})
    
@@ -112,9 +112,11 @@ class ResultFilesController < ApplicationController
     params[:result_files].each do |id, rfile| # id is key, rfile is hash of file attributes from the form
       @debug_list.push(rfile)
       result_file = ResultFile.find(id)
-      #associating result file with list of samples based on sample id(s) from form
-      result_file.seq_lanes = SeqLane.find(rfile[:seq_lanes_ids]) if (rfile[:seq_lanes_ids]) 
-      if (result_file.update_attributes(:notes => rfile[:notes]))
+      #associating result file with list of lanes
+      result_file.seq_lanes = SeqLane.find(rfile[:seq_lanes_ids]) if (rfile[:seq_lanes_ids])
+      #result_file.seq_lanes = SeqLane.find(rfile[:seq_lanes_ids])
+      #if (result_file.update_attributes(:notes => rfile[:notes]))
+      if (result_file.update_attributes(rfile))
         @files_updated += 1              
       end
     end
@@ -124,7 +126,7 @@ class ResultFilesController < ApplicationController
     end
     
     #get samples with associated result files per lab chosen by admin
-    @result_files = ResultFile.find(:all, :include => {:seq_lanes => :samples}, :conditions => {:lab_id => params[:chosen_lab][:id]})
+    @result_files = ResultFile.find(:all, :include => {:seq_lanes => :sample}, :conditions => {:lab_id => params[:chosen_lab][:id]})
     render :action => 'update_multi_show'    
   end  
   

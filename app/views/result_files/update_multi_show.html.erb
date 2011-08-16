@@ -2,10 +2,10 @@
 <h3>Debug</h3>
 <ul>
 <% @result_files.each do |rfile| %>
-  <li>resultfile: lab <%= rfile.lab.lab_name%>|result_file: doc <%= rfile.document%>
+  <li>RESULT FILE: Lab: <%= rfile.lab.lab_name%>, Doc: <%= rfile.document%>, Notes: <%= rfile.notes %>
     <ul>
        <% rfile.seq_lanes.each do |lane| %>
-          <li>lane: lab name <%= lane.lab.lab_name %>|lane: lane # <%= lane.lane_nr %>|lane: sample barcode <%= lane.sample.barcode_key %>|lane: sample name <%= lane.sample.sample_name %></li> 
+          <li>LANE: lab name: <%= lane.lab.lab_name %>, lane #: <%= lane.lane_nr %>, sample barcode: <%= lane.sample.barcode_key %>, sample name: <%= lane.sample.sample_name %></li> 
        <% end %>
     </ul>  
   </li>

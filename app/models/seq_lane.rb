@@ -23,7 +23,6 @@ class SeqLane < ActiveRecord::Base
   named_scope :userlab, lambda{|user| {:conditions => (user.has_admin_access? ? nil : ["seq_lanes.lab_id = ?", user.lab_id])}}
  
   def run_lane_sample
-    #['Lane', lane_nr].join(' ')
     seqrun_num = 'Run # ' + seq_run_nr.to_s
     lane = 'Lane ' + lane_nr.to_s
     sample = 'Sample ' + self.sample.barcode_key

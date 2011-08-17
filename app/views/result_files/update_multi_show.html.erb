@@ -1,47 +1,34 @@
-<h1>Show Result Files Linked to Lanes</h1>
-<h3>Debug</h3>
-<ul>
+<h1>Result Files Linked to Lanes</h1>
+<fieldset class="info">
+<legend>File and Lane/Sample Info</legend>
+<table class="info">
 <% @result_files.each do |rfile| %>
-  <li>RESULT FILE: Lab: <%= rfile.lab.lab_name%>, Doc: <%= rfile.document%>, Notes: <%= rfile.notes %>
-    <ul>
-       <% rfile.seq_lanes.each do |lane| %>
-          <li>LANE: lab name: <%= lane.lab.lab_name %>, lane #: <%= lane.lane_nr %>, sample barcode: <%= lane.sample.barcode_key %>, sample name: <%= lane.sample.sample_name %></li> 
-       <% end %>
-    </ul>  
-  </li>
-<% end %>
-</ul>
-<%
-=begin %>
-<table class="list">
-<tr>
-    <th>Lab</th>
-    <th>Barcode</th>
-    <th>Sample Name</th>
-    <th>Result Files</th>
-</tr>
-<% @samples.each do |sample| %>
-  <% if (!sample.result_files.blank?) %>
   <tr>
-    <td><%= sample.lab.lab_name %></td>
-    <td><%= sample.barcode_key %> (debug:id:<%= sample.id %>)</td>
-    <td><%= sample.sample_name %></td>
-    <td valign="top">
-        <ol>
-          <% sample.result_files.each do |rfile| %>
-          <li><%= link_to rfile[:document], rfile, :action => :download_file %>
-             &nbsp;(debug:file type: <%= rfile[:document_content_type] %>,lab id: <%= rfile[:lab_id] %>)                                
-          </li>
-          <% end %>
-        </ol>
-    </td>
+  	<th>Document:</th><td><%= rfile.document%></td>
   </tr>
-  <% end %>
+  <tr>
+    <th>Run/Lane/Sample: </th>
+	<td>
+	<% rfile.seq_lanes.each do |lane| %>
+	    Run #: <%= lane.seq_run_nr %>, 
+      	Lane #:<%= lane.lane_nr %>, 
+		Sample barcode:<%= lane.sample.barcode_key %><br />
+    <% end %>
+	</td>
+  </tr>
+  <tr>
+    <th>Notes:</th><td><%= rfile.notes %></td>
+  </tr>
+  <tr>
+    <td colspan="2"><hr /></td>
+  </tr>
 <% end %>
 </table>
-<% 
-=end %>
+</fieldset>
 
-<%= break_clear()  %>
-<%= link_to 'Back to Result Files List', result_files_path %>
+<%= break_clear %>
+<% form_tag(:controller => 'result_files', :action => 'choose_lab') do %>
+  <%= submit_tag "Link More Files" %>
+<% end %>
+<br />
 

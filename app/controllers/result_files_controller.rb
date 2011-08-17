@@ -51,18 +51,10 @@ class ResultFilesController < ApplicationController
   end
   
   def edit_multi 
-  # clear tables
-  #ResultFile.connection.execute("TRUNCATE TABLE result_files")
-  #ResultFile.connection.execute("TRUNCATE TABLE result_files_samples")
 
   # TODO
-  # on view, all lab and user id's converted to name
-  ## query result_files for updated_by (an id#), then query auth_user table by id# to get list of names
-  ## make a hash or ? to connect the file with this name rather than their id# for display in the link form
-  # localize variables
-  # take out unneeded variables 
-
-  # Admin Auth 
+  # on view, user id's converted to name
+  # exclude fastqc dirs
 
     @labs = Lab.find(:all, :order => :lab_name) 
     @chosen_lab  = Lab.find_by_id(params[:lab_id])
@@ -169,6 +161,14 @@ protected
     else    
       return nil    
     end
+  end
+  
+  # debug for development only
+  def trunc_tables
+    ResultFile.connection.execute("TRUNCATE TABLE seq_runs")
+    ResultFile.connection.execute("TRUNCATE TABLE seq_lanes")
+    ResultFile.connection.execute("TRUNCATE TABLE result_files")
+    ResultFile.connection.execute("TRUNCATE TABLE result_files_seq_lanes")
   end
   
 end

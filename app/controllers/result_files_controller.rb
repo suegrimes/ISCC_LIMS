@@ -53,7 +53,7 @@ class ResultFilesController < ApplicationController
   def edit_multi 
 
   # TODO
-  # on view, user id's converted to name
+  # sort lane dropdowns
   # exclude fastqc dirs
 
     @labs = Lab.find(:all, :order => :lab_name) 

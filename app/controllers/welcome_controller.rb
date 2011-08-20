@@ -2,6 +2,8 @@ class WelcomeController < ApplicationController
   skip_before_filter :login_required
   #skip_before_filter :log_user_action
   
+  layout "frontpage"
+  
   def index
     if logged_in?
       render :action => 'index'

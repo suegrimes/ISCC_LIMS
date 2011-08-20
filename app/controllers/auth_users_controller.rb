@@ -1,6 +1,8 @@
 class AuthUsersController < ApplicationController
   load_and_authorize_resource
   
+  layout "frontpage"
+  
   before_filter :dropdowns, :only => [:new, :edit]
   
   # GET /auth_users

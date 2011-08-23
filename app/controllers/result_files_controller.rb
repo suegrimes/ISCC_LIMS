@@ -4,32 +4,15 @@ class ResultFilesController < ApplicationController
   def index
     # TODO: 
     # list by: lab: sample: result files
-
-    #debug, temp
-    @result_files = ResultFile.find(:all, :conditions => {:lab_id => current_user.lab.id})
-    #@result_files = ResultFile.find(:all, :include => {:seq_lanes => :samples}, :conditions => {:lab_id => current_user.lab.id})
-  end
-
-  # GET /result_files/1
-  def show
-    # include seq lane and sample details
-    # use download_file() for links
-    #@result_file = ResultFile.find(params[:id])
-    @result_file = ResultFile.find(params[:id], :include => {:seq_lanes => :samples}, :conditions => {:lab_id => current_user.lab.id}) 
+    @result_files = ResultFile.find(:all, :include => {:seq_lanes => :sample}, :conditions => {:lab_id => current_user.lab.id})
   end
     
-  def download_file
+  def show
     # TODO
     #see seqLIMS attached_files_controller show method
  
-    rfile = ResultFile.find(params[:id])
- 
-    if  (params[:requestor] == 'lab')
-      labname_dir = current_user.lab.lab_name.downcase
-    else
-      labname_dir = rfile.lab.lab_name.downcase  
-    end    
-
+    rfile = ResultFile.find(params[:id]) 
+    labname_dir = current_user.lab.lab_name.downcase       
     labname_dir = labname_dir.gsub!(/ /, '_') if labname_dir.match(/\s/)        
     @datafile_path = RAILS_ROOT + '/public/files/dataDownloads/' + labname_dir + '/'
     send_file(File.join(@datafile_path, rfile[:document]), :type => rfile[:document_content_type], :disposition => 'inline')
@@ -53,8 +36,6 @@ class ResultFilesController < ApplicationController
   def edit_multi 
 
   # TODO
-  # sort lane dropdowns
-  # exclude fastqc dirs
 
     @labs = Lab.find(:all, :order => :lab_name) 
     @chosen_lab  = Lab.find_by_id(params[:lab_id])
@@ -90,7 +71,13 @@ class ResultFilesController < ApplicationController
     # get data for link form        
     @result_files = ResultFile.find(:all, :include => {:seq_lanes => :sample}, :conditions => {:lab_id => @chosen_lab.id})
     #@samples = Sample.find(:all, :conditions => {:lab_id => @chosen_lab.id}) 
-    @seq_lanes = SeqLane.find(:all, :conditions => {:lab_id => @chosen_lab.id})
+    @seq_lanes = SeqLane.find(:all, :conditions => {:lab_id => @chosen_lab.id}, :order => "seq_run_nr, lane_nr")
+ 
+    if (@seq_lanes.blank?)
+      flash.now[:error] = "Sorry, no samples matched to sequence runs yet for #{@chosen_lab.lab_name}"
+      render :action => 'choose_lab', :locals => {:lab_list => @labs}
+      return
+    end
    
   end
   
@@ -117,7 +104,7 @@ class ResultFilesController < ApplicationController
       flash.now[:notice] = @files_updated.to_s + " updates were made to Result Files table"
     end
     
-    #get samples with associated result files per lab chosen by admin
+    #get result files with associated lanes and samples per lab chosen by admin
     @result_files = ResultFile.find(:all, :include => {:seq_lanes => :sample}, :conditions => {:lab_id => params[:chosen_lab][:id]})
     render :action => 'update_multi_show'    
   end  
@@ -140,8 +127,9 @@ protected
     
       files_list = [];
       file_info = {};
-      Dir.foreach('.') {
+      Dir.foreach('.') {        
         |fn|
+        next if ((File.directory?(fn)) || (fn[0].chr == '.'))
         extname = File.extname(fn)[1..-1]
         mime_type = Mime::Type.lookup_by_extension(extname)
         content_type = mime_type.to_s unless mime_type.nil?
@@ -153,7 +141,7 @@ protected
           :document_file_size => File.size(fn),
           :updated_by => current_user.auth_user.id
         }
-        files_list.push(file_info) if (fn[0].chr != '.')                
+        files_list.push(file_info)             
       }
       
       Dir.chdir(RAILS_ROOT)    

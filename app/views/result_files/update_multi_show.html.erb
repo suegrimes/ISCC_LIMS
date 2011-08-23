@@ -4,6 +4,9 @@
 <table class="info">
 <% @result_files.each do |rfile| %>
   <tr>
+    <th>Lab:</th><td><%= rfile.lab.lab_name%></td>
+  </tr>
+  <tr>
   	<th>Document:</th><td><%= rfile.document%></td>
   </tr>
   <tr>

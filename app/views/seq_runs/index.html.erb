@@ -41,3 +41,7 @@
 <% form_tag(:action => :new) do %>
   <%= submit_tag "Add New Sequencing Run" %>
 <% end %>
+<br />
+<% form_tag(:controller => 'result_files', :action => 'choose_lab') do %>
+  <%= submit_tag "Link Result Files to Flow Cell Lanes" %>
+<% end %>

@@ -1,7 +1,5 @@
 class UsersController < ApplicationController 
   
-  layout "frontpage"
-  
   skip_before_filter :login_required, :only => [:new, :create, :activate, :forgot, :reset]
   
   def index

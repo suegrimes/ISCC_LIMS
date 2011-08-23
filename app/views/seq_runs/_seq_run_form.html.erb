@@ -7,7 +7,11 @@
 	</tr>
 	<tr>
 	  <th>Sequencing Run#:</th>
+	  <% if (controller.controller_name == "seq_runs" && controller.action_name == "new" ) %>
+	  <td><%= f.text_field(:seq_run_nr, :size => 15) %></td>
+	  <% else %>
 	  <td><%= @seq_run.seq_run_nr %></td>
+	  <% end %>
 	</tr>
   </table>
 </fieldset>

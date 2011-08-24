@@ -91,9 +91,8 @@ class ResultFilesController < ApplicationController
     params[:result_files].each do |id, rfile| # id is key, rfile is hash of file attributes from the form
       @debug_list.push(rfile)
       result_file = ResultFile.find(id)
-      #associating result file with list of lanes
+      #associating result file with list of lanes            
       result_file.seq_lanes = SeqLane.find(rfile[:seq_lanes_ids]) if (rfile[:seq_lanes_ids])
-      #result_file.seq_lanes = SeqLane.find(rfile[:seq_lanes_ids])
       #if (result_file.update_attributes(:notes => rfile[:notes]))
       if (result_file.update_attributes(rfile))
         @files_updated += 1              

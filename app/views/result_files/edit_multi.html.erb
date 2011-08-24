@@ -58,7 +58,7 @@
       <%= f.hidden_field(:id, :value => file.id) %>
       <%= hidden_field_tag("chosen_lab[id]", params[:lab_id]) %>
       <td><%= h file.document %></td>                                         
-      <td><%= f.collection_select(:seq_lane_ids, @seq_lanes, :lane_nr, :run_lane_sample, {:selected => file.seq_lane_ids},
+      <td><%= f.collection_select(:seq_lane_ids, @seq_lanes, :id, :run_lane_sample, {:selected => file.seq_lane_ids},
                                 {:multiple => :true, :name => "result_files[#{file.id}]seq_lane_ids[]", :size=> 4}) %></td>
       <td><%= h file.document_content_type %></td>
       <td><%= h file.document_file_size %></td>

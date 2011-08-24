@@ -1,19 +1,22 @@
-<h1>Listing Result Files</h1>
-
-<table class="list">
-  <tr>
-  	<th>Document Name</th>
-    <th>Sample Name</th>
-	<th>Sample Barcode</th>
-    <th>SC Marker Validation</th>
-  </tr>
+<h1>Listing Result Files for <%=h current_user.lab.lab_name %></h1>
 
 <% @result_files.each do |rfile| %>
-  <tr>
-  	<td><%= link_to rfile.document, rfile %></td>
-	<td></td>
-	<td></td>
-	<td></td> 
-  </tr>
+  <% if !rfile.seq_lanes.blank? %>
+  <strong>Document Name: <%= link_to rfile.document, rfile %></strong>  
+    <% rfile.seq_lanes.each do |lane| %>
+    <ul>
+      <li>Seq Run #: <%= lane.seq_run_nr %></li>
+      <li>Lane #: <%= lane.lane_nr %></li>
+      <li>Sample Info: 
+        <ul>
+          <li>Name - <%= lane.sample.sample_name %></li>
+          <li>Barcode - <%= lane.sample.barcode_key %></li>
+          <li>SC Marker Validation - <%= lane.sample.sc_marker_validation_method %></li>
+        </ul>
+      </li>
+    </ul>
+    <% end %>
+  <strong>Notes:</strong> <%= rfile.notes %>
+  <% end  %>
+  <hr />
 <% end %>
-</table>

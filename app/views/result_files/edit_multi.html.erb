@@ -1,26 +1,6 @@
 <h1>Link Sequence Result Files to Lanes</h1>
 <h2>Source Lab: <%= @chosen_lab.lab_name %></h2>
 
-<%
-=begin %>
-<h3>Debug: Results on Filesystsem</h3>
-<% @results_on_filesystem.each do |file|%>
-  <%= file[:document] %><br />
-<% end %>
-<br />
-<h3>Debug: Results in Database before save</h3>
-<% @result_files_before_save.each do |file|%>
-  <%= file[:document] %><br />
-<% end %>
-<br />
-<h3>Debug: Files that already exist in DB</h3>
-<% @exist_in_db.each do |document|%>
-  <%= document %><br />
-<% end %>
-<br />
-<%
-=end %>
-
 <% if (@files_saved != 0) %>
 <fieldset class="info">
 <label>New Files</label>
@@ -38,6 +18,7 @@
   <%= submit_tag "Choose Another Lab" %>
 <% end %>
 <br />
+<div class="notes"><strong>Note: Previously selected lanes are highlighted. To add or select multiple lanes, use right click function, or previously selected lanes will be cleared.</strong></div><br />
 <fieldset class="form">
 <legend>Link Result Files to Lanes</legend>
 <% form_for(@result_files, :url => {:action => :update_multi}) do |result_file| %>

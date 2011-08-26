@@ -1,10 +1,16 @@
 class ResultFilesController < ApplicationController
   load_and_authorize_resource
   
+  DATAFILES = RAILS_ROOT + '/public/files/dataDownloads/'
+  PUBLIC_DATA_FILES = '/files/dataDownloads/'
+  #DATAFILES = '/Users/jenniferp/dev/test/'
+  #PUBLIC_DATA_FILES = DATAFILES
+  
   def index
-    # TODO: 
-    # list by: lab: sample: result files
     @result_files = ResultFile.find(:all, :include => {:seq_lanes => :sample}, :conditions => {:lab_id => current_user.lab.id})
+    labname_dir = current_user.lab.lab_name.downcase       
+    labname_dir = labname_dir.gsub!(/ /, '_') if labname_dir.match(/\s/) 
+    @fastqc_files = get_fastqc_files(labname_dir)
   end
     
   def show
@@ -14,7 +20,7 @@ class ResultFilesController < ApplicationController
     rfile = ResultFile.find(params[:id]) 
     labname_dir = current_user.lab.lab_name.downcase       
     labname_dir = labname_dir.gsub!(/ /, '_') if labname_dir.match(/\s/)        
-    @datafile_path = RAILS_ROOT + '/public/files/dataDownloads/' + labname_dir + '/'
+    @datafile_path = DATAFILES + labname_dir + '/'
     send_file(File.join(@datafile_path, rfile[:document]), :type => rfile[:document_content_type], :disposition => 'inline')
   end
   
@@ -24,7 +30,7 @@ class ResultFilesController < ApplicationController
   
   def check_chosen_lab
     @labs = Lab.find(:all, :order => :lab_name)
-    @chosen_lab_id = params[:lab][:id] if (!params[:lab][:id].blank?) 
+    @chosen_lab_id = params[:lab][:id] if (!params[:lab][:id].blank?)
     if (params[:lab][:id].blank?)
        flash.now[:error] = 'Choose Lab with Result Files'
        render :action => 'choose_lab'
@@ -82,10 +88,7 @@ class ResultFilesController < ApplicationController
   end
   
   def update_multi
-  
-  # TODO
-  # get ResultFiles object with Sample included
-    
+      
     @debug_list = []
     @files_updated = 0 # for debug
     params[:result_files].each do |id, rfile| # id is key, rfile is hash of file attributes from the form
@@ -114,12 +117,12 @@ class ResultFilesController < ApplicationController
   
 protected
   
-  def get_files_from_filesystem(dir_name, lab_id)
+  def get_files_from_filesystem(lab_dir_name, lab_id)
     # TODO
     # localize variables
     
     # check if directory exists
-    datafile_path = RAILS_ROOT + '/public/files/dataDownloads/' + dir_name + '/' 
+    datafile_path = DATAFILES + lab_dir_name + '/' 
     if (File.directory?(datafile_path))
            
       Dir.chdir(datafile_path)
@@ -148,6 +151,30 @@ protected
     else    
       return nil    
     end
+  end
+  
+  def get_fastqc_files(lab_dir_name)
+    
+    datafile_path = DATAFILES + lab_dir_name + '/' 
+    public_datafile_path = PUBLIC_DATA_FILES + lab_dir_name + '/'
+    
+    if (File.directory?(datafile_path))
+           
+      Dir.chdir(datafile_path)
+    
+      files_path_list = []
+      Dir.foreach('.') { # go through dir looking for files that are directories       
+        |fn|
+        next if ((!File.directory?(fn)) || (fn[0].chr == '.'))
+        files_path_list.push(public_datafile_path + fn + '/fastqc_report.html') if fn.match('fastqc')
+      } 
+      
+      Dir.chdir(RAILS_ROOT) 
+      
+      return files_path_list
+    else    
+      return nil    
+    end # if datafile path  
   end
   
   # debug for development only

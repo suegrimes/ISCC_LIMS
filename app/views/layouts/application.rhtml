@@ -115,21 +115,31 @@
 	 Lab: <%=h current_user.lab.lab_name %></em>
   </div>
   <ul class="opened">
-  	<li><a href="/">Home</a></li>
+    <ul>
+  	  <li><a href="/">Home</a></li>
+    </ul>
 	<div class="sidebar-label">Resources:</div>
-	  <ul>    
-		<li><%= link_to 'Shipment Instructions', show_sop_path %></li>
-       </ul>	
-	 <!--</li>-->
-	 <div class="sidebar-label">Tools:</div>
-	 <% if current_user.has_admin_access? %>
-	 <li><%= link_to 'Receive Samples', recv_samples_path %></li>
-	 <% end %>
-	 <% if can? :new, Sample %>
-	 <li><%= link_to 'New sample', new_sample_path %></li>
-	 <% end %>
-     <li><%= link_to 'List All', samples_path %></li>
-  </ul>
+	<ul>    
+      <li><%= link_to 'Shipment Instructions', show_sop_path %></li>
+    </ul>	
+	<div class="sidebar-label">Samples:</div>
+    <ul>
+	  <% if current_user.has_admin_access? %>
+	  <li><%= link_to 'Receive Samples', recv_samples_path %></li>
+	  <% end %>
+	  <% if can? :new, Sample %>
+	  <li><%= link_to 'New sample', new_sample_path %></li>
+	  <% end %>
+      <li><%= link_to 'List All', samples_path %></li>
+    </ul>
+    <div class="sidebar-label">Seq Runs/Results:</div>     
+    <ul>
+       <% if current_user.has_admin_access? %>
+       <li><%= link_to 'Sequence Runs', seq_runs_path %></li>
+       <li><%= link_to 'Link Files to Lanes', choose_lab_path %></li>
+       <% end %>
+       <li><%= link_to 'Data Release', result_files_path %></li>
+    </ul>
 </div> <!-- /leftsidebar -->    
 <% end %>
     

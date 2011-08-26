@@ -1,0 +1,56 @@
+<h1>Result File Details</h1>
+<h4>File requested: <%= @result_file.document %></h4>
+<h4>Updated by: <%= @result_file.updated_by %></h4>
+<h4>Lanes:</h4> 
+<% for seq_lane in @result_file.seq_lanes %>
+  <%= seq_lane.inspect %>,
+<% end %>
+<% 
+=begin %>
+<% if (@debug_list) %>
+<h3>Debug: Params</h3>
+  <% @debug_list.each do |f| %>
+    <%= f.inspect %><br />
+  <% end %>
+<% end %>
+
+<p><%= @which_view %></p>
+
+<%= break_clear() %>
+
+<!-- this will need to get either the chosen lab or the logged in lab -->
+
+<h1>Sample Results</h1>
+
+<table class="list">
+<tr>
+    <th>Lab</th>
+    <th>Barcode</th>
+    <th>Sample Name</th>
+    <th>Result Files</th>
+</tr>
+<% @samples.each do |sample| %>
+  <% if (!sample.result_files.blank?) %>
+  <tr>
+    <td><%= sample.lab.lab_name %></td>
+    <td><%= sample.barcode_key %> (debug:id:<%= sample.id %>)</td>
+    <td><%= sample.sample_name %></td>
+    <td valign="top">
+        <ol>
+          <% sample.result_files.each do |rfile| %>
+          <li><%= link_to rfile[:document], rfile, :action => :download_file %>
+             &nbsp;(debug:file type: <%= rfile[:document_content_type] %>,lab id: <%= rfile[:lab_id] %>)                                
+          </li>
+          <% end %>
+        </ol>
+    </td>
+  </tr>
+  <% end %>
+<% end %>
+</table>
+
+<% 
+=end %>
+<%= break_clear()  %>
+<%= link_to 'Back to Result Files List', result_files_path %>
+

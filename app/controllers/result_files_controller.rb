@@ -1,37 +1,47 @@
 class ResultFilesController < ApplicationController
   load_and_authorize_resource
-
+  
+  DATAFILES = RAILS_ROOT + '/public/files/dataDownloads/'
+  PUBLIC_DATA_FILES = '/files/dataDownloads/'
+  #DATAFILES = '/Users/jenniferp/dev/test/'
+  #PUBLIC_DATA_FILES = DATAFILES
+  
   def index
+    @result_files = ResultFile.find(:all, :include => {:seq_lanes => :sample}, :conditions => {:lab_id => current_user.lab.id})
+    labname_dir = current_user.lab.lab_name.downcase       
+    labname_dir = labname_dir.gsub!(/ /, '_') if labname_dir.match(/\s/) 
+    @fastqc_files = get_fastqc_files(labname_dir)
+  end
+    
+  def show
+    # TODO
+    #see seqLIMS attached_files_controller show method
+ 
+    rfile = ResultFile.find(params[:id]) 
+    labname_dir = current_user.lab.lab_name.downcase       
+    labname_dir = labname_dir.gsub!(/ /, '_') if labname_dir.match(/\s/)        
+    @datafile_path = DATAFILES + labname_dir + '/'
+    send_file(File.join(@datafile_path, rfile[:document]), :type => rfile[:document_content_type], :disposition => 'inline')
+  end
+  
+  def choose_lab
     @labs = Lab.find(:all, :order => :lab_name)    
   end
   
   def check_chosen_lab
     @labs = Lab.find(:all, :order => :lab_name)
-    @chosen_lab_id = params[:lab][:id] if (!params[:lab][:id].blank?) 
+    @chosen_lab_id = params[:lab][:id] if (!params[:lab][:id].blank?)
     if (params[:lab][:id].blank?)
        flash.now[:error] = 'Choose Lab with Result Files'
-       render :action => 'index'
+       render :action => 'choose_lab'
     else
-      redirect_to :action => 'link_multi', :lab_id => @chosen_lab_id
+      redirect_to :action => 'edit_multi', :lab_id => @chosen_lab_id
     end
   end
   
-  def link_multi
-  
-  # clear db
-  #ResultFile.connection.execute("TRUNCATE TABLE result_files")
-    
+  def edit_multi 
+
   # TODO
-
-  # on view, all lab and user id's converted to name
-  ## query result_files for updated_by (an id#), then query auth_user table by id# to get list of names
-  ## make a hash or ? to connect the file with this name rather than their id# for display in the link form
-  # Not holding linked samples - need to fix this!!!
-
-  # localize variables
-  # take out unneeded variables
- 
-  # add update, edit 
 
     @labs = Lab.find(:all, :order => :lab_name) 
     @chosen_lab  = Lab.find_by_id(params[:lab_id])
@@ -41,8 +51,8 @@ class ResultFilesController < ApplicationController
        
     @results_on_filesystem = get_files_from_filesystem(chosen_lab_dir_name, chosen_lab_dir_id)
     if (@results_on_filesystem.blank?) #directory does not exist or is empty
-      flash[:error] = "Sorry, no result files available for #{@chosen_lab.lab_name}"
-      render :action => 'index', :locals => {:lab_list => @labs}
+      flash.now[:error] = "Sorry, no result files available for #{@chosen_lab.lab_name}"
+      render :action => 'choose_lab', :locals => {:lab_list => @labs}
       return
     end
     
@@ -65,25 +75,29 @@ class ResultFilesController < ApplicationController
     end # each
             
     # get data for link form        
-    @result_files = ResultFile.find(:all, :include => :samples, :conditions => {:lab_id => @chosen_lab.id})
-    @samples = Sample.find(:all, :conditions => {:lab_id => @chosen_lab.id}) 
+    @result_files = ResultFile.find(:all, :include => {:seq_lanes => :sample}, :conditions => {:lab_id => @chosen_lab.id})
+    #@samples = Sample.find(:all, :conditions => {:lab_id => @chosen_lab.id}) 
+    @seq_lanes = SeqLane.find(:all, :conditions => {:lab_id => @chosen_lab.id}, :order => "seq_run_nr, lane_nr")
+ 
+    if (@seq_lanes.blank?)
+      flash.now[:error] = "Sorry, no samples matched to sequence runs yet for #{@chosen_lab.lab_name}"
+      render :action => 'choose_lab', :locals => {:lab_list => @labs}
+      return
+    end
    
   end
   
-  def link_files_to_samples 
-    
-  # on View Samples page, little sample form to render back to this page with the Samples and their results
-  # need a local variable for lab id
-  # on view, all lab id's to name
-    
+  def update_multi
+      
     @debug_list = []
     @files_updated = 0 # for debug
-    params[:result_files].each do |key, rfile|
+    params[:result_files].each do |id, rfile| # id is key, rfile is hash of file attributes from the form
       @debug_list.push(rfile)
-      result_file = ResultFile.find(rfile[:id])
-      #associating result file with list of samples based on id(s) from form
-      result_file.samples = Sample.find(rfile[:sample_ids]) if (rfile[:sample_ids]) 
-      if (result_file.update_attributes(:notes => rfile[:notes]))
+      result_file = ResultFile.find(id)
+      #associating result file with list of lanes            
+      result_file.seq_lanes = SeqLane.find(rfile[:seq_lanes_ids]) if (rfile[:seq_lanes_ids])
+      #if (result_file.update_attributes(:notes => rfile[:notes]))
+      if (result_file.update_attributes(rfile))
         @files_updated += 1              
       end
     end
@@ -92,12 +106,10 @@ class ResultFilesController < ApplicationController
       flash.now[:notice] = @files_updated.to_s + " updates were made to Result Files table"
     end
     
-    #get samples with associated result files per lab chosen by admin
-    @samples = Sample.find(:all, :include => :result_files, :conditions => {:lab_id => params[:chosen_lab_id]})
-    
-    render :action => 'view_sample_results'
-    
-  end
+    #get result files with associated lanes and samples per lab chosen by admin
+    @result_files = ResultFile.find(:all, :include => {:seq_lanes => :sample}, :conditions => {:lab_id => params[:chosen_lab][:id]})
+    render :action => 'update_multi_show'    
+  end  
   
   def debug
     render :action => :debug  
@@ -105,20 +117,21 @@ class ResultFilesController < ApplicationController
   
 protected
   
-  def get_files_from_filesystem(dir_name, lab_id)
+  def get_files_from_filesystem(lab_dir_name, lab_id)
     # TODO
     # localize variables
     
     # check if directory exists
-    datafile_path = RAILS_ROOT + '/public/files/dataDownloads/' + dir_name + '/' 
+    datafile_path = DATAFILES + lab_dir_name + '/' 
     if (File.directory?(datafile_path))
            
       Dir.chdir(datafile_path)
     
       files_list = [];
       file_info = {};
-      Dir.foreach('.') {
+      Dir.foreach('.') {        
         |fn|
+        next if ((File.directory?(fn)) || (fn[0].chr == '.'))
         extname = File.extname(fn)[1..-1]
         mime_type = Mime::Type.lookup_by_extension(extname)
         content_type = mime_type.to_s unless mime_type.nil?
@@ -130,7 +143,7 @@ protected
           :document_file_size => File.size(fn),
           :updated_by => current_user.auth_user.id
         }
-        files_list.push(file_info) if (fn[0].chr != '.')                
+        files_list.push(file_info)             
       }
       
       Dir.chdir(RAILS_ROOT)    
@@ -138,6 +151,38 @@ protected
     else    
       return nil    
     end
+  end
+  
+  def get_fastqc_files(lab_dir_name)
+    
+    datafile_path = DATAFILES + lab_dir_name + '/' 
+    public_datafile_path = PUBLIC_DATA_FILES + lab_dir_name + '/'
+    
+    if (File.directory?(datafile_path))
+           
+      Dir.chdir(datafile_path)
+    
+      files_path_list = []
+      Dir.foreach('.') { # go through dir looking for files that are directories       
+        |fn|
+        next if ((!File.directory?(fn)) || (fn[0].chr == '.'))
+        files_path_list.push(public_datafile_path + fn + '/fastqc_report.html') if fn.match('fastqc')
+      } 
+      
+      Dir.chdir(RAILS_ROOT) 
+      
+      return files_path_list
+    else    
+      return nil    
+    end # if datafile path  
+  end
+  
+  # debug for development only
+  def trunc_tables
+    ResultFile.connection.execute("TRUNCATE TABLE result_files_seq_lanes")
+    ResultFile.connection.execute("TRUNCATE TABLE result_files")
+    ResultFile.connection.execute("TRUNCATE TABLE seq_lanes")
+    ResultFile.connection.execute("TRUNCATE TABLE seq_runs")    
   end
   
 end

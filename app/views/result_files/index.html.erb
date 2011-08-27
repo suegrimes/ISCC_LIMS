@@ -1,6 +1,5 @@
 <h1>Listing Result Files for <%=h current_user.lab.lab_name %></h1>
 
-<% @message = '' %>
 <% @result_files.each do |rfile| %>
   <% @sample_codes = [] %>
   <% if !rfile.seq_lanes.blank? %>
@@ -16,12 +15,14 @@
           <li>Barcode - <%= lane.sample.barcode_key %></li>
           <% unless lane.sample.sc_marker_validation_method.blank? %>
           <li>SC Marker Validation - <%= lane.sample.sc_marker_validation_method %></li>         
-          <% end %>          
-          <% @fastqc_files.each do |file| %>             
-             <% if (!file.blank? && file.match(lane.sample.barcode_key + '_fastqc')) %> 
-             <li><%= link_to "FastQC Report", file %></li>
-             <% end %>                      
-         <% end %>          
+          <% end %>
+		  <% if !@fastqc_files.blank? %>        
+            <% @fastqc_files.each do |file| %>         
+              <% if (!file.blank? && file.match(lane.sample.barcode_key + '_fastqc')) %> 
+              <li><%= link_to "FastQC Report", fastqc_show_path(:file_path => file) %></li>
+              <% end %>                      
+           <% end %>
+		 <% end %>          
         </ul>
       </li>
     </ul>
@@ -29,8 +30,6 @@
   <strong>Notes:</strong> <%= rfile.notes %><br />
   <hr />
   <% else %>
-    <% @message = 'Sorry, no files available yet' %>
     <% next %>
   <% end %> <!-- /if check for seq lanes -->
 <% end %> <!-- /result files do -->
-<%= @message %>

@@ -1,16 +1,21 @@
 class ResultFilesController < ApplicationController
   load_and_authorize_resource
   
-  DATAFILES = RAILS_ROOT + '/public/files/dataDownloads/'
-  PUBLIC_DATA_FILES = '/files/dataDownloads/'
-  #DATAFILES = '/Users/jenniferp/dev/test/'
-  #PUBLIC_DATA_FILES = DATAFILES
+  #DATAFILES = RAILS_ROOT + '/public/files/dataDownloads/'
+  DATAFILES = '/Users/jennifer/dev/test/dataDownloads/'
+
   
   def index
     @result_files = ResultFile.find(:all, :include => {:seq_lanes => :sample}, :conditions => {:lab_id => current_user.lab.id})
     labname_dir = current_user.lab.lab_name.downcase       
     labname_dir = labname_dir.gsub!(/ /, '_') if labname_dir.match(/\s/) 
     @fastqc_files = get_fastqc_files(labname_dir)
+  end
+  
+  def fastqc_show    
+    @fastqc_file = params[:file_path]
+    headers["Content-Type"] = "zip"
+    send_file(DATAFILES + @fastqc_file)
   end
     
   def show
@@ -96,7 +101,6 @@ class ResultFilesController < ApplicationController
       result_file = ResultFile.find(id)
       #associating result file with list of lanes            
       result_file.seq_lanes = SeqLane.find(rfile[:seq_lanes_ids]) if (rfile[:seq_lanes_ids])
-      #if (result_file.update_attributes(:notes => rfile[:notes]))
       if (result_file.update_attributes(rfile))
         @files_updated += 1              
       end
@@ -131,10 +135,10 @@ protected
       file_info = {};
       Dir.foreach('.') {        
         |fn|
-        next if ((File.directory?(fn)) || (fn[0].chr == '.'))
         extname = File.extname(fn)[1..-1]
         mime_type = Mime::Type.lookup_by_extension(extname)
         content_type = mime_type.to_s unless mime_type.nil?
+        next if ((File.directory?(fn)) || (fn[0].chr == '.')) || (mime_type == 'zip')
          
         file_info = {
           :lab_id => lab_id,
@@ -156,22 +160,22 @@ protected
   def get_fastqc_files(lab_dir_name)
     
     datafile_path = DATAFILES + lab_dir_name + '/' 
-    public_datafile_path = PUBLIC_DATA_FILES + lab_dir_name + '/'
     
     if (File.directory?(datafile_path))
            
       Dir.chdir(datafile_path)
     
-      files_path_list = []
-      Dir.foreach('.') { # go through dir looking for files that are directories       
+      files_dir_list = []
+      Dir.foreach('.') { # go through dir looking for fastqc directories       
         |fn|
-        next if ((!File.directory?(fn)) || (fn[0].chr == '.'))
-        files_path_list.push(public_datafile_path + fn + '/fastqc_report.html') if fn.match('fastqc')
+        next if ((File.directory?(fn)) || (fn[0].chr == '.'))
+        fastqc_file = fn
+        files_dir_list.push(lab_dir_name + '/' + fastqc_file) if fn.match('fastqc.zip')
       } 
       
       Dir.chdir(RAILS_ROOT) 
       
-      return files_path_list
+      return files_dir_list
     else    
       return nil    
     end # if datafile path  

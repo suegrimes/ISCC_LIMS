@@ -1,9 +1,8 @@
 class ResultFilesController < ApplicationController
   load_and_authorize_resource
   
-  #DATAFILES = RAILS_ROOT + '/public/files/dataDownloads/'
-  DATAFILES = '/Users/jennifer/dev/test/dataDownloads/'
-
+  #DATAFILES = '/relative path on production server/' 
+  DATAFILES = '../../test/dataDownloads/' #dev
   
   def index
     @result_files = ResultFile.find(:all, :include => {:seq_lanes => :sample}, :conditions => {:lab_id => current_user.lab.id})
@@ -19,9 +18,6 @@ class ResultFilesController < ApplicationController
   end
     
   def show
-    # TODO
-    #see seqLIMS attached_files_controller show method
- 
     rfile = ResultFile.find(params[:id]) 
     labname_dir = current_user.lab.lab_name.downcase       
     labname_dir = labname_dir.gsub!(/ /, '_') if labname_dir.match(/\s/)        
@@ -45,8 +41,6 @@ class ResultFilesController < ApplicationController
   end
   
   def edit_multi 
-
-  # TODO
 
     @labs = Lab.find(:all, :order => :lab_name) 
     @chosen_lab  = Lab.find_by_id(params[:lab_id])
@@ -94,13 +88,14 @@ class ResultFilesController < ApplicationController
   
   def update_multi
       
-    @debug_list = []
+    #@debug_list = []
     @files_updated = 0 # for debug
     params[:result_files].each do |id, rfile| # id is key, rfile is hash of file attributes from the form
-      @debug_list.push(rfile)
+      rfile[:seq_lane_ids] ||= []
+      #@debug_list.push(rfile)
       result_file = ResultFile.find(id)
       #associating result file with list of lanes            
-      result_file.seq_lanes = SeqLane.find(rfile[:seq_lanes_ids]) if (rfile[:seq_lanes_ids])
+      result_file.seq_lanes = SeqLane.find(rfile[:seq_lane_ids]) if (!rfile[:seq_lane_ids].empty?)
       if (result_file.update_attributes(rfile))
         @files_updated += 1              
       end
@@ -113,7 +108,21 @@ class ResultFilesController < ApplicationController
     #get result files with associated lanes and samples per lab chosen by admin
     @result_files = ResultFile.find(:all, :include => {:seq_lanes => :sample}, :conditions => {:lab_id => params[:chosen_lab][:id]})
     render :action => 'update_multi_show'    
-  end  
+  end 
+  
+  def delete_file
+    # TODO
+    # add authorization
+    # make sure it redirects back to edit page
+    # add del from f.s.
+    
+    @result_file = ResultFile.find(params[:id])
+    #authorize! :delete, ResultFile
+
+    @result_file.destroy
+    #redirect_to(:action => edit_multi, :lab_id => params[:lab_id])
+    render :text => "chosen lab: " + params[:lab_id] + ', ' + "file id: " + params[:id]
+  end
   
   def debug
     render :action => :debug  
@@ -165,17 +174,17 @@ protected
            
       Dir.chdir(datafile_path)
     
-      files_dir_list = []
+      files_list = []
       Dir.foreach('.') { # go through dir looking for fastqc directories       
         |fn|
         next if ((File.directory?(fn)) || (fn[0].chr == '.'))
-        fastqc_file = fn
-        files_dir_list.push(lab_dir_name + '/' + fastqc_file) if fn.match('fastqc.zip')
+        fastqc_dir = fn
+        files_list.push(lab_dir_name + '/' + fastqc_dir) if fn.match('fastqc.zip')
       } 
       
       Dir.chdir(RAILS_ROOT) 
       
-      return files_dir_list
+      return files_list
     else    
       return nil    
     end # if datafile path  

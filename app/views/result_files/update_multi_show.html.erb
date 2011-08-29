@@ -1,7 +1,7 @@
 <h1>Result Files Linked to Lanes</h1>
 
 <% @result_files.each do |rfile| %>
-  <% if !rfile.seq_lanes.blank? %>
+  <% next if rfile.seq_lanes.blank? %>
   <strong>Document Name: <%= link_to rfile.document, rfile %></strong>  
     <% rfile.seq_lanes.each do |lane| %>
     <ul>
@@ -15,11 +15,10 @@
         </ul>
       </li>
     </ul>
-    <% end %>
-  <strong>Notes:</strong> <%= rfile.notes %>
-  <% end  %>
+    <% end %><!-- # do lane -->
+  <strong>Notes:</strong> <%= rfile.notes if !rfile.notes.blank? %>
   <hr />
-<% end %>
+<% end %><!-- # do rfile -->
 
 	       
 <%

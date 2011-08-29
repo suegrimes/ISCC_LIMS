@@ -2,7 +2,7 @@
 
 <% @result_files.each do |rfile| %>
   <% @sample_codes = [] %>
-  <% if !rfile.seq_lanes.blank? %>
+  <% next if rfile.seq_lanes.blank? %>
   <strong>Document Name: <%= link_to rfile.document, rfile %></strong>  
     <% rfile.seq_lanes.each do |lane| %>
     <ul>
@@ -29,7 +29,4 @@
     <% end %> <!-- /seq lanes do -->
   <strong>Notes:</strong> <%= rfile.notes %><br />
   <hr />
-  <% else %>
-    <% next %>
-  <% end %> <!-- /if check for seq lanes -->
 <% end %> <!-- /result files do -->

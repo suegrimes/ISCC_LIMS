@@ -6,8 +6,7 @@ class ResultFilesController < ApplicationController
   
   def index
     @result_files = ResultFile.find(:all, :include => {:seq_lanes => :sample}, :conditions => {:lab_id => current_user.lab.id})
-    labname_dir = current_user.lab.lab_name.downcase       
-    labname_dir = labname_dir.gsub!(/ /, '_') if labname_dir.match(/\s/) 
+    labname_dir = get_lab_dirname(current_user.lab.id)
     @fastqc_files = get_fastqc_files(labname_dir)
   end
   
@@ -19,8 +18,7 @@ class ResultFilesController < ApplicationController
     
   def show
     rfile = ResultFile.find(params[:id]) 
-    labname_dir = current_user.lab.lab_name.downcase       
-    labname_dir = labname_dir.gsub!(/ /, '_') if labname_dir.match(/\s/)        
+    labname_dir = get_lab_dirname(current_user.lab.id)   
     @datafile_path = DATAFILES + labname_dir + '/'
     send_file(File.join(@datafile_path, rfile[:document]), :type => rfile[:document_content_type], :disposition => 'inline')
   end
@@ -44,9 +42,8 @@ class ResultFilesController < ApplicationController
 
     @labs = Lab.find(:all, :order => :lab_name) 
     @chosen_lab  = Lab.find_by_id(params[:lab_id])
-    chosen_lab_dir_name = @chosen_lab.lab_name.downcase
-    chosen_lab_dir_name = chosen_lab_dir_name.gsub!(/ /, '_') if chosen_lab_dir_name.match(/\s/)
     chosen_lab_dir_id   = @chosen_lab.id
+    chosen_lab_dir_name = get_lab_dirname(chosen_lab_dir_id)
        
     @results_on_filesystem = get_files_from_filesystem(chosen_lab_dir_name, chosen_lab_dir_id)
     if (@results_on_filesystem.blank?) #directory does not exist or is empty
@@ -75,7 +72,6 @@ class ResultFilesController < ApplicationController
             
     # get data for link form        
     @result_files = ResultFile.find(:all, :include => {:seq_lanes => :sample}, :conditions => {:lab_id => @chosen_lab.id})
-    #@samples = Sample.find(:all, :conditions => {:lab_id => @chosen_lab.id}) 
     @seq_lanes = SeqLane.find(:all, :conditions => {:lab_id => @chosen_lab.id}, :order => "seq_run_nr, lane_nr")
  
     if (@seq_lanes.blank?)
@@ -105,23 +101,24 @@ class ResultFilesController < ApplicationController
       flash.now[:notice] = @files_updated.to_s + " updates were made to Result Files table"
     end
     
+    @chosen_lab = Lab.find_by_id(params[:chosen_lab][:id])
     #get result files with associated lanes and samples per lab chosen by admin
     @result_files = ResultFile.find(:all, :include => {:seq_lanes => :sample}, :conditions => {:lab_id => params[:chosen_lab][:id]})
     render :action => 'update_multi_show'    
-  end 
+  end
   
-  def delete_file
-    # TODO
-    # add authorization
-    # make sure it redirects back to edit page
-    # add del from f.s.
+  def destroy
+ 
+    lab_dir_name = get_lab_dirname(params[:lab_id]) 
     
-    @result_file = ResultFile.find(params[:id])
-    #authorize! :delete, ResultFile
-
-    @result_file.destroy
-    #redirect_to(:action => edit_multi, :lab_id => params[:lab_id])
-    render :text => "chosen lab: " + params[:lab_id] + ', ' + "file id: " + params[:id]
+    result_file = ResultFile.find(params[:id])
+    authorize! :delete, ResultFile
+    
+    result_file.destroy
+    File.delete(DATAFILES + lab_dir_name + '/' + result_file.document)      
+    
+    redirect_to :action => 'edit_multi', :lab_id => params[:lab_id]
+    
   end
   
   def debug
@@ -188,6 +185,13 @@ protected
     else    
       return nil    
     end # if datafile path  
+  end
+  
+  def get_lab_dirname(lab_id)
+    lab  = Lab.find_by_id(lab_id)
+    lab_dir_name = lab.lab_name.downcase
+    lab_dir_name = lab_dir_name.gsub!(/ /, '_') if lab_dir_name.match(/\s/)
+    return lab_dir_name
   end
   
   # debug for development only

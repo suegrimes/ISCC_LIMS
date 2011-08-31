@@ -29,8 +29,12 @@
 
 <body id='body'>
 
+<% if ["sessions", "users", "auth_users", "welcome"].include?(controller.controller_name) %>
+<div id="container" style="width: 70%;">
+<% else %>
 <div id="container" style="width: 98%;">
-	
+<% end %>
+
 <div id="header">
   <table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-bottom: 0;">
     <tr>
@@ -179,5 +183,6 @@
 </div>
 
 </div><!-- /container -->
+
 </body>
 </html>

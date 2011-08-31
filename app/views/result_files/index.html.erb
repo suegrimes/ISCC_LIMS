@@ -1,15 +1,19 @@
 <h1>Listing Result Files for <%=h current_user.lab.lab_name %></h1>
-
+<fieldset class="info">
+<legend>Result File/Sample Info</legend>
+<table class="info">
 <% @result_files.each do |rfile| %>
-  <% @sample_codes = [] %>
   <% next if rfile.seq_lanes.blank? %>
-  <strong>Document Name: <%= link_to rfile.document, rfile %></strong>  
+  <tr>
+     <th>Document Name:</th><td><strong><%= link_to rfile.document, rfile %></strong></td> 
+  </tr> 
+  <tr>
+    <td colspan="2">
     <% rfile.seq_lanes.each do |lane| %>
-    <ul>
+    <ul style="float:left;">
       <li>Seq Run #: <%= lane.seq_run_nr %></li>
       <li>Lane #: <%= lane.lane_nr %></li>
       <li>Sample Info: 
-      <% @sample_codes.push(lane.sample.barcode_key) if (!@sample_codes.include?(lane.sample.barcode_key)) %>
         <ul>
           <li>Name - <%= lane.sample.sample_name %></li>
           <li>Barcode - <%= lane.sample.barcode_key %></li>
@@ -21,12 +25,20 @@
               <% if (!file.blank? && file.match(lane.sample.barcode_key + '_fastqc')) %> 
               <li><%= link_to "FastQC Report", fastqc_show_path(:file_path => file) %></li>
               <% end %>                      
-           <% end %>
-		 <% end %>          
+            <% end %>
+		  <% end %>          
         </ul>
       </li>
     </ul>
     <% end %> <!-- /seq lanes do -->
-  <strong>Notes:</strong> <%= rfile.notes %><br />
-  <hr />
+    </td>
+  </tr>
+  <tr>
+    <th>Notes:</th><td><%= rfile.notes %></td>
+  </tr>
+  <tr>
+    <td colspan="2" style="border-bottom: 1px solid #000"></td>
+  </tr>
 <% end %> <!-- /result files do -->
+</table>
+</fieldset>

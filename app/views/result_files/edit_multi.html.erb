@@ -39,7 +39,9 @@ Delete will remove file from data table and filesystem.</strong></div><br />
     <% @result_files.each do |file| %>
     <tr>
       <% if can? :delete, file %>
-	  <td><div class="linkborder" style="background-color:#fff"><%= link_to 'Delete', delete_file_path(:id => file.id, :lab_id => params[:lab_id]), :confirm => 'Are you sure?' %></div></td>	  
+	  <td><div class="linkborder" style="background-color:#fff">
+	      <%= link_to 'Delete', destroy_path(:id => file.id, :lab_id => params[:lab_id]), :confirm => 'Are you sure?' %>
+          </div></td>	  
       <% else %>
       <td class="ltgrey"> Delete </td>
 	  <% end %> 

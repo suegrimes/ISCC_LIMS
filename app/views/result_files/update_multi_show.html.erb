@@ -1,59 +1,40 @@
-<h1>Result Files Linked to Lanes</h1>
-
+<h1>Result Files Linked to Lanes for <%= @chosen_lab.lab_name %></h1>
+<fieldset class="info">
+<legend>File/Seq Run/Sample Info</legend>
+<table class="info">
 <% @result_files.each do |rfile| %>
   <% next if rfile.seq_lanes.blank? %>
-  <strong>Document Name: <%= link_to rfile.document, rfile %></strong>  
+  <tr>
+    <th>Document Name:</th><td><strong><%= rfile.document %></strong></td>
+  </tr>
+  <tr>
+    <td colspan="2">
     <% rfile.seq_lanes.each do |lane| %>
-    <ul>
+    <ul style="float:left;">
       <li>Seq Run #: <%= lane.seq_run_nr %></li>
       <li>Lane #: <%= lane.lane_nr %></li>
       <li>Sample Info: 
         <ul>
           <li>Name - <%= lane.sample.sample_name %></li>
           <li>Barcode - <%= lane.sample.barcode_key %></li>
-          <li>SC Marker Validation - <%= lane.sample.sc_marker_validation_method %></li>
+          <% unless lane.sample.sc_marker_validation_method.blank? %>
+          <li>SC Marker Validation - <%= lane.sample.sc_marker_validation_method %></li>         
+          <% end %>       
         </ul>
       </li>
     </ul>
-    <% end %><!-- # do lane -->
-  <strong>Notes:</strong> <%= rfile.notes if !rfile.notes.blank? %>
-  <hr />
-<% end %><!-- # do rfile -->
-
-	       
-<%
-=begin %>
-<fieldset class="info">
-<legend>File and Lane/Sample Info</legend>
-<table class="info">
-<% @result_files.each do |rfile| %>
-  <tr>
-    <th>Lab:</th><td><%= rfile.lab.lab_name%></td>
-  </tr>
-  <tr>
-  	<th>Document:</th><td><%= rfile.document%></td>
-  </tr>
-  <tr>
-    <th>Run/Lane/Sample: </th>
-	<td>
-	<% rfile.seq_lanes.each do |lane| %>
-	    Run #: <%= lane.seq_run_nr %>, 
-      	Lane #:<%= lane.lane_nr %>, 
-		Sample barcode:<%= lane.sample.barcode_key %><br />
-    <% end %>
-	</td>
+    <% end %> <!-- /seq lanes do -->
+    </td>
   </tr>
   <tr>
     <th>Notes:</th><td><%= rfile.notes %></td>
   </tr>
   <tr>
-    <td colspan="2"><hr /></td>
+    <td colspan="2" style="border-bottom: 1px solid #000"></td>
   </tr>
-<% end %>
+<% end %> <!-- /result files do -->	       
 </table>
 </fieldset>
-<%
-=end %>
 
 <%= break_clear %>
 <% form_tag(:controller => 'result_files', :action => 'choose_lab') do %>

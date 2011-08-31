@@ -36,7 +36,7 @@ ActionController::Routing::Routes.draw do |map|
   map.edit_multi 'edit_multi',     :controller => 'result_files', :action => 'edit_multi'
   map.update_multi 'update_multi', :controller => 'result_files', :action => 'update_multi'
   map.fastqc_show 'fastqc_show',   :controller => 'result_files', :action => 'fastqc_show'
-  map.delete_file 'delete_file',   :controller => 'result_files', :action => 'delete_file'
+  map.destroy 'destroy',           :controller => 'result_files', :action => 'destroy'
   
   # Install the default routes as the lowest priority.
   # Note: These default routes make all actions in every controller accessible via GET requests. You should

@@ -2,35 +2,36 @@
 <fieldset class="info">
 <legend>Result File/Sample Info</legend>
 <table class="info">
+<% @barcode_keys = {} %>
 <% @result_files.each do |rfile| %>
   <% next if rfile.seq_lanes.blank? %>
   <tr>
      <th>Document Name:</th><td><strong><%= link_to rfile.document, rfile %></strong></td> 
   </tr> 
-  <tr>
-    <td colspan="2">
     <% rfile.seq_lanes.each do |lane| %>
-    <ul style="float:left;">
-      <li>Seq Run #: <%= lane.seq_run_nr %></li>
-      <li>Lane #: <%= lane.lane_nr %></li>
-      <li>Sample Info: 
-        <ul>
-          <li>Name - <%= lane.sample.sample_name %></li>
-          <li>Barcode - <%= lane.sample.barcode_key %></li>
-          <% unless lane.sample.sc_marker_validation_method.blank? %>
-          <li>SC Marker Validation - <%= lane.sample.sc_marker_validation_method %></li>         
-          <% end %>
-		  <% if !@fastqc_files.blank? %>        
-            <% @fastqc_files.each do |file| %>         
-              <% if (!file.blank? && file.match(lane.sample.barcode_key + '_fastqc')) %> 
-              <li><%= link_to "FastQC Report", fastqc_show_path(:file_path => file) %></li>
-              <% end %>                      
-            <% end %>
-		  <% end %>          
-        </ul>
-      </li>
-    </ul>
+      <% if !lane.sample.sc_marker_validation_method.blank? %>
+        <% @barcode_keys[lane.sample.barcode_key] = lane.sample.sc_marker_validation_method %>
+      <% else %>
+        <% @barcode_keys[lane.sample.barcode_key] = 'not available' %>
+      <% end %>             	        
     <% end %> <!-- /seq lanes do -->
+  <tr>
+    <th>Sample Info:</th>  
+    <td>
+    <% @barcode_keys.each do |key, value| %>
+      Barcode: <%= key %>
+      <ul>
+      <li>SC Marker Validation: <%= value %></li>
+      <% if !@fastqc_files.blank? %>        
+        <% @fastqc_files.each do |file| %>         
+          <% if (!file.blank? && file.match(key + '_fastqc')) %> 
+          <li><%= link_to "FastQC Report", fastqc_show_path(:file_path => file) %></li>
+          <% end %>                      
+        <% end %>
+	  <% end %> <!-- /fastqc not blank -->
+      </ul>   
+    <% end %> <!-- /barcode keys do -->
+    <% @barcode_keys = {} %>           
     </td>
   </tr>
   <tr>

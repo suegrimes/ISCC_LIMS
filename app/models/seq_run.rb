@@ -1,15 +1,13 @@
 # == Schema Information
 #
-# Table name: seq_lanes
+# Table name: seq_runs
 #
-#  id           :integer(4)      not null, primary key
-#  lane_nr      :integer(1)      not null
-#  seq_run_nr   :integer(2)      not null
-#  seq_run_name :string(25)
-#  sample_id    :integer(4)      not null
-#  lab_id       :integer(4)      not null
-#  updated_at   :datetime
-#  updated_by   :integer(4)
+#  id             :integer(4)      not null, primary key
+#  seq_run_nr     :integer(2)      not null
+#  seq_run_name   :string(50)
+#  date_sequenced :date
+#  updated_at     :datetime
+#  updated_by     :integer(4)
 #
 
 class SeqRun < ActiveRecord::Base

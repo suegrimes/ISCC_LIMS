@@ -30,8 +30,8 @@
   <% @fastqc_files.each do |file| %>
   <% if !file.blank? %>
   <tr>
-  	<td><%=h file.split('_fastqc')[0] %></td>
-	<td><%= link_to file, fastqc_show_path(:file_path => file) %></td>
+  	<td><%=h (file.split('/')[-2]).split('_fastqc') %></td>
+	<td><%= link_to 'Show FastQC', {:action => :fastqc_show, :file_path => file} %></td>
   </tr>
   <% end %>
   <% end %>

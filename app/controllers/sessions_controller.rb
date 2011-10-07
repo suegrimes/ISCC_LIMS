@@ -1,9 +1,8 @@
 # This controller handles the login/logout function of the site.  
 class SessionsController < ApplicationController
   
-  skip_before_filter :login_required, :only => [:new, :create]
+  skip_before_filter :login_required, :only => [:new, :create] 
 
-  # render new.erb.html
   def new
     @labs = Lab.find(:all, :order => :lab_name)
   end

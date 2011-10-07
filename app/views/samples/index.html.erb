@@ -36,10 +36,8 @@
 	<td><%= link_to 'Ship', :action => :sample_ship, :id => sample.id %></td>
 	<% else %>
 	<td class="ltgrey"><%= (sample.shipment ? (sample.shipment.date_received.nil? ? 'Shipped' : 'Received') : 'Ship') %></td>
-	<% end %>
-	
-	<td class="ltgrey">Results</td>	
-    
+	<% end %>	
+	<td class="ltgrey">QA</td>	    
 	<% if can? :edit, sample %>
 	<td><%= link_to 'Edit', edit_sample_path(sample) %></td>
 	<% else %>
@@ -55,3 +53,9 @@
 <% end %>
 </table>
 <%= link_to 'New sample', new_sample_path %>
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>

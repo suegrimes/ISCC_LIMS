@@ -28,8 +28,12 @@
 
 <body id='body'>
 
+<% if ["sessions", "users", "auth_users", "welcome"].include?(controller.controller_name) %>
+<div id="container" style="width: 70%;">
+<% else %>
 <div id="container" style="width: 98%;">
-	
+<% end %>
+
 <div id="header">
   <table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-bottom: 0;">
     <tr>
@@ -38,10 +42,15 @@
       <td valign="top" width="180"><div class="version"><% if APP_VERSION %>Version: <%= APP_VERSION %><% end %><br /><% if RAILS_ENV != 'production'%> <span style="font-size:larger;">(<%= RAILS_ENV%>)</span><%end%></div></td>
     </tr>
     <tr>
-      <td><div class="tagline"><!-- header text here --></div></td>      
+      <% if RAILS_ENV == 'development' %>
+      <td><div class="tagline">DEBUG: controller: <%= controller.controller_name %>, action: <%= controller.action_name %><!-- header text here --></div></td> 
+	  <% end %>     
       <td valign="bottom">
       	<% if logged_in? %>
         <div class="logout-link">
+		  <% if current_user.has_admin_access? %> 
+          <%= link_to 'Admin', seq_runs_path %>&nbsp;&nbsp;&nbsp;&nbsp;
+		  <% end %>
           <%= link_to 'User Profile', edit_user_path(current_user) %>&nbsp;&nbsp;&nbsp;&nbsp;
           <%= link_to 'Logout', logout_url %>
         </div>
@@ -109,21 +118,31 @@
 	 Lab: <%=h current_user.lab.lab_name %></em>
   </div>
   <ul class="opened">
-  	<li><a href="/">Home</a></li>
+    <ul>
+  	  <li><a href="/">Home</a></li>
+    </ul>
 	<div class="sidebar-label">Resources:</div>
-	  <ul>    
-		<li><%= link_to 'Shipment Instructions', show_sop_path %></li>
-       </ul>	
-	 <!--</li>-->
-	 <div class="sidebar-label">Tools:</div>
-	 <% if current_user.has_admin_access? %>
-	 <li><%= link_to 'Receive Samples', recv_samples_path %></li>
-	 <% end %>
-	 <% if can? :new, Sample %>
-	 <li><%= link_to 'New sample', new_sample_path %></li>
-	 <% end %>
-     <li><%= link_to 'List All', samples_path %></li>
-  </ul>
+	<ul>    
+      <li><%= link_to 'Shipment Instructions', show_sop_path %></li>
+    </ul>	
+	<div class="sidebar-label">Samples:</div>
+    <ul>
+	  <% if current_user.has_admin_access? %>
+	  <li><%= link_to 'Receive Samples', recv_samples_path %></li>
+	  <% end %>
+	  <% if can? :new, Sample %>
+	  <li><%= link_to 'New sample', new_sample_path %></li>
+	  <% end %>
+      <li><%= link_to 'List All', samples_path %></li>
+    </ul>
+    <div class="sidebar-label">Seq Runs/Results:</div>     
+    <ul>
+       <% if current_user.has_admin_access? %>
+       <li><%= link_to 'Sequence Runs', seq_runs_path %></li>
+       <li><%= link_to 'Link Files to Lanes', choose_lab_path %></li>
+       <% end %>
+       <li><%= link_to 'Data Release', result_files_path %></li>
+    </ul>
 </div> <!-- /leftsidebar -->    
 <% end %>
     
@@ -141,7 +160,7 @@
     <td valign="top">
       <a href="http://med.stanford.edu/sgtc/">Stanford Genome Tech Center</a>&nbsp;|
       <a href="mailto:sgrimes@stanford.edu">Contact</a>
-      <div class="site-blurb">Website provided by the Ji Research Group<br />School of Medicine and Genome Technology Center at Stanford University<br />
+      <div class="site-blurb">Website provided by the <a href="http://dna-discovery.stanford.edu">Ji Research Group</a><br />School of Medicine and Genome Technology Center at Stanford University<br />
       This website and its content &copy; Stanford University, <%= Time.now.localtime.strftime("%Y") %>. All rights reserved.
       </div>
     </td>
@@ -165,5 +184,6 @@
 </div>
 
 </div><!-- /container -->
+
 </body>
 </html>

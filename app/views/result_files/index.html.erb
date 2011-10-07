@@ -1,0 +1,39 @@
+<h1>Listing Result Files for <%=h current_user.lab.lab_name %></h1>
+
+<table class="list">
+  <tr>
+     <th>Result File</th>
+	 <th>Samples</th>
+	 <th>Notes</th>
+  </tr>
+  
+  <% @result_files.each do |rfile| %>
+  <% next if rfile.seq_lanes.blank? %>
+  
+  <% sample_array = rfile.seq_lanes.map {|lane| [lane.sample.barcode_key, lane.sample.sample_name].join('/')} %>
+  <% samples_string = sample_array.join('<br/>')%> 
+  <tr>
+  	<td><strong><%= link_to rfile.document, rfile %></strong></td>
+	<td><%= samples_string %></td>
+	<td><%=h rfile.notes %></td>
+  </tr>
+  <% end %>
+</table>
+
+<% if !@fastqc_files.blank? %>
+<table class="list">
+  <tr>
+  	<th>Sample Barcode</th>
+	<th>FastQC File</th>
+  </tr>
+  
+  <% @fastqc_files.each do |file| %>
+  <% if !file.blank? %>
+  <tr>
+  	<td><%=h (file.split('/')[-2]).split('_fastqc') %></td>
+	<td><%= link_to 'Show FastQC', {:action => :fastqc_show, :file_path => file} %></td>
+  </tr>
+  <% end %>
+  <% end %>
+<% end %>
+</table>

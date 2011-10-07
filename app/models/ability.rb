@@ -24,7 +24,7 @@ class Ability
         usr.login == user.login
     end
     
-    # Everyone can manage samples for their own lab only
+    # Everyone can manage samples & shipments for their own lab only
     can [:new, :create, :index, :show_sop], Sample
     can [:show, :edit, :update, :delete], Sample do |sample|
       sample.lab_id == user.lab_id
@@ -34,6 +34,10 @@ class Ability
     can [:show, :edit, :update, :delete], Shipment do |shipment|
       shipment.sample.lab_id == user.lab_id
     end
+    
+    # Open access to result files.  Need to change this in production (should only be able to access own lab, unless admin)
+    can [:index, :show, :fastqc_show], ResultFile
+    can [:index, :show], SeqRun
     
     return nil if user == :false
 

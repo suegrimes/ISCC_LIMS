@@ -1,45 +1,39 @@
 <h1>Listing Result Files for <%=h current_user.lab.lab_name %></h1>
-<fieldset class="info">
-<legend>Result File/Sample Info</legend>
-<table class="info">
-<% @barcode_keys = {} %>
-<% @result_files.each do |rfile| %>
+
+<table class="list">
+  <tr>
+     <th>Result File</th>
+	 <th>Samples</th>
+	 <th>Notes</th>
+  </tr>
+  
+  <% @result_files.each do |rfile| %>
   <% next if rfile.seq_lanes.blank? %>
+  
+  <% sample_array = rfile.seq_lanes.map {|lane| [lane.sample.barcode_key, lane.sample.sample_name].join('/')} %>
+  <% samples_string = sample_array.join('<br/>')%> 
   <tr>
-     <th>Document Name:</th><td><strong><%= link_to rfile.document, rfile %></strong></td> 
-  </tr> 
-    <% rfile.seq_lanes.each do |lane| %>
-      <% if !lane.sample.sc_marker_validation_method.blank? %>
-        <% @barcode_keys[lane.sample.barcode_key] = lane.sample.sc_marker_validation_method %>
-      <% else %>
-        <% @barcode_keys[lane.sample.barcode_key] = 'not available' %>
-      <% end %>             	        
-    <% end %> <!-- /seq lanes do -->
-  <tr>
-    <th>Sample Info:</th>  
-    <td>
-    <% @barcode_keys.each do |key, value| %>
-      Barcode: <%= key %>
-      <ul>
-      <li>SC Marker Validation: <%= value %></li>
-      <% if !@fastqc_files.blank? %>        
-        <% @fastqc_files.each do |file| %>         
-          <% if (!file.blank? && file.match(key + '_fastqc')) %> 
-          <li><%= link_to "FastQC Report", fastqc_show_path(:file_path => file) %></li>
-          <% end %>                      
-        <% end %>
-	  <% end %> <!-- /fastqc not blank -->
-      </ul>   
-    <% end %> <!-- /barcode keys do -->
-    <% @barcode_keys = {} %>           
-    </td>
+  	<td><strong><%= link_to rfile.document, rfile %></strong></td>
+	<td><%= samples_string %></td>
+	<td><%=h rfile.notes %></td>
   </tr>
-  <tr>
-    <th>Notes:</th><td><%= rfile.notes %></td>
-  </tr>
-  <tr>
-    <td colspan="2" style="border-bottom: 1px solid #000"></td>
-  </tr>
-<% end %> <!-- /result files do -->
+  <% end %>
 </table>
-</fieldset>
+
+<% if !@fastqc_files.blank? %>
+<table class="list">
+  <tr>
+  	<th>Sample Barcode</th>
+	<th>FastQC File</th>
+  </tr>
+  
+  <% @fastqc_files.each do |file| %>
+  <% if !file.blank? %>
+  <tr>
+  	<td><%=h (file.split('/')[-2]).split('_fastqc') %></td>
+	<td><%= link_to 'Show FastQC', {:action => :fastqc_show, :file_path => file} %></td>
+  </tr>
+  <% end %>
+  <% end %>
+<% end %>
+</table>

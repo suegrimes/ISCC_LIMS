@@ -47,4 +47,34 @@ protected
     UserLog.add_entry(self, User.current_user, request.remote_ip)
   end
   
+  def get_file_list(dir_path, pattern='.')
+    files_list = []
+    Dir.foreach(dir_path) do |fn|
+      next if (File.directory?(File.join(dir_path, fn)) || fn[0].chr == '.') #ignore directories, or system files
+      files_list.push(fn) if fn.match(pattern)
+    end
+    return files_list
+  end
+  
+  def file_content_type(file_path)    
+    if (File.directory?(file_path) || file_path[0].chr == '.')
+      return nil
+    else
+      extname = File.extname(file_path)[1..-1]
+      mime_type = Mime::Type.lookup_by_extension(extname)
+      content_type = mime_type.to_s unless mime_type.nil?
+      
+      return ((mime_type.nil? || mime_type == 'zip') ? nil : content_type)
+    end
+  end
+  
+  def get_dir_list(dir_path, pattern='.')
+    dirs_list = []
+    Dir.foreach(dir_path) do |fn|
+      next if (fn == '.' || fn == '..') #ignore system files
+      dirs_list.push(fn) if (File.directory?(File.join(dir_path, fn)) && fn.match(pattern))
+    end
+    return dirs_list
+  end
+  
 end

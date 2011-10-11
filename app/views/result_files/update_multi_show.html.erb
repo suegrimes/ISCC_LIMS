@@ -1,40 +1,30 @@
 <h1>Result Files Linked to Lanes for <%= @chosen_lab.lab_name %></h1>
-<fieldset class="info">
-<legend>File/Seq Run/Sample Info</legend>
-<table class="info">
-<% @result_files.each do |rfile| %>
+
+<table class="list">
+  <tr>
+     <th>Result File</th>
+	 <th>Seq Run/Lanes</th>
+	 <th>Samples</th>
+	 <th>Notes</th>
+  </tr>
+  
+  <% @result_files.each do |rfile| %>
   <% next if rfile.seq_lanes.blank? %>
+  
+  <% lane_array = rfile.seq_lanes.map {|lane| [ 'Run ' + lane.seq_run_nr.to_s, 'Lane ' + lane.lane_nr.to_s].join('/')} %>
+  <% lanes_string = lane_array.join('<br/>')%>
+  
+  <% sample_array = rfile.seq_lanes.map {|lane| [lane.sample.barcode_key, lane.sample.sample_name].join('/')} %>
+  <% samples_string = sample_array.join('<br/>')%> 
+  
   <tr>
-    <th>Document Name:</th><td><strong><%= rfile.document %></strong></td>
+  	<td><strong><%= link_to rfile.document, rfile %></strong></td>
+	<td><%= lanes_string %></td>
+	<td><%= samples_string %></td>
+	<td><%=h rfile.notes %></td>
   </tr>
-  <tr>
-    <td colspan="2">
-    <% rfile.seq_lanes.each do |lane| %>
-    <ul style="float:left;">
-      <li>Seq Run #: <%= lane.seq_run_nr %></li>
-      <li>Lane #: <%= lane.lane_nr %></li>
-      <li>Sample Info: 
-        <ul>
-          <li>Name - <%= lane.sample.sample_name %></li>
-          <li>Barcode - <%= lane.sample.barcode_key %></li>
-          <% unless lane.sample.sc_marker_validation_method.blank? %>
-          <li>SC Marker Validation - <%= lane.sample.sc_marker_validation_method %></li>         
-          <% end %>       
-        </ul>
-      </li>
-    </ul>
-    <% end %> <!-- /seq lanes do -->
-    </td>
-  </tr>
-  <tr>
-    <th>Notes:</th><td><%= rfile.notes %></td>
-  </tr>
-  <tr>
-    <td colspan="2" style="border-bottom: 1px solid #000"></td>
-  </tr>
-<% end %> <!-- /result files do -->	       
+  <% end %>
 </table>
-</fieldset>
 
 <%= break_clear %>
 <% form_tag(:controller => 'result_files', :action => 'choose_lab') do %>

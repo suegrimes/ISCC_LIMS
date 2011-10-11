@@ -4,6 +4,7 @@
 #
 #  id           :integer(4)      not null, primary key
 #  lane_nr      :integer(1)      not null
+#  seq_run_id   :integer(2)
 #  seq_run_nr   :integer(2)      not null
 #  seq_run_name :string(25)
 #  sample_id    :integer(4)      not null

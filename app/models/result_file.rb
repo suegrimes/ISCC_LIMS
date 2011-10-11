@@ -13,8 +13,10 @@
 #
 
 class ResultFile < ActiveRecord::Base
-
     has_and_belongs_to_many :seq_lanes
     belongs_to :lab
     belongs_to :user, :foreign_key => :updated_by
+    
+    BASE_PATH = File.join('..','..','ISCC_RNASeq')
+    #BASE_PATH = File.join('..','..','test', 'dataDownload')
 end

@@ -7,6 +7,7 @@
 #  lab_id                    :integer(4)      not null
 #  auth_user_id              :integer(4)
 #  email                     :string(255)
+#  role                      :string(10)
 #  crypted_password          :string(40)
 #  salt                      :string(40)
 #  activation_code           :string(50)
@@ -59,8 +60,8 @@ class User < ActiveRecord::Base
   attr_accessible :lab_id, :login, :email, :password, :password_confirmation
   
   def has_admin_access?
-    #(login == 'admin' && lab_id == Lab::STANFORD_LAB_ID)
-    lab_id == Lab::STANFORD_LAB_ID
+    (role == 'admin' && lab_id == Lab::STANFORD_LAB_ID)
+    #lab_id == Lab::STANFORD_LAB_ID
   end
 
   # Activates the user in the database.

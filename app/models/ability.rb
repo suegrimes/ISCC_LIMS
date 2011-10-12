@@ -26,7 +26,7 @@ class Ability
     
     # Everyone can manage samples & shipments for their own lab only
     can [:new, :create, :index, :show_sop], Sample
-    can [:show, :edit, :update, :delete], Sample do |sample|
+    can [:show, :edit, :update, :shipment_confirm, :sample_ship, :delete], Sample do |sample|
       sample.lab_id == user.lab_id
     end
     
@@ -35,12 +35,22 @@ class Ability
       shipment.sample.lab_id == user.lab_id
     end
     
-    # Open access to result files.  Need to change this in production (should only be able to access own lab, unless admin)
-    can [:index, :show, :fastqc_show], ResultFile
-    can [:index, :show], SeqRun
+    # Everyone can view result_files for their own lab only (access to index view managed in controller)
+    can :index, ResultFile
+    can [:show, :fastqc_show], ResultFile do |result_file|
+      result_file.lab_id == user.lab_id
+    end
     
     return nil if user == :false
 
+    # Sequencing admins can manage sequencing runs, lanes, and result files
+    if user.has_seq_access?
+      can :manage, [Sample, Shipment, SeqRun, SeqLane, ResultFile]
+      cannot [:edit, :update, :delete], Sample do |sample|
+        sample.lab_id != user.lab_id
+      end
+    end
+    
     # Admins have access to all functionality (except edit/delete of other lab's samples)
     if user.has_admin_access?
       can :manage, :all

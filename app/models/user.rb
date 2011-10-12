@@ -63,6 +63,10 @@ class User < ActiveRecord::Base
     (role == 'admin' && lab_id == Lab::STANFORD_LAB_ID)
     #lab_id == Lab::STANFORD_LAB_ID
   end
+  
+  def has_seq_access?
+    (['admin', 'seq_admin'].include?(role) && lab_id == Lab::STANFORD_LAB_ID ? true : false)
+  end
 
   # Activates the user in the database.
   def activate!

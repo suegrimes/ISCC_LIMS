@@ -2,8 +2,9 @@ class ResultFilesController < ApplicationController
   load_and_authorize_resource
   
   def index
-    @result_files = ResultFile.find(:all, :include => {:seq_lanes => :sample}, :conditions => {:lab_id => current_user.lab.id})
-    @fastqc_files = get_fastqc_html(Lab.find(current_user.lab.id).lab_dirname)
+    lab_id = (params[:lab] && !params[:lab][:id].blank? ? params[:lab][:id] : current_user.lab_id)
+    @result_files = ResultFile.find(:all, :include => {:seq_lanes => :sample}, :conditions => {:lab_id => lab_id})
+    @fastqc_files = get_fastqc_html(Lab.find(lab_id).lab_dirname)
   end
   
   def fastqc_show    

@@ -7,22 +7,22 @@
         <meta name="keywords" content="<%= META_TAGS[:keywords] %>" />
         <%= stylesheet_link_tag 'lims_std' %>
 		<%= stylesheet_link_tag 'iscc_styles' %>
-		<!--%= stylesheet_link_tag 'lims-superfish' %-->
+		<%= stylesheet_link_tag 'lims-superfish' %>
 		<!--[if IE]><%= stylesheet_link_tag 'ie-fixes' %><![endif]-->               
-		<%= javascript_include_tag :defaults, 'jquery-1.5.1.min' %>		  		    
+		<%= javascript_include_tag :defaults, 'jquery-1.5.1.min', 'superfish' %>		  		    
 		<%= calendar_date_select_includes %>
 	    <script type="text/javascript">
 	        var $j = jQuery.noConflict();
         </script>
 		<script type="text/javascript">
         // initialise Superfish 
-        //$j(document).ready(function() { 
-          //$j('ul.sf-menu').superfish({ 
-            //delay:       1000,                            // one second delay on mouseout 
-            //animation:   {opacity:'show',height:'show'},  // fade-in and slide-down animation 
-            //speed:       'fast',                          // faster animation speed  
-          //}); 
-        //}); 		
+        $j(document).ready(function() { 
+          $j('ul.sf-menu').superfish({ 
+            delay:       1000,                            // one second delay on mouseout 
+            animation:   {opacity:'show',height:'show'},  // fade-in and slide-down animation 
+            speed:       'fast',                          // faster animation speed  
+          }); 
+        }); 		
 		</script>
     </head>
 
@@ -48,9 +48,6 @@
       <td valign="bottom">
       	<% if logged_in? %>
         <div class="logout-link">
-		  <% if current_user.has_admin_access? %> 
-          <%= link_to 'Admin', seq_runs_path %>&nbsp;&nbsp;&nbsp;&nbsp;
-		  <% end %>
           <%= link_to 'User Profile', edit_user_path(current_user) %>&nbsp;&nbsp;&nbsp;&nbsp;
           <%= link_to 'Logout', logout_url %>
         </div>
@@ -72,37 +69,31 @@
 <table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-bottom:0; table-layout:fixed;">
   <tr>
     <td id="topnavbar"> 	
-    <!--
+    <% if (logged_in? && controller.action_name != "logout") %>
     <ul class="sf-menu">
-      <li><a href="#">Top Item 1</a>     
+      <% if current_user.has_admin_access? %>
+      <li><a href="#" class="last-topmenu-item">File Management</a>  
         <ul>
-          <li><a href="#">Submemu Item 1</a></li>
-		  <li><a href="#">Submenu Item 2</a>
-            <ul>
-          	  <li><a href="#">Subsubmenu Item 1</a></li>
-              <li><a class="last-submenu-item" href="#">Subsubmenu Item 2</a></li>
-            </ul>
-          </li>
-		  <li><a class="last-submenu-item" href="#">Submemu Item 3</a>
-		    <ul>
-          	  <li><a href="#">Subsubmenu Item 1</a></li>
-              <li><a class="last-submenu-item" href="#">Subsubmenu Item 2</a></li>
-            </ul>
-		  </li>
+          <li><%= link_to 'Sequence Runs', seq_runs_path %></li>
+		  <li><%= link_to 'Link Files to Lanes', choose_lab_path %></li>
+		  <li><%= link_to 'Choose Lab', choose_lab_path, :class => 'last-submenu-item' %></li>
         </ul>
       </li>
-	  <li><a href="#">Top Item 2</a>
+	  <% end %>
+	  <% if current_user.has_admin_access? %>
+	  <li><a href="#" class="last-topmenu-item">Admin</a>	  
 	    <ul>
-	  	  <li><a href="#">Submemu Item 1</a</li>
-		  <li><a href="#">Submemu Item 2</a</li>
-		  <li><a class="last-submenu-item" href="#">Submemu Item 3</a</li>
+		  <li><%= link_to 'View/Edit Users',  users_path %></li>
+		  <li><%= link_to 'View/Edit Authorized Users',  auth_users_path, :class => 'last-submenu-item' %></li>
 	    </ul>
 	  </li>
-	  <li><a class="last-topmenu-item" href="#">Top Item 3</a>
+	  <% end %>
     </ul>
-    -->  <!-- /ul nav bar -->
-    <!-- comment this out if using top nav --> 
-    <div style="height: 22px;">&nbsp;</div>
+    <!-- /ul nav bar -->
+	<% else %>
+    <!-- comment this out if using only top nav --> 
+    <div style="height: 22px;">&nbsp;</div
+    <% end %>
     </td>
   </tr>
 </table>

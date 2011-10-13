@@ -71,6 +71,16 @@
     <td id="topnavbar"> 	
     <% if (logged_in? && controller.action_name != "logout") %>
     <ul class="sf-menu">
+
+      <% if current_user.has_admin_access? %>
+      <li><a href="#">Admin</a>     
+        <ul>
+          <li><%= link_to 'View/Edit Users',  users_path %></li>
+          <li><%= link_to 'View/Edit Authorized Users',  auth_users_path, :class => 'last-submenu-item' %></li>
+        </ul>
+      </li>
+      <% end %>
+		
       <% if current_user.has_admin_access? %>
       <li><a href="#" class="last-topmenu-item">File Management</a>  
         <ul>
@@ -80,14 +90,7 @@
         </ul>
       </li>
 	  <% end %>
-	  <% if current_user.has_admin_access? %>
-	  <li><a href="#" class="last-topmenu-item">Admin</a>	  
-	    <ul>
-		  <li><%= link_to 'View/Edit Users',  users_path %></li>
-		  <li><%= link_to 'View/Edit Authorized Users',  auth_users_path, :class => 'last-submenu-item' %></li>
-	    </ul>
-	  </li>
-	  <% end %>
+
     </ul>
     <!-- /ul nav bar -->
 	<% else %>

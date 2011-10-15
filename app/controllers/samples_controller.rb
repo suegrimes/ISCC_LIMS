@@ -79,13 +79,21 @@ class SamplesController < ApplicationController
     end
   end
   
+  # TODO
+  # crack open attributes to see what it is gathering
+  # it appears from the debug that the shipping id is getting written to the shipment table, 
+  # but not the date_received
   def update_multi
     params[:sample].each do |id, attributes|
       sample = Sample.find(id)
       sample.update_attributes(attributes) 
     end
     flash[:notice] = 'Sample receipt updated'
-    redirect_to samples_path
+    #redirect_to samples_path
+    
+    # for debug
+    @samples = Sample.find(:all, :include => :shipment)
+    render :action => 'debug'
   end
 
   # DELETE /samples/1

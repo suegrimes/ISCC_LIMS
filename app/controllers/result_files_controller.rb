@@ -3,12 +3,14 @@ class ResultFilesController < ApplicationController
   
   def index
     @result_files = ResultFile.find(:all, :include => {:seq_lanes => :sample}, :conditions => {:lab_id => current_user.lab.id})
-    @fastqc_files = get_fastqc_html(Lab.find(current_user.lab.id).lab_dirname)
+    @fastqc_dirs = get_fastqc_dirs(Lab.find(current_user.lab.id).lab_dirname) #gets list if fastqc dirnames
   end
   
-  def fastqc_show    
-    @fastqc_file = params[:file_path]
-    send_file(@fastqc_file, :type => 'html', :disposition => 'inline')
+  def fastqc_show
+    lab_dir_name = Lab.find(current_user.lab.id).lab_dirname
+    fastqc_dir = params[:file_dir]
+    fastqc_file = File.join(ResultFile::BASE_PATH, lab_dir_name, fastqc_dir, 'fastqc_report.html')  
+    send_file(fastqc_file, :type => 'html', :disposition => 'inline')
   end
     
   def show
@@ -133,7 +135,14 @@ protected
     end  
     return files_list
   end
-  
+
+  def get_fastqc_dirs(lab_dir_name)
+    datafile_path = File.join(ResultFile::BASE_PATH, lab_dir_name) # relative path -> university dirname
+    dirs_list = get_dir_list(datafile_path, '_fastqc')
+    return dirs_list
+  end
+
+=begin
   def get_fastqc_html(lab_dir_name)
     datafile_path = File.join(RAILS_ROOT, ResultFile::BASE_PATH, lab_dir_name)
     dirs_list = get_dir_list(datafile_path, '_fastqc')
@@ -147,29 +156,33 @@ protected
 
     return files_list.flatten 
   end
-  
-#  def get_fastqc_files(lab_dir_name)
-#    
-#    datafile_path = File.join(ResultFile::BASE_PATH, lab_dir_name) 
-#    
-#    if (File.directory?(datafile_path))
-#           
-#      Dir.chdir(datafile_path)
-#    
-#      files_list = []
-#      Dir.foreach('.') do |fdir| # go through dir looking for fastqc zip files       
-#        next if ((File.directory?(fn)) || (fn[0].chr == '.'))
-#        fastqc_dir = fn
-#        files_list.push(lab_dir_name + '/' + fastqc_dir) if fn.match('fastqc.zip')
-#      end
-#         
-#      Dir.chdir(RAILS_ROOT) 
-#      
-#      return files_list
-#    else    
-#      return nil    
-#    end # if datafile path  
-#  end
+=end
+
+=begin
+  # get fastqc folder in a zipped format
+  def get_fastqc_files(lab_dir_name)
+    
+    datafile_path = File.join(ResultFile::BASE_PATH, lab_dir_name) 
+    
+    if (File.directory?(datafile_path))
+           
+      Dir.chdir(datafile_path)
+    
+      files_list = []
+      Dir.foreach('.') do |fdir| # go through dir looking for fastqc zip files       
+        next if ((File.directory?(fn)) || (fn[0].chr == '.'))
+        fastqc_dir = fn
+        files_list.push(lab_dir_name + '/' + fastqc_dir) if fn.match('fastqc.zip')
+      end
+         
+      Dir.chdir(RAILS_ROOT) 
+      
+      return files_list
+    else    
+      return nil    
+    end # if datafile path  
+  end
+=end
   
   # debug for development only
   def trunc_tables

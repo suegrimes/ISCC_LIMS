@@ -20,18 +20,21 @@
   <% end %>
 </table>
 
-<% if !@fastqc_files.blank? %>
+<% if !@fastqc_dirs.blank? %>
 <table class="list">
   <tr>
   	<th>Sample Barcode</th>
 	<th>FastQC File</th>
   </tr>
   
-  <% @fastqc_files.each do |file| %>
-  <% if !file.blank? %>
+  <% @fastqc_dirs.each do |dir| %>
+  <% if !dir.blank? %>
+  <% barcode = dir.scan(/.*_(.*)_fastqc$/) %>
   <tr>
-  	<td><%=h (file.split('/')[-2]).split('_fastqc') %></td>
-	<td><%= link_to 'Show FastQC', {:action => :fastqc_show, :file_path => file} %></td>
+  	<td><%=h barcode %></td>
+	<% @fastqc_file = '/files/fastqc_files/' + current_user.lab.lab_dirname + '/' + dir + '/' + 'fastqc_report.html'%>
+	<td><%= link_to 'Show FastQC', @fastqc_file %></td>
+	<!--td--><!--%= link_to 'Show FastQC', {:action => :fastqc_show, :file_dir => dir} %--><!--/td-->
   </tr>
   <% end %>
   <% end %>

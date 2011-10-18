@@ -8,9 +8,31 @@ class ResultFilesController < ApplicationController
   
   def fastqc_show
     lab_dir_name = Lab.find(current_user.lab.id).lab_dirname
-    fastqc_dir = params[:file_dir]
-    fastqc_file = File.join(ResultFile::BASE_PATH, lab_dir_name, fastqc_dir, 'fastqc_report.html')  
-    send_file(fastqc_file, :type => 'html', :disposition => 'inline')
+    fastqc_dir = params[:src]        
+    fastqc_file = File.join(ResultFile::BASE_PATH, lab_dir_name, fastqc_dir, 'fastqc_report.html')
+    fastqc_file_cc = File.join(ResultFile::BASE_PATH, lab_dir_name, fastqc_dir, 'fastqc_report_copy.html')
+    
+    ##### new stuff #####
+    # TODO: method to convert to Base64
+    # base64_img = ActiveSupport::Base64.encode64(open(the path variable).to_a.join)
+    
+    #unless (File.exists?(fastqc_file_cc))
+      FileUtils.copy(fastqc_file, fastqc_file_cc)
+      lines = File.open(fastqc_file_cc).readlines
+        lines.each { |line|
+          if line.match /<img/
+            img_path = line.scan(/src=\"(.*\..*?)\"/).to_s
+            rel_img_path = File.join(ResultFile::BASE_PATH, lab_dir_name, fastqc_dir, img_path)
+            img_type = line.scan(/src=\".*\.(.*?)\"/).to_s
+            line.gsub!(/src=\".*?\"/, 'src="data:image/' + img_type + ';base64, ' + rel_img_path + '"')          
+          end          
+      }
+      File.open(fastqc_file_cc, 'w') { |f| f.write lines }
+    #end
+    
+    ##### end new stuff #####
+    
+    send_file(fastqc_file_cc, :type => 'html', :disposition => 'inline')
   end
     
   def show

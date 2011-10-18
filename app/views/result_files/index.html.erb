@@ -33,8 +33,7 @@
   <tr>
   	<td><%=h barcode %></td>
 	<% @fastqc_file = '/files/fastqc_files/' + current_user.lab.lab_dirname + '/' + dir + '/' + 'fastqc_report.html'%>
-	<td><%= link_to 'Show FastQC', @fastqc_file %></td>
-	<!--td--><!--%= link_to 'Show FastQC', {:action => :fastqc_show, :file_dir => dir} %--><!--/td-->
+	<td><!--%= link_to 'Show FastQC', @fastqc_file %--><%= link_to 'Show FastQC', {:action => :fastqc_show, :src => dir} %></td>
   </tr>
   <% end %>
   <% end %>

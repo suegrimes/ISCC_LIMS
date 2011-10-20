@@ -77,4 +77,18 @@ protected
     return dirs_list
   end
   
+  def html_imgs_to_base64(html_file, lab, dir)
+    lines = File.open(html_file).readlines
+      lines.each { |line|
+        if line.match /<img/
+          img_path = line.scan(/src=\"(.*\..*?)\"/).to_s
+          rel_img_path = File.join(ResultFile::BASE_PATH, lab, dir, img_path)
+          img_type = line.scan(/src=\".*\.(.*?)\"/).to_s            
+          base64_img = ActiveSupport::Base64.encode64(open(rel_img_path).to_a.join)            
+          line.gsub!(/src=\".*?\"/, 'src="data:image/' + img_type + ';base64, ' + base64_img + '"')          
+        end          
+      }
+    File.open(html_file, 'w') { |f| f.write lines }
+  end
+  
 end

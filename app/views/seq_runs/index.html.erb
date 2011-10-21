@@ -32,16 +32,20 @@
       <td>&nbsp;</td>
 	<% end %>
   </tr>
-  
   <% end %>
 </table>
 
 <%= break_clear() %>
 
+<% if can? :new, SeqRun %>
 <% form_tag(:action => :new) do %>
   <%= submit_tag "Add New Sequencing Run" %>
 <% end %>
+<% end %>
 <br />
+
+<% if can? :new, ResultFile %>
 <% form_tag(:controller => 'result_files', :action => 'choose_lab') do %>
   <%= submit_tag "Link Result Files to Flow Cell Lanes" %>
+<% end %>
 <% end %>

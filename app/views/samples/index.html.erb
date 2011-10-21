@@ -2,54 +2,60 @@
 
 <table class="list">
   <tr>
-  	<th>Barcode</th>
-	<th>Sample Name</th>
-	<th>Sample Date</th>
-	<th>Received Date</th>
-	<th>Strain</th>
-	<th>Sex</th>
-	<th>Age(wks)</th>
-	<th>Region</th>
-	<th>SC Marker</th>
-	<th>FACS Protocol</th>
-	<th>SC Marker Validation</th>
-	<th>Validation Results</th>
-	<th colspan="4"></th>
+    <th>Barcode</th>
+    <th>Sample Name</th>
+    <th>Sample Date</th>
+    <th>Received Date</th>
+    <th>Strain</th>
+    <th>Sex</th>
+    <th>Age(wks)</th>
+    <th>Region</th>
+    <th>SC Marker</th>
+    <th>FACS Protocol</th>
+    <th>SC Marker Validation</th>
+    <th>Validation Results</th>
+    <th colspan="4"></th>
   </tr>
 
 <% @samples.each do |sample| %>
   <tr>
-  	<td><%=link_to sample.barcode_key, sample %></td>
-	<td><%=h sample.sample_name %></td>
-	<td><%=h sample.sample_date %></td>
-	<td><% if sample.shipment %><%=h sample.shipment.date_received %><% end %></td>
-	<td><%=h sample.strain %></td>
-	<td><%=h sample.sex %></td>
-	<td><%=h sample.age_in_weeks %></td>
-	<td><%=h sample.intestinal_region %></td>
-	<td><%=h sample.intestinal_sc_marker %></td>
-	<td><%=h sample.facs_protocol_id %></td>
-	<td><%=h sample.sc_marker_validation_method %></td>
-	<td><%=h sample.secondary_validation_results %></td>
+    <td><%=link_to sample.barcode_key, sample %></td>
+    <td><%=h sample.sample_name %></td>
+    <td><%=h sample.sample_date %></td>
+    <td><% if sample.shipment %><%=h sample.shipment.date_received %><% end %></td>
+    <td><%=h sample.strain %></td>
+    <td><%=h sample.sex %></td>
+    <td><%=h sample.age_in_weeks %></td>
+    <td><%=h sample.intestinal_region %></td>
+    <td><%=h sample.intestinal_sc_marker %></td>
+    <td><%=h sample.facs_protocol_id %></td>
+    <td><%=h sample.sc_marker_validation_method %></td>
+    <td><%=h sample.secondary_validation_results %></td>
     
-	<% if !sample.shipment && (can? :edit, sample) %>
-	<td><%= link_to 'Ship', :action => :sample_ship, :id => sample.id %></td>
-	<% else %>
-	<td class="ltgrey"><%= (sample.shipment ? (sample.shipment.date_received.nil? ? 'Shipped' : 'Received') : 'Ship') %></td>
-	<% end %>	
-	<td class="ltgrey">QA</td>	    
-	<% if can? :edit, sample %>
-	<td><%= link_to 'Edit', edit_sample_path(sample) %></td>
-	<% else %>
-	<td class="ltgrey">Edit</td>
-	<% end %>
+    <% if !sample.shipment && (can? :edit, sample) %>
+    <td><%= link_to 'Ship', :action => :sample_ship, :id => sample.id %></td>
+    <% else %>
+    <td class="ltgrey"><%= (sample.shipment ? (sample.shipment.date_received.nil? ? 'Shipped' : 'Received') : 'Ship') %></td>
+    <% end %>   
+    <td class="ltgrey">QA</td>      
+    <% if can? :edit, sample %>
+    <td><%= link_to 'Edit', edit_sample_path(sample) %></td>
+    <% else %>
+    <td class="ltgrey">Edit</td>
+    <% end %>
 
     <% if can? :delete, sample %>
     <td><%= link_to 'Delete', sample, :confirm => 'Are you sure?', :method => :delete %></td>
-	<% else %>
-	<td class="ltgrey">Delete</td>
-	<% end %>
+    <% else %>
+    <td class="ltgrey">Delete</td>
+    <% end %>
   </tr>
 <% end %>
 </table>
 <%= link_to 'New sample', new_sample_path %>
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>

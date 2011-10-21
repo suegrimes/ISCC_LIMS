@@ -18,23 +18,33 @@
   <%= submit_tag "Choose Another Lab" %>
 <% end %>
 <br />
-<div class="notes"><strong>Note: Previously selected lanes are highlighted. To add or select multiple lanes, use right click function, or previously selected lanes will be cleared.</strong></div><br />
+<div class="notes"><strong>Notes: <br />
+Previously selected lanes are highlighted. To add or select multiple lanes, use right click function, or previously selected lanes will be cleared.<br />
+Delete will remove file from data table and filesystem.</strong></div><br />
 <fieldset class="form">
 <legend>Link Result Files to Lanes</legend>
 <% form_for(@result_files, :url => {:action => :update_multi}) do |result_file| %>
 <!--% form_for(@result_files, :url => {:action => :debug}) do |result_file| %-->
 <table class="form-with-columns" border="0">
     <tr>
+      <th></th>
       <th>Filename</th>
       <th>Select Lane(s)</th>     
       <th>Content Type</th>
       <th>File Size</th>
       <th>Updated By</th>
-      <th>Lab</th>
+      <!--th>Lab</th-->
       <th>Notes</th>
     </tr>
     <% @result_files.each do |file| %>
     <tr>
+      <% if can? :delete, file %>
+	  <td><div class="linkborder" style="background-color:#fff">
+	      <%= link_to 'Delete', destroy_path(:id => file.id, :lab_id => params[:lab_id]), :confirm => 'Are you sure?' %>
+          </div></td>	  
+      <% else %>
+      <td class="ltgrey"> Delete </td>
+	  <% end %> 
       <% fields_for 'result_files[]', file do |f| %>
       <%= f.hidden_field(:id, :value => file.id) %>
       <%= hidden_field_tag("chosen_lab[id]", params[:lab_id]) %>
@@ -44,7 +54,7 @@
       <td><%= h file.document_content_type %></td>
       <td><%= h file.document_file_size %></td>
       <td><%= h file.user.login %></td>
-      <td><%= h file.lab.lab_name %></td>
+      <!--td><%= h file.lab.lab_name %></td-->
       <td><%= f.text_area(:notes, :rows => 3, :cols => 20) %><% if (!file.notes.blank?) %><% h file.notes %><% end %></td>
      <% end %>
     </tr>    

@@ -36,7 +36,8 @@ class Ability
     end
     
     # Open access to result files.  Need to change this in production (should only be able to access own lab, unless admin)
-    can :manage, [ResultFile, SeqRun, SeqLane, SeqQc]
+    can [:index, :show, :fastqc_show], ResultFile
+    can [:index, :show], SeqRun
     
     return nil if user == :false
 

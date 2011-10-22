@@ -89,11 +89,8 @@ class SamplesController < ApplicationController
       sample.update_attributes(attributes) 
     end
     flash[:notice] = 'Sample receipt updated'
-    #redirect_to samples_path
+    redirect_to samples_path
     
-    # for debug
-    @samples = Sample.find(:all, :include => :shipment)
-    render :action => 'debug'
   end
 
   # DELETE /samples/1

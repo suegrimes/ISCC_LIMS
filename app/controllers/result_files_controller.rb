@@ -1,23 +1,59 @@
 class ResultFilesController < ApplicationController
   load_and_authorize_resource
   
+  #TODO
+  # find global place to put lab_dir_name
+
   def index
+    lab_dir_name = Lab.find(current_user.lab.id).lab_dirname
     @result_files = ResultFile.find(:all, :include => {:seq_lanes => :sample}, :conditions => {:lab_id => current_user.lab.id})
-    @fastqc_dirs = get_fastqc_dirs(Lab.find(current_user.lab.id).lab_dirname) #gets list if fastqc dirnames
+    fastqc_dirs = get_fastqc_dirs(Lab.find(current_user.lab.id).lab_dirname) #gets list of fastqc dirnames
+    @fastqc_access = Hash[ *fastqc_dirs.collect { |v| [ rand(36**8).to_s(36), v ] }.flatten ]
+    # store hash in file as object
+    src_info_file = File.join(ResultFile::BASE_PATH, lab_dir_name, 'src_info') 
+    File.open(src_info_file,'w') do |file|
+      Marshal.dump(@fastqc_access, file)
+    end
   end
   
   def fastqc_show
     lab_dir_name = Lab.find(current_user.lab.id).lab_dirname
-    fastqc_dir = params[:src]        
-    fastqc_file = File.join(ResultFile::BASE_PATH, lab_dir_name, fastqc_dir, 'fastqc_report.html')
-    fastqc_file_cc = File.join(ResultFile::BASE_PATH, lab_dir_name, fastqc_dir, 'fastqc_report_copy.html')
+    key = params[:src]
+    
+    # get hash of dirnames from file
+    src_info_file_hash = Hash.new
+    src_info_file = File.join(ResultFile::BASE_PATH, lab_dir_name, 'src_info') 
+    File.open(src_info_file,'r') do |file|
+      src_info_file_hash = Marshal.load(file)
+    end
 
-    # convert the report file copy to render base64 images if it's not already there
-    unless (File.exists?(fastqc_file_cc))
+    #fastqc_dir = @fastqc_access[fastqc_dir_value]
+=begin
+    fastqc_file = File.join(ResultFile::BASE_PATH, lab_dir_name, fastqc_dir, 'fastqc_report.html')
+    fastqc_file_images = File.join(RAILS_ROOT, ResultFile::BASE_PATH, lab_dir_name, fastqc_dir, 'Images/')
+    fastqc_file_icons = File.join(RAILS_ROOT, ResultFile::BASE_PATH, lab_dir_name, fastqc_dir, 'Icons/')
+    public_images_fastqc_dir = File.join(RAILS_ROOT, '/public/images/', fastqc_dir)
+
+    # check if image subdir for lab exists
+    unless (File.directory?(public_images_fastqc_dir))
+      FileUtils.mkdir(public_images_fastqc_dir) 
+    end
+
+    # make symlinks of image folders in images fastqc dir
+    FileUtils.ln_s(fastqc_file_icons, public_images_fastqc_dir, :force => true)
+    FileUtils.ln_s(fastqc_file_images, public_images_fastqc_dir, :force => true)
+
+    # create report file copy and modify image path
+    fastqc_file_cc = File.join(ResultFile::BASE_PATH, lab_dir_name, fastqc_dir, 'fastqc_report_copy.html')
+    #unless (File.exists?(fastqc_file_cc))
       FileUtils.copy(fastqc_file, fastqc_file_cc) 
-      html_imgs_to_base64(fastqc_file_cc, lab_dir_name, fastqc_dir)
-    end     
-    send_file(fastqc_file_cc, :type => 'html', :disposition => 'inline')
+      html_imgs_change_path(fastqc_file_cc, lab_dir_name, fastqc_dir)
+    #end
+=end
+    #send_file(fastqc_file_cc, :type => 'html', :disposition => 'inline')
+    render :text => src_info_file_hash[key]
+    #render :text => fastqc_dir_value
+    #FileUtils.remove_dir(public_images_fastqc_dir) 
   end
     
   def show

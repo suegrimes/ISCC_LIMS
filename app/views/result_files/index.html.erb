@@ -3,7 +3,7 @@
 <table class="list">
   <tr>
      <th>Result File</th>
-	 <th>Samples</th>
+	 <th>Samples(barcode/name)</th>
 	 <th>Notes</th>
   </tr>
   
@@ -20,22 +20,25 @@
   <% end %>
 </table>
 
-<% if !@fastqc_dirs.blank? %>
+<% @fastqc_access.each do |x,y| %>
+
+  <%= "key=#{x}, value=#{y}" %><br />
+
+<% end %>
+
+<% if !@fastqc_access.empty? %>
 <table class="list">
   <tr>
   	<th>Sample Barcode</th>
 	<th>FastQC File</th>
   </tr>
   
-  <% @fastqc_dirs.each do |dir| %>
-  <% if !dir.blank? %>
-  <% barcode = dir.scan(/.*_(.*)_fastqc$/) %>
+  <% @fastqc_access.each do |key, value| %>
+  <% barcode = value.scan(/(.*)_fastqc$/) %>
   <tr>
   	<td><%=h barcode %></td>
-	<% @fastqc_file = '/files/fastqc_files/' + current_user.lab.lab_dirname + '/' + dir + '/' + 'fastqc_report.html'%>
-	<td><!--%= link_to 'Show FastQC', @fastqc_file %--><%= link_to 'Show FastQC', {:action => :fastqc_show, :src => dir} %></td>
+	<td><%= link_to 'Show FastQC', {:action => :fastqc_show, :src => key} %></td>
   </tr>
-  <% end %>
   <% end %>
 <% end %>
 </table>

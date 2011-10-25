@@ -1,6 +1,6 @@
 <h1>Listing Result Files for <%=h current_user.lab.lab_name %></h1>
 
-<table class="list">
+<table class="list" width="75%">
   <tr>
      <th>Result File</th>
 	 <th>Samples(barcode/name)</th>
@@ -20,12 +20,6 @@
   <% end %>
 </table>
 
-<% @fastqc_access.each do |x,y| %>
-
-  <%= "key=#{x}, value=#{y}" %><br />
-
-<% end %>
-
 <% if !@fastqc_access.empty? %>
 <table class="list">
   <tr>
@@ -34,10 +28,11 @@
   </tr>
   
   <% @fastqc_access.each do |key, value| %>
+  <!--% next if (key == :session_id) %-->
   <% barcode = value.scan(/(.*)_fastqc$/) %>
   <tr>
   	<td><%=h barcode %></td>
-	<td><%= link_to 'Show FastQC', {:action => :fastqc_show, :src => key} %></td>
+	<td><%= link_to 'Show FastQC', {:action => :fastqc_show, :dir_id => key} %></td>
   </tr>
   <% end %>
 <% end %>

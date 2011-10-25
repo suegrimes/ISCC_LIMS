@@ -50,7 +50,7 @@ protected
   def get_file_list(dir_path, pattern='.')
     files_list = []
     Dir.foreach(dir_path) do |fn|
-      next if (File.directory?(File.join(dir_path, fn)) || fn[0].chr == '.') #ignore directories, or system files
+      next if (File.directory?(File.join(dir_path, fn)) || fn[0].chr == '.' || fn.match('.ml')) #ignore directories, or system files
       files_list.push(fn) if fn.match(pattern)
     end
     return files_list

@@ -17,6 +17,9 @@ class ResultFilesController < ApplicationController
   end
   
   def fastqc_show
+    #TODO
+    # uncomment unless' 
+    
     lab_dir_name = Lab.find(current_user.lab.id).lab_dirname
     key = params[:src]
     

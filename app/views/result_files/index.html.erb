@@ -28,7 +28,6 @@
   </tr>
   
   <% @fastqc_access.each do |key, value| %>
-  <!--% next if (key == :session_id) %-->
   <% barcode = value.scan(/(.*)_fastqc$/) %>
   <tr>
   	<td><%=h barcode %></td>

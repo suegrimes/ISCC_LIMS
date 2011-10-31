@@ -27,17 +27,22 @@ class ResultFilesController < ApplicationController
 
     fastqc_dir = fastqcdir_info_hash[key]
     fastqc_file = File.join(ResultFile::BASE_PATH, lab_dir_name, fastqc_dir, 'fastqc_report.html')
-    fastqc_file_images = File.join(RAILS_ROOT, ResultFile::BASE_PATH, lab_dir_name, fastqc_dir, 'Images/')
     fastqc_file_icons = File.join(RAILS_ROOT, ResultFile::BASE_PATH, lab_dir_name, fastqc_dir, 'Icons/')
-    public_images_fastqc_dir = File.join(RAILS_ROOT, '/public/images/', fastqc_dir)
+    fastqc_file_images = File.join(RAILS_ROOT, ResultFile::BASE_PATH, lab_dir_name, fastqc_dir, 'Images/')
+    public_images_lab = File.join(RAILS_ROOT, '/public/images/', lab_dir_name, '/')
+    public_images_lab_fastqc_dir = File.join(RAILS_ROOT, '/public/images/', lab_dir_name, '/', fastqc_dir)
 
-    unless (File.directory?(public_images_fastqc_dir))
-      FileUtils.mkdir(public_images_fastqc_dir) 
+    # make lab dir then fastqcdir if not already there
+    unless (File.directory?(public_images_lab))
+      FileUtils.mkdir(public_images_lab) 
+    end
+    unless (File.directory?(public_images_lab_fastqc_dir))
+      FileUtils.mkdir(public_images_lab_fastqc_dir) 
     end
 
     # make symlinks of image folders in images fastqc dir
-    FileUtils.ln_s(fastqc_file_icons, public_images_fastqc_dir, :force => true)
-    FileUtils.ln_s(fastqc_file_images, public_images_fastqc_dir, :force => true)
+    FileUtils.ln_s(fastqc_file_icons, public_images_lab_fastqc_dir, :force => true)
+    FileUtils.ln_s(fastqc_file_images, public_images_lab_fastqc_dir, :force => true)
 
     # create report file copy and modify image path
     fastqc_file_cc = File.join(ResultFile::BASE_PATH, lab_dir_name, fastqc_dir, 'fastqc_report_copy.html')
@@ -45,7 +50,8 @@ class ResultFilesController < ApplicationController
     html_imgs_change_path(fastqc_file_cc, lab_dir_name, fastqc_dir)
 
     send_file(fastqc_file_cc, :type => 'html', :disposition => 'inline')
-    
+
+    #render :text => public_images_fastqc_dir  
   end
     
   def show

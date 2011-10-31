@@ -95,8 +95,9 @@ protected
     lines = File.open(html_file).readlines
       lines.each { |line|
         if line.match /<img/
-          img_sub_dir = line.scan(/src=\"(.*?\/)/).to_s      
-          line.gsub!(/src=\".*?\//, 'src="/images/' + dir + '/' + img_sub_dir)     
+          img_sub_dir = line.scan(/src=\"(.*?\/)/).to_s
+          images_lab_fastqc_dir = File.join('"/images/', lab, '/', dir, '/', img_sub_dir)
+          line.gsub!(/src=\".*?\//, 'src=' + images_lab_fastqc_dir)     
         end          
       }
     File.open(html_file, 'w') { |f| f.write lines }

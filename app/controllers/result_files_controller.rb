@@ -1,16 +1,11 @@
 class ResultFilesController < ApplicationController
   load_and_authorize_resource
-  
-  #TODO
-  # rm images/fastqcdir after session
-  # use session timeout?
 
   def index
     lab_dir_name = Lab.find(current_user.lab.id).lab_dirname
     @result_files = ResultFile.find(:all, :include => {:seq_lanes => :sample}, :conditions => {:lab_id => current_user.lab.id})
     fastqc_dirs = get_fastqc_dirs(Lab.find(current_user.lab.id).lab_dirname) #gets list of fastqc dirnames
     @fastqc_access = Hash[ *fastqc_dirs.collect { |v| [ rand(36**8).to_s(36), v ] }.flatten ]
-    #@fastqc_access[:session_id] = request.session_options[:id]
     # store hash in file as object
     fastqcdir_info_file = File.join(ResultFile::BASE_PATH, lab_dir_name, 'fastqcdir_info.ml') 
     File.open(fastqcdir_info_file,'w') do |file|
@@ -36,7 +31,6 @@ class ResultFilesController < ApplicationController
     fastqc_file_icons = File.join(RAILS_ROOT, ResultFile::BASE_PATH, lab_dir_name, fastqc_dir, 'Icons/')
     public_images_fastqc_dir = File.join(RAILS_ROOT, '/public/images/', fastqc_dir)
 
-    # check if image subdir for lab exists, then create if not
     unless (File.directory?(public_images_fastqc_dir))
       FileUtils.mkdir(public_images_fastqc_dir) 
     end

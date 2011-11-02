@@ -91,16 +91,18 @@ protected
     File.open(html_file, 'w') { |f| f.write lines }
   end
   
-  def html_imgs_change_path(html_file, lab, dir)
-    lines = File.open(html_file).readlines
-      lines.each { |line|
-        if line.match /<img/
-          img_sub_dir = line.scan(/src=\"(.*?\/)/).to_s
-          images_lab_fastqc_dir = File.join('"/images/', lab, '/', dir, '/', img_sub_dir)
-          line.gsub!(/src=\".*?\//, 'src=' + images_lab_fastqc_dir)     
-        end          
-      }
-    File.open(html_file, 'w') { |f| f.write lines }
+  def html_imgs_change_path(html_file, html_file_cc, lab, dir)
+    file = File.open(html_file, 'r')
+    output = File.open(html_file_cc, 'w')
+    while line = (file.gets)
+      if line.match /<img/
+        img_sub_dir = line.scan(/src=\"(.*?\/)/).to_s
+        images_lab_fastqc_dir = File.join('"/images/', lab, '/', dir, '/', img_sub_dir)
+        line.gsub!(/src=\".*?\//, 'src=' + images_lab_fastqc_dir)     
+      end 
+      output.write line
+    end
+    output.close
   end
   
 end

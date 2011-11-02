@@ -27,31 +27,36 @@ class ResultFilesController < ApplicationController
 
     fastqc_dir = fastqcdir_info_hash[key]
     fastqc_file = File.join(ResultFile::BASE_PATH, lab_dir_name, fastqc_dir, 'fastqc_report.html')
+    fastqc_file_cc = File.join(ResultFile::BASE_PATH, lab_dir_name, fastqc_dir, 'fastqc_report_copy.html')
     fastqc_file_icons = File.join(RAILS_ROOT, ResultFile::BASE_PATH, lab_dir_name, fastqc_dir, 'Icons/')
     fastqc_file_images = File.join(RAILS_ROOT, ResultFile::BASE_PATH, lab_dir_name, fastqc_dir, 'Images/')
     public_images_lab = File.join(RAILS_ROOT, '/public/images/', lab_dir_name, '/')
     public_images_lab_fastqc_dir = File.join(RAILS_ROOT, '/public/images/', lab_dir_name, '/', fastqc_dir)
 
     # make lab dir then fastqcdir if not already there
-    unless (File.directory?(public_images_lab))
+    unless (File.exists?(public_images_lab))
       FileUtils.mkdir(public_images_lab) 
     end
-    unless (File.directory?(public_images_lab_fastqc_dir))
+    unless (File.exists?(public_images_lab_fastqc_dir))
       FileUtils.mkdir(public_images_lab_fastqc_dir) 
+
+      # make symlinks of image folders in images fastqc dir
+      FileUtils.ln_s(fastqc_file_icons, public_images_lab_fastqc_dir, :force => true)
+      FileUtils.ln_s(fastqc_file_images, public_images_lab_fastqc_dir, :force => true)
     end
 
-    # make symlinks of image folders in images fastqc dir
-    FileUtils.ln_s(fastqc_file_icons, public_images_lab_fastqc_dir, :force => true)
-    FileUtils.ln_s(fastqc_file_images, public_images_lab_fastqc_dir, :force => true)
-
-    # create report file copy and modify image path
-    fastqc_file_cc = File.join(ResultFile::BASE_PATH, lab_dir_name, fastqc_dir, 'fastqc_report_copy.html')
-    FileUtils.copy(fastqc_file, fastqc_file_cc) 
-    html_imgs_change_path(fastqc_file_cc, lab_dir_name, fastqc_dir)
+    if File.exists?(fastqc_file_cc)      
+      #message = 'file exists'
+    else
+      #message = 'file needs to be created'
+      # create report file copy and modify image path
+      FileUtils.copy(fastqc_file, fastqc_file_cc)
+      html_imgs_change_path(fastqc_file, fastqc_file_cc, lab_dir_name, fastqc_dir)
+    end
 
     send_file(fastqc_file_cc, :type => 'html', :disposition => 'inline')
 
-    #render :text => public_images_fastqc_dir  
+    #render :text => message  
   end
     
   def show

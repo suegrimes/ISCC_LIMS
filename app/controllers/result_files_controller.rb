@@ -4,28 +4,13 @@ class ResultFilesController < ApplicationController
   def index
     lab_dir_name = Lab.find(current_user.lab.id).lab_dirname
     @result_files = ResultFile.find(:all, :include => {:seq_lanes => :sample}, :conditions => {:lab_id => current_user.lab.id})
-    fastqc_dirs = get_fastqc_dirs(Lab.find(current_user.lab.id).lab_dirname) #gets list of fastqc dirnames
-    @fastqc_access = Hash[ *fastqc_dirs.collect { |v| [ rand(36**8).to_s(36), v ] }.flatten ]
-    # store hash in file as object
-    fastqcdir_info_file = File.join(ResultFile::BASE_PATH, lab_dir_name, 'fastqcdir_info.ml') 
-    File.open(fastqcdir_info_file,'w') do |file|
-      Marshal.dump(@fastqc_access, file)
-    end
+    @fastqc_dirs = get_fastqc_dirs(Lab.find(current_user.lab.id).lab_dirname) #gets list of fastqc dirnames
   end
   
   def fastqc_show 
     
     lab_dir_name = Lab.find(current_user.lab.id).lab_dirname
-    key = params[:dir_id]
-    
-    # get hash of dirnames from file
-    fastqcdir_info_hash = Hash.new
-    fastqcdir_info_file = File.join(ResultFile::BASE_PATH, lab_dir_name, 'fastqcdir_info.ml')
-    File.open(fastqcdir_info_file,'r') do |file|
-      fastqcdir_info_hash = Marshal.load(file)
-    end   
-
-    fastqc_dir = fastqcdir_info_hash[key]
+    fastqc_dir = params[:dir]
     fastqc_file = File.join(ResultFile::BASE_PATH, lab_dir_name, fastqc_dir, 'fastqc_report.html')
     fastqc_file_cc = File.join(ResultFile::BASE_PATH, lab_dir_name, fastqc_dir, 'fastqc_report_copy.html')
     fastqc_file_icons = File.join(RAILS_ROOT, ResultFile::BASE_PATH, lab_dir_name, fastqc_dir, 'Icons/')
@@ -33,30 +18,31 @@ class ResultFilesController < ApplicationController
     public_images_lab = File.join(RAILS_ROOT, '/public/images/', lab_dir_name, '/')
     public_images_lab_fastqc_dir = File.join(RAILS_ROOT, '/public/images/', lab_dir_name, '/', fastqc_dir)
 
-    # make lab dir then fastqcdir if not already there
+    # make lab dir if not already there
     unless (File.exists?(public_images_lab))
       FileUtils.mkdir(public_images_lab) 
     end
+    # make fastqcdir if not already there
     unless (File.exists?(public_images_lab_fastqc_dir))
       FileUtils.mkdir(public_images_lab_fastqc_dir) 
-
-      # make symlinks of image folders in images fastqc dir
+    end
+    # make symlinks of image folders in images fastqc dir if not already there
+    icons_linkpath = public_images_lab_fastqc_dir + '/Icons'
+    images_linkpath = public_images_lab_fastqc_dir + '/Images'
+    unless (File.symlink?(icons_linkpath) && File.symlink?(images_linkpath))
       FileUtils.ln_s(fastqc_file_icons, public_images_lab_fastqc_dir, :force => true)
       FileUtils.ln_s(fastqc_file_images, public_images_lab_fastqc_dir, :force => true)
+      #message = icons_linkpath + ' & ' + images_linkpath + ' created'
     end
-
-    if File.exists?(fastqc_file_cc)      
-      #message = 'file exists'
-    else
-      #message = 'file needs to be created'
-      # create report file copy and modify image path
+    # create report file copy and modify image path if not already there
+    unless File.exists?(fastqc_file_cc)         
       FileUtils.copy(fastqc_file, fastqc_file_cc)
       html_imgs_change_path(fastqc_file, fastqc_file_cc, lab_dir_name, fastqc_dir)
+      #message = fastqc_file_cc + ' file created and modified'
     end
 
     send_file(fastqc_file_cc, :type => 'html', :disposition => 'inline')
-
-    #render :text => message  
+    #render :text => message
   end
     
   def show

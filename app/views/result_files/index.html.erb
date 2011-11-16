@@ -20,18 +20,18 @@
   <% end %>
 </table>
 
-<% if !@fastqc_access.empty? %>
+<% if !@fastqc_dirs.empty? %>
 <table class="list">
   <tr>
   	<th>Sample Barcode</th>
 	<th>FastQC File</th>
   </tr>
   
-  <% @fastqc_access.each do |key, value| %>
-  <% barcode = value.scan(/(.*)_fastqc$/) %>
+  <% @fastqc_dirs.each do |dir| %>
+  <% barcode = dir.scan(/(.*)_fastqc/) %>
   <tr>
   	<td><%=h barcode %></td>
-	<td><%= link_to 'Show FastQC', {:action => :fastqc_show, :dir_id => key} %></td>
+	<td><%= link_to 'Show FastQC', {:action => :fastqc_show, :dir => dir} %></td>
   </tr>
   <% end %>
 <% end %>

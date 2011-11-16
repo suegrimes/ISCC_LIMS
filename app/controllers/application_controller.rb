@@ -70,11 +70,15 @@ protected
   
   def get_dir_list(dir_path, pattern='.')
     dirs_list = []
-    Dir.foreach(dir_path) do |fn|
-      next if (fn == '.' || fn == '..') #ignore system files
-      dirs_list.push(fn) if (File.directory?(File.join(dir_path, fn)) && fn.match(pattern))
+    if (File.directory?(dir_path))
+      Dir.foreach(dir_path) do |fn|
+        next if (fn == '.' || fn == '..') #ignore system files
+        dirs_list.push(fn) if (File.directory?(File.join(dir_path, fn)) && fn.match(pattern))
+      end
+      return dirs_list
+    else
+      return []
     end
-    return dirs_list
   end
   
   def html_imgs_to_base64(html_file, lab, dir)

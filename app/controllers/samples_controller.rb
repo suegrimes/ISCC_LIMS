@@ -79,6 +79,10 @@ class SamplesController < ApplicationController
     end
   end
   
+  # TODO
+  # crack open attributes to see what it is gathering
+  # it appears from the debug that the shipping id is getting written to the shipment table, 
+  # but not the date_received
   def update_multi
     params[:sample].each do |id, attributes|
       sample = Sample.find(id)
@@ -86,6 +90,7 @@ class SamplesController < ApplicationController
     end
     flash[:notice] = 'Sample receipt updated'
     redirect_to samples_path
+    
   end
 
   # DELETE /samples/1
@@ -125,5 +130,5 @@ class SamplesController < ApplicationController
     end
     render :inline => "<%= auto_complete_result(@svalues, 'sc_marker_validation_method') %>"
   end
-  
+ 
 end

@@ -1,15 +1,47 @@
 class ResultFilesController < ApplicationController
   load_and_authorize_resource
-  
+
   def index
-    lab_id = (params[:lab] && !params[:lab][:id].blank? ? params[:lab][:id] : current_user.lab_id)
-    @result_files = ResultFile.find(:all, :include => {:seq_lanes => :sample}, :conditions => {:lab_id => lab_id})
-    @fastqc_files = get_fastqc_html(Lab.find(lab_id).lab_dirname)
+    lab_dir_name = Lab.find(current_user.lab.id).lab_dirname
+    @result_files = ResultFile.find(:all, :include => {:seq_lanes => :sample}, :conditions => {:lab_id => current_user.lab.id})
+    @fastqc_dirs = get_fastqc_dirs(Lab.find(current_user.lab.id).lab_dirname) #gets list of fastqc dirnames
   end
   
   def fastqc_show    
-    @fastqc_file = params[:file_path]
-    send_file(@fastqc_file, :type => 'html', :disposition => 'inline')
+    lab_dir_name = Lab.find(current_user.lab.id).lab_dirname
+    fastqc_dir = params[:dir]
+    fastqc_file = File.join(ResultFile::BASE_PATH, lab_dir_name, fastqc_dir, 'fastqc_report.html')
+    fastqc_file_cc = File.join(ResultFile::BASE_PATH, lab_dir_name, fastqc_dir, 'fastqc_report_copy.html')
+    fastqc_file_icons = File.join(RAILS_ROOT, ResultFile::BASE_PATH, lab_dir_name, fastqc_dir, 'Icons/')
+    fastqc_file_images = File.join(RAILS_ROOT, ResultFile::BASE_PATH, lab_dir_name, fastqc_dir, 'Images/')
+    public_images_lab = File.join(RAILS_ROOT, '/public/images/', lab_dir_name, '/')
+    public_images_lab_fastqc_dir = File.join(RAILS_ROOT, '/public/images/', lab_dir_name, '/', fastqc_dir)
+
+    # make lab dir if not already there
+    unless (File.exists?(public_images_lab))
+      FileUtils.mkdir(public_images_lab) 
+    end
+    # make fastqcdir if not already there
+    unless (File.exists?(public_images_lab_fastqc_dir))
+      FileUtils.mkdir(public_images_lab_fastqc_dir) 
+    end
+    # make symlinks of image folders in images fastqc dir if not already there
+    icons_linkpath = public_images_lab_fastqc_dir + '/Icons'
+    images_linkpath = public_images_lab_fastqc_dir + '/Images'
+    unless (File.symlink?(icons_linkpath) && File.symlink?(images_linkpath))
+      FileUtils.ln_s(fastqc_file_icons, public_images_lab_fastqc_dir, :force => true)
+      FileUtils.ln_s(fastqc_file_images, public_images_lab_fastqc_dir, :force => true)
+      #message = icons_linkpath + ' & ' + images_linkpath + ' created'
+    end
+    # create report file copy and modify image path if not already there
+    unless File.exists?(fastqc_file_cc)         
+      FileUtils.copy(fastqc_file, fastqc_file_cc)
+      html_imgs_change_path(fastqc_file, fastqc_file_cc, lab_dir_name, fastqc_dir)
+      #message = fastqc_file_cc + ' file created and modified'
+    end
+
+    send_file(fastqc_file_cc, :type => 'html', :disposition => 'inline')
+    #render :text => message
   end
     
   def show
@@ -40,8 +72,8 @@ class ResultFilesController < ApplicationController
        
     @results_on_filesystem = get_files_from_filesystem(@chosen_lab.lab_dirname, @chosen_lab.id)
     if (@results_on_filesystem.blank?) #directory does not exist or is empty
-      #flash.now[:error] = "Sorry, no result files available for #{@chosen_lab.lab_name}"
-      flash.now[:error] = "Sorry, no result files found for #{@chosen_lab.lab_name} in directory: #{@datafile_path}"
+      flash.now[:error] = "Sorry, no result files available for #{@chosen_lab.lab_name}"
+      #flash.now[:error] = "Sorry, no result files found for #{@chosen_lab.lab_name} in directory: #{@datafile_path}"
       render :action => 'choose_lab', :locals => {:lab_list => @labs}
       return
     end
@@ -134,7 +166,14 @@ protected
     end  
     return files_list
   end
-  
+
+  def get_fastqc_dirs(lab_dir_name)
+    datafile_path = File.join(ResultFile::BASE_PATH, lab_dir_name) # relative path -> university dirname
+    dirs_list = get_dir_list(datafile_path, '_fastqc')
+    return dirs_list
+  end
+
+=begin
   def get_fastqc_html(lab_dir_name)
     datafile_path = File.join(RAILS_ROOT, ResultFile::BASE_PATH, lab_dir_name)
     dirs_list = get_dir_list(datafile_path, '_fastqc')
@@ -148,36 +187,40 @@ protected
 
     return files_list.flatten 
   end
-  
-#  def get_fastqc_files(lab_dir_name)
-#    
-#    datafile_path = File.join(ResultFile::BASE_PATH, lab_dir_name) 
-#    
-#    if (File.directory?(datafile_path))
-#           
-#      Dir.chdir(datafile_path)
-#    
-#      files_list = []
-#      Dir.foreach('.') do |fdir| # go through dir looking for fastqc zip files       
-#        next if ((File.directory?(fn)) || (fn[0].chr == '.'))
-#        fastqc_dir = fn
-#        files_list.push(lab_dir_name + '/' + fastqc_dir) if fn.match('fastqc.zip')
-#      end
-#         
-#      Dir.chdir(RAILS_ROOT) 
-#      
-#      return files_list
-#    else    
-#      return nil    
-#    end # if datafile path  
-#  end
+=end
+
+=begin
+  # get fastqc folder in a zipped format
+  def get_fastqc_files(lab_dir_name)
+    
+    datafile_path = File.join(ResultFile::BASE_PATH, lab_dir_name) 
+    
+    if (File.directory?(datafile_path))
+           
+      Dir.chdir(datafile_path)
+    
+      files_list = []
+      Dir.foreach('.') do |fdir| # go through dir looking for fastqc zip files       
+        next if ((File.directory?(fn)) || (fn[0].chr == '.'))
+        fastqc_dir = fn
+        files_list.push(lab_dir_name + '/' + fastqc_dir) if fn.match('fastqc.zip')
+      end
+         
+      Dir.chdir(RAILS_ROOT) 
+      
+      return files_list
+    else    
+      return nil    
+    end # if datafile path  
+  end
+=end
   
   # debug for development only
   def trunc_tables
-    ResultFile.connection.execute("TRUNCATE TABLE seq_runs")
-    ResultFile.connection.execute("TRUNCATE TABLE seq_lanes")
-    ResultFile.connection.execute("TRUNCATE TABLE result_files")
     ResultFile.connection.execute("TRUNCATE TABLE result_files_seq_lanes")
+    ResultFile.connection.execute("TRUNCATE TABLE result_files")
+    ResultFile.connection.execute("TRUNCATE TABLE seq_lanes")
+    ResultFile.connection.execute("TRUNCATE TABLE seq_runs")    
   end
   
 end

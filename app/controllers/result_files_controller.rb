@@ -9,11 +9,11 @@ class ResultFilesController < ApplicationController
   
   def fastqc_show    
     lab_dir_name = Lab.find(current_user.lab.id).lab_dirname
-    fastqc_dir = params[:dir]
-    fastqc_file = File.join(ResultFile::BASE_PATH, lab_dir_name, fastqc_dir, 'fastqc_report.html')
-    fastqc_file_cc = File.join(ResultFile::BASE_PATH, lab_dir_name, fastqc_dir, 'fastqc_report_copy.html')
-    fastqc_file_icons = File.join(RAILS_ROOT, ResultFile::BASE_PATH, lab_dir_name, fastqc_dir, 'Icons/')
-    fastqc_file_images = File.join(RAILS_ROOT, ResultFile::BASE_PATH, lab_dir_name, fastqc_dir, 'Images/')
+    fastqc_dir = File.join(ResultFile::REL_PATH, lab_dir_name, params[:dir])
+    fastqc_file = File.join(fastqc_dir, 'fastqc_report.html')
+    fastqc_file_cc = File.join(fastqc_dir, 'fastqc_report_copy.html')
+    fastqc_file_icons = File.join(RAILS_ROOT, fastqc_dir, 'Icons/')
+    fastqc_file_images = File.join(RAILS_ROOT, fastqc_dir, 'Images/')
     public_images_lab = File.join(RAILS_ROOT, '/public/images/', lab_dir_name, '/')
     public_images_lab_fastqc_dir = File.join(RAILS_ROOT, '/public/images/', lab_dir_name, '/', fastqc_dir)
 
@@ -36,7 +36,7 @@ class ResultFilesController < ApplicationController
     # create report file copy and modify image path if not already there
     unless File.exists?(fastqc_file_cc)         
       FileUtils.copy(fastqc_file, fastqc_file_cc)
-      html_imgs_change_path(fastqc_file, fastqc_file_cc, lab_dir_name, fastqc_dir)
+      html_imgs_change_path(fastqc_file, fastqc_file_cc, lab_dir_name, params[:dir])
       #message = fastqc_file_cc + ' file created and modified'
     end
 
@@ -47,7 +47,7 @@ class ResultFilesController < ApplicationController
   def show
     rfile = ResultFile.find(params[:id]) 
     labname_dir = Lab.find(current_user.lab.id).lab_dirname   
-    send_file(File.join(ResultFile::BASE_PATH, labname_dir, rfile[:document]), 
+    send_file(File.join(ResultFile::REL_PATH, labname_dir, rfile[:document]), 
                         :type => rfile[:document_content_type], :disposition => 'inline')
   end
   
@@ -68,7 +68,7 @@ class ResultFilesController < ApplicationController
   def edit_multi 
     @labs = Lab.find(:all, :order => :lab_name) 
     @chosen_lab  = Lab.find(params[:lab_id])
-    @datafile_path = File.join(ResultFile::BASE_PATH, @chosen_lab.lab_dirname)
+    @datafile_path = File.join(ResultFile::REL_PATH, @chosen_lab.lab_dirname)
        
     @results_on_filesystem = get_files_from_filesystem(@chosen_lab.lab_dirname, @chosen_lab.id)
     if (@results_on_filesystem.blank?) #directory does not exist or is empty
@@ -139,7 +139,7 @@ class ResultFilesController < ApplicationController
     
     result_file.destroy
     lab_dir_name = Lab.find(params[:lab_id]).lab_dirname  
-    File.delete(File.join(ResultFile::BASE_PATH, lab_dir_name, result_file.document))     
+    File.delete(File.join(ResultFile::REL_PATH, lab_dir_name, result_file.document))     
     
     redirect_to :action => 'edit_multi', :lab_id => params[:lab_id]   
   end
@@ -151,7 +151,7 @@ class ResultFilesController < ApplicationController
 protected
   
   def get_files_from_filesystem(lab_dir_name, lab_id)
-    datafile_path = File.join(ResultFile::BASE_PATH, lab_dir_name) 
+    datafile_path = File.join(ResultFile::REL_PATH, lab_dir_name) 
     files_list = []
     
     if (File.directory?(datafile_path))
@@ -168,14 +168,14 @@ protected
   end
 
   def get_fastqc_dirs(lab_dir_name)
-    datafile_path = File.join(ResultFile::BASE_PATH, lab_dir_name) # relative path -> university dirname
+    datafile_path = File.join(ResultFile::REL_PATH, lab_dir_name) # relative path -> university dirname
     dirs_list = get_dir_list(datafile_path, '_fastqc')
     return dirs_list
   end
-
+  
 =begin
   def get_fastqc_html(lab_dir_name)
-    datafile_path = File.join(RAILS_ROOT, ResultFile::BASE_PATH, lab_dir_name)
+    datafile_path = File.join(RAILS_ROOT, ResultFile::REL_PATH, lab_dir_name)
     dirs_list = get_dir_list(datafile_path, '_fastqc')
     
     files_list = []
@@ -193,7 +193,7 @@ protected
   # get fastqc folder in a zipped format
   def get_fastqc_files(lab_dir_name)
     
-    datafile_path = File.join(ResultFile::BASE_PATH, lab_dir_name) 
+    datafile_path = File.join(ResultFile::REL_PATH, lab_dir_name) 
     
     if (File.directory?(datafile_path))
            

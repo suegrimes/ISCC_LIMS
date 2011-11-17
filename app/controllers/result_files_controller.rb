@@ -21,7 +21,7 @@ class ResultFilesController < ApplicationController
       FileUtils.mkdir(public_images_lab) 
     end
     # make fastqcdir if not already there
-    public_images_lab_fastqc_dir = public_images_lab(params[:dir])
+    public_images_lab_fastqc_dir = File.join(public_images_lab, params[:dir])
     unless (File.exists?(public_images_lab_fastqc_dir))
       FileUtils.mkdir(public_images_lab_fastqc_dir) 
     end

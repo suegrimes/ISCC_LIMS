@@ -9,28 +9,28 @@ class ResultFilesController < ApplicationController
   
   def fastqc_show    
     lab_dir_name = Lab.find(current_user.lab.id).lab_dirname
-    fastqc_dir = File.join(ResultFile::REL_PATH, lab_dir_name, params[:dir])
+    fastqc_dir = File.join(ResultFile::ABS_PATH, lab_dir_name, params[:dir])
     fastqc_file = File.join(fastqc_dir, 'fastqc_report.html')
     fastqc_file_cc = File.join(fastqc_dir, 'fastqc_report_copy.html')
-    fastqc_file_icons = File.join(RAILS_ROOT, fastqc_dir, 'Icons/')
-    fastqc_file_images = File.join(RAILS_ROOT, fastqc_dir, 'Images/')
-    public_images_lab = File.join(RAILS_ROOT, '/public/images/', lab_dir_name, '/')
-    public_images_lab_fastqc_dir = File.join(RAILS_ROOT, '/public/images/', lab_dir_name, '/', fastqc_dir)
+    fastqc_dir_icons = File.join(fastqc_dir, 'Icons/')
+    fastqc_dir_images = File.join(fastqc_dir, 'Images/')
 
     # make lab dir if not already there
+    public_images_lab = public_image_dir(lab_dir_name)
     unless (File.exists?(public_images_lab))
       FileUtils.mkdir(public_images_lab) 
     end
     # make fastqcdir if not already there
+    public_images_lab_fastqc_dir = public_images_lab(params[:dir])
     unless (File.exists?(public_images_lab_fastqc_dir))
       FileUtils.mkdir(public_images_lab_fastqc_dir) 
     end
     # make symlinks of image folders in images fastqc dir if not already there
-    icons_linkpath = public_images_lab_fastqc_dir + '/Icons'
-    images_linkpath = public_images_lab_fastqc_dir + '/Images'
-    unless (File.symlink?(icons_linkpath) && File.symlink?(images_linkpath))
-      FileUtils.ln_s(fastqc_file_icons, public_images_lab_fastqc_dir, :force => true)
-      FileUtils.ln_s(fastqc_file_images, public_images_lab_fastqc_dir, :force => true)
+    public_icons_linkpath = public_images_lab_fastqc_dir + '/Icons'
+    public_images_linkpath = public_images_lab_fastqc_dir + '/Images'
+    unless (File.symlink?(public_icons_linkpath) && File.symlink?(public_images_linkpath))
+      FileUtils.ln_s(fastqc_dir_icons, public_icons_linkpath, :force => true)
+      FileUtils.ln_s(fastqc_dir_images, public_images_linkpath, :force => true)
       #message = icons_linkpath + ' & ' + images_linkpath + ' created'
     end
     # create report file copy and modify image path if not already there
@@ -171,6 +171,14 @@ protected
     datafile_path = File.join(ResultFile::REL_PATH, lab_dir_name) # relative path -> university dirname
     dirs_list = get_dir_list(datafile_path, '_fastqc')
     return dirs_list
+  end
+  
+  def public_image_dir(lab_dir=nil)
+    if lab_dir.nil? 
+      return File.join(RAILS_ROOT, 'public', 'images')
+    else
+      return File.join(RAILS_ROOT, 'public', 'images', lab_dir)
+    end
   end
   
 =begin

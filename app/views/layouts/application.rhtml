@@ -29,7 +29,7 @@
 <body id='body'>
 
 <% if ["sessions", "users", "auth_users", "welcome"].include?(controller.controller_name) %>
-<div id="container" style="width: 70%;">
+<div id="container" style="width: 800px;">
 <% else %>
 <div id="container" style="width: 98%;">
 <% end %>
@@ -38,13 +38,20 @@
   <table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-bottom: 0;">
     <tr>
       <td valign="top" rowspan="2" width="180"><div class="logo"><%= image_tag("SU_Seal_Card_pos_89.gif", :height => "89", :alt => "Stanford Genome Technology") %></div></td>
-      <td valign="top"><div class="sitename-graphic"><%= image_tag("iscc_sitename.gif", :height => "58", :alt => "SGTC Sequencing Database") %></div></td>
+      <td>          
+        <table align="center">
+          <tr>
+            <td>
+              <div class="sitename-graphic"><%= image_tag("iscc-rnaseq-sitename.gif", :height => "45", :title => "Intestinal Stem Cell Consortium", :alt => "Intestinal Stem Cell Consortium") %></div>
+              <div class="sitename-description">Intestinal Stem Cell Consortium</div>         
+            </td>
+          </tr>
+        </table> 
+      </td>
       <td valign="top" width="180"><div class="version"><% if APP_VERSION %>Version: <%= APP_VERSION %><% end %><br /><% if RAILS_ENV != 'production'%> <span style="font-size:larger;">(<%= RAILS_ENV%>)</span><%end%></div></td>
     </tr>
-    <tr>
-      <% if RAILS_ENV == 'development' %>
-      <td><div class="tagline"><!-- header text here --></div></td> 
-	  <% end %>     
+    <tr>     
+      <td><div class="tagline">&nbsp;</div></td>    
       <td valign="bottom">
       	<% if logged_in? %>
         <div class="logout-link">

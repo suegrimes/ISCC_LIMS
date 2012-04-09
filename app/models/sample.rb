@@ -69,4 +69,10 @@ class Sample < ActiveRecord::Base
     (number_of_cells.nil? ? true : (number_of_cells < MIN_CELLS ? true : false))
   end
   
+  def self.find_and_group_by_lab(user, condition_array=nil)
+    samples = self.userlab(user).find(:all, :include => [:shipment, :lab], :order => 'lab_id, barcode_key', 
+                                      :conditions => condition_array)
+    return samples.group_by {|sample| sample.lab.lab_name}
+  end
+  
 end

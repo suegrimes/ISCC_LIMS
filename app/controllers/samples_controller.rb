@@ -3,7 +3,7 @@ class SamplesController < ApplicationController
   
   # GET /samples
   def index
-    @samples = Sample.userlab(current_user).find(:all, :include => :shipment)
+    @samples = Sample.find_and_group_by_lab(current_user)
   end
   
   def list_intransit

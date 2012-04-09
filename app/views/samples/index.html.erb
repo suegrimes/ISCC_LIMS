@@ -17,7 +17,11 @@
     <th colspan="4"></th>
   </tr>
 
-<% @samples.each do |sample| %>
+<% @samples.sort.each do |lab_name, samples| %>
+<tr>
+  <th colspan="16">Lab: <%=h lab_name %></th>
+</tr>
+<% samples.each do |sample| %>
   <tr>
     <td><%=link_to sample.barcode_key, sample %></td>
     <td><%=h sample.sample_name %></td>
@@ -50,6 +54,7 @@
     <td class="ltgrey">Delete</td>
     <% end %>
   </tr>
+<% end %>
 <% end %>
 </table>
 <%= link_to 'New sample', new_sample_path %>

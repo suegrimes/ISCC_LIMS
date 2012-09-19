@@ -32,9 +32,9 @@ class ResultFilesController < ApplicationController
   def edit_multi 
     @labs = Lab.find(:all, :order => :lab_name) 
     @chosen_lab  = Lab.find(params[:lab_id])
-    @datafile_path = File.join(ResultFile::ABS_PATH, @chosen_lab.lab_dirname)
+    @datafile_path = File.join(ResultFile::ABS_PATH, @chosen_lab.lab_dir)
        
-    @results_on_filesystem = get_files_from_filesystem(@chosen_lab.lab_dirname, @chosen_lab.id)
+    @results_on_filesystem = get_files_from_filesystem(@chosen_lab.lab_dir, @chosen_lab.id)
     if (@results_on_filesystem.blank?) #directory does not exist or is empty
       #flash.now[:error] = "Sorry, no result files available for #{@chosen_lab.lab_name}"
       flash.now[:error] = "Sorry, no result files found for #{@chosen_lab.lab_name} in directory: #{@datafile_path}"
@@ -103,7 +103,7 @@ class ResultFilesController < ApplicationController
     result_file.destroy
     
     result_lab = Lab.find(params[:lab_id])
-    File.delete(result_file.doc_path(result_lab.lab_dirname))
+    File.delete(result_file.doc_path(result_lab.lab_dir))
     
     redirect_to :action => 'edit_multi', :lab_id => params[:lab_id]   
   end

@@ -1,3 +1,6 @@
 
 Params: <%= debug(params) %>
+Result File: <%= debug(@rfile) %>
+Lab dir: <%= @lab_dir %>
 
+Full path: <%= @rfile.doc_path(@lab_dir) %>

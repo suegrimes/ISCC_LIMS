@@ -1,25 +1,20 @@
-<h1>Result Files Linked to Lanes for <%= @chosen_lab.lab_name %></h1>
+<h1>Result Files Linked to Samples for <%= @chosen_lab.lab_name %></h1>
 
 <table class="list">
   <tr>
      <th>Result File</th>
-	 <th>Seq Run/Lanes</th>
 	 <th>Samples</th>
 	 <th>Notes</th>
   </tr>
   
   <% @result_files.each do |rfile| %>
-  <% next if rfile.seq_lanes.blank? %>
+  <% next if rfile.samples.blank? %>
   
-  <% lane_array = rfile.seq_lanes.map {|lane| [ 'Run ' + lane.seq_run_nr.to_s, 'Lane ' + lane.lane_nr.to_s].join('/')} %>
-  <% lanes_string = lane_array.join('<br/>')%>
-  
-  <% sample_array = rfile.seq_lanes.map {|lane| [lane.sample.barcode_key, lane.sample.sample_name].join('/')} %>
+  <% sample_array = rfile.samples.map {|sample| [sample.barcode_key, sample.sample_name].join('/')} %>
   <% samples_string = sample_array.join('<br/>')%> 
   
   <tr>
   	<td><strong><%= link_to rfile.document, rfile %></strong></td>
-	<td><%= lanes_string %></td>
 	<td><%= samples_string %></td>
 	<td><%=h rfile.notes %></td>
   </tr>

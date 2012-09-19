@@ -5,34 +5,20 @@
      <th>Result File</th>
 	 <th>Samples(barcode/name)</th>
 	 <th>Notes</th>
+	 <th></th>
   </tr>
   
   <% @result_files.each do |rfile| %>
-  <% next if rfile.seq_lanes.blank? %>
+  <% next if rfile.samples.blank? %>
   
-  <% sample_array = rfile.seq_lanes.map {|lane| [lane.sample.barcode_key, lane.sample.sample_name].join('/')} %>
+  <% sample_array = rfile.samples.map {|sample| [sample.barcode_key, sample.sample_name].join('/')} %>
   <% samples_string = sample_array.join('<br/>')%> 
   <tr>
   	<td><strong><%= link_to rfile.document, rfile %></strong></td>
 	<td><%= samples_string %></td>
 	<td><%=h rfile.notes %></td>
+	<td><%=link_to 'Download', :action => 'download', :id => rfile.id %></td>
   </tr>
   <% end %>
 </table>
 
-<% if !@fastqc_dirs.empty? %>
-<table class="list">
-  <tr>
-  	<th>Sample Barcode</th>
-	<th>FastQC File</th>
-  </tr>
-  
-  <% @fastqc_dirs.each do |dir| %>
-  <% barcode = dir.scan(/(.*)_fastqc/) %>
-  <tr>
-  	<td><%=h barcode %></td>
-	<td><%= link_to 'Show FastQC', {:action => :fastqc_show, :dir => dir} %></td>
-  </tr>
-  <% end %>
-<% end %>
-</table>

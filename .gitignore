@@ -6,4 +6,5 @@ config/*.yml
 lib/mysql.rb
 public/javascripts/all.js
 public/files/dataDownloads/*
+data_files/*
 

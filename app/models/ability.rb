@@ -37,7 +37,7 @@ class Ability
     
     # Everyone can view result_files for their own lab only (access to index view managed in controller)
     can :index, ResultFile
-    can [:show, :fastqc_show], ResultFile do |result_file|
+    can [:show, :fastqc_show, :download], ResultFile do |result_file|
       result_file.lab_id == user.lab_id
     end
     

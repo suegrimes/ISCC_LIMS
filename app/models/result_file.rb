@@ -13,12 +13,16 @@
 #
 
 class ResultFile < ActiveRecord::Base
-    has_and_belongs_to_many :seq_lanes
-    belongs_to :lab
-    belongs_to :user, :foreign_key => :updated_by
+  has_and_belongs_to_many :samples
+  belongs_to :lab
+  belongs_to :user, :foreign_key => :updated_by
     
-    REL_PATH = (CAPISTRANO_DEPLOY ? File.join("..", "..", "shared", "data_files") : File.join("..", "..", "ISCC_RNASeq"))
-    ABS_PATH = File.join(RAILS_ROOT, REL_PATH)
-    #BASE_PATH = File.join('..','..','ISCC_RNASeq')
-    #BASE_PATH = File.join('..','..','test', 'dataDownload')
+  REL_PATH = (CAPISTRANO_DEPLOY ? File.join("..", "..", "shared", "data_files") : "data_files")
+  ABS_PATH = File.join(RAILS_ROOT, REL_PATH)
+  #BASE_PATH = File.join('..','..','ISCC_RNASeq')
+  #BASE_PATH = File.join('..','..','test', 'dataDownload')
+  
+  def doc_path(lab_dir)
+    File.join(self.class::ABS_PATH, lab_dir, document)
+  end
 end

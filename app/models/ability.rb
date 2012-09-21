@@ -43,9 +43,9 @@ class Ability
     
     return nil if user == :false
 
-    # Sequencing admins can manage sequencing runs, lanes, and result files
+    # Sequencing admins can manage shipment and result files
     if user.has_seq_access?
-      can :manage, [Sample, Shipment, SeqRun, SeqLane, ResultFile]
+      can :manage, [Sample, Shipment, ResultFile]
       cannot [:edit, :update, :delete], Sample do |sample|
         sample.lab_id != user.lab_id
       end

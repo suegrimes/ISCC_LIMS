@@ -17,7 +17,7 @@ class ResultFile < ActiveRecord::Base
   belongs_to :lab
   belongs_to :user, :foreign_key => :updated_by
     
-  REL_PATH = (CAPISTRANO_DEPLOY ? File.join("..", "..", "shared", "data_files") : "data_files")
+  REL_PATH = (CAPISTRANO_DEPLOY ? File.join("..", "..", "shared", "data_files") : File.join("..", "..", "ISCC_RNASeq"))
   ABS_PATH = File.join(RAILS_ROOT, REL_PATH)
   #BASE_PATH = File.join('..','..','ISCC_RNASeq')
   #BASE_PATH = File.join('..','..','test', 'dataDownload')

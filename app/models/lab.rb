@@ -16,7 +16,6 @@ class Lab < ActiveRecord::Base
   #named_scope :user_lab, {:conditions => ["id = ?", User.current_user.lab_id]}
   STANFORD_LAB_ID = 7
   
-  # Renamed, no longer used (previously lab_dirname)
   def lab_calcdir
     lab_downcase = lab_name.downcase
     return (lab_downcase.match(/\s/) ? lab_downcase.gsub!(/ /, '_') : lab_downcase)

@@ -8,12 +8,12 @@ class ResultFilesController < ApplicationController
   
   def show
     rfile = ResultFile.find(params[:id]) 
-    send_file(rfile.doc_path(rfile.lab.user_lab_dir), :type => rfile[:document_content_type], :disposition => 'inline')
+    send_file(rfile.doc_path(rfile.lab.lab_dir), :type => rfile[:document_content_type], :disposition => 'inline')
   end
   
   def download
     rfile = ResultFile.find(params[:id])
-    send_file(rfile.doc_path(rfile.lab.user_lab_dir), :type => rfile[:document_content_type], :disposition => 'attachment')
+    send_file(rfile.doc_path(rfile.lab.lab_dir), :type => rfile[:document_content_type], :disposition => 'attachment')
   end
   
   def choose_lab

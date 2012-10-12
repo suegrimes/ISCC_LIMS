@@ -4,6 +4,7 @@
   <tr>
      <th>Result File</th>
 	 <th>Samples(barcode/name)</th>
+	 <th>File Size(MB)</th>
 	 <th>Notes</th>
 	 <th></th>
   </tr>
@@ -20,6 +21,7 @@
   	<td><strong><%= link_to rfile.document, rfile %></strong></td>
 	<% end %>
 	<td><%= samples_string %></td>
+	<td><%= rfile.fileMB %></td>
 	<td><%=h rfile.notes %></td>
 	<td><%=link_to 'Download', :action => 'download', :id => rfile.id %></td>
   </tr>

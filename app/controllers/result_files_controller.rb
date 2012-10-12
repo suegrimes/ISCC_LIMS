@@ -2,17 +2,18 @@ class ResultFilesController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @result_files = ResultFile.find(:all, :include => :samples, :conditions => {:lab_id => current_user.lab.id})
+    @result_files = ResultFile.find(:all, :include => :samples, :conditions => {:lab_id => current_user.lab.id},
+                                    :order => "result_files.document, samples.sample_name")
   end
   
   def show
     rfile = ResultFile.find(params[:id]) 
-    send_file(rfile.doc_path(Lab.user_lab_dir), :type => rfile[:document_content_type], :disposition => 'inline')
+    send_file(rfile.doc_path(rfile.lab.user_lab_dir), :type => rfile[:document_content_type], :disposition => 'inline')
   end
   
   def download
     rfile = ResultFile.find(params[:id])
-    send_file(rfile.doc_path(Lab.user_lab_dir), :type => rfile[:document_content_type], :disposition => 'attachment')
+    send_file(rfile.doc_path(rfile.lab.user_lab_dir), :type => rfile[:document_content_type], :disposition => 'attachment')
   end
   
   def choose_lab

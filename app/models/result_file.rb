@@ -22,6 +22,11 @@ class ResultFile < ActiveRecord::Base
   #BASE_PATH = File.join('..','..','ISCC_RNASeq')
   #BASE_PATH = File.join('..','..','test', 'dataDownload')
   
+  def fileMB
+    mb_size = document_file_size.to_f / 1024 / 1024
+    return sprintf("%.2f", mb_size)
+  end
+  
   def doc_path(lab_dir)
     File.join(self.class::ABS_PATH, lab_dir, document)
   end

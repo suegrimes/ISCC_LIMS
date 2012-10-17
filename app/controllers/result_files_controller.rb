@@ -11,6 +11,11 @@ class ResultFilesController < ApplicationController
     send_file(rfile.doc_path(rfile.lab.lab_dir), :type => rfile[:document_content_type], :disposition => 'inline')
   end
   
+  def show_rdef
+    headers["Content-Type"] = "application/vnd.ms-excel"
+    send_file("#{ResultFile::RFILE_RDEF_PATH}") 
+  end
+  
   def download
     rfile = ResultFile.find(params[:id])
     send_file(rfile.doc_path(rfile.lab.lab_dir), :type => rfile[:document_content_type], :disposition => 'attachment')

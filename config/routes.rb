@@ -26,16 +26,17 @@ ActionController::Routing::Routes.draw do |map|
   map.sample_results 'sample_results',           :controller => :samples, :action => :show_results
   
   # Sequencing Runs/Lanes/QC
-  map.resources :seq_runs
-  map.resources :seq_lanes
-  map.resources :seq_qc
+  #map.resources :seq_runs
+  #map.resources :seq_lanes
+  #map.resources :seq_qc
 
   # Result Files
   map.resources :result_files
+  map.show_rdef  'show_rdef',      :controller => 'result_files', :action => 'show_rdef'
   map.choose_lab 'choose_lab',     :controller => 'result_files', :action => 'choose_lab'
   map.edit_multi 'edit_multi',     :controller => 'result_files', :action => 'edit_multi'
   map.update_multi 'update_multi', :controller => 'result_files', :action => 'update_multi'
-  map.fastqc_show 'fastqc_show',   :controller => 'result_files', :action => 'fastqc_show'
+  #map.fastqc_show 'fastqc_show',   :controller => 'result_files', :action => 'fastqc_show'
   map.destroy 'destroy',           :controller => 'result_files', :action => 'destroy'
   
   # Install the default routes as the lowest priority.

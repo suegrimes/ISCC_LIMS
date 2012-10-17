@@ -19,6 +19,7 @@ class ResultFile < ActiveRecord::Base
     
   REL_PATH = (CAPISTRANO_DEPLOY ? File.join("..", "..", "shared", "data_files") : File.join("..", "..", "ISCC_RNASeq"))
   ABS_PATH = File.join(RAILS_ROOT, REL_PATH)
+  RFILE_RDEF_PATH = File.join(RAILS_ROOT, 'public', 'files', 'Result_ColumnDefs.xls')
   #BASE_PATH = File.join('..','..','ISCC_RNASeq')
   #BASE_PATH = File.join('..','..','test', 'dataDownload')
   

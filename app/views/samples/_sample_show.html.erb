@@ -2,7 +2,8 @@
 <legend>Sample Details</legend>
 <table class="info">
     <tr>
-      <th>Barcode:</th><td colspan="3"><%=h sample.barcode_key %></td>
+      <th>Barcode:</th><td><%=h sample.barcode_key %></td>
+	  <th>Condition:</th><td><%=h sample.condition.marker_name if sample.condition %></td>
 	</tr>
 	<tr>
       <th>Sample Name:</th><td><%=h sample.sample_name %></td>

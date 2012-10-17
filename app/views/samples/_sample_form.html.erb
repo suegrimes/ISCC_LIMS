@@ -4,6 +4,7 @@
 	<tr>
 	  <th><%=f.label :sample_name %>:</th><td><%=f.text_field(:sample_name, :size => 25) %></td>
 	  <th><%=f.label :sample_date %>:</th><td><%=f.calendar_date_select(:sample_date, :size => 10, :valid_date_check => "date <= (new Date()).stripTime()") %></td>
+	  <th><%=f.label :condition_id, 'Condition' %></th><td><%=f.collection_select(:condition_id, @conditions, :id, :marker_name) %></td>
 	</tr>
 	<tr>
 	  <th><%=f.label :organism %>:</th><td><%=f.text_field(:organism, :size => 25) %></td>

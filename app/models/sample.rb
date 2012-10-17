@@ -29,6 +29,7 @@
 
 class Sample < ActiveRecord::Base
   belongs_to :lab
+  belongs_to :condition
   has_one :shipment
   has_and_belongs_to_many :result_files
   

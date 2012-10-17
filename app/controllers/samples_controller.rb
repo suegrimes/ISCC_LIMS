@@ -24,6 +24,7 @@ class SamplesController < ApplicationController
   # GET /samples/new
   def new
     @sample = Sample.new(Sample::SAMPLE_DEFAULT)
+    @conditions = Condition.user_lab(current_user).find(:all)
   end
   
   def shipment_confirm
@@ -52,6 +53,7 @@ class SamplesController < ApplicationController
   # GET /samples/1/edit
   def edit
     @sample = Sample.find(params[:id], :include => :shipment)
+    @conditions = Condition.userlab(current_user).find(:all)
   end
 
   # POST /samples

@@ -2,8 +2,7 @@ class ResultFilesController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @result_files = ResultFile.find(:all, :include => :samples, :conditions => {:lab_id => current_user.lab.id},
-                                    :order => "result_files.document, samples.sample_name")
+    @result_files = ResultFile.find_and_group_by_lab(current_user)
   end
   
   def show

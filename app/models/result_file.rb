@@ -16,6 +16,8 @@ class ResultFile < ActiveRecord::Base
   has_and_belongs_to_many :samples
   belongs_to :lab
   belongs_to :user, :foreign_key => :updated_by
+  
+  named_scope :userlab, lambda{|user| {:conditions => (user.has_admin_access? ? nil : ["result_files.lab_id = ?", user.lab_id])}}
     
   REL_PATH = (CAPISTRANO_DEPLOY ? File.join("..", "..", "shared", "data_files") : File.join("..", "..", "ISCC_RNASeq"))
   ABS_PATH = File.join(RAILS_ROOT, REL_PATH)
@@ -30,5 +32,11 @@ class ResultFile < ActiveRecord::Base
   
   def doc_path(lab_dir)
     File.join(self.class::ABS_PATH, lab_dir, document)
+  end
+  
+  def self.find_and_group_by_lab(user, condition_array=nil)
+    rfiles = self.userlab(user).find(:all, :include => :samples, :order => 'result_files.lab_id, result_files.document, samples.sample_name', 
+                                      :conditions => condition_array)
+    return rfiles.group_by {|rfile| rfile.lab.lab_name}
   end
 end

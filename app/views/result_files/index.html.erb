@@ -1,4 +1,4 @@
-<h1>Listing Result Files for <%=h current_user.lab.lab_name %></h1>
+<h1>Listing Result Files</h1>
 
 <table class="list" width="75%">
   <tr>
@@ -9,7 +9,12 @@
 	 <th></th>
   </tr>
   
-  <% @result_files.each do |rfile| %>
+  <% @result_files.sort.each do |lab_name, result_files| %>
+  <tr>
+    <th colspan="16">Lab: <%=h lab_name %></th>
+  </tr>
+  
+  <% result_files.each do |rfile| %>
   <% next if rfile.samples.blank? %>
   
   <% sample_array = rfile.samples.map {|sample| [sample.barcode_key, sample.sample_name].join('/')} %>
@@ -25,6 +30,7 @@
 	<td><%=h rfile.notes %></td>
 	<td><%=link_to 'Download', :action => 'download', :id => rfile.id %></td>
   </tr>
+  <% end %>
   <% end %>
 </table>
 

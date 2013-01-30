@@ -42,7 +42,7 @@ class Sample < ActiveRecord::Base
   
   before_validation_on_create :set_barcode
   
-  named_scope :userlab, lambda{|user| {:conditions => (user.has_admin_access? ? nil : ["samples.lab_id = ?", user.lab_id])}}
+  named_scope :userlab, lambda{|user| {:conditions => (user.has_consortium_access? ? nil : ["samples.lab_id = ?", user.lab_id])}}
   
   SEX = ['Male', 'Female']
   SC_MARKERS = ['Lgr5 hi', 'Lgr5 lo', 'Bmi1', 'SP hi', 'SP lo', 'label-retaining', 'CD166',

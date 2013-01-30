@@ -15,6 +15,7 @@ class Lab < ActiveRecord::Base
   
   #named_scope :user_lab, {:conditions => ["id = ?", User.current_user.lab_id]}
   STANFORD_LAB_ID = 7
+  PRINCETON_LAB_ID = 11
   
   def lab_calcdir
     lab_downcase = lab_name.downcase

@@ -43,14 +43,6 @@ class Ability
     
     return nil if user == :false
 
-    # Sequencing admins can manage shipment and result files
-    if user.has_seq_access?
-      can :manage, [Sample, Shipment, ResultFile]
-      cannot [:edit, :update, :delete], Sample do |sample|
-        sample.lab_id != user.lab_id
-      end
-    end
-    
     # Admins have access to all functionality (except edit/delete of other lab's samples)
     if user.has_admin_access?
       can :manage, :all

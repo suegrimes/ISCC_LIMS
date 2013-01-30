@@ -64,8 +64,8 @@ class User < ActiveRecord::Base
     #lab_id == Lab::STANFORD_LAB_ID
   end
   
-  def has_seq_access?
-    (['admin', 'seq_admin'].include?(role) && lab_id == Lab::STANFORD_LAB_ID ? true : false)
+  def has_consortium_access?
+    (role == 'admin' && [Lab::STANFORD_LAB_ID, Lab::PRINCETON_LAB_ID].include?(lab_id) ? true : false)
   end
 
   # Activates the user in the database.

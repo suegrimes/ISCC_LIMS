@@ -17,7 +17,7 @@ class ResultFile < ActiveRecord::Base
   belongs_to :lab
   belongs_to :user, :foreign_key => :updated_by
   
-  named_scope :userlab, lambda{|user| {:conditions => (user.has_admin_access? ? nil : ["result_files.lab_id = ?", user.lab_id])}}
+  named_scope :userlab, lambda{|user| {:conditions => (user.has_consortium_access? ? nil : ["result_files.lab_id = ?", user.lab_id])}}
     
   REL_PATH = (CAPISTRANO_DEPLOY ? File.join("..", "..", "shared", "data_files") : File.join("..", "..", "ISCC_RNASeq"))
   ABS_PATH = File.join(RAILS_ROOT, REL_PATH)

@@ -42,6 +42,11 @@ class Ability
     end
     
     return nil if user == :false
+    
+    # Users with consortium access can view/download all result files
+    if user.has_consortium_access?
+      can [:index, :show_rdef, :show, :fastqc_show, :download], ResultFile
+    end
 
     # Admins have access to all functionality (except edit/delete of other lab's samples)
     if user.has_admin_access?

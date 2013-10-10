@@ -65,7 +65,8 @@ class User < ActiveRecord::Base
   end
   
   def has_consortium_access?
-    (role == 'admin' && [Lab::STANFORD_LAB_ID, Lab::PRINCETON_LAB_ID].include?(lab_id) ? true : false)
+    #(role == 'admin' && [Lab::STANFORD_LAB_ID, Lab::PRINCETON_LAB_ID].include?(lab_id) ? true : false)
+    true
   end
 
   # Activates the user in the database.

@@ -25,8 +25,8 @@ class Ability
     end
     
     # Everyone can manage samples & shipments for their own lab only
-    can [:new, :create, :index, :show_sop], Sample
-    can [:show, :edit, :update, :shipment_confirm, :sample_ship, :delete], Sample do |sample|
+    can [:new, :create, :index, :show, :show_sop], Sample
+    can [:edit, :update, :shipment_confirm, :sample_ship, :delete], Sample do |sample|
       sample.lab_id == user.lab_id
     end
     

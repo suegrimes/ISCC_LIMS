@@ -14,7 +14,8 @@
     <th colspan="16">Lab: <%=h lab_name %></th>
   </tr>
   
-  <% result_files.each do |rfile| %>
+  <% sorted_rfiles = result_files.sort_by{|f| f.document } %>
+  <% sorted_rfiles.each do |rfile| %>
   <% next if rfile.samples.blank? %>
   
   <% sample_array = rfile.samples.map {|sample| [sample.barcode_key, sample.sample_name].join('/')} %>

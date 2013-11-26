@@ -14,10 +14,10 @@
 /log/*.log
 /tmp
 
-.project
-.DS_Store
-.idea
-.secret
+/.project
+/.DS_Store
+/.idea
+/.secret
 
 /config/database.yml
 /config/initializers/secret_token.rb

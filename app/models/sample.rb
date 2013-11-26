@@ -42,7 +42,7 @@ class Sample < ActiveRecord::Base
   
   before_validation_on_create :set_barcode
   
-  named_scope :userlab, lambda{|user| {:conditions => (user.has_consortium_access? ? nil : ["samples.lab_id = ?", user.lab_id])}}
+  scope :userlab, lambda{|user| {:conditions => (user.has_consortium_access? ? nil : ["samples.lab_id = ?", user.lab_id])}}
   
   SEX = ['Male', 'Female']
   SC_MARKERS = ['Lgr5 hi', 'Lgr5 lo', 'Bmi1', 'SP hi', 'SP lo', 'label-retaining', 'CD166',
@@ -55,7 +55,7 @@ class Sample < ActiveRecord::Base
                     :age_in_weeks => 6}
   MIN_CELLS = 3000
   
-  SAMPLE_SOP_PATH = File.join(RAILS_ROOT, 'public', 'files', 'Sample_Shipping_SOP.doc')
+  SAMPLE_SOP_PATH = File.join(Rails.root, 'public', 'files', 'Sample_Shipping_SOP.doc')
   
   def barcode_and_name
     [barcode_key,sample_name].join('/')

@@ -1,6 +1,6 @@
 <h1>New Authorized User</h1>
 
-<% form_for(@auth_user) do |f| %>
+<%= form_for(@auth_user) do |f| %>
   <%= f.error_messages %>
 
   <%= render :partial => 'auth_user', :locals => {:f => f} %>

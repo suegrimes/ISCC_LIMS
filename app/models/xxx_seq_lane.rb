@@ -21,7 +21,7 @@ class SeqLane < ActiveRecord::Base
   
   has_and_belongs_to_many :result_files 
   
-  named_scope :userlab, lambda{|user| {:conditions => (user.has_admin_access? ? nil : ["seq_lanes.lab_id = ?", user.lab_id])}}
+  scope :userlab, lambda{|user| {:conditions => (user.has_admin_access? ? nil : ["seq_lanes.lab_id = ?", user.lab_id])}}
  
   def run_lane_sample
     seqrun_num = 'Run #' + seq_run_nr.to_s

@@ -14,7 +14,7 @@
 <h3>No new files</h3>
 <% end %>
 <%= break_clear %>
-<% form_tag(:controller => 'result_files', :action => 'choose_lab') do %>
+<%= form_tag(:controller => 'result_files', :action => 'choose_lab') do %>
   <%= submit_tag "Choose Another Lab" %>
 <% end %>
 <br />
@@ -23,7 +23,7 @@ Previously selected samples are highlighted. To add or select multiple samples, 
 Delete will remove file from data table and filesystem.</strong></div><br />
 <fieldset class="form">
 <legend>Link Result Files to Samples</legend>
-<% form_for(@result_files, :url => {:action => :update_multi}) do |result_file| %>
+<%= form_for(@result_files, :url => {:action => :update_multi}) do |result_file| %>
 <!--% form_for(@result_files, :url => {:action => :debug}) do |result_file| %-->
 <table class="form-with-columns" border="0">
     <tr>

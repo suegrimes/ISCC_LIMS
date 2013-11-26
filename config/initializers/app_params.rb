@@ -2,8 +2,8 @@ META_TAGS = {:description => "ISCC RNA-Seq provides detailed transcriptome analy
 Intestinal Stem Cell Consortium",
              :keywords => ["stanford, rna sequencing, transcriptome, iscc, stem cells, mus musculus, mouse intestinal stem cells"]}
 
-CAPISTRANO_DEPLOY = RAILS_ROOT.include?('releases')
-version_file = "#{RAILS_ROOT}/public/app_versions.txt"
+CAPISTRANO_DEPLOY = "#{Rails.root}".include?('releases')
+version_file = "#{Rails.root}/public/app_versions.txt"
 
 #read App_Versions file to set current application version #
 #version# is first row, first column

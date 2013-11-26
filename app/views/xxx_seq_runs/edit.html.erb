@@ -2,7 +2,7 @@
 <p class="notes">Note: Changes to lane number are limited to switching lanes - cannot add or delete samples/lane
    once sequencing run has been created. </p>
 
-<% form_for(@seq_run) do |f| %>
+<%= form_for(@seq_run) do |f| %>
   <%= f.error_messages %>
   
   <%= render :partial => 'seq_run_form', :locals => {:f => f}%> 

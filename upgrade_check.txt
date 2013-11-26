@@ -1,0 +1,121 @@
+(in /Users/jpalm/dev/Rails/ISCC_LIMS)
+[31m[1mNew file needed: config/application.rb[0m
+[37mYou need to add a config/application.rb.
+[1mMore information:[0m [36mhttp://omgbloglol.com/post/353978923/the-path-to-rails-3-approaching-the-upgrade
+
+[37mThe culprits: 
+[33m	- config/application.rb
+[0m
+[31m[1mDeprecated ERb helper calls[0m
+[37mBlock helpers that use concat (e.g., form_for) should use <%= instead of <%.  The current form will continue to work for now, but you will get deprecation warnings since this form will go away in the future.
+[1mMore information:[0m [36mhttp://weblog.rubyonrails.org/
+
+[37mThe culprits: 
+[33m	- app/views/auth_users/edit.html.erb
+[33m	- app/views/auth_users/new.html.erb
+[33m	- app/views/result_files/edit_multi.html.erb
+[33m	- app/views/samples/edit.html.erb
+[33m	- app/views/samples/new.html.erb
+[33m	- app/views/samples/sample_ship.html.erb
+[33m	- app/views/samples/shipment_confirm.html.erb
+[33m	- app/views/users/edit.html.erb
+[33m	- app/views/users/forgot.html.erb
+[33m	- app/views/users/new.html.erb
+[33m	- app/views/users/reset.html.erb
+[33m	- app/views/xxx_seq_runs/edit.html.erb
+[33m	- app/views/xxx_seq_runs/new.html.erb
+[33m	- app/views/result_files/_lab_form.html.erb
+[33m	- app/views/result_files/update_multi_show.html.erb
+[33m	- app/views/samples/list_intransit.html.erb
+[33m	- app/views/sessions/new.html.erb
+[33m	- app/views/xxx_seq_runs/index.html.erb
+[33m	- app/views/xxx_seq_runs/show.html.erb
+[33m	- app/views/xxx_seq_runs/xxx_setup_params.html.erb
+[33m	- app/views/xxx_seq_runs/_seq_lane_form.html.erb
+[0m
+[31m[1mDeprecated constant(s)[0m
+[37mConstants like RAILS_ENV, RAILS_ROOT, and RAILS_DEFAULT_LOGGER are now deprecated.
+[1mMore information:[0m [36mhttp://litanyagainstfear.com/blog/2010/02/03/the-rails-module/
+
+[37mThe culprits: 
+[33m	- app//models/shipment_mailer.rb
+[33m	- app//views/layouts/application.rhtml
+[33m	- app//controllers/help_controller.rb
+[0m
+[31m[1mSoon-to-be-deprecated ActiveRecord calls[0m
+[37mMethods such as find(:all), find(:first), finds with conditions, and the :joins option will soon be deprecated.
+[1mMore information:[0m [36mhttp://m.onkey.org/2010/1/22/active-record-query-interface
+
+[37mThe culprits: 
+[33m	- app//controllers/auth_users_controller.rb
+[33m	- app//controllers/result_files_controller.rb
+[33m	- app//controllers/samples_controller.rb
+[33m	- app//controllers/sessions_controller.rb
+[33m	- app//controllers/users_controller.rb
+[33m	- app//controllers/xxx_seq_runs_controller.rb
+[33m	- app//models/result_file.rb
+[33m	- app//models/sample.rb
+[33m	- app//models/user_login.rb
+[33m	- app//controllers/result_files_controller.rb
+[33m	- app//controllers/xxx_seq_runs_controller.rb
+[33m	- app//models/user.rb
+[0m
+[31m[1mDeprecated cookie secret setting[0m
+[37mPreviously, cookie secret was set directly on ActionController::Base; it's now config.secret_token.
+[1mMore information:[0m [36mhttp://lindsaar.net/2010/4/7/rails_3_session_secret_and_session_store
+
+[37mThe culprits: 
+[33m	- config/initializers/cookie_verification_secret.rb
+[0m
+[31m[1mDeprecated session secret setting[0m
+[37mPreviously, session secret was set directly on ActionController::Base; it's now config.secret_token.
+[1mMore information:[0m [36mhttp://lindsaar.net/2010/4/7/rails_3_session_secret_and_session_store
+
+[37mThe culprits: 
+[33m	- config/initializers/session_store.rb
+[0m
+[31m[1mOld Rails generator API[0m
+[37mA plugin in the app is using the old generator API (a new one may be available at http://github.com/trydionel/rails3-generators).
+[1mMore information:[0m [36mhttp://blog.plataformatec.com.br/2010/01/discovering-rails-3-generators/
+
+[37mThe culprits: 
+[33m	- vendor/plugins/restful_authentication-03e0075/generators/
+[33m	- vendor/plugins/restful_authentication-03e0075/generators/authenticated/
+[0m
+[31m[1mUpdated syntax for before_validation_on_* methods[0m
+[37mbefore_validation_on_* methods have been changed to before_validation(:on => :create/:update) { ... }
+[1mMore information:[0m [36mhttps://rails.lighthouseapp.com/projects/8994/tickets/4699-before_validation_on_create-and-before_validation_on_update-doesnt-exist
+
+[37mThe culprits: 
+[33m	- app/models//sample.rb
+[33m	- app/models//user.rb
+[0m
+[31m[1mOld router API[0m
+[37mThe router API has totally changed.
+[1mMore information:[0m [36mhttp://yehudakatz.com/2009/12/26/the-rails-3-router-rack-it-up/
+
+[37mThe culprits: 
+[33m	- config/routes.rb
+[0m
+[31m[1mDeprecated ActionMailer attribute :sent_on[0m
+[37mUsing the new mailer API, you can specify :date to the mail method.
+[1mMore information:[0m [36mhttp://stackoverflow.com/questions/7367185/weird-error-when-delivering-mail-undefined-method-index-for-2011-09-09-2215
+
+[37mThe culprits: 
+[33m	- app/models/shipment_mailer.rb
+[33m	- app/models/user_mailer.rb
+[0m
+[31m[1mDeprecated test_help path[0m
+[37mYou now must require 'rails/test_help' not just 'test_help'.
+[1mMore information:[0m [36mhttp://weblog.rubyonrails.org/2009/9/1/gem-packaging-best-practices
+
+[37mThe culprits: 
+[33m	- test//test_helper.rb
+[0m
+[31m[1mDeprecated filter_parameter_logging calls[0m
+[37mThe list of filtered parameters are now stored in /config/application.rb. For example: config.filter_parameters += [:password]
+[1mMore information:[0m [36mhttp://asciicasts.com/episodes/224-controllers-in-rails-3
+
+[37mThe culprits: 
+[33m	- app/controllers/application_controller.rb
+[0m

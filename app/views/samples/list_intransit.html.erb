@@ -1,6 +1,6 @@
 <h1>Samples in transit</h1>
 
-<% form_tag :action => :update_multi do %>
+<%= form_tag :action => :update_multi do %>
 <table class="list">
   <tr>
     <th>Recvd?</th>
@@ -27,7 +27,7 @@
     </script>						  
 
     <% f.fields_for :shipment do |s| %>
-    <td><%=s.calendar_date_select(:date_received, :valid_date_check => "date <= (new Date()).stripTime()", :year_range => [1.years.ago, 0.years.ago], :size => 15)%></td>
+    <td><!--%=s.calendar_date_select(:date_received, :valid_date_check => "date <= (new Date()).stripTime()", :year_range => [1.years.ago, 0.years.ago], :size => 15)%--></td>
     <td><%=h sample.lab.lab_name %></td>
     <td><%=link_to sample.barcode_key, sample %></td>
     <td><%=h sample.sample_name %></td>

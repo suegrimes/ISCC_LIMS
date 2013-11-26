@@ -1,6 +1,6 @@
 <h1>Editing sample</h1>
 
-<% form_for(@sample) do |f| %>
+<%= form_for(@sample) do |f| %>
   <%= f.error_messages %>
   
   <%= render :partial => 'sample_form', :locals => {:f => f, :sample => @sample} %>

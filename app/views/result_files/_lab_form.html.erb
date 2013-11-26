@@ -1,4 +1,4 @@
-<% form_tag(:action => :check_chosen_lab) do %>
+<%= form_tag(:action => :check_chosen_lab) do %>
   <% lab_list.each do |lab| %>
     <%= radio_button_tag("lab[id]", lab.id) %>
     <%= lab.lab_name %><br />   

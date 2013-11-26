@@ -138,9 +138,9 @@ protected
 
   def public_image_dir(lab_dir=nil)
     if lab_dir.nil? 
-      return File.join(RAILS_ROOT, 'public', 'images')
+      return File.join(Rails.root, 'public', 'images')
     else
-      return File.join(RAILS_ROOT, 'public', 'images', lab_dir)
+      return File.join(Rails.root, 'public', 'images', lab_dir)
     end
   end
   

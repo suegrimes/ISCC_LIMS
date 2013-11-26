@@ -1,5 +1,5 @@
 class ShipmentMailer < ActionMailer::Base  
-  TO_EMAIL_LIST   = (RAILS_ENV == 'production' ? ['wilhelmy@stanford.edu', 'genomics_ji@stanford.edu'] : ['sgrimes@stanford.edu'])
+  TO_EMAIL_LIST   = (Rails.env == 'production' ? ['wilhelmy@stanford.edu', 'genomics_ji@stanford.edu'] : ['sgrimes@stanford.edu'])
   FROM_EMAIL      = 'iscc_noreply@stanford.edu'
   
   def shipment_notification(shipment, new_or_upd)

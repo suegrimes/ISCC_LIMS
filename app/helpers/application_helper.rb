@@ -1,6 +1,5 @@
-# Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
-  
+    
   def user_has_access?(user_roles, valid_roles)
     # if user has admin role, or intersection of user_roles and valid_roles is not empty, user has access
     (user_roles.include?("admin") || (user_roles & valid_roles).size > 0 ? true : false)
@@ -40,4 +39,5 @@ module ApplicationHelper
     out << '</td></tr></table>'
     out
   end
+  
 end

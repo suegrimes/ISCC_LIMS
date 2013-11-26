@@ -13,7 +13,7 @@ class Lab < ActiveRecord::Base
   validates_presence_of     :lab_name
   validates_uniqueness_of   :lab_name
   
-  #named_scope :user_lab, {:conditions => ["id = ?", User.current_user.lab_id]}
+  #scope :user_lab, {:conditions => ["id = ?", User.current_user.lab_id]}
   STANFORD_LAB_ID = 7
   PRINCETON_LAB_ID = 11
   

@@ -1,17 +1,18 @@
-# Filters added to this controller apply to all controllers in the application.
-# Likewise, all the methods added will be available for all controllers.
-
 class ApplicationController < ActionController::Base
-  include AuthenticatedSystem
+  protect_from_forgery
   
+  include AuthenticatedSystem
+ 
+=begin  
   rescue_from CanCan::AccessDenied do |exception|
     user_login = (current_user.nil? ? nil : current_user.login)
     flash[:error] = "Sorry #{user_login} - requested page is invalid, or you are not authorized to access"
     redirect_to ''
   end
+=end
   
-  require 'fastercsv'
-  require 'calendar_date_select'
+  require 'csv'
+#  require 'calendar_date_select'
 
   #Login required for all controller actions
   before_filter :login_required
@@ -26,7 +27,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
 
   # Scrub sensitive parameters from your log
-  filter_parameter_logging :password
+  #filter_parameter_logging :password
   
 protected
   def set_current_user

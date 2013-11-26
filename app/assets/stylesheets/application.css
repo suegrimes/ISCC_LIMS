@@ -11,5 +11,5 @@
  *= require_self
  *= require lims_std
  *= require iscc_styles
- *= lims_superfish
+ *= require lims-superfish
  */

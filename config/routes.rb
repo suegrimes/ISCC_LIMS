@@ -1,7 +1,7 @@
 ISCCLims::Application.routes.draw do
   
   # Login/logout, and signup
-  match '' => 'welcome#index'
+  root :to => 'welcome#index'
   match '/signup' => 'users#new', :as => :signup
   match '/login' => 'sessions#new', :as => :login
   match '/logout' => 'sessions#destroy', :as => :logout

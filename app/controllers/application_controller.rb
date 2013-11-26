@@ -25,9 +25,6 @@ class ApplicationController < ActionController::Base
   
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
-
-  # Scrub sensitive parameters from your log
-  #filter_parameter_logging :password
   
 protected
   def set_current_user
@@ -38,7 +35,7 @@ protected
   end
   
   def set_lab_conditions(tablenm)
-    (current_user.has_admin_access? ? [] : ["{modelnm}.lab_id = ?", user.lab_id])
+    (User.current_user.has_admin_access? ? [] : ["{modelnm}.lab_id = ?", user.lab_id])
   end
   
   def log_user_action

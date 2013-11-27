@@ -40,7 +40,7 @@ class Sample < ActiveRecord::Base
   validates_numericality_of :age_in_weeks, :only_integer => true, :message => "must be an integer"
   #validates_inclusion_of :age_in_weeks, :in => 6..10, :message => "must be between 6 and 10"
   
-  before_validation_on_create :set_barcode
+  before_validation :set_barcode, :on => :create
   
   scope :userlab, lambda{|user| {:conditions => (user.has_consortium_access? ? nil : ["samples.lab_id = ?", user.lab_id])}}
   

@@ -1,7 +1,7 @@
 ISCCLims::Application.routes.draw do
   
   # Login/logout, and signup
-  match '' => 'welcome#index'
+  root :to => 'welcome#index'
   match '/signup' => 'users#new', :as => :signup
   match '/login' => 'sessions#new', :as => :login
   match '/logout' => 'sessions#destroy', :as => :logout
@@ -14,10 +14,11 @@ ISCCLims::Application.routes.draw do
   match 'activate/:activation_code' => 'users#activate', :as => :activate
   match 'reset/:reset_code' => 'users#reset', :as => :reset
 
-  # Sample tables  
+  # Sample tables
+  get 'samples/autocomplete_sample_strain'  
   resources :samples do
     collection do
-      get :auto_complete_for_strain
+      #get :auto_complete_for_strain      
       get :auto_complete_for_intestinal_sc_marker
       get :auto_complete_for_sc_marker_validation_method
       get :shipment_confirm

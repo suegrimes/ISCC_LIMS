@@ -1,6 +1,8 @@
 class SamplesController < ApplicationController
   load_and_authorize_resource
   
+  autocomplete :sample, :strain
+  
   # GET /samples
   def index
     @samples = Sample.find_and_group_by_lab(current_user)
@@ -107,10 +109,13 @@ class SamplesController < ApplicationController
     end
   end
   
-  def auto_complete_for_strain
+  #def auto_complete_for_strain
+  def autocomplete_sample_strain
     @svalues = Sample.find(:all, :select => "distinct strain",
-                           :conditions => ["strain LIKE ?", params[:search] + '%'])
-    render :inline => "<%= auto_complete_result(@svalues, 'strain') %>"
+                           :conditions => ["strain LIKE ?", params[:term] + '%'])
+    #render :inline => "<%= auto_complete_result(@svalues, 'strain') %>"
+    list = @svalues.map {|sv| Hash[ id: sv.id, label: sv.strain, name: sv.strain]}
+    render json: list
   end
   
   def auto_complete_for_intestinal_sc_marker

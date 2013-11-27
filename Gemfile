@@ -6,8 +6,9 @@ gem 'rails', '3.2.13'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'mysql2', '0.3.13'
-gem 'rails3-restful-authentication', '~> 3.0.1'
+
 gem 'blame'
+gem "cancan", '~> 1.6.4'
 gem 'validates_timeliness', '~> 3.0'
 
 # Gems used only for assets and not required
@@ -22,11 +23,10 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
-gem 'jquery-rails'
-
-group :development do
-  gem 'mongrel'
-end
+#gem 'jquery-rails'
+gem 'jquery-rails', '~> 2.3.0'
+gem 'jquery_datepicker'
+gem 'rails3-jquery-autocomplete', '~> 1.0.11'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

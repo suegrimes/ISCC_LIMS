@@ -14,14 +14,15 @@
 /log/*.log
 /tmp
 
-.project
-.DS_Store
-.idea
-.secret
+/.project
+/.DS_Store
+/.idea
+/.secret
 
 /config/database.yml
 /config/initializers/secret_token.rb
 /config/initializers/session_store.rb
 
 /public/files/*
+/public/data-files/*
 /app/assets/files/*

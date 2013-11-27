@@ -4,7 +4,7 @@
 <% if @sample.shipment %>
 <%= render :partial => 'shipment_show', :locals => {:shipment => @sample.shipment} %>
 <% end %>
-<%= break_clear %>
+<%= raw break_clear %>
 <% if can? :new, Sample %><%= link_to 'New sample', new_sample_path %> | <% end %>
 <% if can? :edit, @sample %>
 <%= link_to 'Edit', edit_sample_path(@sample) %> | 

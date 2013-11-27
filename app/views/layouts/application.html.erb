@@ -4,15 +4,16 @@
   <title>ISCC RNA-Seq Data Portal</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <!--[if IE]><%= stylesheet_link_tag 'ie-fixes' %><![endif]-->
+  <%= stylesheet_link_tag "http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" %>
   <%= javascript_include_tag "application" %>
-  <!--%= calendar_date_select_includes %-->
+  <%= javascript_include_tag "http://code.jquery.com/jquery-migrate-1.0.0.js" %>
   <script type="text/javascript">
-    var $j = jQuery.noConflict();
+    var $ = jQuery.noConflict();
   </script>
   <script type="text/javascript">
   // initialise Superfish 
-  $j(document).ready(function() { 
-    $j('ul.sf-menu').superfish({ 
+  $(document).ready(function() { 
+    $('ul.sf-menu').superfish({ 
       delay:       1000,                            // one second delay on mouseout 
       animation:   {opacity:'show',height:'show'},  // fade-in and slide-down animation 
       speed:       'fast',                          // faster animation speed  

@@ -83,6 +83,8 @@ class ResultFilesController < ApplicationController
     @files_updated = 0 # for debug
     params[:result_files].each do |id, rfile| # id is key, rfile is hash of file attributes from the form
       rfile[:sample_ids] ||= []
+      # Hack for Rails 3 'feature' where blank entry is included in array when multi-select is used
+      rfile[:sample_ids].shift if rfile[:sample_ids].size > 0 && rfile[:sample_ids][0].blank?
       #@debug_list.push(rfile)
       result_file = ResultFile.find(id)
       #associating result file with list of lanes            

@@ -26,7 +26,7 @@
 	<% else %>
   	<td><strong><%= link_to rfile.document, rfile %></strong></td>
 	<% end %>
-	<td><%= samples_string %></td>
+	<td><%= raw samples_string %></td>
 	<td><%= rfile.fileMB %></td>
 	<td><%=h rfile.notes %></td>
 	<td><%=link_to 'Download', :action => 'download', :id => rfile.id %></td>

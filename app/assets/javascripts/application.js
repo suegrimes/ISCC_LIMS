@@ -12,7 +12,9 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= superfish
+//= require jquery-ui
+//= require autocomplete-rails
+//= require superfish
 
 function num_date() {
     var mm = new Array("01", "02", "03","04", "05", "06", "07", "08", "09","10", "11", "12");

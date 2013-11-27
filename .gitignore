@@ -24,4 +24,5 @@
 /config/initializers/session_store.rb
 
 /public/files/*
+/public/data-files/*
 /app/assets/files/*

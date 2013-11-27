@@ -2,16 +2,15 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   
   include AuthenticatedSystem
- 
-=begin  
+
   rescue_from CanCan::AccessDenied do |exception|
     user_login = (current_user.nil? ? nil : current_user.login)
     flash[:error] = "Sorry #{user_login} - requested page is invalid, or you are not authorized to access"
     redirect_to ''
   end
-=end
   
   require 'csv'
+  require 'mime/types'
 #  require 'calendar_date_select'
 
   #Login required for all controller actions
@@ -58,11 +57,8 @@ protected
     if (File.directory?(file_path) || file_path[0].chr == '.')
       return nil
     else
-      extname = File.extname(file_path)[1..-1]
-      mime_type = Mime::Type.lookup_by_extension(extname)
-      content_type = mime_type.to_s unless mime_type.nil?
-      
-      return ((mime_type.nil? || mime_type == 'zip') ? nil : content_type)
+      mime_types = MIME::Types.type_for(file_path)
+      return (mime_types.empty? ? 'text/plain' : MIME::Type.simplified(mime_types.first.to_s))
     end
   end
   

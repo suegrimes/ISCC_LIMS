@@ -19,7 +19,8 @@ class ResultFile < ActiveRecord::Base
   
   scope :userlab, lambda{|user| {:conditions => (user.has_consortium_access? ? nil : ["result_files.lab_id = ?", user.lab_id])}}
     
-  REL_PATH = (CAPISTRANO_DEPLOY ? File.join("..", "..", "shared", "data_files") : File.join("..", "..", "ISCC_RNASeq"))
+  #REL_PATH = (CAPISTRANO_DEPLOY ? File.join("..", "..", "shared", "data_files") : File.join("..", "..", "ISCC_RNASeq"))
+  REL_PATH = (CAPISTRANO_DEPLOY ? File.join("..", "..", "shared", "data_files") : File.join("public", "data-files"))
   ABS_PATH = File.join(Rails.root, REL_PATH)
   RFILE_RDEF_PATH = File.join(Rails.root, 'public', 'files', 'Result_ColumnDefs.xls')
   #BASE_PATH = File.join('..','..','ISCC_RNASeq')

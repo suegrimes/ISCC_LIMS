@@ -1,11 +1,13 @@
 <h1>New sample</h1>
 
 <%= form_for @sample, :url => {:action => 'create'} do |f| %>
-  <%= f.error_messages %> 
+  <% @sample.errors.full_messages.each do |msg| %>
+    <p>Error: <%= msg %></p>
+  <% end %>
  
   <%= render :partial => 'sample_form', :locals => {:f => f, :sample => @sample} %>
   
-  <%= break_clear(f.submit "Save") %>
+  <%= raw break_clear(f.submit "Save") %>
   
   <%= link_to 'List All', samples_path %>
   

@@ -12,7 +12,7 @@
   <% f.fields_for :shipment do |s| %>
     <%= render :partial => 'shipment_form', :locals => {:f => s, :sample => @sample} %>
   <% end %>
-  <%= break_clear %> 
+  <%= raw break_clear %> 
   <%= f.submit "Update" %>
   <% end %>
 </div>

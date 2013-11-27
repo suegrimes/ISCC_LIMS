@@ -1,7 +1,9 @@
 <h1>New Authorized User</h1>
 
 <%= form_for(@auth_user) do |f| %>
-  <%= f.error_messages %>
+  <% @auth_user.errors.full_messages.each do |msg| %>
+    <p>Error: <%= msg %></p>
+  <% end %>
 
   <%= render :partial => 'auth_user', :locals => {:f => f} %>
   

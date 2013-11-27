@@ -13,7 +13,7 @@
 <% else %>
 <h3>No new files</h3>
 <% end %>
-<%= break_clear %>
+<%= raw break_clear %>
 <%= form_tag(:controller => 'result_files', :action => 'choose_lab') do %>
   <%= submit_tag "Choose Another Lab" %>
 <% end %>
@@ -45,7 +45,7 @@ Delete will remove file from data table and filesystem.</strong></div><br />
       <% else %>
       <td class="ltgrey"> Delete </td>
 	  <% end %> 
-      <% fields_for 'result_files[]', file do |f| %>
+      <%= fields_for 'result_files[]', file do |f| %>
       <%= f.hidden_field(:id, :value => file.id) %>
       <%= hidden_field_tag("chosen_lab[id]", params[:lab_id]) %>
       <td><%= h file.document %></td>                                         
@@ -61,7 +61,7 @@ Delete will remove file from data table and filesystem.</strong></div><br />
     <% end %>   
 </table>
 </fieldset>
-<%= break_clear(submit_tag "Submit") %>
+<%= raw break_clear(submit_tag "Submit") %>
 <% end %>
 
 

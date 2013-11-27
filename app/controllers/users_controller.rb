@@ -4,13 +4,13 @@ class UsersController < ApplicationController
   
   def index
     authorize! :read, User
-    @users = User.find(:all, :include => [:lab, :auth_user], :order => "lab_id, login")
+    @users = User.includes(:lab, :auth_user).order('lab_id, login').all
   end
   
   # render new.rhtml
   def new
     @user = User.new
-    @labs = Lab.find(:all, :order => :lab_name)
+    @labs = Lab.order(:lab_name).all
   end
  
   def create
@@ -22,7 +22,7 @@ class UsersController < ApplicationController
       flash[:notice] = "Thanks for signing up!  We're sending you an email with your activation code."
     else
       flash[:error]  = "We couldn't set up that account, sorry.  Please try again, or contact system admin"
-      @labs = Lab.find(:all, :order => :lab_name)
+      @labs = Lab.order(:lab_name).all
       render :action => 'new'
     end
   end

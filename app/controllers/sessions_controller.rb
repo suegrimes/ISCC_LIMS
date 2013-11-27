@@ -4,7 +4,7 @@ class SessionsController < ApplicationController
   skip_before_filter :login_required, :only => [:new, :create] 
 
   def new
-    @labs = Lab.find(:all, :order => :lab_name)
+    @labs = Lab.order(:lab_name).all
   end
 
   def create
@@ -26,14 +26,14 @@ class SessionsController < ApplicationController
         @lab         = Lab.find(params[:lab][:id]) if !params[:lab][:id].blank?
         @login       = params[:login]
         @remember_me = params[:remember_me]
-        @labs        = Lab.find(:all, :order => :lab_name)
+        @labs        = Lab.order(:lab_name).all
         render :action => 'new'
       end
     else
       flash[:error] = "Lab must be entered - please try again"
       @login       = params[:login]
       @remember_me = params[:remember_me]
-      @labs        = Lab.find(:all, :order => :lab_name)
+      @labs        = Lab.order(:lab_name).all
       render :action => 'new'
     end
   end

@@ -36,8 +36,7 @@ class ResultFile < ActiveRecord::Base
   end
   
   def self.find_and_group_by_lab(user, condition_array=nil)
-    rfiles = self.userlab(user).find(:all, :include => :samples, :order => 'result_files.lab_id',
-                                      :conditions => condition_array)
+    rfiles = self.userlab(user).includes(:samples).order('result_files.lab_id').where(sql_where(condition_array)).all
     return rfiles.group_by {|rfile| rfile.lab.lab_name}
   end
 end

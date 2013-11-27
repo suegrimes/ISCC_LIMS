@@ -6,7 +6,7 @@ class AuthUsersController < ApplicationController
   # GET /auth_users
   # GET /auth_users.xml
   def index
-    @auth_users = AuthUser.find(:all, :include => :lab, :order => "labs.lab_name, auth_users.name")
+    @auth_users = AuthUser.includes(:lab).order('labs.lab_name, auth_users.name').all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -17,7 +17,7 @@ class AuthUsersController < ApplicationController
   # GET /auth_users/1
   # GET /auth_users/1.xml
   def show
-    @auth_user = AuthUser.find(params[:id], :include => :lab)
+    @auth_user = AuthUser.find(params[:id]).includes(:lab)
 
     respond_to do |format|
       format.html # show.html.erb
@@ -38,7 +38,7 @@ class AuthUsersController < ApplicationController
 
   # GET /auth_users/1/edit
   def edit
-    @auth_user = AuthUser.find(params[:id], :include => :user)
+    @auth_user = AuthUser.find(params[:id]).includes(:user)
   end
 
   # POST /auth_users
@@ -90,6 +90,6 @@ class AuthUsersController < ApplicationController
   
 protected
   def dropdowns
-    @labs = Lab.find(:all, :order => :lab_name)
+    @labs = Lab.order(:lab_name).all
   end
 end

@@ -70,8 +70,7 @@ class Sample < ActiveRecord::Base
   end
   
   def self.find_and_group_by_lab(user, condition_array=nil)
-    samples = self.userlab(user).find(:all, :include => [:shipment, :lab], :order => 'lab_id, barcode_key', 
-                                      :conditions => condition_array)
+    samples = self.userlab(user).includes(:shipment, :lab).order('lab_id, barcode_key').where(sql_where(condition_array)).all
     return samples.group_by {|sample| sample.lab.lab_name}
   end
   

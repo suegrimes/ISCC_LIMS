@@ -1,4 +1,6 @@
-<%= error_messages_for :user %>
+  <% @user.errors.full_messages.each do |msg| %>
+    <p>Error: <%= msg %></p>
+  <% end %>
 <%= form_for :user do |f| -%>
   <table id="newedit">
   	 <thead>

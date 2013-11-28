@@ -21,9 +21,12 @@
 	  <th><%=f.label :intestinal_region_definition %>:</th><td><%=f.text_field(:intestinal_region_definition, :size => 15) %></td>
     </tr>
 	<tr>
-	  <th><%=f.label :intestinal_sc_marker, 'Intestinal SC marker' %>:</th> <td><!--%=f.text_field_with_auto_complete(:intestinal_sc_marker, {},
+	  <th><%=f.label :intestinal_sc_marker, 'Intestinal SC marker' %>:</th> 
+	  <td><!--%=f.text_field_with_auto_complete(:intestinal_sc_marker, {},
              {:url => {:controller => :samples, :action => :auto_complete_for_intestinal_sc_marker},
-              :param_name => :search, :min_chars => 2, :method => :get})%--></td>
+              :param_name => :search, :min_chars => 2, :method => :get})%-->
+          <%=f.autocomplete_field :intestinal_sc_marker, samples_autocomplete_sample_intestinal_sc_marker_path %>
+      </td>
 	</tr>	
 	<tr>
 	  <th><%=f.label :number_of_cells, 'No of cells' %>:</th><td><%=f.text_field(:number_of_cells, :size => 10) %></td>

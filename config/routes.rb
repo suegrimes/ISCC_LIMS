@@ -16,10 +16,11 @@ ISCCLims::Application.routes.draw do
 
   # Sample tables
   get 'samples/autocomplete_sample_strain'  
+  get 'samples/autocomplete_sample_intestinal_sc_marker' 
   resources :samples do
     collection do
       #get :auto_complete_for_strain      
-      get :auto_complete_for_intestinal_sc_marker
+      #get :auto_complete_for_intestinal_sc_marker
       get :auto_complete_for_sc_marker_validation_method
       get :shipment_confirm
       get :sample_ship

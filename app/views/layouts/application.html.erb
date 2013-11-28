@@ -45,7 +45,8 @@
           </tr>
         </table> 
       </td>
-      <td valign="top" width="180"><div class="version"><% if APP_VERSION %>Version: <%= APP_VERSION %><% end %><br /><span class="grey"><%=h env_descr %></span></div></td>
+      <td valign="top" width="180"><div class="version"><% if APP_VERSION %>Version: <%= APP_VERSION %><% end %><br /><span class="grey"><%=h env_descr %></span><br>
+      DEBUG::git branch: <%= GIT_BRANCH %></div></td>
     </tr>
     <tr>     
       <td><div class="tagline">&nbsp;</div></td>    
@@ -113,7 +114,6 @@
   <div class="user_info">
      <em>Logged in as: <%= current_user.login %><br />
 	 Lab: <%=h current_user.lab.lab_name %></em>
-   <div> Rails root: <%= Rails.root %></div>
   </div>
   <ul class="opened">
     <ul>

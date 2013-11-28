@@ -3,6 +3,7 @@ class SamplesController < ApplicationController
   
   autocomplete :sample, :strain
   autocomplete :sample, :intestinal_sc_marker
+  autocomplete :sample, :sc_marker_validation_method
   
   # GET /samples
   def index
@@ -127,12 +128,15 @@ class SamplesController < ApplicationController
     render json: list
   end
   
-  def auto_complete_for_sc_marker_validation_method
-    @svalues = Sample.select('distinct sc_marker_validation_method').where('sc_marker_validation_method LIKE ?', params[:search] + '%').all
+  def autocomplete_sample_sc_marker_validation_method
+    @svalues = Sample.select('distinct sc_marker_validation_method').where('sc_marker_validation_method LIKE ?', params[:term] + '%').all
     Sample::MARKER_VALIDATION.each do |validation|
-      @svalues.push(Sample.new(:sc_marker_validation_method => validation)) if validation[0..(params[:search].length-1)] == params[:search]
+      @svalues.push(Sample.new(:sc_marker_validation_method => validation)) if validation[0..(params[:term].length-1)] == params[:term]
     end
-    render :inline => "<%= auto_complete_result(@svalues, 'sc_marker_validation_method') %>"
+    @svalues = @svalues.uniq { |h| h[:sc_marker_validation_method] }
+    #render :inline => "<%= auto_complete_result(@svalues, 'sc_marker_validation_method') %>"
+    list = @svalues.map {|mvm| Hash[ id: mvm.id, label: mvm.sc_marker_validation_method, name: mvm.sc_marker_validation_method]}
+    render json: list
   end
  
 end

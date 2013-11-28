@@ -7,7 +7,8 @@
 	</tr>
 	<tr>
 	  <th><%=f.label :organism %>:</th><td><%=f.text_field(:organism, :size => 25) %></td>
-	  <th><%=f.label :strain %>:</th> <td><!--%=f.text_field_with_auto_complete(:strain, {},
+	  <th><%=f.label :strain %>:</th> 
+	  <td><!--%=f.text_field_with_auto_complete(:strain, {},
              {:url => {:controller => :samples, :action => :auto_complete_for_strain},
               :param_name => :search, :min_chars => 2, :method => :get})%-->
           <%=f.autocomplete_field :strain, samples_autocomplete_sample_strain_path %></td>
@@ -33,9 +34,12 @@
 	  <th><%=f.label :facs_protocol, 'FACS protocol' %>:</th><td><%=f.text_field(:facs_protocol) %></td>
     </tr>
 	<tr>
-	  <th><%=f.label :sc_marker_validation_method, 'SC marker validation method' %>:</th><td><!--%=f.text_field_with_auto_complete(:sc_marker_validation_method, {},
+	  <th><%=f.label :sc_marker_validation_method, 'SC marker validation method' %>:</th>
+	  <td><!--%=f.text_field_with_auto_complete(:sc_marker_validation_method, {},
              {:url => {:controller => :samples, :action => :auto_complete_for_sc_marker_validation_method},
-              :param_name => :search, :min_chars => 2, :method => :get})%--></td>
+              :param_name => :search, :min_chars => 2, :method => :get})%-->
+           <%=f.autocomplete_field :sc_marker_validation_method, samples_autocomplete_sample_sc_marker_validation_method_path %>
+      </td>
 	  <th><%=f.label :secondary_validation_results %>:</th><td><%=f.text_field(:secondary_validation_results) %></td>
 	</tr>	
     <tr>

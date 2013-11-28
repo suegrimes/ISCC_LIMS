@@ -2,6 +2,7 @@ class SamplesController < ApplicationController
   load_and_authorize_resource
   
   autocomplete :sample, :strain
+  autocomplete :sample, :intestinal_sc_marker
   
   # GET /samples
   def index
@@ -116,12 +117,14 @@ class SamplesController < ApplicationController
     render json: list
   end
   
-  def auto_complete_for_intestinal_sc_marker
-    @svalues = Sample.select('distinct intestinal_sc_marker').where('intestinal_sc_marker LIKE ?', params[:search] + '%').all
+  def autocomplete_sample_intestinal_sc_marker
+    @svalues = Sample.select('distinct intestinal_sc_marker').where('intestinal_sc_marker LIKE ?', params[:term] + '%').all
     Sample::SC_MARKERS.each do |marker|
-      @svalues.push(Sample.new(:intestinal_sc_marker => marker)) if marker[0..(params[:search].length-1)] == params[:search]
+      @svalues.push(Sample.new(:intestinal_sc_marker => marker)) if marker[0..(params[:term].length-1)] == params[:term]
     end
-    render :inline => "<%= auto_complete_result(@svalues, 'intestinal_sc_marker') %>"
+    #render :inline => "<%= auto_complete_result(@svalues, 'intestinal_sc_marker') %>"
+    list = @svalues.map {|im| Hash[ id: im.id, label: im.intestinal_sc_marker, name: im.intestinal_sc_marker]}
+    render json: list
   end
   
   def auto_complete_for_sc_marker_validation_method

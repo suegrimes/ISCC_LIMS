@@ -3,7 +3,10 @@
 <table class="form">
 	<tr>
 	  <th><%=f.label :sample_name %>:</th><td><%=f.text_field(:sample_name, :size => 25) %></td>
-	  <th><%=f.label :sample_date %>:</th><td><!--%=f.calendar_date_select(:sample_date, :size => 10, :valid_date_check => "date <= (new Date()).stripTime()") %--></td>
+	  <th><%=f.label :sample_date %>:</th>
+	  <td><!--%=f.calendar_date_select(:sample_date, :size => 10, :valid_date_check => "date <= (new Date()).stripTime()") %-->
+      <%=f.datepicker 'sample_date', dateFormat: "yy-mm-dd", changeMonth: true, changeYear: true, size: 10 %>
+	  </td>
 	</tr>
 	<tr>
 	  <th><%=f.label :organism %>:</th><td><%=f.text_field(:organism, :size => 25) %></td>

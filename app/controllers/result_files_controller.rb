@@ -21,7 +21,7 @@ class ResultFilesController < ApplicationController
   end
   
   def choose_lab
-    @labs = Lab.find(:all, :order => :lab_name)    
+    @labs = Lab.order(:lab_name).all
   end
   
   def check_chosen_lab       
@@ -29,13 +29,13 @@ class ResultFilesController < ApplicationController
       redirect_to :action => 'edit_multi', :lab_id => params[:lab][:id]
     else
       flash.now[:error] = 'Choose Lab with Result Files'
-      @labs = Lab.find(:all, :order => :lab_name)
+      @labs = Lab.order(:lab_name).all
       render :action => 'choose_lab'
     end
   end
   
   def edit_multi 
-    @labs = Lab.find(:all, :order => :lab_name) 
+    @labs = Lab.order(:lab_name).all
     @chosen_lab  = Lab.find(params[:lab_id])
     @datafile_path = File.join(ResultFile::ABS_PATH, @chosen_lab.lab_dir)
        
@@ -47,7 +47,7 @@ class ResultFilesController < ApplicationController
       return
     end
     
-    @result_files_before_save = ResultFile.find(:all, :conditions => {:lab_id => @chosen_lab.id})
+    @result_files_before_save = ResultFile.where('lab_id = ?', @chosen_lab.id).all
     documents_in_db = @result_files_before_save.collect(&:document) if (!@result_files_before_save.blank?)
 
     @exist_in_db = []; @new_files = [];
@@ -66,8 +66,8 @@ class ResultFilesController < ApplicationController
     end # each
             
     # get data for link form        
-    @result_files = ResultFile.find(:all, :include => :samples, :conditions => {:lab_id => @chosen_lab.id})
-    @samples = Sample.find(:all, :conditions => {:lab_id => @chosen_lab.id})
+    @result_files = ResultFile.includes(:samples).where('lab_id = ?', @chosen_lab.id).all
+    @samples = Sample.where('lab_id = ?', @chosen_lab.id).all
  
     if (@samples.blank?)
       flash.now[:error] = "Sorry, no samples found for #{@chosen_lab.lab_name}"
@@ -100,7 +100,7 @@ class ResultFilesController < ApplicationController
     
     @chosen_lab = Lab.find(params[:chosen_lab][:id])
     #get result files with associated lanes and samples per lab chosen by admin
-    @result_files = ResultFile.find(:all, :include => :samples, :conditions => {:lab_id => params[:chosen_lab][:id]})
+    @result_files = ResultFile.includes(:samples).where('lab_id = ?', params[:chosen_lab][:id]).all
     render :action => 'update_multi_show'    
   end
   

@@ -4,7 +4,7 @@
   <title>ISCC RNA-Seq Data Portal</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <!--[if IE]><%= stylesheet_link_tag 'ie-fixes' %><![endif]-->
-  <%= stylesheet_link_tag "http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" %>
+  <!--%= stylesheet_link_tag "http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" %-->
   <%= javascript_include_tag "application" %>
   <%= javascript_include_tag "http://code.jquery.com/jquery-migrate-1.0.0.js" %>
   <script type="text/javascript">
@@ -45,7 +45,8 @@
           </tr>
         </table> 
       </td>
-      <td valign="top" width="180"><div class="version"><% if APP_VERSION %>Version: <%= APP_VERSION %><% end %><br /><span class="grey"><%=h env_descr %></span></div></td>
+      <td valign="top" width="180"><div class="version"><% if APP_VERSION %>Version: <%= APP_VERSION %><% end %><br /><span class="grey"><%=h env_descr %></span><br>
+      DEBUG::git branch: <%= GIT_BRANCH %></div></td>
     </tr>
     <tr>     
       <td><div class="tagline">&nbsp;</div></td>    

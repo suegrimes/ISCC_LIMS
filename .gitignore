@@ -26,3 +26,7 @@
 /public/files/*
 /public/data-files/*
 /app/assets/files/*
+
+/public/javascripts
+/public/stylesheets
+/public/images

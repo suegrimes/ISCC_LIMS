@@ -11,7 +11,6 @@ class ApplicationController < ActionController::Base
   
   require 'csv'
   require 'mime/types'
-#  require 'calendar_date_select'
 
   #Login required for all controller actions
   before_filter :login_required

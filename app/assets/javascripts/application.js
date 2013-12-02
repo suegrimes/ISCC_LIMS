@@ -39,3 +39,19 @@ var load_date = function(chk_bx_id) {
 	});
 };
 
+function showHideDiv(elementId1, elementId2) {
+  if (document.getElementById) {
+    var element1 = document.getElementById(elementId1); //div with link to form
+    var element2 = document.getElementById(elementId2); //div with form
+    if (element2.style.display == 'none') {
+      element2.style.display = 'block';
+      element1.style.display = 'none';
+
+    } else if (element2.style.display == 'block') {
+      element2.style.display = 'none';
+
+    }
+  }
+}
+
+

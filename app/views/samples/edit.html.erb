@@ -10,14 +10,15 @@
   <%= raw break_clear %>
   
   <% if @sample.shipment %>
-  <div id="ship_ask">
-  <%= link_to_function 'Edit Shipment Details', div_toggle(:ship_edit, :ship_ask) %> 
+  <div id="ship_ask"> 
+  <%= link_to "Edit Shipment Details", '', :onclick => "showHideDiv('ship_ask','ship_edit'); return false;" %>
   </div>
   <% end %>
 
   <div id="ship_edit", style="display:none">
-	<% f.fields_for :shipment do |s| %>
-	  <%= s.error_messages %>	  
+	<%= f.fields_for :shipment do |s| %>
+	  <!--%= s.error_messages %-->
+	  <%= render '/shared/errors', model: @sample %>  
       <%= render :partial => 'shipment_form', :locals => {:f => s, :sample => @sample} %>
 	<% end %>
   </div>

@@ -8,6 +8,6 @@ class ShipmentMailer < ActionMailer::Base
     @user = User.find_by_id(@sample.updated_by)
     @new_or_upd = new_or_upd
     mail(:subject => 'ISCC RNASeq: Sample shipment notification',
-         :to => (Rail.env == 'production' ? ['wilhelmy@stanford.edu', 'genomics_ji@stanford.edu'] : ['sgrimes@stanford.edu']))
+         :to => (Rails.env == 'production' ? ['wilhelmy@stanford.edu', 'genomics_ji@stanford.edu'] : ['sgrimes@stanford.edu']))
   end
 end

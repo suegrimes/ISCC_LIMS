@@ -1,6 +1,5 @@
-  <% @user.errors.full_messages.each do |msg| %>
-    <p>Error: <%= msg %></p>
-  <% end %>
+<%= render '/shared/errors', model: @user %>
+
 <%= form_for :user do |f| -%>
   <table id="newedit">
   	 <thead>

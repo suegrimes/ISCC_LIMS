@@ -1,5 +1,7 @@
-  <% @hdg_text = (@new_or_upd == 'New' ? 'New sample' : 'Shipment') %>
+  <% @hdg_text = (@new_or_upd == 'New' ? 'New shipment' : 'Shipment') %>
   <% @upd_text = (@new_or_upd == 'New' ? '' : '/updated') %>
+  <% @user_login = (@user.nil? ? 'N/A' : @user.login) %>
+
   <p><%=h @hdg_text %> from: <%=h @sample.lab.lab_name %> entered<%=h @upd_text %> by: <%=h @user_login %> on: <%=h @sample.created_at %></p>
   
   <span><b><u>Sample Details:</u></b></span>
@@ -11,10 +13,10 @@
 	</tr>
 	
     <tr>
-      <th>Organism</th><td><%=h @sample.organism %></td>    
-      <th>Strain </th><td><%=h @sample.strain %></td> 
+      <th>Organism</th><td><%=h @sample.organism %></td>
+      <th>Strain </th><td><%=h @sample.strain %></td>
 	  <th>Sex </th><td><%=h @sample.sex %></td>
-	  <th>Age(in weeks) </th><td><%=h @sample.age_in_weeks %></td> 
+	  <th>Age(in weeks) </th><td><%=h @sample.age_in_weeks %></td>
 	<tr>
 
 	<tr>

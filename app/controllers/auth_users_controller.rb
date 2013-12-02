@@ -17,7 +17,7 @@ class AuthUsersController < ApplicationController
   # GET /auth_users/1
   # GET /auth_users/1.xml
   def show
-    @auth_user = AuthUser.find(params[:id]).includes(:lab)
+    @auth_user = AuthUser.includes(:lab).find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -38,7 +38,7 @@ class AuthUsersController < ApplicationController
 
   # GET /auth_users/1/edit
   def edit
-    @auth_user = AuthUser.find(params[:id]).includes(:user)
+    @auth_user = AuthUser.includes(:user).find(params[:id])
   end
 
   # POST /auth_users

@@ -2,6 +2,8 @@ META_TAGS = {:description => "ISCC RNA-Seq provides detailed transcriptome analy
 Intestinal Stem Cell Consortium",
              :keywords => ["stanford, rna sequencing, transcriptome, iscc, stem cells, mus musculus, mouse intestinal stem cells"]}
 
+require 'active_record_extension'
+
 CAPISTRANO_DEPLOY = "#{Rails.root}".include?('releases')
 version_file = "#{Rails.root}/public/app_versions.txt"
 

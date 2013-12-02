@@ -14,7 +14,7 @@ class SamplesController < ApplicationController
 
   # GET /samples/1
   def show
-    @sample = Sample.find(params[:id]).includes(:shipment)
+    @sample = Sample.includes(:shipment).find(params[:id])
   end
   
   def show_sop
@@ -28,7 +28,7 @@ class SamplesController < ApplicationController
   end
   
   def shipment_confirm
-    @sample = Sample.find(params[:id]).includes(:shipment)
+    @sample = Sample.includes(:shipment).find(params[:id])
     if !@sample.shipment
       checkbox_flags = {:confirm_nr_cells => (@sample.cells_lt_min ? 'N' : 'Y')}
       @sample.build_shipment(Shipment::SHIPMENT_DEFAULT.merge!checkbox_flags)
@@ -36,7 +36,7 @@ class SamplesController < ApplicationController
   end
   
   def sample_ship
-    @sample = Sample.find(params[:id]).includes(:shipment)
+    @sample = Sample.includes(:shipment).find(params[:id])
     if !@sample.shipment
       checkbox_flags = {:confirm_nr_cells => (@sample.cells_lt_min ? 'N' : 'Y')}
       @sample.build_shipment(Shipment::SHIPMENT_DEFAULT.merge!checkbox_flags)
@@ -52,7 +52,7 @@ class SamplesController < ApplicationController
 
   # GET /samples/1/edit
   def edit
-    @sample = Sample.find(params[:id]).includes(:shipment)
+    @sample = Sample.includes(:shipment).find(params[:id])
   end
 
   # POST /samples

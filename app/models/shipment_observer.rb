@@ -5,9 +5,9 @@ class ShipmentObserver < ActiveRecord::Observer
   
   def after_save(shipment)
     if shipment.new_record?
-      ShipmentMailer.deliver_shipment_notification(shipment, 'new')
+      ShipmentMailer.shipment_notification(shipment, 'new').deliver
     elsif shipment.fedex_tracking_nr_changed?
-      ShipmentMailer.deliver_shipment_notification(shipment, 'upd')
+      ShipmentMailer.shipment_notification(shipment, 'upd').deliver
     end
   end
 end

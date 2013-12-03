@@ -41,8 +41,8 @@ class ResultFilesController < ApplicationController
        
     @results_on_filesystem = get_files_from_filesystem(@chosen_lab.lab_dir, @chosen_lab.id)
     if (@results_on_filesystem.blank?) #directory does not exist or is empty
-      #flash.now[:error] = "Sorry, no result files available for #{@chosen_lab.lab_name}"
-      flash.now[:error] = "Sorry, no result files found for #{@chosen_lab.lab_name} in directory: #{@datafile_path}"
+      flash.now[:error] = "Sorry, no result files available for #{@chosen_lab.lab_name}"
+      #flash.now[:error] = "Sorry, no result files found for #{@chosen_lab.lab_name} in directory: #{@datafile_path}"
       render :action => 'choose_lab', :locals => {:lab_list => @labs}
       return
     end

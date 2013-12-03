@@ -23,7 +23,6 @@
   <%= csrf_meta_tags %>
 </head>
 <body id='body'>
-<% env_descr  = (Rails.env == 'production' ? nil : "(#{Rails.env})")%>
 
 <% if ["sessions", "users", "auth_users", "welcome"].include?(controller.controller_name) %>
 <div id="container" style="width: 800px;">
@@ -45,8 +44,12 @@
           </tr>
         </table> 
       </td>
-      <td valign="top" width="180"><div class="version"><% if APP_VERSION %>Version: <%= APP_VERSION %><% end %><br /><span class="grey"><%=h env_descr %></span><br>
-      DEBUG::git branch: <%= GIT_BRANCH %></div></td>
+      <td valign="top" width="180"><div class="version"><% if APP_VERSION %>Version: <%= APP_VERSION %><% end %><br />
+        <% if Rails.env != 'production' %>
+          <span class="grey"><%=h Rails.env %><br /> DEBUG::git branch: <%= GIT_BRANCH %></span>
+        <% end %>
+        </div>
+      </td>
     </tr>
     <tr>     
       <td><div class="tagline">&nbsp;</div></td>    

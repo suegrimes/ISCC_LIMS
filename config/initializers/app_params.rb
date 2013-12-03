@@ -4,7 +4,6 @@ Intestinal Stem Cell Consortium",
 
 require 'active_record_extension'
 
-CAPISTRANO_DEPLOY = "#{Rails.root}".include?('releases')
 version_file = "#{Rails.root}/public/app_versions.txt"
 
 #read App_Versions file to set current application version #

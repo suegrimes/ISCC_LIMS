@@ -1,19 +1,22 @@
 class SamplesController < ApplicationController
   load_and_authorize_resource
   
+  autocomplete :sample, :strain
+  autocomplete :sample, :intestinal_sc_marker
+  autocomplete :sample, :sc_marker_validation_method
+  
   # GET /samples
   def index
     @samples = Sample.find_and_group_by_lab(current_user)
   end
   
   def list_intransit
-    @samples = Sample.userlab(current_user).find(:all, :include => :shipment,
-                                                       :conditions => "shipments.date_received IS NULL")
+    @samples = Sample.userlab(current_user).includes(:shipment).where('shipments.date_received IS NULL').all
   end
 
   # GET /samples/1
   def show
-    @sample = Sample.find(params[:id], :include => :shipment)
+    @sample = Sample.includes(:shipment).find(params[:id])
   end
   
   def show_sop
@@ -27,7 +30,7 @@ class SamplesController < ApplicationController
   end
   
   def shipment_confirm
-    @sample = Sample.find(params[:id], :include => :shipment)
+    @sample = Sample.includes(:shipment).find(params[:id])
     if !@sample.shipment
       checkbox_flags = {:confirm_nr_cells => (@sample.cells_lt_min ? 'N' : 'Y')}
       @sample.build_shipment(Shipment::SHIPMENT_DEFAULT.merge!checkbox_flags)
@@ -35,7 +38,7 @@ class SamplesController < ApplicationController
   end
   
   def sample_ship
-    @sample = Sample.find(params[:id], :include => :shipment)
+    @sample = Sample.includes(:shipment).find(params[:id])
     if !@sample.shipment
       checkbox_flags = {:confirm_nr_cells => (@sample.cells_lt_min ? 'N' : 'Y')}
       @sample.build_shipment(Shipment::SHIPMENT_DEFAULT.merge!checkbox_flags)
@@ -51,7 +54,7 @@ class SamplesController < ApplicationController
 
   # GET /samples/1/edit
   def edit
-    @sample = Sample.find(params[:id], :include => :shipment)
+    @sample = Sample.includes(:shipment).find(params[:id])
   end
 
   # POST /samples
@@ -107,28 +110,33 @@ class SamplesController < ApplicationController
     end
   end
   
-  def auto_complete_for_strain
-    @svalues = Sample.find(:all, :select => "distinct strain",
-                           :conditions => ["strain LIKE ?", params[:search] + '%'])
-    render :inline => "<%= auto_complete_result(@svalues, 'strain') %>"
+  #def auto_complete_for_strain
+  def autocomplete_sample_strain
+    @svalues = Sample.select('distinct strain').where('strain LIKE ?', params[:term] + '%').all
+    #render :inline => "<%= auto_complete_result(@svalues, 'strain') %>"
+    list = @svalues.map {|sv| Hash[ id: sv.id, label: sv.strain, name: sv.strain]}
+    render json: list
   end
   
-  def auto_complete_for_intestinal_sc_marker
-    @svalues = Sample.find(:all, :select => "distinct intestinal_sc_marker",
-                           :conditions => ["intestinal_sc_marker LIKE ?", params[:search] + '%'])
+  def autocomplete_sample_intestinal_sc_marker
+    @svalues = Sample.select('distinct intestinal_sc_marker').where('intestinal_sc_marker LIKE ?', params[:term] + '%').all
     Sample::SC_MARKERS.each do |marker|
-      @svalues.push(Sample.new(:intestinal_sc_marker => marker)) if marker[0..(params[:search].length-1)] == params[:search]
+      @svalues.push(Sample.new(:intestinal_sc_marker => marker)) if marker[0..(params[:term].length-1)] == params[:term]
     end
-    render :inline => "<%= auto_complete_result(@svalues, 'intestinal_sc_marker') %>"
+    #render :inline => "<%= auto_complete_result(@svalues, 'intestinal_sc_marker') %>"
+    list = @svalues.map {|im| Hash[ id: im.id, label: im.intestinal_sc_marker, name: im.intestinal_sc_marker]}
+    render json: list
   end
   
-  def auto_complete_for_sc_marker_validation_method
-    @svalues = Sample.find(:all, :select => "distinct sc_marker_validation_method",
-                           :conditions => ["sc_marker_validation_method LIKE ?", params[:search] + '%'])
+  def autocomplete_sample_sc_marker_validation_method
+    @svalues = Sample.select('distinct sc_marker_validation_method').where('sc_marker_validation_method LIKE ?', params[:term] + '%').all
     Sample::MARKER_VALIDATION.each do |validation|
-      @svalues.push(Sample.new(:sc_marker_validation_method => validation)) if validation[0..(params[:search].length-1)] == params[:search]
+      @svalues.push(Sample.new(:sc_marker_validation_method => validation)) if validation[0..(params[:term].length-1)] == params[:term]
     end
-    render :inline => "<%= auto_complete_result(@svalues, 'sc_marker_validation_method') %>"
+    @svalues = @svalues.uniq { |h| h[:sc_marker_validation_method] }
+    #render :inline => "<%= auto_complete_result(@svalues, 'sc_marker_validation_method') %>"
+    list = @svalues.map {|mvm| Hash[ id: mvm.id, label: mvm.sc_marker_validation_method, name: mvm.sc_marker_validation_method]}
+    render json: list
   end
  
 end

@@ -21,7 +21,7 @@ class ResultFilesController < ApplicationController
   end
   
   def choose_lab
-    @labs = Lab.find(:all, :order => :lab_name)    
+    @labs = Lab.order(:lab_name).all
   end
   
   def check_chosen_lab       
@@ -29,25 +29,25 @@ class ResultFilesController < ApplicationController
       redirect_to :action => 'edit_multi', :lab_id => params[:lab][:id]
     else
       flash.now[:error] = 'Choose Lab with Result Files'
-      @labs = Lab.find(:all, :order => :lab_name)
+      @labs = Lab.order(:lab_name).all
       render :action => 'choose_lab'
     end
   end
   
   def edit_multi 
-    @labs = Lab.find(:all, :order => :lab_name) 
+    @labs = Lab.order(:lab_name).all
     @chosen_lab  = Lab.find(params[:lab_id])
     @datafile_path = File.join(ResultFile::ABS_PATH, @chosen_lab.lab_dir)
        
     @results_on_filesystem = get_files_from_filesystem(@chosen_lab.lab_dir, @chosen_lab.id)
     if (@results_on_filesystem.blank?) #directory does not exist or is empty
-      #flash.now[:error] = "Sorry, no result files available for #{@chosen_lab.lab_name}"
-      flash.now[:error] = "Sorry, no result files found for #{@chosen_lab.lab_name} in directory: #{@datafile_path}"
+      flash.now[:error] = "Sorry, no result files available for #{@chosen_lab.lab_name}"
+      #flash.now[:error] = "Sorry, no result files found for #{@chosen_lab.lab_name} in directory: #{@datafile_path}"
       render :action => 'choose_lab', :locals => {:lab_list => @labs}
       return
     end
     
-    @result_files_before_save = ResultFile.find(:all, :conditions => {:lab_id => @chosen_lab.id})
+    @result_files_before_save = ResultFile.where('lab_id = ?', @chosen_lab.id).all
     documents_in_db = @result_files_before_save.collect(&:document) if (!@result_files_before_save.blank?)
 
     @exist_in_db = []; @new_files = [];
@@ -66,8 +66,8 @@ class ResultFilesController < ApplicationController
     end # each
             
     # get data for link form        
-    @result_files = ResultFile.find(:all, :include => :samples, :conditions => {:lab_id => @chosen_lab.id})
-    @samples = Sample.find(:all, :conditions => {:lab_id => @chosen_lab.id})
+    @result_files = ResultFile.includes(:samples).where('lab_id = ?', @chosen_lab.id).all
+    @samples = Sample.where('lab_id = ?', @chosen_lab.id).all
  
     if (@samples.blank?)
       flash.now[:error] = "Sorry, no samples found for #{@chosen_lab.lab_name}"
@@ -83,6 +83,8 @@ class ResultFilesController < ApplicationController
     @files_updated = 0 # for debug
     params[:result_files].each do |id, rfile| # id is key, rfile is hash of file attributes from the form
       rfile[:sample_ids] ||= []
+      # Hack for Rails 3 'feature' where blank entry is included in array when multi-select is used
+      rfile[:sample_ids].shift if rfile[:sample_ids].size > 0 && rfile[:sample_ids][0].blank?
       #@debug_list.push(rfile)
       result_file = ResultFile.find(id)
       #associating result file with list of lanes            
@@ -98,7 +100,7 @@ class ResultFilesController < ApplicationController
     
     @chosen_lab = Lab.find(params[:chosen_lab][:id])
     #get result files with associated lanes and samples per lab chosen by admin
-    @result_files = ResultFile.find(:all, :include => :samples, :conditions => {:lab_id => params[:chosen_lab][:id]})
+    @result_files = ResultFile.includes(:samples).where('lab_id = ?', params[:chosen_lab][:id]).all
     render :action => 'update_multi_show'    
   end
   
@@ -138,9 +140,9 @@ protected
 
   def public_image_dir(lab_dir=nil)
     if lab_dir.nil? 
-      return File.join(RAILS_ROOT, 'public', 'images')
+      return File.join(Rails.root, 'public', 'images')
     else
-      return File.join(RAILS_ROOT, 'public', 'images', lab_dir)
+      return File.join(Rails.root, 'public', 'images', lab_dir)
     end
   end
   

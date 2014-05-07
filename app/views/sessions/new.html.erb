@@ -1,6 +1,6 @@
 <h1>Log In</h1>
 
-<% form_tag :action => :create do -%>
+<%= form_tag :action => :create do -%>
 
 <p><%= label_tag 'lab' %><br />
 <%= collection_select(:lab, :id, @labs, :id, :lab_name, {:include_blank => 'Select Lab'}) %></p>

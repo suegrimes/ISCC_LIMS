@@ -17,11 +17,12 @@ class ResultFile < ActiveRecord::Base
   belongs_to :lab
   belongs_to :user, :foreign_key => :updated_by
   
-  named_scope :userlab, lambda{|user| {:conditions => (user.has_consortium_access? ? nil : ["result_files.lab_id = ?", user.lab_id])}}
+  scope :userlab, lambda{|user| {:conditions => (user.has_consortium_access? ? nil : ["result_files.lab_id = ?", user.lab_id])}}
     
-  REL_PATH = (CAPISTRANO_DEPLOY ? File.join("..", "..", "shared", "data_files") : File.join("..", "..", "ISCC_RNASeq"))
-  ABS_PATH = File.join(RAILS_ROOT, REL_PATH)
-  RFILE_RDEF_PATH = File.join(RAILS_ROOT, 'public', 'files', 'Result_ColumnDefs.xls')
+  #REL_PATH = (CAPISTRANO_DEPLOY ? File.join("..", "..", "shared", "data_files") : File.join("..", "..", "ISCC_RNASeq"))
+  REL_PATH = (CAPISTRANO_DEPLOY ? File.join("..", "..", "shared", "data_files") : File.join("public", "data-files"))
+  ABS_PATH = File.join(Rails.root, REL_PATH)
+  RFILE_RDEF_PATH = File.join(Rails.root, 'public', 'files', 'Result_ColumnDefs.xls')
   #BASE_PATH = File.join('..','..','ISCC_RNASeq')
   #BASE_PATH = File.join('..','..','test', 'dataDownload')
   
@@ -35,8 +36,7 @@ class ResultFile < ActiveRecord::Base
   end
   
   def self.find_and_group_by_lab(user, condition_array=nil)
-    rfiles = self.userlab(user).find(:all, :include => :samples, :order => 'result_files.lab_id',
-                                      :conditions => condition_array)
+    rfiles = self.userlab(user).includes(:samples).order('result_files.lab_id').where(sql_where(condition_array)).all
     return rfiles.group_by {|rfile| rfile.lab.lab_name}
   end
 end

@@ -42,7 +42,7 @@ class User < ActiveRecord::Base
   validates_presence_of     :login
   validates_length_of       :login,    :within => 3..40
   validates_uniqueness_of   :login
-  validates_format_of       :login,    :with => Authentication.login_regex, :message => Authentication.bad_login_message
+#  validates_format_of       :login,    :with => Authentication.login_regex, :message => Authentication.bad_login_message
 
   #validates_format_of       :name,     :with => Authentication.name_regex,  :message => Authentication.bad_name_message, :allow_nil => true
   #validates_length_of       :name,     :maximum => 100
@@ -50,7 +50,7 @@ class User < ActiveRecord::Base
   validates_presence_of     :email
   validates_length_of       :email,    :within => 6..100 #r@a.wk
   validates_uniqueness_of   :email
-  validates_format_of       :email,    :with => Authentication.email_regex, :message => Authentication.bad_email_message
+#  validates_format_of       :email,    :with => Authentication.email_regex, :message => Authentication.bad_email_message
 
   before_create :make_activation_code 
   
@@ -74,7 +74,7 @@ class User < ActiveRecord::Base
     @activated = true
     self.activated_at = Time.now.utc
     self.activation_code = nil
-    save(false)
+    save(:validate => false)
   end
   
   # Returns true if the user has just been activated.
@@ -99,7 +99,7 @@ class User < ActiveRecord::Base
   
   def delete_reset_code
     self.reset_code = nil
-    save(false)
+    save(:validate => false)
   end
 
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
@@ -110,7 +110,8 @@ class User < ActiveRecord::Base
   #
   def self.authenticate(lab_id, login, password)
     return nil if login.blank? || password.blank?
-    u = find :first, :conditions => ['login = ? AND lab_id = ? AND activated_at IS NOT NULL', login, lab_id] # need to get the salt
+    u = self.where('login = ? AND lab_id = ? AND activated_at IS NOT NULL', login, lab_id).first  # need to get the salt
+	  #u = find_by_login(login)
     u && u.authenticated?(password) ? u : nil
   end
 
@@ -129,6 +130,6 @@ protected
   
   def create_reset_code
     self.reset_code = self.class.make_token
-    save(false)
+    save(:validate => false)
   end
 end

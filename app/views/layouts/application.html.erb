@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ISCC RNA-Seq Data Portal</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <!--[if IE]><%= stylesheet_link_tag 'ie-fixes' %><![endif]-->
+  <!--%= stylesheet_link_tag "http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" %-->
+  <%= javascript_include_tag "application" %>
+  <%= javascript_include_tag "http://code.jquery.com/jquery-migrate-1.0.0.js" %>
+  <script type="text/javascript">
+    var $ = jQuery.noConflict();
+  </script>
+  <script type="text/javascript">
+  // initialise Superfish 
+  $(document).ready(function() { 
+    $('ul.sf-menu').superfish({ 
+      delay:       1000,                            // one second delay on mouseout 
+      animation:   {opacity:'show',height:'show'},  // fade-in and slide-down animation 
+      speed:       'fast',                          // faster animation speed  
+    }); 
+  }); 		
+  </script>
+  <%= csrf_meta_tags %>
+</head>
+<body id='body'>
+
+<% if ["sessions", "users", "auth_users", "welcome"].include?(controller.controller_name) %>
+<div id="container" style="width: 800px;">
+<% else %>
+<div id="container" style="width: 98%;">
+<% end %>
+
+<div id="header">
+  <table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-bottom: 0;">
+    <tr>
+      <td valign="top" rowspan="2" width="180"><div class="logo"><%= image_tag("SU_Seal_Card_pos_89.gif", :height => "89", :alt => "Stanford Genome Technology") %></div></td>
+      <td>          
+        <table align="center">
+          <tr>
+            <td>
+              <div class="sitename-graphic"><%= image_tag("iscc-rnaseq-sitename.gif", :height => "45", :title => "Intestinal Stem Cell Consortium", :alt => "Intestinal Stem Cell Consortium") %></div>
+              <div class="sitename-description">Intestinal Stem Cell Consortium</div>         
+            </td>
+          </tr>
+        </table> 
+      </td>
+      <td valign="top" width="180"><div class="version"><% if APP_VERSION %>Version: <%= APP_VERSION %><% end %><br />
+        <% if Rails.env != 'production' %>
+          <span class="grey"><%=h Rails.env %><br /> DEBUG::git branch: <%= GIT_BRANCH %></span>
+        <% end %>
+        </div>
+      </td>
+    </tr>
+    <tr>     
+      <td><div class="tagline">&nbsp;</div></td>    
+      <td valign="bottom">
+      	<% if logged_in? %>
+        <div class="logout-link">
+          <%= link_to 'User Profile', edit_user_path(current_user) %>&nbsp;&nbsp;&nbsp;&nbsp;
+          <%= link_to 'Logout', logout_url %>
+        </div>
+        <% end %>
+      </td>	  
+    </tr>
+  </table>  
+</div><!-- /header -->
+<!-- 
+  top nav requires:
+  - uncomment stylesheet link for lims-superfish.css
+  - uncomment jQuery.noConflict
+  - uncomment initialise Superfish
+  - uncomment block of code for <ul class="sf-menu"> below
+  files required - latest jquery, superfish.js, lims-superfish.css
+  images - arrows-ffffff.png, shadow.png
+  source - http://users.tpg.com.au/j_birch/plugins/superfish/
+-->   
+<table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-bottom:0; table-layout:fixed;">
+  <tr>
+    <td id="topnavbar"> 	
+    <% if (logged_in? && controller.action_name != "logout") %>
+    <ul class="sf-menu">
+
+      <% if current_user.has_admin_access? %>
+      <li><a href="#">Admin</a>     
+        <ul>
+          <li><%= link_to 'View/Edit Users',  users_path %></li>
+          <li><%= link_to 'View/Edit Authorized Users',  auth_users_path, :class => 'last-submenu-item' %></li>
+        </ul>
+      </li>
+      <% end %>
+		
+      <% if current_user.has_admin_access? %>
+      <li><a href="#" class="last-topmenu-item">File Management</a>  
+        <ul>
+		  <li><%= link_to 'Link Results to Samples', choose_lab_path %></li>
+		  <li><%= link_to 'Choose Lab', choose_lab_path, :class => 'last-submenu-item' %></li>
+        </ul>
+      </li>
+	  <% end %>
+
+    </ul>
+    <!-- /ul nav bar -->
+	<% else %>
+    <!-- comment this out if using only top nav --> 
+    <div style="height: 22px;">&nbsp;</div
+    <% end %>
+    </td>
+  </tr>
+</table>
+
+<div class="clear"></div>
+
+<div id="main">
+
+<% if logged_in? %>	
+<div id="leftsidebar">
+  <div class="user_info">
+     <em>Logged in as: <%= current_user.login %><br />
+	 Lab: <%=h current_user.lab.lab_name %></em>
+  </div>
+  <ul class="opened">
+    <ul>
+  	  <li><a href="/">Home</a></li>
+    </ul>
+	<div class="sidebar-label">Resources:</div>
+	<ul>    
+      <li><%= link_to 'Shipment Instructions', show_sop_path %></li>
+	  <li><%= link_to 'Result File Definitions', show_rdef_path %></li>
+    </ul>	
+	<div class="sidebar-label">Samples:</div>
+    <ul>
+      <% if can? :new, Sample %>
+	  <li><%= link_to 'Add Sample', new_sample_path %></li>
+	  <% end %>
+	  <% if current_user.has_admin_access? %>
+	  <li><%= link_to 'Receive Samples', recv_samples_path %></li>
+	  <% end %>  
+      <li><%= link_to 'List Samples', samples_path %></li>
+    </ul>
+    <div class="sidebar-label">Result Files:</div>     
+    <ul>
+       <% if current_user.has_admin_access? %>
+       <li><%= link_to 'Link Results to Samples', choose_lab_path %></li>
+       <% end %>
+       <li><%= link_to 'Data Release', result_files_path %></li>
+    </ul>
+</div> <!-- /leftsidebar -->    
+<% end %>
+    
+<div id="maincontent">
+	<div style='color:red'> <%= flash[:error]%></div>
+	<div style='color:green'> <%= flash[:notice]%></div>
+	<%= yield %>
+</div><!-- /maincontent -->
+	
+</div><!-- /main -->
+
+<div id="footer">
+<table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-bottom: 0;">
+  <tr>
+    <td valign="top">
+      <a href="http://med.stanford.edu/sgtc/">Stanford Genome Tech Center</a>&nbsp;|
+      <a href="mailto:sgrimes@stanford.edu">Contact</a>
+      <div class="site-blurb">Website provided by the <a href="http://dna-discovery.stanford.edu">Ji Research Group</a><br />School of Medicine and Genome Technology Center at Stanford University<br />
+      This website and its content &copy; Stanford University, <%= Time.now.localtime.strftime("%Y") %>. All rights reserved.
+      </div>
+    </td>
+	<td valign="top">
+      <table border="0" cellpadding="0" cellspacing="0" align="right" style="margin-bottom: 0;" width="45%">
+        <tr>
+          <td colspan="2" style="color:#990000;">Funding Provided by</td>
+        </tr>           
+        <tr>
+          <td class="funding-text">
+          	<a href="http://www.nih.gov/"><!--<cite>NIH-logo.gif - credit: image from http://www.nih.gov/ </cite>-->
+              <%= image_tag("NIH-logo.gif", :height => "70", :border => 0, :alt => "National Institutes of Health") %><br>
+              National Institutes of Health</a>        
+          </td>     
+          <td class="funding-text">
+          	<a href="http://www2.niddk.nih.gov/"><!--<cite>NIDDK-logo.gif - credit: image from http://www2.niddk.nih.gov/ </cite>-->
+              <%= image_tag("NIDDK-logo.gif", :height => "70", :border => 0, :alt => "The National Institute of Diabetes and Digestive and Kidney Diseases") %><br>
+              National Institute of Diabetes and Digestive and Kidney Diseases</a>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+</div>
+
+</div><!-- /container -->
+
+</body>
+</html>

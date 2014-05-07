@@ -3,13 +3,18 @@
 <table class="form">
 	<tr>
 	  <th><%=f.label :sample_name %>:</th><td><%=f.text_field(:sample_name, :size => 25) %></td>
-	  <th><%=f.label :sample_date %>:</th><td><%=f.calendar_date_select(:sample_date, :size => 10, :valid_date_check => "date <= (new Date()).stripTime()") %></td>
+	  <th><%=f.label :sample_date %>:</th>
+	  <td><!--%=f.calendar_date_select(:sample_date, :size => 10, :valid_date_check => "date <= (new Date()).stripTime()") %-->
+      <%=f.datepicker 'sample_date', dateFormat: "yy-mm-dd", changeMonth: true, changeYear: true, size: 10 %>
+	  </td>
 	</tr>
 	<tr>
 	  <th><%=f.label :organism %>:</th><td><%=f.text_field(:organism, :size => 25) %></td>
-	  <th><%=f.label :strain %>:</th> <td><%=f.text_field_with_auto_complete(:strain, {},
+	  <th><%=f.label :strain %>:</th> 
+	  <td><!--%=f.text_field_with_auto_complete(:strain, {},
              {:url => {:controller => :samples, :action => :auto_complete_for_strain},
-              :param_name => :search, :min_chars => 2, :method => :get})%></td>
+              :param_name => :search, :min_chars => 2, :method => :get})%-->
+          <%=f.autocomplete_field :strain, samples_autocomplete_sample_strain_path %></td>
     </tr>
     <tr>
 	  <th><%=f.label :sex %>:</th><td><%=f.select(:sex, Sample::SEX) %></td>
@@ -20,18 +25,24 @@
 	  <th><%=f.label :intestinal_region_definition %>:</th><td><%=f.text_field(:intestinal_region_definition, :size => 15) %></td>
     </tr>
 	<tr>
-	  <th><%=f.label :intestinal_sc_marker, 'Intestinal SC marker' %>:</th> <td><%=f.text_field_with_auto_complete(:intestinal_sc_marker, {},
+	  <th><%=f.label :intestinal_sc_marker, 'Intestinal SC marker' %>:</th> 
+	  <td><!--%=f.text_field_with_auto_complete(:intestinal_sc_marker, {},
              {:url => {:controller => :samples, :action => :auto_complete_for_intestinal_sc_marker},
-              :param_name => :search, :min_chars => 2, :method => :get})%></td>
+              :param_name => :search, :min_chars => 2, :method => :get})%-->
+          <%=f.autocomplete_field :intestinal_sc_marker, samples_autocomplete_sample_intestinal_sc_marker_path %>
+      </td>
 	</tr>	
 	<tr>
 	  <th><%=f.label :number_of_cells, 'No of cells' %>:</th><td><%=f.text_field(:number_of_cells, :size => 10) %></td>
 	  <th><%=f.label :facs_protocol, 'FACS protocol' %>:</th><td><%=f.text_field(:facs_protocol) %></td>
     </tr>
 	<tr>
-	  <th><%=f.label :sc_marker_validation_method, 'SC marker validation method' %>:</th><td><%=f.text_field_with_auto_complete(:sc_marker_validation_method, {},
+	  <th><%=f.label :sc_marker_validation_method, 'SC marker validation method' %>:</th>
+	  <td><!--%=f.text_field_with_auto_complete(:sc_marker_validation_method, {},
              {:url => {:controller => :samples, :action => :auto_complete_for_sc_marker_validation_method},
-              :param_name => :search, :min_chars => 2, :method => :get})%></td>
+              :param_name => :search, :min_chars => 2, :method => :get})%-->
+           <%=f.autocomplete_field :sc_marker_validation_method, samples_autocomplete_sample_sc_marker_validation_method_path %>
+      </td>
 	  <th><%=f.label :secondary_validation_results %>:</th><td><%=f.text_field(:secondary_validation_results) %></td>
 	</tr>	
     <tr>

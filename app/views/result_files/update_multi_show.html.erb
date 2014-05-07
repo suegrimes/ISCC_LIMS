@@ -15,14 +15,14 @@
   
   <tr>
   	<td><strong><%= link_to rfile.document, rfile %></strong></td>
-	<td><%= samples_string %></td>
+	<td><%= raw samples_string %></td>
 	<td><%=h rfile.notes %></td>
   </tr>
   <% end %>
 </table>
 
-<%= break_clear %>
-<% form_tag(:controller => 'result_files', :action => 'choose_lab') do %>
+<%= raw break_clear %>
+<%= form_tag(:controller => 'result_files', :action => 'choose_lab') do %>
   <%= submit_tag "Link More Files" %>
 <% end %>
 <br />

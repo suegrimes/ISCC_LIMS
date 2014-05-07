@@ -40,9 +40,9 @@ class Sample < ActiveRecord::Base
   validates_numericality_of :age_in_weeks, :only_integer => true, :message => "must be an integer"
   #validates_inclusion_of :age_in_weeks, :in => 6..10, :message => "must be between 6 and 10"
   
-  before_validation_on_create :set_barcode
+  before_validation :set_barcode, :on => :create
   
-  named_scope :userlab, lambda{|user| {:conditions => (user.has_consortium_access? ? nil : ["samples.lab_id = ?", user.lab_id])}}
+  scope :userlab, lambda{|user| {:conditions => (user.has_consortium_access? ? nil : ["samples.lab_id = ?", user.lab_id])}}
   
   SEX = ['Male', 'Female']
   SC_MARKERS = ['Lgr5 hi', 'Lgr5 lo', 'Bmi1', 'SP hi', 'SP lo', 'label-retaining', 'CD166',
@@ -55,7 +55,7 @@ class Sample < ActiveRecord::Base
                     :age_in_weeks => 6}
   MIN_CELLS = 3000
   
-  SAMPLE_SOP_PATH = File.join(RAILS_ROOT, 'public', 'files', 'Sample_Shipping_SOP.doc')
+  SAMPLE_SOP_PATH = File.join(Rails.root, 'public', 'files', 'Sample_Shipping_SOP.doc')
   
   def barcode_and_name
     [barcode_key,sample_name].join('/')
@@ -70,8 +70,7 @@ class Sample < ActiveRecord::Base
   end
   
   def self.find_and_group_by_lab(user, condition_array=nil)
-    samples = self.userlab(user).find(:all, :include => [:shipment, :lab], :order => 'lab_id, barcode_key', 
-                                      :conditions => condition_array)
+    samples = self.userlab(user).includes(:shipment, :lab).order('lab_id, barcode_key').where(sql_where(condition_array)).all
     return samples.group_by {|sample| sample.lab.lab_name}
   end
   

@@ -21,12 +21,12 @@
   <% sample_array = rfile.samples.map {|sample| [sample.barcode_key, sample.sample_name].join('/')} %>
   <% samples_string = sample_array.join('<br/>')%> 
   <tr>
-  	<% if ['gz', 'bam'].include?(rfile.document_content_type) || rfile.document_file_size.to_i > 36000000 %>
+  	<% if rfile.document_content_type.nil? || ['gz', 'bam'].include?(rfile.document_content_type) || rfile.document_file_size.to_i > 36000000 %>
 	<td><%=h rfile.document %></td>
 	<% else %>
   	<td><strong><%= link_to rfile.document, rfile %></strong></td>
 	<% end %>
-	<td><%= samples_string %></td>
+	<td><%= raw samples_string %></td>
 	<td><%= rfile.fileMB %></td>
 	<td><%=h rfile.notes %></td>
 	<td><%=link_to 'Download', :action => 'download', :id => rfile.id %></td>

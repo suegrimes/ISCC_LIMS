@@ -1,6 +1,6 @@
 <h1>Samples in transit</h1>
 
-<% form_tag :action => :update_multi do %>
+<%= form_tag :action => :update_multi do %>
 <table class="list">
   <tr>
     <th>Recvd?</th>
@@ -16,7 +16,7 @@
 
 <% @samples.each_with_index do |sample, i| %>
   <% if sample.shipment %>
-  <% fields_for "sample[" + sample.id.to_s + "]", sample do |f| %>
+  <%= fields_for "sample[" + sample.id.to_s + "]", sample do |f| %>
   <% check_box_id   = "sample_" + sample.id.to_s %>
  
   <tr>
@@ -26,8 +26,10 @@
     	load_date('<%= check_box_id %>');         
     </script>						  
 
-    <% f.fields_for :shipment do |s| %>
-    <td><%=s.calendar_date_select(:date_received, :valid_date_check => "date <= (new Date()).stripTime()", :year_range => [1.years.ago, 0.years.ago], :size => 15)%></td>
+    <%= f.fields_for :shipment do |s| %>
+    <td><!--%=s.calendar_date_select(:date_received, :valid_date_check => "date <= (new Date()).stripTime()", :year_range => [1.years.ago, 0.years.ago], :size => 15)%-->
+    <%=s.datepicker 'date_received', dateFormat: "yy-mm-dd", changeMonth: true, changeYear: true, minDate: "-1y", maxDate: "0", size: 15 %>
+    </td>
     <td><%=h sample.lab.lab_name %></td>
     <td><%=link_to sample.barcode_key, sample %></td>
     <td><%=h sample.sample_name %></td>

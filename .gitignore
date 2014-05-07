@@ -22,6 +22,7 @@
 /config/database.yml
 /config/initializers/secret_token.rb
 /config/initializers/session_store.rb
+/config/initializers/setup_mailer.rb
 
 /public/files/*
 /public/data-files/*
